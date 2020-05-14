@@ -1,3 +1,3 @@
 # Traffic Editor
 
-It's super fun.
+In this section, we shall describe the traffic-editor GUI.
