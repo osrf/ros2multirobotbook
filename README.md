@@ -35,3 +35,9 @@ Then you can view the output:
 ```
 firefox book/index.html
 ```
+
+Alternatively, `mdbuild` can automatically trigger a rebuild on edits to
+any source file:
+```
+mdbook watch
+```
