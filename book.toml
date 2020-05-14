@@ -11,9 +11,9 @@ create-missing = false
 [output.html]
 # default-theme = "coal"
 
-[output.latex]
-latex = true
-pdf = true
-markdown = true
+#[output.latex]
+#latex = true
+#pdf = true
+#markdown = true
 
-[output.epub]
+#[output.epub]

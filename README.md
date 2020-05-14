@@ -1,3 +1,5 @@
+![github pages](https://github.com/codebot/ros2book/workflows/github%20pages/badge.svg)
+
 # ros2book
 
 # compiling the book
