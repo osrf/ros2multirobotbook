@@ -1,0 +1,19 @@
+[book]
+authors = ["Team RMF"]
+language = "en"
+multilingual = false
+src = "src"
+title = "The RMF Book"
+
+[build]
+create-missing = false
+
+[output.html]
+# default-theme = "coal"
+
+[output.latex]
+latex = true
+pdf = true
+markdown = true
+
+[output.epub]
