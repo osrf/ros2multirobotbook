@@ -27,3 +27,11 @@ cargo install mdbook-epub
 ```
 
 ### compiling the book
+
+```
+mdbook build
+```
+Then you can view the output:
+```
+firefox book/index.html
+```
