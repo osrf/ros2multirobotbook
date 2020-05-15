@@ -1,6 +1,6 @@
-![github pages](https://github.com/codebot/ros2book/workflows/github%20pages/badge.svg)
+![github pages](https://github.com/codebot/ros2multirobotbook/workflows/github%20pages/badge.svg)
 
-# ros2book
+# ros2multirobotbook
 
 # compiling the book
 
