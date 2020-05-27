@@ -11,6 +11,9 @@ create-missing = false
 [output.html]
 # default-theme = "coal"
 
+[output.html.fold]
+enable = true
+
 #[output.latex]
 #latex = true
 #pdf = true
