@@ -2,9 +2,19 @@
 
 # ros2multirobotbook
 
-# compiling the book
+Greetings. Welcome to `ros2multirobotbook`. We hope you enjoy your stay.
 
-### dependencies
+The book is automatically compiled by changes to this repo. The compiled book
+can be accessed here:
+
+https://osrf.github.io/ros2multirobotbook/
+
+# Compiling the book locally
+
+It's convenient to compile the book locally when making edits. The following
+steps will help you install the necessary tools.
+
+### Dependencies
 
 Install a few dependencies, then Rust and `cargo`, its package manager:
 ```
@@ -26,7 +36,7 @@ cargo install tectonic
 cargo install mdbook-epub
 ```
 
-### compiling the book
+### Compiling the book
 
 ```
 mdbook build
