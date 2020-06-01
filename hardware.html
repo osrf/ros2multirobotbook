@@ -151,6 +151,50 @@
 <p>In this chapter, we will describe the process for adding hardware to RMF,
 describing how to build the necessary ROS 2 packages and interfaces that
 are used by <code>rmf_core</code>.</p>
+<h1><a class="header" href="#map-data-requirements-for-integration-with-romi-h--rmf_core" id="map-data-requirements-for-integration-with-romi-h--rmf_core">Map data requirements for integration with RoMi-H / rmf_core</a></h1>
+<h2><a class="header" href="#motivation" id="motivation">Motivation</a></h2>
+<p>RoMi-H / RMF uses robot route maps to be able to predict the future motions of robots in the building. RoMi-H generates &quot;multi-fleet&quot; predictions which can be used to help avoid conflicts between robot fleets and individual robots, provide multi-fleet visualization to building staff, and improve scheduling of resources, among other benefits.</p>
+<p>Robot route maps in large buildings are complex and may evolve over time in response to customer requests and building renovations. As a result, RoMi-H works best when scripts can automatically import robot route maps, and re-import them in the future after changes are made.</p>
+<h2><a class="header" href="#minimum-map-information-required" id="minimum-map-information-required">Minimum Map Information Required</a></h2>
+<ul>
+<li>list of waypoints or nodes
+<ul>
+<li>name of waypoint</li>
+<li>level name (B1, L1, L2, etc.)</li>
+<li>(x, y) location in meters within the level</li>
+<li>any special properties or flags, such as:
+<ul>
+<li>is this a dropoff/pickup parking point?</li>
+<li>is this a charger?</li>
+<li>is this a safe parking spot during an emergency alarm?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>list of edges or &quot;travel lanes&quot; between nodes
+<ul>
+<li>(start, end) waypoint names</li>
+<li>two-way or one-way traffic?
+<ul>
+<li>if one-way, identify direction of travel</li>
+</ul>
+</li>
+<li>any other information, such as speed limit along this segment</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#format-requirements" id="format-requirements">Format requirements</a></h2>
+<p>We can write import scripts to handle virtually any &quot;open&quot; file format that contains the required information. This includes, in order of preference:</p>
+<ul>
+<li>YAML</li>
+<li>XML</li>
+<li>plain text (space or comma-separated ASCII, etc.)</li>
+<li>DXF</li>
+<li>DWG</li>
+<li>SVG</li>
+</ul>
+<h2><a class="header" href="#comments" id="comments">Comments</a></h2>
+<p>If the map data is provided in textual form, screenshots are helpful for &quot;sanity-checking&quot; the coordinate system and alignment with building features.</p>
 
                     </main>
 
