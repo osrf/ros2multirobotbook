@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> rmf-core</a></li><li class="chapter-item "><a href="hardware.html"><strong aria-hidden="true">6.</strong> hardware</a></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">7.</strong> ui</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> rmf-core</a></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="hardware.html"><strong aria-hidden="true">7.</strong> hardware</a></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> ui</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -351,6 +351,10 @@ conflict&quot; is defined as an instance where one vehicle's &quot;footprint&quo
 scheduled to enter another vehicle's &quot;vicinity&quot;. The job of the negotiation
 system is to come up with a fix to the schedule that keeps all vehicles'
 &quot;footprints&quot; out of all other vehicles' &quot;vicinities&quot;.</p>
+<h1><a class="header" href="#soss" id="soss">SOSS</a></h1>
+<p>The system-of-systems synthesizer (SOSS) is a tool which provides protocol
+translation between different subsystems. Currently, ROS 2, ROS 1, and
+Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 <h1><a class="header" href="#hardware" id="hardware">Hardware</a></h1>
 <p>In this chapter, we will describe the process for adding hardware to RMF,
 describing how to build the necessary ROS 2 packages and interfaces that
@@ -400,6 +404,9 @@ are used by <code>rmf_core</code>.</p>
 <h2><a class="header" href="#comments" id="comments">Comments</a></h2>
 <p>If the map data is provided in textual form, screenshots are helpful for &quot;sanity-checking&quot; the coordinate system and alignment with building features.</p>
 <h1><a class="header" href="#ui" id="ui">UI</a></h1>
+<h1><a class="header" href="#security" id="security">Security</a></h1>
+<p>This chapter describes how to use DDS Security tools to provide authentication,
+encryption, and access control to a RoMi-H system.</p>
 
                     </main>
 
