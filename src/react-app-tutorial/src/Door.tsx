@@ -4,12 +4,12 @@ import React from 'react';
 export interface DoorProps {
   door: RomiCore.Door;
   doorState?: RomiCore.DoorState;
-  onOpenClick?(): void;
-  onCloseClick?(): void;
+  onOpenClick?(e: React.MouseEvent): void;
+  onCloseClick?(e: React.MouseEvent): void;
 }
 
 export const Door = (props: DoorProps) => {
-  const { door, doorState } = props;
+  const { door, doorState, onOpenClick, onCloseClick } = props;
   const modeString = doorState ? doorModeString(doorState.current_mode) : 'Unknown';
   return (
     <div>
@@ -17,8 +17,8 @@ export const Door = (props: DoorProps) => {
       <br />
       State: {modeString}
       <br />
-      <button>Open</button>
-      <button>Close</button>
+      <button onClick={(e) => onOpenClick && onOpenClick(e)}>Open</button>
+      <button onClick={(e) => onCloseClick && onCloseClick(e)}>Close</button>
       <br />
       <br />
     </div>

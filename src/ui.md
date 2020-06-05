@@ -85,7 +85,7 @@ npx create-react-app react-app-tutorial --template typescript
 Go inside the newly created `react-app-tutorial` directory and run the follow command to install all the javascript dependencies we will be using
 
 ```
-npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport
+npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport jsonwebtoken @types/jsonwebtoken
 ```
 
 These libraries are not strictly required but they contain helpful functions to use soss and to communicate with RoMi. If you are building a javascript based RoMi app, it is recommended to make use of them, we will see later how they greatly simplifies the communicaton to RoMi.
@@ -105,20 +105,25 @@ import React from 'react';
 
 export interface DoorProps {
   door: RomiCore.Door;
-  doorState: RomiCore.DoorState;
-  onOpenClick?(): void;
-  onCloseClick?(): void;
+  doorState?: RomiCore.DoorState;
+  onOpenClick?(e: React.MouseEvent): void;
+  onCloseClick?(e: React.MouseEvent): void;
 }
 
 export const Door = (props: DoorProps) => {
-  const { doorState } = props;
+  const { door, doorState, onOpenClick, onCloseClick } = props;
   const modeString = doorState ? doorModeString(doorState.current_mode) : 'Unknown';
   return (
-    <span>
+    <div>
+      Door: {door.name}
+      <br />
       State: {modeString}
-      <button>Open</button>
-      <button>Close</button>
-    </span>
+      <br />
+      <button onClick={(e) => onOpenClick && onOpenClick(e)}>Open</button>
+      <button onClick={(e) => onCloseClick && onCloseClick(e)}>Close</button>
+      <br />
+      <br />
+    </div>
   );
 };
 
@@ -197,6 +202,233 @@ For now we are hardcoding a fake door, later on we will look at how to we can ob
 
 ## Obtaing List of Doors
 
+Previously we made a simple door component and tested rendering it with a fake door, here we will look at how we can obtain the list of actual doors from RoMi. Replace your `App.tsx` with the snippet
+
+App.tsx:
+```js
+import * as RomiCore from '@osrf/romi-js-core-interfaces';
+import { SossTransport } from '@osrf/romi-js-soss-transport';
+import * as jwt from 'jsonwebtoken';
+import React from 'react';
+import Door from './Door';
+
+function App() {
+  const [doors, setDoors] = React.useState<RomiCore.Door[]>([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const token = jwt.sign({ user: 'example-user' }, 'rmf', { algorithm: 'HS256' });
+      const transport = await SossTransport.connect('example', 'wss://localhost:50001', token);
+      const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building_map;
+      setDoors(buildingMap.levels.flatMap((level) => level.doors));
+    })();
+  }, []);
+
+  return (
+    <React.Fragment>
+      {doors.map((door) => (
+        <Door door={door} />
+      ))}
+    </React.Fragment>
+  );
+}
+
+export default App;
+```
+
+Here we are making use of soss and the `getBuildingMap` service from RoMi to obtain the list of doors available, let's take a deeper look at what is happening.
+
+```js
+const token = jwt.sign({ user: 'example-user' }, 'rmf', { algorithm: 'HS256' });
+const transport = await SossTransport.connect('example', 'wss://localhost:50001', token);
+```
+
+These 2 lines performs a connection to the soss server, the server uses a JWT token signed with a secret specified in the soss config. The example config is using `rmf`, if you changed the secret, be sure to change it here as well.
+
+<div style="border: 1px; border-style: solid; padding: 1em">
+<b>Note</b>: This example is only for convenience, you should never reveal the secret to the client. Usually the client would connect to an authentication server which will verify that its a valid request and return a signed token.
+</div>
+
+<br />
+
+<div style="border: 1px; border-style: solid; padding: 1em">
+<b>Note</b>: soss requires the token to be embedded in a <code>Sec-WebSocket-Protocol</code> header sent as part of the initiating connection. This is taken care of by <code>SossTransport</code> so you don't have to worry about anything here, but if you are using your own soss client, you will have to embed the token yourself.
+</div>
+
+The next 2 lines
+
+```js
+const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building_map;
+setDoors(buildingMap.levels.flatMap((level) => level.doors));
+```
+
+download and parses the building map from RoMi. `romi-js` simplifies a ROS2 service call with the async `call` method. Here is another place where `romi-js` is useful, it contains a list of known interfaces used by RoMi so you do not need to consult with the RoMi manual on what services are available. It also knows what types are the request and response messages which makes destructuring the building map that much easier.
+
+You should now see 3 doors that are in the building
+
+![Doors](ui-resources/building-map-doors.png)
+
 ## Listening for Door States
 
+First thing you will notice is that all the doors have unknown state, that is because we are not listening for any door states from RoMi. We will now fix it here, add a new react state for door states
+
+```js
+const [doorStates, setDoorStates] = React.useState<Record<string, RomiCore.DoorState>>({});
+```
+
+and update your effect to add this
+
+```js
+transport.subscribe(RomiCore.doorStates, (doorState) =>
+  setDoorStates((prev) => ({ ...prev, [doorState.door_name]: doorState })),
+);
+```
+
+also pass the door state to the door component
+
+```js
+<Door door={door} doorState={doorStates[door.name]} />
+```
+
+the end result of your `App.tsx` should look like this
+
+```js
+import * as RomiCore from '@osrf/romi-js-core-interfaces';
+import { SossTransport } from '@osrf/romi-js-soss-transport';
+import * as jwt from 'jsonwebtoken';
+import React from 'react';
+import Door from './Door';
+
+function App() {
+  const [doors, setDoors] = React.useState<RomiCore.Door[]>([]);
+  const [doorStates, setDoorStates] = React.useState<Record<string, RomiCore.DoorState>>({});
+
+  React.useEffect(() => {
+    (async () => {
+      const token = jwt.sign({ user: 'example-user' }, 'rmf', { algorithm: 'HS256' });
+      const transport = await SossTransport.connect('example', 'wss://localhost:50001', token);
+      const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building_map;
+      setDoors(buildingMap.levels.flatMap((level) => level.doors));
+
+      transport.subscribe(RomiCore.doorStates, (doorState) =>
+        setDoorStates((prev) => ({ ...prev, [doorState.door_name]: doorState })),
+      );
+    })();
+  }, []);
+
+  return (
+    <React.Fragment>
+      {doors.map((door) => (
+        <Door door={door} doorState={doorStates[door.name]} />
+      ))}
+    </React.Fragment>
+  );
+}
+
+export default App;
+```
+
+The main work is in these lines
+
+```js
+transport.subscribe(RomiCore.doorStates, (doorState) =>
+  setDoorStates((prev) => ({ ...prev, [doorState.door_name]: doorState })),
+);
+```
+
+This performs a ROS2 topic subscription, the callback will get triggered whenever a new door state arrives, in the callback we simply update the state to match the latest data. Similar to the service call we did before `romi-js` simplify things by providing the list of known topics and their expected message types.
+
+And just like that we now have the door states!
+
+![with door states](ui-resources/with-door-states.png)
+
 ## Sending Door Requests
+
+As you have expected by now, all we have to do here is to send door requests to RoMi. Add this after the react effect
+
+```js
+const requestDoor = (door: RomiCore.Door, mode: number) => {
+  if (doorRequestPub.current) {
+    const request: RomiCore.DoorRequest = {
+      door_name: door.name,
+      request_time: RomiCore.toRosTime(new Date()),
+      requested_mode: { value: mode },
+      requester_id: 'example-request',
+    };
+    doorRequestPub.current.publish(request);
+  }
+};
+```
+
+and add this to the props passed to the door component
+
+```js
+onOpenClick={() => requestDoor(door, RomiCore.DoorMode.MODE_OPEN)}
+onCloseClick={() => requestDoor(door, RomiCore.DoorMode.MODE_CLOSED)}
+```
+
+Your final `App.tsx` should look like this
+
+```js
+import * as RomiCore from '@osrf/romi-js-core-interfaces';
+import { SossTransport } from '@osrf/romi-js-soss-transport';
+import * as jwt from 'jsonwebtoken';
+import React from 'react';
+import Door from './Door';
+
+function App() {
+  const [doors, setDoors] = React.useState<RomiCore.Door[]>([]);
+  const [doorStates, setDoorStates] = React.useState<Record<string, RomiCore.DoorState>>({});
+  const doorRequestPub = React.useRef<RomiCore.Publisher<RomiCore.DoorRequest> | null>(null);
+
+  React.useEffect(() => {
+    (async () => {
+      const token = jwt.sign({ user: 'example-user' }, 'rmf', { algorithm: 'HS256' });
+      const transport = await SossTransport.connect('example', 'wss://localhost:50001', token);
+      const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building_map;
+      setDoors(buildingMap.levels.flatMap((level) => level.doors));
+
+      transport.subscribe(RomiCore.doorStates, (doorState) =>
+        setDoorStates((prev) => ({ ...prev, [doorState.door_name]: doorState })),
+      );
+
+      doorRequestPub.current = transport.createPublisher(RomiCore.adapterDoorRequests);
+    })();
+  }, []);
+
+  const requestDoor = (door: RomiCore.Door, mode: number) => {
+    if (doorRequestPub.current) {
+      const request: RomiCore.DoorRequest = {
+        door_name: door.name,
+        request_time: RomiCore.toRosTime(new Date()),
+        requested_mode: { value: mode },
+        requester_id: 'example-request',
+      };
+      doorRequestPub.current.publish(request);
+    }
+  };
+
+  return (
+    <React.Fragment>
+      {doors.map((door) => (
+        <Door
+          door={door}
+          doorState={doorStates[door.name]}
+          onOpenClick={() => requestDoor(door, RomiCore.DoorMode.MODE_OPEN)}
+          onCloseClick={() => requestDoor(door, RomiCore.DoorMode.MODE_CLOSED)}
+        />
+      ))}
+    </React.Fragment>
+  );
+}
+
+export default App;
+```
+
+Try clicking on the open and close buttons now, you should see the door state being updated, you can also see the door opening/closing in gazebo.
+
+## Conclusion
+
+We have just created a minimal RoMi UI application that reports the door state and control them. There isn't much feature but hopefully this tutorial provides the basic knowledge of how to create a RoMi UI application not just in React but also in any frameworks that you like.
+
+If you would like more examples of a React RoMi application, you can take a look at the official [RoMi dashboard](https://github.com/osrf/romi-dashboard).

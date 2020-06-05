@@ -15,7 +15,7 @@ routes:
 
 topics:
   door_states: { type: "rmf_door_msgs/DoorState", route: ros2_to_client }
-  door_requests: { type: "rmf_door_msgs/DoorRequest", route: client_to_ros2 }
+  adapter_door_requests: { type: "rmf_door_msgs/DoorRequest", route: client_to_ros2 }
 
 services:
   get_building_map: { type: "building_map_msgs/GetBuildingMap", route: ros2_service }
