@@ -1,0 +1,21 @@
+systems:
+  client:
+    type: websocket_server
+    port: 50001
+    cert: # insert path to your cert
+    key: # insert path to your private key
+    authentication: { policies: [ { secret: rmf, algo: HS256 } ] }
+
+  ros2: { type: ros2 }
+
+routes:
+  client_to_ros2: { from: client, to: ros2 }
+  ros2_to_client: { from: ros2, to: client }
+  ros2_service: { server: ros2, clients: client }
+
+topics:
+  door_states: { type: "rmf_door_msgs/DoorState", route: ros2_to_client }
+  door_requests: { type: "rmf_door_msgs/DoorRequest", route: client_to_ros2 }
+
+services:
+  get_building_map: { type: "building_map_msgs/GetBuildingMap", route: ros2_service }
