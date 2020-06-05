@@ -1,74 +1,58 @@
 # ROS 2
 
 Herein we shall discuss Deep Thoughts about ROS 2
-  Lesson 2: ROS API and Build Tools
 
-  The command line
-  -------------------------------------------------------------------
-  * ROS is effectively Linux for Robots.
-  * From Last Time:
-  * ROS has your cross platform build tools.
-  * ROS has ployglot builds.
-  * Now lets talk about runtime.
-  * ROS presents command line interface (CLI) for robot execution.
-  * Most of these commands follow a regular format.
-  * These commands have auto-tab complete (yay!)
-  * Most blank commands will spit out error or info.
-  * Most commands will behave nicely with `--help`
-  ----
-  
-  Let's Fire up ADE
+The command line
 
--   It is worth noting this should work for any Ubuntu 18.04 machine.
--   You'll have to do this every time you restart ADE!
+-   ROS is effectively Linux for Robots.
+-   From Last Time:
+    -   ROS has your cross platform build tools.
+    -   ROS has ployglot builds.
+-   Now lets talk about runtime.
+    -   ROS presents command line interface (CLI) for robot execution.
+    -   Most of these commands follow a regular format.
+    -   These commands have auto-tab complete (yay!)
+    -   Most blank commands will spit out error or info.
+    -   Most commands will behave nicely with `--help`
 
-Let's setup our environment:
+*Example of --help*
 
-    cd adehome
-    export PATH=$PATH:$PWD
-    cd AutowareAuto
-    ade start
-    ade enter
+Here is ros2 `--help`
 
-    source /opt/ros/dashing/setup.bash 
-    sudo apt update
-    sudo apt install ros-dashing-turtlesim
-    sudo apt install ros-dashing-rqt-*
-    sudo apt install byobu
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 --help
+usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
 
-------------------------------------------------------------------------
+ros2 is an extensible command-line tool for ROS 2.
 
-  *Example of --help*
-  ------------------------------------------------------------------------------
-  Here is ros2 `--help`::
-  <kscottz@ade>:\~\$ ros2 --help
-  usage: ros2 \[-h\] Call ros2 &lt;command&gt; -h for more detailed usage. ...
-  ros2 is an extensible command-line tool for ROS 2.
-  optional arguments:
-  -h, --help show this help message and exit
-  Commands:
-  action Various action related sub-commands
-  bag Various rosbag related sub-commands
-  component Various component related sub-commands
-  daemon Various daemon related sub-commands
-  launch Run a launch file
-  lifecycle Various lifecycle related sub-commands
-  msg Various msg related sub-commands
-  multicast Various multicast related sub-commands
-  node Various node related sub-commands
-  param Various param related sub-commands
-  pkg Various package related sub-commands
-  run Run a package specific executable
-  security Various security related sub-commands
-  service Various service related sub-commands
-  srv Various srv related sub-commands
-  test Run a ROS2 launch test
-  topic Various topic related sub-commands
-  Call ros2 &lt;command&gt; -h for more detailed usage.
-  That's all your commands!
-  ----
-  =
-  ROS 2 run
+optional arguments:
+-h, --help            show this help message and exit
+
+Commands:
+action     Various action related sub-commands
+bag        Various rosbag related sub-commands
+component  Various component related sub-commands
+daemon     Various daemon related sub-commands
+launch     Run a launch file
+lifecycle  Various lifecycle related sub-commands
+msg        Various msg related sub-commands
+multicast  Various multicast related sub-commands
+node       Various node related sub-commands
+param      Various param related sub-commands
+pkg        Various package related sub-commands
+run        Run a package specific executable
+security   Various security related sub-commands
+service    Various service related sub-commands
+srv        Various srv related sub-commands
+test       Run a ROS2 launch test
+topic      Various topic related sub-commands
+```
+
+Call ros2 &lt;command&gt; -h for more detailed usage.
+
+That's all your commands!
+
+ROS 2 run
 
 `ros2 run` is used to execute ROS nodes.
 
@@ -78,25 +62,26 @@ General format is `ros2 run <package_name> <executable_name> <flags>`
 -   Generally if tabbing works, you are good to go.
 -   Don't know a full package name? Try tabbing.
 -   Don't know the executables in a package?
-    * TRY TABBING!!!
+    \* TRY TABBING!!!
 -   Why don't we try starting this turtlesim node.
 -   In your terminal type `ros2 run turtlesim turtlesim_node`
 
-------------------------------------------------------------------------
+TA-DA! A wild ROS turtle appears
 
-  TA-DA! A wild ROS turtle appears
-  --------------------------------------------------------------------------------------------------------------
-  * When you run `ros2 run turtlesim turtlesim_node`, this should happen:
-  .. image:: ./images/turtlesim\_start.png
-  :width: 200
-  * This is our simple virtual turtle. Don't worry if the turtle looks different. Let's make the turtle move.
-  * Press `F2` to create a new terminal.
-  * Source `source /opt/ros/dashing/setup.bash`
-  * We're going to run another node, let's check out this `draw_square`.
-  * `ros2 run turtlesim draw_square`
-  ----
-  
-  Moving your turtle
+-   When you run `ros2 run turtlesim turtlesim_node`, this should
+    happen:
+
+![image](./images/turtlesim_start.png){width="200"}
+
+-   This is our simple virtual turtle. Don't worry if the turtle looks
+    different. Let's make the turtle move.
+    -   Press `F2` to create a new terminal.
+    -   Source `source /opt/ros/dashing/setup.bash`
+    -   We're going to run another node, let's check out this
+        `draw_square`.
+    -   `ros2 run turtlesim draw_square`
+
+Moving your turtle
 
 If everything is setup correctly your turtle should move.
 
@@ -104,20 +89,19 @@ If everything is setup correctly your turtle should move.
 
 You can stop the simulation using `CTRL+C`
 
-------------------------------------------------------------------------
+Let's explore what's happening
 
-  Let's explore what's happening
-  ---------------------------------------------------------------------------------------------------------
-  * We have two terminals open, running two "programs".
-  * We have the `turtlesim` "program" running in the first terminal.
-  * The `draw_square` "program" is running in a second terminal.
-  * The two are communicating over ros topics.
-  * *What if we didn't know what was going on?*
-  * What if we worked with a large team and a lot of programs, or nodes, were created by our team mates?
-  How can we figure out what nodes are running on our simulated robot?
-  ----
-  
-  Inspecting nodes
+-   We have two terminals open, running two "programs".
+    -   We have the `turtlesim` "program" running in the first terminal.
+    -   The `draw_square` "program" is running in a second terminal.
+    -   The two are communicating over ros topics.
+-   *What if we didn't know what was going on?*
+-   What if we worked with a large team and a lot of programs, or nodes,
+    were created by our team mates?
+
+How can we figure out what nodes are running on our simulated robot?
+
+Inspecting nodes
 
 -   Open a new terminal by pressing `F2`
 -   Source your bash file `source /opt/ros/dashing/setup.bash`
@@ -143,20 +127,21 @@ kscottz@ade:~$ ros2 node list --help
   -c, --count-nodes     Only display the number of nodes discovered
 ```
 
-------------------------------------------------------------------------
+Let's try node list
 
-  Let's try node list
-  ----------------------------------------------------------
-  Let's try `ros2 node list`
-  .. code-block:: bash::
-  <kscottz@ade>:\~\$ ros2 node list
-  /draw\_square &lt;== This is the node moving the turtle.
-  /turtlesim &lt;== This is the node rendering the turtle.
-  We can see the two nodes we started.
-  Can we dig down deeper into each of these nodes?
-  ----
-  
-  Let's try node info
+Let's try `ros2 node list`
+
+``` {.sourceCode .bash::}
+kscottz@ade:~$ ros2 node list
+/draw_square  <== This is the node moving the turtle.
+/turtlesim    <== This is the node rendering the turtle. 
+```
+
+We can see the two nodes we started.
+
+Can we dig down deeper into each of these nodes?
+
+Let's try node info
 
 Let's try this `ros2 node info` command!
 
@@ -170,20 +155,28 @@ Let's try this `ros2 node info` command!
     -   Services
     -   Actions
 
-------------------------------------------------------------------------
+ROS topic CLI interface
 
-  ROS topic CLI interface
-  ----------------------------------------------------------------------------------------------------------------------------------------------------------
-  * Recall from last lesson that ROS topics are short hand for the ROS pub/sub bus.
-  * ROS topics by analogy:
-  * If you have worked with [RabbitMQ](https://en.wikipedia.org/wiki/RabbitMQ) or [ZeroMQ](https://en.wikipedia.org/wiki/ZeroMQ) it is very similar.
-  * In terms of hardware if you have worked with [ModBus](https://en.wikipedia.org/wiki/Modbus) ROS topics are the software equivalent.
-  * ROS messages are basically a serialization protocol. A good analogy would be [Google protobuff](https://en.wikipedia.org/wiki/Protocol_Buffers).
-  * The short of it is that ROS nodes communicate over ROS topics, which are like phone numbers that anyone can dial into and listen.
-  * These topics have \_[namespaces]() which are kinda like phone numbers or file paths. These topic names can be changed, or remapped, to connect nodes.
-  ----
-  
-  ros2 topic *&lt;xxxx&gt;*
+-   Recall from last lesson that ROS topics are short hand for the ROS
+    pub/sub bus.
+-   ROS topics by analogy:
+    -   If you have worked with
+        [RabbitMQ](https://en.wikipedia.org/wiki/RabbitMQ) or
+        [ZeroMQ](https://en.wikipedia.org/wiki/ZeroMQ) it is very
+        similar.
+    -   In terms of hardware if you have worked with
+        [ModBus](https://en.wikipedia.org/wiki/Modbus) ROS topics are
+        the software equivalent.
+    -   ROS messages are basically a serialization protocol. A good
+        analogy would be [Google
+        protobuff](https://en.wikipedia.org/wiki/Protocol_Buffers).
+-   The short of it is that ROS nodes communicate over ROS topics, which
+    are like phone numbers that anyone can dial into and listen.
+-   These topics have namespaces which are kinda like phone numbers or
+    file paths. These topic names can be changed, or remapped, to
+    connect nodes.
+
+ros2 topic *&lt;xxxx&gt;*
 
 Let's use help to see our options for this command.
 
@@ -215,36 +208,38 @@ Commands:
 Interesting, some let us "introspect" the messages, look at performance,
 and even send off our own messages.
 
-------------------------------------------------------------------------
+Let's look at the topics in TurtleSim
 
-  Let's look at the topics in TurtleSim
-  -------------------------------------------------------------------------------------------------------------
-  Let's start with `ros2 topic list`.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 topic list -h
-  usage: ros2 topic list \[-h\] \[--spin-time SPIN\_TIME\] \[-t\] \[-c\]
-  \[--include-hidden-topics\]
-  Output a list of available topics
-  optional arguments:
-  -h, --help show this help message and exit
-  --spin-time SPIN\_TIME
-  Spin time in seconds to wait for discovery (only
-  applies when not using an already running daemon)
-  -t, --show-types Additionally show the topic type
-  -c, --count-topics Only display the number of topics discovered
-  --include-hidden-topics
-  Consider hidden topics as well
-  <kscottz@ade>:\~\$ ros2 topic list
-  /parameter\_events
-  /rosout
-  /turtle1/cmd\_vel
-  /turtle1/color\_sensor
-  /turtle1/pose
-  <kscottz@ade>:\~\$
-  One thing of interest, note how `/turtle1/` is in front of the last three topics. We call this a namespace.
-  ----
-  
-  Digging into topics
+Let's start with `ros2 topic list`.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 topic list -h
+usage: ros2 topic list [-h] [--spin-time SPIN_TIME] [-t] [-c]
+                      [--include-hidden-topics]
+
+Output a list of available topics
+optional arguments:
+-h, --help            show this help message and exit
+--spin-time SPIN_TIME
+                      Spin time in seconds to wait for discovery (only
+                      applies when not using an already running daemon)
+-t, --show-types      Additionally show the topic type
+-c, --count-topics    Only display the number of topics discovered
+--include-hidden-topics
+                     Consider hidden topics as well
+kscottz@ade:~$ ros2 topic list
+/parameter_events
+/rosout
+/turtle1/cmd_vel
+/turtle1/color_sensor
+/turtle1/pose      
+kscottz@ade:~$ 
+```
+
+One thing of interest, note how `/turtle1/` is in front of the last
+three topics. We call this a namespace.
+
+Digging into topics
 
 -   *Echo* is an old Unix/Linux term that basically means print. We
     print, or echo the data on any given topic. Let's give it a shot.
@@ -297,26 +292,25 @@ angular_velocity: 0.0     <-- Rotation Speed
 
 Wow! That's a lot of data.
 
-------------------------------------------------------------------------
+Topic echo tips / tricks
 
-  Topic echo tips / tricks
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Topic echo is handy for a quick checkup to see if a piece of hardware is running and getting a sense of its position, but topics can generate a lot of data.
-  There are some tricks to work with this data.
-  * You can use unix file pipes to dump the data to file.
-  * `ros2 topic echo /turtle2/pose/ > MyFile.txt`
-  * This will output to the file MyFile.txt
-  * `CTRL+C` will still exit the program.
-  * You can use `less MyFile.txt` to read the file
-  * You can use grep to find a specific line.
-  * Try this: `grep theta ./MyFile.txt`
-  * Topic echo has some nice flags that are quite handy!
-  * The `--csv` flag outputs data in CSV format.
-  * You will still need to use the file pipe mentioned above.
-  * Example: `ros2 topic echo --csv /turtle1/pose > temp.csv`
-  ----
-  
-  Topic diagnostics!
+Topic echo is handy for a quick checkup to see if a piece of hardware is
+running and getting a sense of its position, but topics can generate a
+lot of data. There are some tricks to work with this data.
+
+-   You can use unix file pipes to dump the data to file.
+    -   `ros2 topic echo /turtle2/pose/ > MyFile.txt`
+    -   This will output to the file MyFile.txt
+    -   `CTRL+C` will still exit the program.
+    -   You can use `less MyFile.txt` to read the file
+    -   You can use grep to find a specific line.
+    -   Try this: `grep theta ./MyFile.txt`
+-   Topic echo has some nice flags that are quite handy!
+    -   The `--csv` flag outputs data in CSV format.
+    -   You will still need to use the file pipe mentioned above.
+    -   Example: `ros2 topic echo --csv /turtle1/pose > temp.csv`
+
+Topic diagnostics!
 
 Our Turtle simulation is pretty simple and doesn't generate a lot of
 data. Camera and LIDAR sensors for autonomous vehicles can generate so
@@ -338,21 +332,23 @@ average: 1.51KB/s
      mean: 0.02KB min: 0.02KB max: 0.02KB window: 100
 ```
 
-------------------------------------------------------------------------
+Topic Diagnostics
 
-  Topic Diagnostics
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  * The `topic hz` command, or hertz command, is used to measure how frequently a given topic publishes. Frequencies are usually measured in a unit of Hertz, or cycles per second.
-  * The `hz` command will publish the low, high, average, and standard deviation of the message publishing frequency.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 topic hz /turtle1/pose
-  average rate: 63.917
-  min: 0.001s max: 0.017s std dev: 0.00218s window: 65
-  average rate: 63.195
-  min: 0.001s max: 0.017s std dev: 0.00159s window: 128
-  ----
-  
-  Topic info
+-   The `topic hz` command, or hertz command, is used to measure how
+    frequently a given topic publishes. Frequencies are usually measured
+    in a unit of Hertz, or cycles per second.
+-   The `hz` command will publish the low, high, average, and standard
+    deviation of the message publishing frequency.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 topic hz /turtle1/pose 
+average rate: 63.917
+        min: 0.001s max: 0.017s std dev: 0.00218s window: 65
+average rate: 63.195
+        min: 0.001s max: 0.017s std dev: 0.00159s window: 128
+```
+
+Topic info
 
 Another helpful command for inspecting a topic is the `info` command.
 The `info` command lists the number of publishers and subscribers
@@ -366,28 +362,27 @@ Publisher count: 1
 Subscriber count: 1
 ```
 
-------------------------------------------------------------------------
+Topic Info Continued
 
-  Topic Info Continued
-  ----------------------------------------------------------------------------------------
-  Another related tool for looking at topics is the `msg show` command.
-  ROS topics use standard messaging formats.
-  If you would like to know the types and format of a message this command will do that.
-  Below is an example for TurtleSim.
-  Be aware that this tool uses tab completion.
-  If you know don't know where or what you are looking for it can help!
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 msg show turtlesim/msg/
-  turtlesim/msg/Color turtlesim/msg/Pose
-  <kscottz@ade>:\~\$ ros2 msg show turtlesim/msg/Pose
-  float32 x
-  float32 y
-  float32 theta
-  float32 linear\_velocity
-  float32 angular\_velocity
-  ----
-  
-  Publishing a message the hard way
+Another related tool for looking at topics is the `msg show` command.
+ROS topics use standard messaging formats. If you would like to know the
+types and format of a message this command will do that. Below is an
+example for TurtleSim. Be aware that this tool uses tab completion. If
+you know don't know where or what you are looking for it can help!
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 msg show turtlesim/msg/
+turtlesim/msg/Color  turtlesim/msg/Pose   
+kscottz@ade:~$ ros2 msg show turtlesim/msg/Pose 
+float32 x
+float32 y
+float32 theta
+
+float32 linear_velocity
+float32 angular_velocity
+```
+
+Publishing a message the hard way
 
 -   Sometimes when you are debugging and testing you need to send a
     message manually.
@@ -412,23 +407,23 @@ This command has a lot options that are super helpful for debugging. You
 can set QoS parameters for the messages, mock the sending node, and
 modify the publishing rate.
 
-------------------------------------------------------------------------
+But there is also a GUI tool!
 
-  But there is also a GUI tool!
-  --------------------------------------------------------------------------------------------------------------
-  If the command line isn't your thing quite a few things can be accomplished via the `rqt_topic`.
-  The rqt GUI can be started by running `rqt` in the command line.
-  You'll want to restart the draw square node by running `ros2 run turtlesim draw_square` in the command line.
-  You should be able to press the arrow up key to get the command back.
-  .. image:: ./images/rqt\_start.png
-  :width: 200
-  RQT starts off blank, so we'll have to turn on the topic tab by clicking `Plugins=>Topics=>Topic Monitor`.
-  Once you do that you should see something like what's below. You may need to resize the window.
-  .. image:: ./images/rqt.png
-  :width: 400
-  ----
-  
-  Node GUI Tools
+If the command line isn't your thing quite a few things can be
+accomplished via the `rqt_topic`. The rqt GUI can be started by running
+`rqt` in the command line. You'll want to restart the draw square node
+by running `ros2 run turtlesim draw_square` in the command line. You
+should be able to press the arrow up key to get the command back.
+
+![image](./images/rqt_start.png){width="200"}
+
+RQT starts off blank, so we'll have to turn on the topic tab by clicking
+`Plugins=>Topics=>Topic Monitor`. Once you do that you should see
+something like what's below. You may need to resize the window.
+
+![image](./images/rqt.png){width="400"}
+
+Node GUI Tools
 
 -   Understanding complex graphs as a list of node and topic names in
     our shell is really hard.
@@ -438,28 +433,36 @@ modify the publishing rate.
 
 ![image](./images/rqt_graph.png){width="400"}
 
-------------------------------------------------------------------------
+ROS parameters
 
-  ROS parameters
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  [The full ROS Param tutorial can be found here.](https://index.ros.org/doc/ros2/Tutorials/Parameters/Understanding-ROS2-Parameters/)
-  In ROS, parameters are values that are shared between nodes in the system (if you are familiar with the [blackboard design pattern](https://en.wikipedia.org/wiki/Blackboard_(design_pattern)) in software engineering).
-  Parameters are values that any node can query or write to, another good analogy would be global constants in normal software programs.
-  Parameters are best used to configure your robot.
-  For example, if you were building an autonomous vehicle and wanted to cap the maximum velocity of the vehicle at 100 km/h, you could create a parameter called "MAX\_SPEED" that is visible to all the nodes.
-  Let's take a look at the high level param program.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 param --help
-  Various param related sub-commands
-  Commands:
-  delete Delete parameter
-  get Get parameter
-  list Output a list of available parameters
-  set Set parameter
-  Call ros2 param &lt;command&gt; -h for more detailed usage.
-  ----
-  
-  Params used by TurtleSim
+[The full ROS Param tutorial can be found
+here.](https://index.ros.org/doc/ros2/Tutorials/Parameters/Understanding-ROS2-Parameters/)
+
+In ROS, parameters are values that are shared between nodes in the
+system (if you are familiar with the [blackboard design
+pattern](https://en.wikipedia.org/wiki/Blackboard_(design_pattern)) in
+software engineering). Parameters are values that any node can query or
+write to, another good analogy would be global constants in normal
+software programs. Parameters are best used to configure your robot. For
+example, if you were building an autonomous vehicle and wanted to cap
+the maximum velocity of the vehicle at 100 km/h, you could create a
+parameter called "MAX\_SPEED" that is visible to all the nodes.
+
+Let's take a look at the high level param program.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 param --help
+Various param related sub-commands
+
+Commands:
+  delete  Delete parameter
+  get     Get parameter
+  list    Output a list of available parameters
+  set     Set parameter
+  Call `ros2 param <command> -h` for more detailed usage.
+```
+
+Params used by TurtleSim
 
 Let's see what the docs say and then see what happens when we call
 `ros2 param list`
@@ -489,25 +492,31 @@ kscottz@ade:~$ ros2 param list
   use_sim_time
 ```
 
-------------------------------------------------------------------------
+Let's try getting/setting parameters
 
-  Let's try getting/setting parameters
-  -------------------------------------------------------------------
-  The syntax for getting a parameter is as follows:
-  `ros2 param get <node name> <param name>`
-  Let's give it a shot.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 param get /turtlesim background\_b
-  Integer value is: 255
-  Let's try setting a parameter. The syntax for that is as follows:
-  `ros2 set <node name> <param name> <value>`
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 param set /turtlesim background\_b 0
-  Set parameter successful
-  Note that THIS SEEMS TO BE BROKEN!?
-  ----
-  
-  Services
+The syntax for getting a parameter is as follows:
+
+`ros2 param get <node name> <param name>`
+
+Let's give it a shot.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 param get /turtlesim background_b
+Integer value is: 255
+```
+
+Let's try setting a parameter. The syntax for that is as follows:
+
+`ros2 set <node name> <param name> <value>`
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 param set /turtlesim background_b 0
+Set parameter successful
+```
+
+Note that THIS SEEMS TO BE BROKEN!?
+
+Services
 
 -   The full ROS 2 Services tutorials [can be found
     here.](https://index.ros.org/doc/ros2/Tutorials/Services/Understanding-ROS2-Services/)
@@ -522,26 +531,30 @@ kscottz@ade:~$ ros2 param list
 -   Essentially the ROS API allows every node to publish a list of
     services, and subscribe to services from other nodes.
 
-------------------------------------------------------------------------
+Services Continued
 
-  Services Continued
-  ---------------------------------------------------------------------------------------------------------------
-  * The root command for ROS services is the `ros2 service` command.
-  * Just like all the other commands we have looked at, let's run `ros2 service --help` to see what we can do.
-  * There is an important distinction between ros2 srv and ros2 service.
-  * The former is for installed services while the latter is for running services.
-  We'll focus on the latter, but `srv` is very similar.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 service --help
-  usage: ros2 service \[-h\] \[--include-hidden-services\]
-  Call ros2 service &lt;command&gt; -h for more detailed usage.
-  Commands:
-  call Call a service
-  list Output a list of available services
-  * Services look fairly straight forward, with only two commands, `list` and `call`.
-  ----
-  
-  Listing available services
+-   The root command for ROS services is the `ros2 service` command.
+-   Just like all the other commands we have looked at, let's run
+    `ros2 service --help` to see what we can do.
+-   There is an important distinction between ros2 srv and ros2 service.
+
+\* The former is for installed services while the latter is for running
+services. We'll focus on the latter, but `srv` is very similar.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 service --help
+usage: ros2 service [-h] [--include-hidden-services]
+                    Call `ros2 service <command> -h` for more detailed usage.
+
+Commands:
+  call  Call a service
+  list  Output a list of available services
+```
+
+-   Services look fairly straight forward, with only two commands,
+    `list` and `call`.
+
+Listing available services
 
 Let's take a look at what we can do with `ros2 service list`.
 
@@ -578,28 +591,31 @@ kscottz@ade:~$ ros2 service list -t
 /turtlesim/set_parameters_atomically [rcl_interfaces/srv/SetParametersAtomically]
 ```
 
-------------------------------------------------------------------------
+Calling a ROS 2 service
 
-  Calling a ROS 2 service
-  ---------------------------------------------------------------------------------
-  Let's explore the `ros2 service call` command.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 service call -h
-  usage: ros2 service call \[-h\] \[-r N\] service\_name service\_type \[values\]
-  Call a service
-  positional arguments:
-  service\_name Name of the ROS service to call to (e.g. '/add\_two\_ints')
-  service\_type Type of the ROS service (e.g. 'std\_srvs/srv/Empty')
-  values Values to fill the service request with in YAML format (e.g.
-  "{a: 1, b: 2}"), otherwise the service request will be
-  published with default values
-  optional arguments:
-  -r N, --rate N Repeat the call at a specific rate in Hz
-  The format is pretty straight forward:
-  `ros2 service call <service_name> <service_type> [values]`
-  ----
-  
-  Basic example, blank services.
+Let's explore the `ros2 service call` command.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 service call -h
+usage: ros2 service call [-h] [-r N] service_name service_type [values]
+
+Call a service
+positional arguments:
+  service_name    Name of the ROS service to call to (e.g. '/add_two_ints')
+  service_type    Type of the ROS service (e.g. 'std_srvs/srv/Empty')
+  values          Values to fill the service request with in YAML format (e.g.
+                  "{a: 1, b: 2}"), otherwise the service request will be
+                  published with default values
+
+optional arguments:
+  -r N, --rate N  Repeat the call at a specific rate in Hz
+```
+
+The format is pretty straight forward:
+
+`ros2 service call <service_name> <service_type> [values]`
+
+Basic example, blank services.
 
 -   If we look at the list of services we see a `/reset/` service that
     has the type `[std_srvs/srv/Empty]`.
@@ -625,17 +641,16 @@ response:
 std_srvs.srv.Empty_Response()
 ```
 
-------------------------------------------------------------------------
+Service call result
 
-  Service call result
-  -----------------------------------------------------------------------------
-  .. image:: ./images/reset\_service.png
-  :width: 800
-  The service reset the screen, and changed our turtle icon!
-  Try toggling the `draw_square` program and the `reset` service a few times.
-  ----
-  
-  More complex service calls
+![image](./images/reset_service.png){width="800"}
+
+The service reset the screen, and changed our turtle icon!
+
+Try toggling the `draw_square` program and the `reset` service a few
+times.
+
+More complex service calls
 
 Next we're going to try a more complex service call that requires an
 actual message. For this example we'll use the spawn service that
@@ -663,32 +678,37 @@ We can see now that this message takes an x,y position, an angle theta,
 and an optional name. The service will return a string (as noted by the
 string below the `---`)
 
-------------------------------------------------------------------------
+Services with complex messages
 
-  Services with complex messages
-  ----------------------------------------------------------------------------------------------------------------------
-  The format of the message is YAML inside quotation marks.
-  Following from the information above let's make a few turtles.
-  .. code-block:: bash
-  string <namekscottz@ade>:\~\$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: 'larry'}"
-  waiting for service to become available...
-  requester: making request: turtlesim.srv.Spawn\_Request(x=2.0, y=2.0, theta=0.2, name='larry')
-  response:
-  turtlesim.srv.Spawn\_Response(name='larry')
-  <kscottz@ade>:\~\$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 3, y: 3, theta: 0.3, name: 'moe'}"
-  waiting for service to become available...
-  requester: making request: turtlesim.srv.Spawn\_Request(x=3.0, y=3.0, theta=0.3, name='moe')
-  response:
-  turtlesim.srv.Spawn\_Response(name='moe')
-  <kscottz@ade>:\~\$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 4, y: 3, theta: 0.4, name: 'curly'}"
-  waiting for service to become available...
-  requester: making request: turtlesim.srv.Spawn\_Request(x=4.0, y=3.0, theta=0.4, name='curly')
-  response:
-  turtlesim.srv.Spawn\_Response(name='curly')
-  <kscottz@ade>:\~\$
-  ----
-  
-  Service call results!
+The format of the message is YAML inside quotation marks. Following from
+the information above let's make a few turtles.
+
+``` {.sourceCode .bash}
+string namekscottz@ade:~$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: 'larry'}"
+waiting for service to become available...
+requester: making request: turtlesim.srv.Spawn_Request(x=2.0, y=2.0, theta=0.2, name='larry')
+
+response:
+turtlesim.srv.Spawn_Response(name='larry')
+
+kscottz@ade:~$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 3, y: 3, theta: 0.3, name: 'moe'}"
+waiting for service to become available...
+requester: making request: turtlesim.srv.Spawn_Request(x=3.0, y=3.0, theta=0.3, name='moe')
+
+response:
+turtlesim.srv.Spawn_Response(name='moe')
+
+kscottz@ade:~$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 4, y: 3, theta: 0.4, name: 'curly'}"
+waiting for service to become available...
+requester: making request: turtlesim.srv.Spawn_Request(x=4.0, y=3.0, theta=0.4, name='curly')
+
+response:
+turtlesim.srv.Spawn_Response(name='curly')
+
+kscottz@ade:~$ 
+```
+
+Service call results!
 
 If everything went well we should see something like this.
 
@@ -696,26 +716,36 @@ If everything went well we should see something like this.
 
 *We've now created four turtles!*
 
-------------------------------------------------------------------------
+ROS action CLI
 
-  ROS action CLI
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------
-  ROS Actions and Services are very similar in terms of what they do and likewise their APIs are also fairly similar.
-  ROS actions are the prefered tool for *asynchronus* tasks while services are the preffered means of deploying *synchronus* tasks.
-  In more practical terms services should be used for quick, short tasks, while actions should be used for long term behaviors (like moving to a waypoint).
-  The other big difference between actions and services, is that actions can send periodic updates about their progress.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 action -h
-  Various action related sub-commands
-  Commands:
-  info Print information about an action
-  list Output a list of action names
-  send\_goal Send an action goal
-  show Output the action definition
-  Looks familiar! Let's dif into list, and info.
-  ----
-  
-  Actions: list & info
+ROS Actions and Services are very similar in terms of what they do and
+likewise their APIs are also fairly similar.
+
+ROS actions are the prefered tool for *asynchronus* tasks while services
+are the preffered means of deploying *synchronus* tasks.
+
+In more practical terms services should be used for quick, short tasks,
+while actions should be used for long term behaviors (like moving to a
+waypoint).
+
+The other big difference between actions and services, is that actions
+can send periodic updates about their progress.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 action -h
+
+Various action related sub-commands
+
+Commands:
+  info       Print information about an action
+  list       Output a list of action names
+  send_goal  Send an action goal
+  show       Output the action definition
+```
+
+Looks familiar! Let's dif into list, and info.
+
+Actions: list & info
 
 Let's see what actions are availabe to us using `ros2 action list`
 
@@ -745,26 +775,29 @@ action. The `Action servers` line gives the total number of action
 servers for this action. The last line gives the package and message
 type for the action.
 
-------------------------------------------------------------------------
+Calling an action and giving it a goal
 
-  Calling an action and giving it a goal
-  -----------------------------------------------------------------------------------
-  Let's take a look at the `ros2 action send_goal` help command.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 action send\_goal -h
-  usage: ros2 action send\_goal \[-h\] \[-f\] action\_name action\_type goal
-  Send an action goal
-  positional arguments:
-  action\_name Name of the ROS action (e.g. '/fibonacci')
-  action\_type Type of the ROS action (e.g. 'example\_interfaces/action/Fibonacci')
-  goal Goal request values in YAML format (e.g. '{order: 10}')
-  optional arguments:
-  -f, --feedback Echo feedback messages for the goal
-  We can see here that we need to know the action name, the type, and the values.
-  Now the only problem is figuring out the format of the action\_type.
-  ----
-  
-  Let's understand the RotateAbsolute action message
+Let's take a look at the `ros2 action send_goal` help command.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 action send_goal -h
+usage: ros2 action send_goal [-h] [-f] action_name action_type goal
+
+Send an action goal
+positional arguments:
+  action_name     Name of the ROS action (e.g. '/fibonacci')
+  action_type     Type of the ROS action (e.g. 'example_interfaces/action/Fibonacci')
+  goal            Goal request values in YAML format (e.g. '{order: 10}')
+
+optional arguments:
+  -f, --feedback  Echo feedback messages for the goal
+```
+
+We can see here that we need to know the action name, the type, and the
+values. Now the only problem is figuring out the format of the
+action\_type.
+
+Let's understand the RotateAbsolute action message
 
 The `ros2 action show` command can be used to find the type of action
 message. Let's take a look.
@@ -790,33 +823,40 @@ What does this say about rotate absolute?
 -   `remaining` -- the remaining radians to move. This is the value
     posted by the action while the action is being done.
 
-------------------------------------------------------------------------
+Executing the action
 
-  Executing the action
-  ------------------------------------------------------------------------------------------------------------------------
-  With this information we can create our call to the action server.
-  We'll use the `-f` flag to make this a bit clearer.
-  Keep an eye on your turtle! It should move, slowly.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 action send\_goal -f /turtle1/rotate\_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
-  Waiting for an action server to become available...
-  Sending goal:
+With this information we can create our call to the action server. We'll
+use the `-f` flag to make this a bit clearer.
+
+Keep an eye on your turtle! It should move, slowly.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 action send_goal -f /turtle1/rotate_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
+Waiting for an action server to become available...
+Sending goal:
   theta: 1.7
-  Feedback:
+
+Feedback:
   remaining: 0.11599969863891602
-  Goal accepted with ID: 35c40e91590047099ae5bcc3c5151121
-  Feedback:
-  remaining: 0.09999966621398926
-  Feedback:
-  remaining: 0.06799960136413574
-  Feedback:
-  remaining: 0.03599953651428223
-  Result:
-  delta: -0.09600019454956055
-  Goal finished with status: SUCCEEDED
-  ----
-  
-  ROS Bag!
+
+Goal accepted with ID: 35c40e91590047099ae5bcc3c5151121
+
+Feedback:
+ remaining: 0.09999966621398926
+
+Feedback:
+ remaining: 0.06799960136413574
+
+Feedback:
+ remaining: 0.03599953651428223
+
+Result:
+ delta: -0.09600019454956055
+
+Goal finished with status: SUCCEEDED
+```
+
+ROS Bag!
 
 -   ROS Bags are ROS's tool for recording, and replaying data.
 -   ROSBags are kinda like log files that let you store data along with
@@ -840,36 +880,37 @@ Commands:
   record  ros2 bag record
 ```
 
-------------------------------------------------------------------------
+Let's try recording our first Bag
 
-  Let's try recording our first Bag
-  ------------------------------------------------------------------------------
-  First use `F2` or `F3` to go to the other terminal.
-  Start the `draw_square` demo again to get the default turtle moving.
-  The command for that is: `ros2 run turtlesim draw_square`
-  Now let's look at `ros2 bag -h`
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 bag record -h
-  usage: ros2 bag record \[-h\] \[-a\] \[-o OUTPUT\] \[-s STORAGE\]
-  \[-f SERIALIZATION\_FORMAT\] \[--no-discovery\]
-  \[-p POLLING\_INTERVAL\]
-  \[topics \[topics ...\]\]
-  ros2 bag record
-  positional arguments:
-  topics topics to be recorded
-  optional arguments:
-  -a, --all recording all topics, required if no topics are listed explicitly.
+First use `F2` or `F3` to go to the other terminal. Start the
+`draw_square` demo again to get the default turtle moving.
+
+The command for that is: `ros2 run turtlesim draw_square`
+
+Now let's look at `ros2 bag -h`
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 bag record -h
+usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
+                       [-f SERIALIZATION_FORMAT] [--no-discovery]
+           [-p POLLING_INTERVAL]
+           [topics [topics ...]]
+ros2 bag record
+positional arguments:
+  topics                topics to be recorded
+optional arguments:
+  -a, --all             recording all topics, required if no topics are listed explicitly.
   -o OUTPUT, --output OUTPUT
-  destination of the bagfile to create, defaults to a
-  timestamped folder in the current directory
+                        destination of the bagfile to create, defaults to a
+                        timestamped folder in the current directory
   -s STORAGE, --storage STORAGE
-  storage identifier to be used, defaults to "sqlite3"
-  -f SERIALIZATION\_FORMAT, --serialization-format SERIALIZATION\_FORMAT
-  rmw serialization format in which the messages are
-  saved, defaults to the rmw currently in use
-  ----
-  
-  Let's Bag!
+                        storage identifier to be used, defaults to "sqlite3"
+  -f SERIALIZATION_FORMAT, --serialization-format SERIALIZATION_FORMAT
+                        rmw serialization format in which the messages are
+                        saved, defaults to the rmw currently in use
+```
+
+Let's Bag!
 
 -   Let's bag the pose data on the `/turtle1/pose topic`
 -   Save the data to the directory `turtle1.bag` using the `-o` flag.
@@ -887,25 +928,25 @@ kscottz@ade:~$ ros2 bag record /turtle1/pose -o turtle1
 ^C[INFO] [rclcpp]: signal_handler(signal_value=2)
 ```
 
-------------------------------------------------------------------------
+Let's inspect our Bag.
 
-  Let's inspect our Bag.
-  --------------------------------------------------------------------------------------------------------------
-  You can introspect any bag file using the `ros2 bag info` command.
-  This command will list the messages in the bag, the duration of file, and the number of messages.
-  .. code-block:: bash
-  <kscottz@ade>:\~\$ ros2 bag info turtle1
-  Files: turtle1.db3
-  Bag size: 268.4 KiB
-  Storage id: sqlite3
-  Duration: 68.705s
-  Start: May 4 2020 16:10:26.556 (1588633826.556)
-  End May 4 2020 16:11:35.262 (1588633895.262)
-  Messages: 4249
-  Topic information: Topic: /turtle1/pose | Type: turtlesim/msg/Pose | Count: 4249 | Serialization Format: cdr
-  ----
-  
-  Replaying a Bag
+You can introspect any bag file using the `ros2 bag info` command. This
+command will list the messages in the bag, the duration of file, and the
+number of messages.
+
+``` {.sourceCode .bash}
+kscottz@ade:~$ ros2 bag info turtle1
+Files:             turtle1.db3
+Bag size:          268.4 KiB
+Storage id:        sqlite3
+Duration:          68.705s
+Start:             May  4 2020 16:10:26.556 (1588633826.556)
+End                May  4 2020 16:11:35.262 (1588633895.262)
+Messages:          4249
+Topic information: Topic: /turtle1/pose | Type: turtlesim/msg/Pose | Count: 4249 | Serialization Format: cdr
+```
+
+Replaying a Bag
 
 Bags are a great tool for debugging and testing. You can treat a ROS bag
 like a recording of a running ROS system. When you play a bag file you
@@ -944,22 +985,29 @@ Pretty cool right?
 
 You can kill the bag file with `CTRL+C`.
 
-  -------------------
-  
-  That's All Folks!
-  -------------------
+That's All Folks!
 
 -   This is by no means complete but it covers the basics.
 -   You should use your skills to explore more.
+-   Remember your resources!
 
-* Remember your resources!
+    > -   [<http://answers.ros.org>](https://answers.ros.org/questions/)
+    > -   [<https://discourse.ros.org/>](https://discourse.ros.org/)
+    > -   [<http://wiki.ros.org/>](http://wiki.ros.org/)
+    > -   [<https://index.ros.org/doc/ros2/>](https://index.ros.org/doc/ros2/)
 
-> -   [<http://answers.ros.org>](https://answers.ros.org/questions/)
-> -   [<https://discourse.ros.org/>](https://discourse.ros.org/)
-> -   [<http://wiki.ros.org/>](http://wiki.ros.org/)
-> -   [<https://index.ros.org/doc/ros2/>](https://index.ros.org/doc/ros2/)
+Homework?!
 
-------------------------------------------------------------------------
+-   The TurtleBot comes from a long line of turtle tutorials.
+-   The original one was the [Logo programming
+    language](https://en.wikipedia.org/wiki/Logo_(programming_language))
+    for computer graphics.
+-   I would recommend using the turtle to make some cool graphics.
+-   [Here's an example of what people did with
+    LOGO.](https://www.youtube.com/watch?v=m4a0jcrDgK0).
+
+
+
 
   * This lesson is intended to be an hour long crash course in the ROS 2 Dashing API and build tools.
   * After this lesson you should be able to code and build a rudimentary ROS 2 application.
@@ -988,10 +1036,10 @@ help**
 *The good news is, all of this is OK and completely normal; there are
 resources out there to help!*
 
-------------------------------------------------------------------------
+
 
   Getting Help!
-  -------------------------------------------------------------------------------------------------------
+  -
   **ROS has a ton of resources to help you be succeed. You should be aware of these before you begin.**
   * We have our own QA website like Stack Overflow called ROS Answers.
   * [<http://answers.ros.org>](https://answers.ros.org/questions/)
@@ -1009,26 +1057,26 @@ resources out there to help!*
   
   Other and/or Unofficial Resources
 
--   The ROS / Robotics Sub Reddits are Great!
--   There is an "unofficial" [ROS
+* The ROS / Robotics Sub Reddits are Great!
+* There is an "unofficial" [ROS
     Discord](https://discord.com/invite/HnVcz5a).
-    -   Please try using ROS Answers first.
--   We have a yearly ROS developers conference
+    * Please try using ROS Answers first.
+* We have a yearly ROS developers conference
     [ROSCon.](https://roscon.ros.org/2020/)
-    -   Most of old talks are free on the web.
--   We're not big on social media but we're busy on the twitter.
-    -   [@OpenRoboticsOrg](https://twitter.com/openroboticsorg) is a bit
+    * Most of old talks are free on the web.
+* We're not big on social media but we're busy on the twitter.
+    * [@OpenRoboticsOrg](https://twitter.com/openroboticsorg) is a bit
         more active.
-    -   [@ROSOrg](https://twitter.com/rosorg) "Official" ROS
+    * [@ROSOrg](https://twitter.com/rosorg) "Official" ROS
         announcements.
--   [Open Robotics](https://www.openrobotics.org/) is the non-profit
+* [Open Robotics](https://www.openrobotics.org/) is the non-profit
     that administers ROS and Ignition Gazebo.
-    -   We take donations and take contract work from time to time.
+    * We take donations and take contract work from time to time.
 
-------------------------------------------------------------------------
+
 
   History of ROS
-  -------------------------------------------------------------------------------------------
+  ----
   *PR2 Image*
   * Let's go back to the early 2000's.
   * Open Source is growing, but Windows dominates.
@@ -1051,45 +1099,45 @@ ROS's design was informed by *design patterns* that were successfully
 used in prior robotic systems. We can't cover each of these in detail,
 but reading about them will help you better understand ROS.
 
--   **Processes / Threads ==&gt; ROS Nodes** -- A ROS Node is a self
+* **Processes / Threads ==&gt; ROS Nodes** -- A ROS Node is a self
     contained execution process, like a program. ROS is really a lot of
     tooling for running a bunch of programs in parallel.
--   **Buses / PubSub ==&gt; ROS Topics** -- The backbone of ROS is a
+* **Buses / PubSub ==&gt; ROS Topics** -- The backbone of ROS is a
     [publish/subscribe
     bus](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern).
     If you have ever used ZeroMQ, RabbitMQ, or ModBus, ROS topics are
     very similar.
--   **Serialization ==&gt; ROS Messages / ROS Bags** -- ROS uses a
+* **Serialization ==&gt; ROS Messages / ROS Bags** -- ROS uses a
     predefined messages to move data over topics. This allows data to be
     [serialized](https://en.wikipedia.org/wiki/Serialization) between
     nodes in different programming languages. An analog would be Google
     Protocol Buffers. ROS can be written to file, called a bag. A good
     analogy is a python pickle file.
--   **Black Board Pattern ==&gt; ROS Params** -- A
+* **Black Board Pattern ==&gt; ROS Params** -- A
     [blackboard](https://en.wikipedia.org/wiki/Blackboard_(design_pattern))
     is a way to create global variables between nodes/programs. A good
     analogy would be Redis.
--   **Synchronous Remote Procedure Call (RPC) ==&gt; ROS Services** -- A
+* **Synchronous Remote Procedure Call (RPC) ==&gt; ROS Services** -- A
     ROS service is a program that can be called by another program. The
     caller is blocked until the callee returns. This is formerly called
     a [remote procedure
     call](https://en.wikipedia.org/wiki/Remote_procedure_call).
--   **Asynchronous Remote Procedure Call (RPC) ==&gt; ROS Actions** -- A
+* **Asynchronous Remote Procedure Call (RPC) ==&gt; ROS Actions** -- A
     ROS action is a program that can be called by another program. The
     caller is **not** blocked until the callee returns.
--   **State Machines ==&gt; ROS Life cycles** -- [State
+* **State Machines ==&gt; ROS Life cycles** -- [State
     machines](https://en.wikipedia.org/wiki/Finite-state_machine) are a
     tool to move between states, or modes. State machines are a useful
     way to model machine behavior.
--   **Matrix Math for 3D Operations ==&gt; URDF and TF** -- TF, short
+* **Matrix Math for 3D Operations ==&gt; URDF and TF** -- TF, short
     for transform, and URDF (universal robot description format) are
     tools for automatically [calculating robot geometry using matrix
     math](https://en.wikipedia.org/wiki/Matrix_(mathematics)) .
 
-------------------------------------------------------------------------
+
 
   Jumping in the Deep End
-  ------------------------------------------------------------------------------------------------
+  ----
   Let's start ADE and install / update deps
   * First things first, let's make sure everything is ready to go.
   * Now is a good time to hit pause on the video make sure you have installed the requirements.
@@ -1108,17 +1156,17 @@ but reading about them will help you better understand ROS.
   
   Some Nomenclature as we Begin
 
--   **Package** -- A collection of code.
--   **Workspace** -- A workspace is a collection of source code / ROS
+* **Package** -- A collection of code.
+* **Workspace** -- A workspace is a collection of source code / ROS
     packages that will run on a robot. It has a uniform directory
     structure. A good analogy is python virtual env, or "project" in
     most IDEs.
--   **Overlay** -- A second workspace with more/different/new packages.
+* **Overlay** -- A second workspace with more/different/new packages.
     If there are multiple versions of a package/code then the one at the
     bottom is used.
--   **Underlay** -- The workspace, underneath an overlay, we're aware
+* **Underlay** -- The workspace, underneath an overlay, we're aware
     this is confusing.
--   **Colcon** -- The ROS 2 build tool. Think of it as a layer above
+* **Colcon** -- The ROS 2 build tool. Think of it as a layer above
     CMake/Make/SetupTools that helps these tools work together smoothly.
 
 This is a bit confusing. You may ask yourself why we have our own build
@@ -1128,10 +1176,10 @@ handful of platforms, using multiple languages. We needed a flexible
 system to build code and one didn't exist at the time, and still doesn't
 exist.
 
-------------------------------------------------------------------------
+
 
   Let's Get Started
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ----
   As we're diving headfirst into ROS our first job is to checkout a repository of examples and build it. Roughly the steps to do this are as follows.
   * Fire up a terminal manager inside the container. I use byobu. You can use whatever you want. You can also fire up 3 real terminals and call ade enter on them.
   * Source the ROS setup.bash file so we have the right version of ROS in our path.
@@ -1152,34 +1200,34 @@ exist.
   
   Nodes and Publishers
 
--   The core of ROS is the ROS pub/sub bus. In ROS parlance this is
+* The core of ROS is the ROS pub/sub bus. In ROS parlance this is
     called topic.
-    -   A topic has a message type that is published on the bus. These
+    * A topic has a message type that is published on the bus. These
         messages are defined in a yaml file and define the
         serialization/deserialization format for ROS messages.
-    -   ROS has a lot of built in message types. There are lots of
+    * ROS has a lot of built in message types. There are lots of
         pre-defined messages for controlling a robot, distributing
         sensor data, and understanding the geometry of your robot.
-    -   ROS publishers produce messages and slowly or as quickly as they
+    * ROS publishers produce messages and slowly or as quickly as they
         need to.
-    -   A ROS subscriber, subscribes to a topic and then does things
+    * A ROS subscriber, subscribes to a topic and then does things
         with the information.
--   ROS has lots of built-in tools for managing topics. You can list
+* ROS has lots of built-in tools for managing topics. You can list
     them, echo (watch) them, rename them (called remap), and store them
     to file (called bagging).
--   ROS Nodes are basically programs, or processes that run concurrently
+* ROS Nodes are basically programs, or processes that run concurrently
     on ROS.
-    -   A ROS node can publish to one or more topics.
-    -   That same node can subscribe to other topics.
-    -   Many nodes subscribe to topics, process the data, and publish
+    * A ROS node can publish to one or more topics.
+    * That same node can subscribe to other topics.
+    * Many nodes subscribe to topics, process the data, and publish
         the results.
-    -   ROS has tooling to start and stop multiple nodes at the same
+    * ROS has tooling to start and stop multiple nodes at the same
         time.
 
-------------------------------------------------------------------------
+
 
   Preparing to Run a ROS Node
-  --------------------------------------------------------------------------------------------------------------------------------------------
+  -
   * Open a new terminal, in Byobu you can do this by pressing F2.
   * First we need to source the setup.bash file for our workspace. This will help ROS find the programs we built.
   * source ./ros2\_example\_ws/install/setup.bash
@@ -1192,16 +1240,16 @@ exist.
   
   Let's Run a Simple C++ Publisher Node.
 
--   ROS has an advanced, and fairly complex CLI interface. We'll cover
+* ROS has an advanced, and fairly complex CLI interface. We'll cover
     it in depth in our next lesson.
--   We are going to ask ros to run the EXECUTABLE publisher\_lambda in
+* We are going to ask ros to run the EXECUTABLE publisher\_lambda in
     our WORKSPACE named examples\_rclcpp\_minimal\_publisher.
--   The syntax for doing this is
+* The syntax for doing this is
     ros2 run &lt;WORKSPACE&gt; &lt;EXECUTABLE&gt;
--   To run our publishing node, let's run the following command in our
+* To run our publishing node, let's run the following command in our
     execution terminal:
     ros2 run examples\_rclcpp\_minimal\_publisher publisher\_lambda
--   If everything works you should see something like this:
+* If everything works you should see something like this:
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 run examples_rclcpp_minimal_publisher publisher_lambda 
@@ -1212,12 +1260,12 @@ kscottz@ade:~$ ros2 run examples_rclcpp_minimal_publisher publisher_lambda
 ...
 ```
 
--   To exit the program press CTRL-C
+* To exit the program press CTRL-C
 
-------------------------------------------------------------------------
+
 
   What just happened?
-  ----------------------------------------------------------------------------------------------------------------
+  
   * We just executed a ROS node that publishes a simple string message to a topic called /topic twice a second.
   * I'll show you how I know this with some tools. We'll cover these tools in detail next time.
   .. code-block:: bash
@@ -1240,12 +1288,12 @@ kscottz@ade:~$ ros2 run examples_rclcpp_minimal_publisher publisher_lambda
   
   Digging into the Code
 
--   Let's take a look at the code. Like a lot of software there is more
+* Let's take a look at the code. Like a lot of software there is more
     than one way to skin a cat. Let's look at the member function
     approach.
--   Using your favorite editor open the following source file,
+* Using your favorite editor open the following source file,
     ./ros2\_example\_ws/src/examples/rclcpp/minimal\_publisher/member\_function.cpp
--   **rclcpp** is an abbreviation of "ROS Client Library C++", its the
+* **rclcpp** is an abbreviation of "ROS Client Library C++", its the
     ROS C++ API
 
 ``` {.sourceCode .c++}
@@ -1266,10 +1314,10 @@ using namespace std::chrono_literals;
   // Have it inherit from the ROS Node Class
 ```
 
-------------------------------------------------------------------------
+
 
   Let's Build our Node's Constructor
-  -----------------------------------------------------------------------------------------------------------------------
+  --
   * The MinimalPublisher constructor inherits from the RCLCPP Base Class, gives the name a node, and sets our counter.
   * The next line creates a publisher object that publishes std\_msgs::msg.
   * The constructor then creates a callback to the function timer\_callback that gets called every 500ms.
@@ -1288,11 +1336,11 @@ using namespace std::chrono_literals;
   
   Now to Handle the Callback
 
--   In the callback function we do the following:
-    -   Create the ROS std\_msgs::msg::String() to send to our topic.
-    -   Construct the message that will be pushed to the ROS Topic
-    -   Log the results.
-    -   Actually publish the newly constructed message.
+* In the callback function we do the following:
+    * Create the ROS std\_msgs::msg::String() to send to our topic.
+    * Construct the message that will be pushed to the ROS Topic
+    * Log the results.
+    * Actually publish the newly constructed message.
 
 ``` {.sourceCode .c++}
 private:
@@ -1309,10 +1357,10 @@ rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
 size_t count_;
 ```
 
-------------------------------------------------------------------------
+
 
   Finally, Let's Create the Main for our Node
-  -----------------------------------------------------------------------------------------------------------
+  
   * This last little bit creates the main node entry point.
   * Initializes rcpcpp with the values from the command line.
   * Run's the MinimalPublisher, until a terminate is given
@@ -1343,12 +1391,12 @@ size_t count_;
   
   Let's Try Subscribing.
 
--   The pattern here is similar to publishing.
--   We basically inherit from the Node class, and define the topic and
+* The pattern here is similar to publishing.
+* We basically inherit from the Node class, and define the topic and
     message we want.
--   Whenever that topic is published we hit a callback.
--   If everything is correctly configured the file is at
-    -   /ros2\_example\_ws/src/examples/rclcpp/minimal\_subscriber/member\_function.cpp
+* Whenever that topic is published we hit a callback.
+* If everything is correctly configured the file is at
+    * /ros2\_example\_ws/src/examples/rclcpp/minimal\_subscriber/member\_function.cpp
 
 ``` {.sourceCode .c++}
 #include "rclcpp/rclcpp.hpp"
@@ -1368,10 +1416,10 @@ class MinimalSubscriber : public rclcpp::Node
   ...
 ```
 
-------------------------------------------------------------------------
+
 
   More Subscriber
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
   * The subscriber node looks fairly similar to our publisher but instead of publishing on a regular callback, we get a callback when a new message hits our topic.
   .. code-block:: c++
   :linenos:
@@ -1397,24 +1445,24 @@ class MinimalSubscriber : public rclcpp::Node
   
   Let's Modify the Subscriber
 
--   In the publisher we changed the name of our publisher topic to
+* In the publisher we changed the name of our publisher topic to
     greetings.
--   Let's change the subscribed topic to greetings.
--   Note that there are a lot of ways to change topic names, modifying
+* Let's change the subscribed topic to greetings.
+* Note that there are a lot of ways to change topic names, modifying
     source is just one approach. Often we just remap topics instead of
     changing source.
--   Once you have modified the subscriber run colocon build (it will
+* Once you have modified the subscriber run colocon build (it will
     build everything)
--   Open another terminal, source the bash file, and start the
+* Open another terminal, source the bash file, and start the
     publisher.
-    -   ros2 run examples\_rclcpp\_minimal\_publisher publisher\_member\_function
--   Now run our subscriber.
-    -   ros2 run examples\_rclcpp\_minimal\_subscriber subscriber\_member\_function
+    * ros2 run examples\_rclcpp\_minimal\_publisher publisher\_member\_function
+* Now run our subscriber.
+    * ros2 run examples\_rclcpp\_minimal\_subscriber subscriber\_member\_function
 
-------------------------------------------------------------------------
+
 
   The Result
-  -------------------------------------------------------------------------------------------------------------------------------
+  
   If everything went well you should have two screens. The first screen with the publisher should be spitting out the following
   .. code-block:: bash
   \[INFO\] \[revenge\_of\_minimal\_publisher\]: Publishing: 'Hello, Open Road! 1000'
@@ -1435,30 +1483,30 @@ class MinimalSubscriber : public rclcpp::Node
   
   Making Things Happen with Services
 
--   Publishing and subscribing nodes are the bread and butter of ROS.
+* Publishing and subscribing nodes are the bread and butter of ROS.
     This pattern is great for moving around a lot of data, and
     processing it quickly.
--   However, we often want our robots to respond to data. To construct
+* However, we often want our robots to respond to data. To construct
     simple behaviors in ROS we use services.
--   A service is a robotic task that can be performed *synchronously*,
+* A service is a robotic task that can be performed *synchronously*,
     which is just a fancy word for, "while you wait".
--   A good analogy for services would be a regular old function call. In
+* A good analogy for services would be a regular old function call. In
     most programs when you call a function, the code making the call
     waits for the function to return before proceeding.
--   A few toy examples of services for autonomous driving would be:
-    -   Turning Lights Off/On.
-    -   Checking a sensor and returning the results.
-    -   Lock / Unlock a door or window.
-    -   Beeping a horn.
--   Services can be called via the command line or through an API call
+* A few toy examples of services for autonomous driving would be:
+    * Turning Lights Off/On.
+    * Checking a sensor and returning the results.
+    * Lock / Unlock a door or window.
+    * Beeping a horn.
+* Services can be called via the command line or through an API call
     within another node.
--   In ROS services are hosted within a ROS Node, and they can co-exist
+* In ROS services are hosted within a ROS Node, and they can co-exist
     with other services as well as publishers and subscribers.
 
-------------------------------------------------------------------------
+
 
   C++ Service Example
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  --
   * As a toy example of a ROS service we are going to make a node that offers an "AddTwoInts" service.
   * What will happen is the service has two inputs, and returns a single output.
   * There is a full tutorial [about the process here](https://index.ros.org/doc/ros2/Tutorials/Writing-A-Simple-Cpp-Service-And-Client/). It goes into more detail and it is worth looking at.
@@ -1504,10 +1552,10 @@ void handle_service(
 
 > }
 
-------------------------------------------------------------------------
+
 
   ROS 2 Service Main
-  ------------------------------------------------------------------------------------------------------------
+  -
   .. code-block:: C++
   :linenos:
   int main(int argc, char ** argv)
@@ -1570,10 +1618,10 @@ a: 1 b: 1
 
 Congratulations, you just made your first service call!
 
-------------------------------------------------------------------------
+
 
   Using a Service in Code
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  --
   We just called our service from the command line to test it, but more often than not we would want to do this in source code.
   Let's look at an example of how to do that. In your editor or using less take a look at the following file: /home/kscottz/ros2\_example\_ws/src/examples/rclcpp/minimal\_client/main.cpp
   .. code-block:: C++
@@ -1618,10 +1666,10 @@ RCLCPP_INFO(node->get_logger(), "result of %" PRId64 " + %" PRId64 " = %" PRId64
 
 > rclcpp::shutdown(); // shutdown return 0; }
 
-------------------------------------------------------------------------
+
 
   Let's Run Our Client
-  -----------------------------------------------------------------------------------------------------------
+  
   * Now we're going to run our service and then call it from the client.
   * You'll need two terminals to do this. Remember F2/F3 let you open and switch to a new terminal in ADE.
   First fire up your service if it isn't already running.
@@ -1642,32 +1690,32 @@ RCLCPP_INFO(node->get_logger(), "result of %" PRId64 " + %" PRId64 " = %" PRId64
   
   ROS C++ Actions
 
--   Actions are ROS / ROS 2's answers to asynchronous remote procedure
+* Actions are ROS / ROS 2's answers to asynchronous remote procedure
     calls.
--   Notice how quickly how fast our service call happened. It was more
+* Notice how quickly how fast our service call happened. It was more
     or less instant.
--   Actions are the preferred approach for things that may not happen
+* Actions are the preferred approach for things that may not happen
     instantaneously.
--   The canonical example of a ROS Action would be sending the robot a
+* The canonical example of a ROS Action would be sending the robot a
     command to navigate to a way point.
--   The process of navigation is going to take a bit of time, what we
+* The process of navigation is going to take a bit of time, what we
     want to do is to kick off the process, wait for updates, and then
     once things are complete we get a result.
--   Just like services there are two parts of an action. The action
+* Just like services there are two parts of an action. The action
     server and the action client. *Note that there can be more than one
     client.*
--   Actions become fairly complex as they can serve multiple clients.
+* Actions become fairly complex as they can serve multiple clients.
     This means the action may need to keep track of multiple concurrent
     connections.
-    -   Since action servers can get overwhelmed by requests, they need
+    * Since action servers can get overwhelmed by requests, they need
         to *accept* every request before proceeding to process it.
-    -   The clients can also *cancel* at any time, so that needs to be
+    * The clients can also *cancel* at any time, so that needs to be
         handled.
 
-------------------------------------------------------------------------
+
 
   Parts of an Action
-  -------------------------------------------------------------------------------------------------
+  
   * Find the action. An action server may be down!
   * The Action Request -- the service *can* decline to take an action.
   * The Action being accepted.
@@ -1682,23 +1730,23 @@ will calculate the Nth number in the [Fibonacci
 series](https://en.wikipedia.org/wiki/Fibonacci_number). So, what will
 happen when we call this toy action?
 
--   We will call the action with a single integer indicating the
+* We will call the action with a single integer indicating the
     sequence number of the Fibonacci number we want.
--   The action will update us as it calculates the sequence of numbers
+* The action will update us as it calculates the sequence of numbers
     and update it us as it calculates a new one.
--   When the action gets to our desired number in the sequence, it will
+* When the action gets to our desired number in the sequence, it will
     return the results.
--   For example, if we called action with the input 7, we would get the
+* For example, if we called action with the input 7, we would get the
     seventh Fibonacci number. Which means, given the series &lt;0, 1, 1,
     2, 3, 5, 8&gt;, would be the number 8.
--   The action should update us along the way in the calculation. It
+* The action should update us along the way in the calculation. It
     should return the series of numbers every time it calculates a new
     number.
 
-------------------------------------------------------------------------
+
 
   Action Definition Files
-  --------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ----
   * Actions use a definition file to build all of the ROS boiler plate like cross language header/definition files for use in multiple programming languages.
   * These action files are written in YAML and use the *.action suffix.
   * The ROS meta build system colcon will use these action files to auto-magically generate all of the header files.
@@ -1741,10 +1789,10 @@ FibonacciActionGoal.msg (END)
 kscottz@ade:/opt/ros/dashing/share/example_interfaces/action/msg$ cd ~
 ```
 
-------------------------------------------------------------------------
+
 
   Let's take a look at Action Server
-  ---------------------------------------------------------------------------------------------------------------------------------------------
+  --
   * Let's take a look at how our Fibonacci action server.
   * Use your favorite text editor to open: /home/kscottz/ros2\_example\_ws/src/examples/rclcpp/minimal\_action\_server/member\_functions.cpp
   .. code-block:: C++
@@ -1802,10 +1850,10 @@ rclcpp_action::CancelResponse handle_cancel(
 }
 ```
 
-------------------------------------------------------------------------
+
 
   The Meat of the Fib Function
-  ------------------------------------------------------------------------------------------------
+  ----
   .. code-block:: C++
   void execute(const std::shared\_ptr&lt;GoalHandleFibonacci&gt; goal\_handle)
   { // This is the meaty part of the function
@@ -1864,10 +1912,10 @@ int main(int argc, char ** argv)
 }
 ```
 
-------------------------------------------------------------------------
+
 
   Let's Run Our Action and Call It.
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ---
   * Ordinarily you would call colcon build in your workspace to build the source code. We're just inspecting this method so this isn't necessary.
   * We'll start the action server and then call it manually using the ROS 2 CLI.
   .. code-block:: bash
@@ -1900,10 +1948,10 @@ updates.
 [INFO] [minimal_action_server]: Returning result: array('i', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
 ```
 
-------------------------------------------------------------------------
+
 
   Action Client
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------
+  -
   * Let's take at the client side API implementation. Open the file:
   \~/ros2\_example\_ws/src/examples/rclcpp/ minimal\_action\_client/member\_functions.cpp
   * We'll address the basic implementation but that directory has additional examples for other use cases and things like canceling an action mid-process.
@@ -1943,10 +1991,10 @@ class MinimalActionClient : public rclcpp::Node
    }
 ```
 
-------------------------------------------------------------------------
+
 
   Sending the Goal
-  -------------------------------------------------------------------------------------------------------------------------------------------------------
+  --
   Our client constructor above set a time to call send\_goal after 500ms. We'll bind our member functions to the action events and then send the goals.
   .. code-block:: C++
   // method to check if goal is done
@@ -1992,10 +2040,10 @@ auto goal_handle_future = this->client_ptr_->async_send_goal(goal_msg, send_goal
  }
 ```
 
-------------------------------------------------------------------------
+
 
   Handling the Responses
-  -------------------------------------------------------------------------------------------------------------------------------------------
+  
   Next up we create our private member variables and define the functions that get called with the goal response and the periodic feedback.
   .. code-block:: C++
   private:
@@ -2053,10 +2101,10 @@ void result_callback(const GoalHandleFibonacci::WrappedResult & result)
 };  // class MinimalActionClient
 ```
 
-------------------------------------------------------------------------
+
 
   Running our Client Class
-  --------------------------------------------------------------------------------------------------------------------------
+  
   Finally the main function that attaches to our node class. It simply creates a class instance and runs until completion.
   .. code-block:: C++
   :linenos:
@@ -2074,7 +2122,7 @@ void result_callback(const GoalHandleFibonacci::WrappedResult & result)
   
   Let's Run our Client
 
--   We'll start the action server the same way as before
+* We'll start the action server the same way as before
 
 ``` {.sourceCode .bash}
 kscottz@ade:~/ros2_example_ws$ ros2 run examples_rclcpp_minimal_action_server action_server_member_functions
@@ -2099,23 +2147,23 @@ kscottz@ade:~/ros2_example_ws$ ros2 run examples_rclcpp_minimal_action_client ac
 [INFO] [minimal_action_client]: Goal succeeded! Result: array('i', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
 ```
 
-------------------------------------------------------------------------
 
-  ----------------
+
+  -
   Wrapping Up...
-  ----------------
+  -
 
--   We've just seen the set of API primitives upon which most ROS
+* We've just seen the set of API primitives upon which most ROS
     systems are made.
--   Generally speaking, when you build a robot you work from simple to
+* Generally speaking, when you build a robot you work from simple to
     complex. You build the nodes and topics first, then the services,
     and finally the actions.
--   While we addressed all of these topics with the C++ API there is an
+* While we addressed all of these topics with the C++ API there is an
     equivalent Python API that works similarly.
--   Moreover, there are additional API primitives that you can check
+* Moreover, there are additional API primitives that you can check
     out.
--   All of these examples are in the workspace that we created.
--   I would encourage you to modify these examples to build a better
+* All of these examples are in the workspace that we created.
+* I would encourage you to modify these examples to build a better
     idea of how they work.
 
 **Next time we'll cover the ROS 2 CLI**
