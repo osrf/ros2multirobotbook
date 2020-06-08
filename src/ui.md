@@ -47,18 +47,20 @@ A "direct" library is able to send and receive ROS2 messages directly from the a
 
 At the end of the day, writing a RoMi UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS2 in response to user input and updating the state.
 
-# Tutorial: React Webapp
+# Tutorial: React WebApp
 
 In this section, we will go through an example of creating a React based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RoMi, basic knowledge of React and typescript is needed.
 
 Note that this isn't the only way to create a RoMi UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS2 messages.
 
+The code for this tutorial is available at <https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial>.
+
 ## Requirements
 
   * nodejs >= 10
-  * soss (https://github.com/osrf/soss)
-  * soss-romi-plugins (https://github.com/osrf/soss-romi-plugins)
-  * rmf_demo (https://github.com/osrf/rmf_demo)
+  * soss (<https://github.com/osrf/soss>)
+  * romi-soss-ros2 (<https://github.com/osrf/romi-soss-ros2>)
+  * rmf_demos (<https://github.com/osrf/rmf_demos>)
 
 We will not go through the process of setting up the dependencies, instructions to set them up can be easily found on the web or from their project homepages.
 
@@ -70,7 +72,7 @@ We will be using an example from rmf_demo as the RoMi deployment that we will be
 ros2 launch demos office.launch.xml
 ```
 
-Next let's test if soss is working. In order to run soss, you need to provide it with a configuration file, you can use [this](react-app-tutorial/soss.yaml) template as a start. You would need a certificate for soss, refer to various tutorials online to generate one, if you are using a self-signed cert, also make sure your browser is set to accept it for websocket connections. Add the path of your cert and key to the soss config and try starting soss with
+Next let's test if soss is working. In order to run soss, you need to provide it with a configuration file, you can use [this](ui-resources/soss.yaml) template as a start. You would need a certificate for soss, refer to various tutorials online to generate one, if you are using a self-signed cert, also make sure your browser is set to accept it for websocket connections. Add the path of your cert and key to the soss config and try starting soss with
 
 ```
 soss <path_to_config>
@@ -88,7 +90,7 @@ Go inside the newly created `react-app-tutorial` directory and run the follow co
 npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport jsonwebtoken @types/jsonwebtoken
 ```
 
-These libraries are not strictly required but they contain helpful functions to use soss and to communicate with RoMi. If you are building a javascript based RoMi app, it is recommended to make use of them, we will see later how they greatly simplifies the communicaton to RoMi.
+These libraries are not strictly required but they contain helpful functions to use soss and to communicate with RoMi. If you are building a javascript based RoMi app, it is recommended to make use of them, we will see later how they simplify the communicaton to RoMi.
 
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS2 messages directly, however it does not work on the browser. It is preferred if you are writing a nodejs based desktop application using something like electron, or you are writing a server based application like a REST API provider.
@@ -145,7 +147,7 @@ export default Door;
 
 Note here that we are using `@osrf/romi-js-core-interfaces`, this package provides typings information for core messages used by RoMi, if you are using an IDE with typescript autocomplete support, you can easily see the various fields and constants used by the `Door` and `DoorState` messages.
 
-Take the `doorModedString` function for example, using `@osrf/romi-js-core-interfaces` allows us to switch based on the door mode constant (MODE_OPEN, MODE_CLOSED, MODE_MOVING). Normally you would have to refer to the RoMi manual or the ros2 message definition and map the constants manually like this:
+Take the `doorModeString` function for example, using `@osrf/romi-js-core-interfaces` allows us to switch based on the door mode constant (MODE_OPEN, MODE_CLOSED, MODE_MOVING). Normally you would have to refer to the RoMi manual or the ros2 message definition and map the constants manually like this:
 
 ```js
 function doorModeString(doorMode: RomiCore.DoorMode): string {
@@ -262,9 +264,22 @@ const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building
 setDoors(buildingMap.levels.flatMap((level) => level.doors));
 ```
 
-download and parses the building map from RoMi. `romi-js` simplifies a ROS2 service call with the async `call` method. Here is another place where `romi-js` is useful, it contains a list of known interfaces used by RoMi so you do not need to consult with the RoMi manual on what services are available. It also knows what types are the request and response messages which makes destructuring the building map that much easier.
+download and parses the building map from RoMi. `romi-js` simplifies a ROS2 service call with the async `call` method. If you are familiar with `rclnodejs`, this is roughly equivalent to
 
-You should now see 3 doors that are in the building
+```js
+const client = node.createClient(
+  'building_map_msgs/srv/GetBuildingMap',
+  'get_building_map'
+);
+client.sendRequest({}, response => {
+  const buildingMap = response.building_map;
+  setDoors(buildingMap.levels.flatMap((level) => level.doors));
+});
+```
+
+Instead of specifying the service name and type, `romi-js` allows us to specify a known service `getBuildingMap`. It is not obvious here but `romi-js` also provides type information for the request and reponses. Altogether, they make it easier to prepare the messages without constantly referring to the ROS2 definitions.
+
+If everything goes well, you should see 3 doors that are in the building
 
 ![Doors](ui-resources/building-map-doors.png)
 
@@ -284,7 +299,9 @@ transport.subscribe(RomiCore.doorStates, (doorState) =>
 );
 ```
 
-also pass the door state to the door component
+This performs a ROS2 subscription to the `RomiCore.doorStates` topic, similar to the service call we did earlier, `romi-js` abstracts away the ROS2 topic name and provide type information. The callback will be fired each time a new door state message comes in, in the callback, we simply update the `doorStates` state.
+
+now just pass the door state to the door component
 
 ```js
 <Door door={door} doorState={doorStates[door.name]} />
@@ -328,23 +345,21 @@ function App() {
 export default App;
 ```
 
-The main work is in these lines
-
-```js
-transport.subscribe(RomiCore.doorStates, (doorState) =>
-  setDoorStates((prev) => ({ ...prev, [doorState.door_name]: doorState })),
-);
-```
-
-This performs a ROS2 topic subscription, the callback will get triggered whenever a new door state arrives, in the callback we simply update the state to match the latest data. Similar to the service call we did before `romi-js` simplify things by providing the list of known topics and their expected message types.
-
 And just like that we now have the door states!
 
 ![with door states](ui-resources/with-door-states.png)
 
 ## Sending Door Requests
 
-As you have expected by now, all we have to do here is to send door requests to RoMi. Add this after the react effect
+As you have expected by now, all we have to do here is to send door requests to RoMi.
+
+First, create a publisher, add this to the start of the render function.
+
+```js
+const doorRequestPub = React.useRef<RomiCore.Publisher<RomiCore.DoorRequest> | null>(null);
+```
+
+Then add this helper function
 
 ```js
 const requestDoor = (door: RomiCore.Door, mode: number) => {
@@ -360,7 +375,9 @@ const requestDoor = (door: RomiCore.Door, mode: number) => {
 };
 ```
 
-and add this to the props passed to the door component
+it takes in a `RomiCore.Door` and a number, representing the desired mode and simply craft a `RomiCore.DoorRequest` message and sends it using the publisher. The typing information from `romi-js` makes it easy to find all the required fields, we are also using a helper function from `romi-js`, `RomiCore.toRosTime` converts a `Date` object to a ROS2 `builtin_interfaces/Time` object that we can put into the `request_time` field.
+
+and finally add this to the props passed to the door component
 
 ```js
 onOpenClick={() => requestDoor(door, RomiCore.DoorMode.MODE_OPEN)}
