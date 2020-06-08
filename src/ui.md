@@ -449,3 +449,91 @@ Try clicking on the open and close buttons now, you should see the door state be
 We have just created a minimal RoMi UI application that reports the door state and control them. There isn't much feature but hopefully this tutorial provides the basic knowledge of how to create a RoMi UI application not just in React but also in any frameworks that you like.
 
 If you would like more examples of a React RoMi application, you can take a look at the official [RoMi dashboard](https://github.com/osrf/romi-dashboard).
+
+## Extra: Extending romi-js
+
+Throughout the tutorial, we are using `romi-js` to simplify the communication to RoMi. As you might have noticed `romi-js` is actually a collection of packages, this design makes it possible to easily extend it with new topic, services and even transports.
+
+### Adding Topics and Services
+
+Adding topics and services are very simple, a topic and service is defined by the interfaces
+
+```js
+export interface RomiTopic<Message> {
+  readonly validate: (msg: any) => Message;
+  readonly type: string;
+  readonly topic: string;
+  readonly options?: Options;
+}
+
+export interface RomiService<Request, Response> {
+  readonly validateRequest: (msg: any) => Request;
+  readonly validateResponse: (msg: any) => Response;
+  readonly type: string;
+  readonly service: string;
+  readonly options?: Options;
+}
+```
+
+If you are familiar with ROS2, the `type` field specify the message type that the topic or service expects, `topic`/`service` are the topic and service names respectively. Sometimes a topic or service is expected to use a different QoS option, for example a topic that does not only publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The `options` specify the "default" QoS options that should be used, in this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.
+
+The `validate*` methods are used by the transport to convert an abitary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.
+
+We can create custom topics or services by implementing these interfaces, they can then be passed to the transport's various methods.
+
+```js
+export const myTopic: RomiTopic<MyMessage> = {
+  validate: validateMyMessage(msg), // some function that valides MyMessage
+  type: 'my_messages/msg/MyMessage',
+  topic: 'my_topic',
+};
+```
+
+### Adding Transport
+
+A `Transport` in `romi-js` is a class with the interface
+
+```js
+export interface Subscription {
+  unsubscribe(): void;
+}
+
+export interface Publisher<Message> {
+  publish(msg: Message): void;
+}
+
+export interface Service<Request, Response> {
+  start(handler: (req: Request) => Promise<Response> | Response): void;
+  stop(): void;
+}
+
+export interface Transport extends TransportEvents {
+  readonly name: string;
+
+  createPublisher<Message extends unknown>(
+    topic: RomiTopic<Message>,
+    options?: Options,
+  ): Publisher<Message>;
+
+  subscribe<Message extends unknown>(
+    topic: RomiTopic<Message>,
+    cb: SubscriptionCb<Message>,
+    options?: Options,
+  ): Subscription;
+
+  call<Request extends unknown, Response extends unknown>(
+    service: RomiService<Request, Response>,
+    req: Request,
+  ): Promise<Response>;
+
+  createService<Request extends unknown, Response extends unknown>(
+    service: RomiService<Request, Response>,
+  ): Service<Request, Response>;
+
+  destroy(): void;
+}
+```
+
+There isn't a general guide on how the interface should be implemented, the details would be different for each transport. One thing to note is that it might tempting to return a type derived from `any` (e.g. `Publisher<any>`) to pass the typescript checks but doing so is not recommended. You should call the `validate*` methods in the topic or service to convert something into a type of `Message`.
+
+To ensure compatibilities with different topics and services, transports must deserialize the data to a plain old data object. It can use either number arrays or typed arrays, the `validate*` methods should support converting them to the expected types.
