@@ -2,6 +2,16 @@
 
 Herein we shall discuss Deep Thoughts about ROS 2
 
+{{#include ros2_tools_resources.md}}
+
+{{#include ros2_design_patterns.md}}
+
+{{#include ros2_cli.md}}
+
+{{#include ros2_api.md}}
+
+## Slide content to draw from is below
+
 Lesson 2: ROS API and Build Tools ==
 
 -   This lesson is intended to be an hour long crash course in the ROS 2
