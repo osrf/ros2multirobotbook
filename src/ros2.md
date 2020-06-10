@@ -1,11 +1,4 @@
-
-
-# ROS 2
-=======
-
-## Slide content to draw from is below
-
-## Lesson 2: ROS API and Build Tools ==
+# An Introduction to ROS 2
 
 
 {{#include ros2_tools_resources.md}}
