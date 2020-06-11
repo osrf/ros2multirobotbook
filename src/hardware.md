@@ -1,8 +1,30 @@
+<!-- # Requirements -->
+
+<!-- robot, door, lift, workcell, etc. integration with RMF
+
+    I have a door door
+    I have an elevator / I have a lift arrow_up_down
+    I have a workcell robot mechanical_arm
+    I have a loose mobile robot and would like to use FreeFleet (F5)
+        robot runs ROS 1
+        robot runs ROS 2
+        robot runs something that I wrote
+        robot runs something somebody else wrote and I can't change
+    I have some mobile robots with their own fleet manager(s)
+        it has a REST API or some other formal API (XMLRPC)
+        it has some other communication mechanism (SQL database, etc.) -->
+
 # Hardware
 
-In this chapter, we will describe the process for adding hardware to RMF,
-describing how to build the necessary ROS 2 packages and interfaces that
-are used by `rmf_core`.
+In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include robots, doors, elevators and workcells. In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
+
+## Robots
+
+## Doors
+
+## Elevators
+
+## Workcells
 
 # Map data requirements for integration with RoMi-H / rmf_core
 
