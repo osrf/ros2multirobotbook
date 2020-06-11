@@ -1,5 +1,4 @@
-ROS Concepts and Design Patterns
-===
+# ROS Concepts and Design Patterns
 
 As we said, learning about ROS is similar to learning about an
 automobile. In fact, a car is a lot like a robot (and sometimes it
@@ -20,8 +19,7 @@ with each other to produce the desired behavior of that system. In ROS
 we call those parts *nodes* and we call the interactions between them
 *topics* (and sometimes *services*, but we will get to that).
 
-The ROS Communication Graph
----
+## The ROS Communication Graph
 
 Imagine we are building a wheeled robot that chases a red ball. This
 robot needs a camera with which to see the ball, a vision system to
@@ -54,7 +52,56 @@ a standard format. Finally, the motor driver node's responsibility is to
 convert the desired steering direction into the specific instructions
 necessary to command the robot's wheel motors accordingly.
 
-This design approach offers several key benefits:
+## Publish-subscribe messaging: topics and types
+
+With the example of the ball-chasing robot in mind, we can add some terminology
+to describe what is happening as the system operates. First, the ROS
+communication graph is based on a well-known pattern called *publish-subscribe
+messaging*, or simply *pub-sub*. In a pub-sub system, as the name implies, data
+are sent as *messages* from *publishers* to *subscribers*. A publisher may have
+zero, one, or multiple subscribers listening to its published messages. Messages
+may be published at any time, making the system *asynchronous*.
+
+In ROS, a nodes publish and subscribe via topics, each of which has a name and a
+type.  A publisher announces that it will be publishing data by *advertising* a
+topic. For example, the camera driver node may advertise a topic named `/image`
+with type `sensor_msgs/Image`. If the blob finder node subscribes to a topic
+with the same name and type, then the two nodes find each other and establish a
+connection over which image messages can get from the camera driver to the blob
+finder (the nodes find each other and establish those connection in a process
+called *discovery*, which will be treated in detail later in this book). Each
+message that flows across the `/image` topic will be of type
+`sensor_msgs/Image`.
+
+A single node can be (and often is) both a publisher and a subscriber. In our
+example, the blob finder subscribes to image messages and publishes ball
+location messages. Similarly the target follower subscribes to ball location
+messages and publishes steering direction messages.
+
+A topic's type is very important. In fact, taken together, the ROS types are
+among the most valuable aspects of the entire platform. First, a type tells you
+the syntax: which fields, of which types, does the message contain?  Second, it
+tells you the semantics: what do those fields mean and how they should be
+interpreted? For example, a thermometer and a pressure sensor might produce what
+appear to be the same data: a floating-point value. But in ROS a well-designed
+thermometer driver node would publish one clearly defined type (say,
+`sensor_msgs/Temperature`), while a pressure sensor driver node would publish
+another (say, `sensor_msgs/FluidPressure`).
+
+We always advise the use of semantically meaningful message types.
+For example, ROS provides simple message types like `std_msgs/Float64`, which
+contains a single 64-bit floating-point field called `data`. But you should only
+use that sort of generic type for rapid prototyping and experimenting. When you
+build a real system, even if something like `std_msgs/Float64` could get the job
+done on syntax, you should instead find or define a message that also matches
+the semantics of your application.
+
+## Why publish-subscribe?
+
+Given that it comes with additional complexity (nodes, topics, types, etc.), it
+is reasonable to ask why ROS follows the pub-sub pattern. After more than a
+decade of building and deploying ROS-based robot systems, we can identify
+several key benefits:
 
 - **Substitution**: If we decide to upgrade the robot's camera, we need
   only modify or replace the camera driver node. The rest of the system
@@ -92,3 +139,11 @@ expert is dedicated to Python. We can accommodate those preferences
 easily by just running those nodes in separate processes. In ROS, it is
 perfectly reasonable, and in fact quite common, to mix and match the use
 of languages in this way.
+
+## Beyond topics: services and actions
+
+TODO
+
+## Asynchrony in code: callbacks
+
+TODO
