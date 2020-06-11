@@ -16,9 +16,13 @@
 
 # Hardware
 
-In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include robots, doors, elevators and workcells. In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
+In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include [robots](#robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
 
 ## Robots
+
+We have identified a number of different scenarios where 
+
+Robots in industrial settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. 
 
 ## Doors
 
