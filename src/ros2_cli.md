@@ -355,8 +355,107 @@ complex data structures that are defined by a _message type_. When we added the
 `--show-types` flag we told the command to include this information. We'll dig
 into messages in detail a bit later. 
 
-Now that we know what ros topics are on our simple turtlesim we can dig in and
-find out more about how it works. If we look back at our topic sub commands we
+One of the more commonly used topic sub commands for the
+topic command is
+`info`. Unsurprisingly info provides info about a topic. Let's peek at its help
+file using `ros2 topic info --help`
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info --help
+usage: ros2 topic info [-h] topic_name
+
+Print information about a topic
+
+positional arguments:
+  topic_name  Name of the ROS topic to get info (e.g. '/chatter')
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+That seems pretty straight forward. Let's give it a go by running it on
+`/turtle1/pose`
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info /turtle1/pose 
+Type: turtlesim/msg/Pose
+Publisher count: 1
+Subscriber count: 1
+```
+What does this command tell us? First it tells us the _message type_ for the
+pose topic; which is `/turtlesim/msg/Pose`. From this we can determine that the
+message type comes from the _turtlesim_ package, and its type is `Pose`. ROS
+messages have a predefined message type that can be shared by different
+programming languages and between different nodes. We can also see that this
+topic has a single publisher, that is to say a single node generating data on the
+topic. The topic also has a single subscriber, also called a listener, who is
+processing the incoming pose data. 
+
+For what it is worth, if we just wanted to know the message type of a topic
+there is a sub command just for that called, `type`. Let's take a look at its
+help file and its result. 
+
+```
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic type --help
+usage: ros2 topic type [-h] topic_name
+
+Print a topic's type
+
+positional arguments:
+  topic_name  Name of the ROS topic to get type (e.g. '/chatter')
+
+optional arguments:
+  -h, --help  show this help message and exit
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic type /turtle1/pose
+turtlesim/msg/Pose
+```
+
+While it is not part of topic command it is worthwhile for us to jump ahead
+briefly and look at one particular command, sub command pair, namely the `interface`
+command and the show sub command. This sub command will print all the
+information related to a message type using you can better understand the data
+being moved over a topic. In the previous example we saw that the `topic type`
+sub command told up the `/turtle1/pose` topic has a type `turtlesim/msg/Pose`.
+But what is a `turtlesim/msg/Pose` you may ask? We can look at the data
+structure transferred by this topic by running: `ros2 interface show`
+sub command and giving the message type name as an input. Let's look at the help
+for this sub command and its output:
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show --help
+usage: ros2 interface show [-h] type
+
+Output the interface definition
+
+positional arguments:
+  type        Show an interface definition (e.g. "std_msgs/msg/String")
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show turtlesim/msg/Pose 
+float32 x
+float32 y
+float32 theta
+
+float32 linear_velocity
+float32 angular_velocity
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ 
+```
+What does all of this mean? The first thing we see in the output is `float32`
+which is just a number type. If you are a computer programmer then this should
+look familiar, if you're not a programmer a float is just a number with a
+decimal like "1.2345" or "424123123.1231231". The values "x" and "y" are the
+position of our turtle, and "theta" is the direction the head is pointing. The
+next two values "linear_velocity" and "angular_velocity" are, respectively how
+fast the turtle is moving, and how quickly it is turning. To summarize, this
+message tells us where a turtle is on the screen, where it is headed, and how
+fast it is moving or rotating. 
+
+
+Now that we know what ROS topics are on our simple turtlesim, and their message
+type  we can dig in and
+find out more about how everything works. If we look back at our topic sub commands we
 can see a sub command called `echo`. Echo is computer jargon that means "repeat"
 something. If you echo a topic it means you want the CLI to repeat what's on a
 topic. Let's look at the echo subcommand's help:
@@ -404,8 +503,162 @@ optional arguments:
   --no-str              Don't print string fields of messages
 ```
 
+Wow, that's a lot of features. The top of the help files says that this CLI
+program, "output[s] messages from a topic." As we scan the positional arguments we see one
+required argument, a topic name, and an optional message type. We know the
+message type is optional because it has square brackets ("[]") around it. Let's
+give the simple case a whirl before we address some of the optional
+elements. Two things to keep in mind: first is that  topics are long and easy to mess
+up, use the TAB key, second is that this will print a lot of data, fast. You can
+use `CTRL-C` to stop command and stop all the output. Let's take a look at the
+`/turtle1/pose` topic. 
 
-Returning to our simple turtle example, we have two nodes, the turtlesim node
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose 
+x: 5.4078755378723145
+y: 7.081490516662598
+theta: -1.0670461654663086
+linear_velocity: 1.0
+angular_velocity: 0.0
+---
+x: 5.4155988693237305
+y: 7.067478179931641
+theta: -1.0670461654663086
+linear_velocity: 1.0
+angular_velocity: 0.0
+---
+x: 5.423322677612305
+y: 7.053465843200684
+theta: -1.0670461654663086
+linear_velocity: 1.0
+angular_velocity: 0.0
+---
+<< GOING ON FOREVER>> 
+```
+
+What can see all sorts of data. Let's examine what is going on. Between the
+dashes (`---`) is a single ROS message on our topic. If you examine the numbers
+closely you can see that they are changing; and changing in relation to the
+movement of the turtle. Going back to our car example you can see how this would
+be useful for understanding the instantaneous velocity of each of our wheels. 
+
+Now that we have the basics down let's dig into a few of the optional
+arguments. We see a variety of commands that start with `--qos`, "QOS" here
+means "quality of service" and it is a really cool feature that is only in
+ROS 2. Without getting too technical QOS is a way of asking for a certain level
+of networking robustness. A ROS system can operate over a network, and just like
+streaming video or video games, packets can get dropped or not get to their
+destination. The QOS settings help you control which packets are the most
+important and should get the highest priority. 
+
+Most of the other commands deal with changing the output format of this CLI
+program, but there is one in particular that is super handy, and it is also new
+in ROS 2. The `--csv` flag stands for "comma separated values" and it a very
+simple way of defining a spread sheet. What this argument does is make the topic
+echo command output data in the comma separate value format. Many command lines
+allow you send data from the screen to a file using just a little bit of
+magic. What's great about this is it allows you to save data for later
+review or analysis. To do this file saving in linux we use the `>` character
+followed by a file name. Below I show two examples of using the `--csv` 
+
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose --csv
+7.097168922424316,8.498645782470703,2.442624092102051,0.0,0.4000000059604645
+7.097168922424316,8.498645782470703,2.449024200439453,0.0,0.4000000059604645
+... 
+<CRTL-C>
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose --csv > mydata.csv
+<nothing happens>
+<CTRL-C>
+```
+
+The second command above creates a file called mydata.csv. You can look at it
+using a CLI utility called `less` (press q to quit), or open it with your
+favorite spread sheet tool. 
+
+Now that we've looked at `ros2 topic echo` let's take a look at a few other
+topic sub commands. One thing you may have noticed is that topics can make a lot
+of data! More complex robots, like a self driving car, can saturate a high speed
+internet connection with how much data it produces. There are two topic sub
+commands that can be used to diagnose performance issues. The first sub command
+is `topic hz` which is the abbreviation of Hertz, the unit of frequency, as in
+the frequency of a radio station. The `hz` sub command will tell you how often a
+particular topic produces a message. Similarly there is the `topic bw` sub
+command, where `bw` stands for bandwidth, which is a engineering term related to
+the _volume_ of data being produced. A high bandwidth connection can move more
+data, like high definition video, than a low bandwidth data, which might move a
+radio show. Let's take a look at the help for these two commands.
+
+{.sourceCode .bash}
+```
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic hz --help
+usage: ros2 topic hz [-h] [--window WINDOW] [--filter EXPR] [--wall-time]
+                     topic_name
+
+Print the average publishing rate to screen
+
+positional arguments:
+  topic_name            Name of the ROS topic to listen to (e.g. '/chatter')
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --window WINDOW, -w WINDOW
+                        window size, in # of messages, for calculating rate
+                        (default: 10000)
+  --filter EXPR         only measure messages matching the specified Python
+                        expression
+  --wall-time           calculates rate using wall time which can be helpful
+                        when clock is not published during simulation
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic bw --help
+usage: ros2 topic bw [-h] [--window WINDOW] topic
+
+Display bandwidth used by topic
+
+positional arguments:
+  topic                 Topic name to monitor for bandwidth utilization
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --window WINDOW, -w WINDOW
+                        window size, in # of messages, for calculating rate
+                        (default: 100)
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ 
+
+```
+Both `bw` and `hz` follow the same pattern, they simply take in a topic name
+followed by a few optional arguments. The only argument worth noting is the
+`window` argument. Both of these commands calculate statistics for a series of
+messages, how many messages to use in calculating those statistics in the window
+size. The default value for window is 100, so when you call `ros2 topic bw` it
+will first collect 100 messages then use that data to calculate the average
+message size. Let's give it a shot (use `TAB` to complete and `CTRL-C` to exit) 
+
+```
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic hz /turtle1/pose
+average rate: 60.021
+	min: 0.001s max: 0.073s std dev: 0.00731s window: 65
+average rate: 61.235
+	min: 0.001s max: 0.073s std dev: 0.00523s window: 128
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic bw /turtle1/pose
+Subscribed to [/turtle1/pose]
+average: 1.44KB/s
+	mean: 0.02KB/s min: 0.02KB/s max: 0.02KB/s window: 46
+average: 1.52KB/s
+	mean: 0.02KB/s min: 0.02KB/s max: 0.02KB/s window: 100
+
+```
+
+As we can see above the `hz` command says that the topic is publishing messages
+at 60.021, where the unit is hz, or 60.021 times a second. Notice that the
+command give the publishing frequency as an average, followed by the minimum,
+maximum, and standard deviation, in seconds. The bandwidth sub command is very
+similar; and we can see that the topic is producing 1.44 kilobytes of data per
+second. This command has similar outputs around the minimum, maximum, and mean. 
+
+
+Returning to our sile turtle example, we have two nodes, the turtlesim node
 publishes the position of the turtle, and listens, or subscribes for commands to
 move the turtle. The draw_square node simply publishes command  
 
