@@ -16,13 +16,117 @@
 
 # Hardware
 
-In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include [robots](#robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
+In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
 
-## Robots
+In general, all the interactions can be summed up with this system architecture diagram,
 
-We have identified a number of different scenarios where 
+<img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
 
-Robots in industrial settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. 
+RMF uses simple ROS2 messages and topic interfaces. Hence, most of the time, we use components called Adapters to bridge between the hardware's own interface and the RMF's, with some exception for robot fleets, which also have fleet drivers in the process, this will be further elaborated in the next few sections.
+
+## Mobile Robots
+
+We have identified a number of different scenarios where mobile robots are integrated with RMF. In this section, we will be addressing each scenario or configuration and how users can go about working with them.
+
+Before all that, let us revisit the diagram and description in the [hardware introduction section](#hardware). Fleet adapters not only serve as a bridge between the mobile robot fleet and RMF, an additional level of complexity also exists to address traffic monitoring, scheduling and conflict resolution between all the mobile robots scattered across multiple fleets in the environment. Fleet drivers are then responsible to interact with the mobile robots/fleets, to update the adapters and relay commands, via simple ROS2 messages and topic interfaces. More information about how fleet adapters work can be found in Chapter 5 rmf-core.
+
+### Mobile Robot Fleets
+
+Mobile robots in industrial settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. For this configuration, we will focus on how we can integrate with RMF using a Fleet Adapter to control and communicate with the mobile robots via the fleet manager.
+
+We have identified 4 different levels of control when working with fleets of mobile robots, namely,
+
+* **Paths** - RMF is provided with status and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest compliance with RMF, which allows it to reduces stoppages and deal with unexpected scenarios gracefully.
+
+* **Traffic Light** - RMF is given the status as well as pauce/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.
+
+* **Read Only** - RMF is not given any control over the mobile robots, however is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet.
+
+* **No Control** - This will prevent other fleets to coordinate with it through RMF, and will likely cause deadlocks when sharing the same navigatable envirnoment or resource.
+
+In short, the more control a fleet provides RMF to utilize, the higher the level of compliance and a better chance that conflicts between robots will be resolved automatically. Note that there can only ever be 1 operating Read Only fleet for an environment, as any 2 or more of such fleets will make avoiding each other impossible.
+
+After identifying the level of control the fleet can provide, users can select to use the basic fleet adapters labelled by their control level, that have been implemented within the `rmf_core` repository. These fleet adapters are designed to work seamlessly with RMF, with the users only required to set up a list of parameters during launch. Below is an example of the parameters requried for launching a Full Control fleet adapter
+
+```xml
+<include file="$(find-pkg-share rmf_fleet_adapter)/fleet_adapter.launch.xml">
+
+  <!-- The name and control type of the fleet -->
+  <arg name="fleet_name" value="$(var fleet_name)"/>
+  <arg name="control_type" value="full_control"/>
+
+  <!-- The graph that this fleet should use for navigation -->
+  <arg name="nav_graph_file" value="$(var nav_graph_file)" />
+
+  <!-- The nominal linear and angular velocity of this fleet's vehicles -->
+  <arg name="linear_velocity" value="0.5"/>
+  <arg name="angular_velocity" value="0.4"/>
+
+  <!-- The nominal linear and angular acceleration of this fleet's vehicles -->
+  <arg name="linear_acceleration" value="0.3"/>
+  <arg name="angular_acceleration" value="1.0"/>
+
+  <!-- The radius of the circular footprint of this fleet's vehicles -->
+  <arg name="footprint_radius" value="0.6"/>
+  <!-- Other robots are not allowed within this radius --> 
+  <arg name="vicinity_radius" value="2.0"/>
+
+  <!-- Whether to use sim time -->
+  <arg name="use_sim_time" value="$(var use_sim_time)"/>
+
+  <!-- How long it can be delayed before we give up and start over -->
+  <arg name="delay_threshold" value="15.0"/>
+
+  <!-- Don't make the mir wait long to retry -->
+  <arg name="retry_wait" value="10.0"/>
+
+  <!-- Give everything time to discover -->
+  <arg name="discovery_timeout" value="60.0"/>
+
+  <!-- Whether it can perform deliveries -->
+  <arg name="perform_deliveries" value="true"/>
+
+</include>
+```
+
+This exact launch file can be found in our `rmf_demos` repository, while the variable `nav_graph_file` describes the path to a navigation graph file that was either generated by `building_map_tools` or in a similar format. The graph describes the various traversable waypoints and lanes for this mobile robot fleet. All the other parameters listed are used by RMF to make estimations and predictions of the movements of each mobile robot under this fleet, in order to foresee possible conflicts between mobile robots to resolve them before they occur.
+
+The final piece of the puzzle is the Fleet Driver, which interacts with the Fleet Adapter over ROS2 messages, while at the same time uses the fleet manager's API to directly obtain status updates, and relay commands to each mobile robot. Fleet Drivers for diffirent fleets are expected to be implemented different due to the differences in API, some of which could be based on `REST`, `XMLRPC`, `SQL` databases, etc. Users implementing their own Fleet Drivers will need to communicate with the Fleet Adapters using these standardized ROS2 messages and topics listed in the table below,
+
+| Message Types                     | ROS2 Topic            | Description                                                                                                                                 |
+|-----------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `rmf_fleet_msgs/ModeRequest`        | `/robot_mode_requests`  | Allows RMF to give pause/resume and emergency commands.                                                                                     |
+| `rmf_fleet_msgs/PathRequest`        | `/robot_path_requests`  | Allows full control over the path which mobile robots use during navigation, provided in the form of a list of waypoints.                          |
+| `rmf_fleet_msgs/DestinationRequest` | `/destination_requests` | Gives mobile robots a one-way command to a certain location/waypoint.                                                                              |
+| `rmf_fleet_msgs/FleetState`         | `/fleet_states`         | Provides RMF with fleet and mobile robot status updates, including the their locations, as well as their current path and task information. |
+
+(** These messages and topics are referenced from the code-base, it might not be the most up-to-date)
+
+The block diagram below shows an example implementation using a fleet of MiR100™ mobile robot, with a Full Control Fleet Adapter. On one end the Fleet Driver uses the ROS2 message and topic interfaces to interact with the Fleet Adapter, while on the other end it uses the REST API that comes with the MiR100™ robots to communicate and control each mobile robot.
+
+<img src="../media/hardware_mir_fleet_driver_blocks.png">
+
+If however the user wishes to add more complexity to his or her fleet's behavior, the Fleet Adapter and Fleet Drivers can be implemented from scratch using the API provided in the `rmf_core` repository. In this scenario, the user can opt for implementing both the adapter and driver into a single module, without the need to use ROS2 topic and messages between them.
+
+### Standalone Mobile Robot
+
+In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system **Free Fleet** could be used. 
+
+Free Fleet can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigational software, and is intended to have direct control over the mobile robot, while at the same time is able to monitor its status to be reported back to the server. The server is run on a central computer, consolidates the incoming status updates from each client to be either visualized using the developer UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF, down to the clients to be executed. The communication between the server and client is implemented using `CycloneDDS`, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.
+
+In this section, we will address 4 different configurations of using Free Fleet to integrate with RMF, specifically the navigation stack used by the robot.
+
+#### ROS1 Navigation Stack
+
+#### ROS2 Navigation Stack
+
+#### Custom Navigation Stack
+
+<!-- navigation stack that I wrote -->
+
+#### Vendor Navigation Stack
+
+<!-- vendor navigation stack that someone else wrote and I can't change it -->
 
 ## Doors
 
