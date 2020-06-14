@@ -118,6 +118,49 @@ In this section, we will address 4 different configurations of using Free Fleet 
 
 #### ROS1 Navigation Stack
 
+An implementation of a Free Fleet client that works with a ROS1 navigation stack can be found in the repository, under branches named after ROS1 distributions, for example `melodic-devel`, under the package `ff_client`. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status using the `sensor_msgs/BatteryState` message.
+
+After following the build instructions on the README (should the instructions be included here?) on the mobile robot, the user can launch the client as part of his launch script, while at the same time define all the necessary parameters using `rosparam`. Below is a small snippet example of how a client can be launched, with its paramters defined,
+
+```xml
+<node name="example_free_fleet_client_node" 
+    pkg="ff_client" type="ff_client_node" output="screen">
+
+  <!-- These parameters will be used to identify the mobile robots -->
+  <param name="fleet_name" type="string" value="example_fleet"/>
+  <param name="robot_name" type="string" value="example_bot"/>
+  <param name="robot_model" type="string" value="Turtlebot3"/>
+
+  <!-- These are the topics required to get battery and level information -->
+  <param name="battery_state" type="string" value="example_bot/battery_state"/>
+  <param name="level_name" type="string" value="example_bot/level_name"/>
+
+  <!-- These frames will be used to update the mobile robot's location -->
+  <param name="map_frame" type="string" value="example_bot/map"/>
+  <param name="robot_frame" type="string" value="example_bot/base_footprint"/>
+
+  <!-- The name of the move_base server for actions -->
+  <param name="move_base_server" type="string" value="example_bot/move_base"/>
+
+  <!-- These are DDS configurations used between Free Fleet clients and servers -->
+  <param name="dds_domain" type="int" value="42"/>
+  <param name="dds_state_topic" type="string" value="robot_state"/>
+  <param name="dds_mode_request_topic" type="string" value="mode_request"/>
+  <param name="dds_path_request_topic" type="string" value="path_request"/>
+  <param name="dds_destination_request_topic" type="string" value="destination_request"/>
+  
+  <!-- This decides how long the client should wait for a valid transform and action server before failing -->
+  <param name="wait_timeout" type="double" value="10"/>
+  
+  <!-- These define the frequency at which the client checks for commands and publishes the robot state to the server -->
+  <param name="update_frequency" type="double" value="10.0"/>
+  <param name="publish_frequency" type="double" value="1.0"/>
+
+  <!-- The client will only pass on navigation commands if the destination or first waypoint of the path is within this distance away, otherwise it will ignore the command -->
+  <param name="max_dist_to_first_waypoint" type="double" value="10.0"/>
+</node>
+```
+
 #### ROS2 Navigation Stack
 
 #### Custom Navigation Stack
