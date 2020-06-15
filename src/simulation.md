@@ -22,7 +22,7 @@ following benefits.
   the introduction of a new fleet, both of which can inform purchasing decisions
   for facility owners. 
 
-- **Robust testing:** Robots in simulation do not run out of battery. Scenarios
+- **Robust testing:** Robots in simulation do not run out of battery and don't cost any money if your robots happen to unfortunately crash into something. Scenarios
   can be tested for hours at a stretch, at faster speeds, to fine tune
   algorithms and verify their robustness. As scenarios in simulation are
   repeatable, fixes for undesirable bugs encountered can be readily validated.
