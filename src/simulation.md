@@ -56,7 +56,7 @@ environments and configuring them with appropriate plugins. In a recent publicat
 
 The RMF project also
 aims to address these hurdles by simplifying the process of setting up
-simulation environments for multi-fleet traffic control.
+simulation environments for multi-fleet traffic control as we will explain further throughout this section.
 
 ## Building Map Generator
 The `traffic_editor` as discussed previously is a tool to annotate building
