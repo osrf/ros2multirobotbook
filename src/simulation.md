@@ -41,7 +41,20 @@ will also be run on the physical system as well without any changes.
 
 However, despite these compelling benefits, simulations are sparingly employed
 by developers and system integrators citing complexity over generating
-environments and configuring them with appropriate plugins. The RMF project also
+environments and configuring them with appropriate plugins. In a recent publication "_A Study on the Challenges of Using Robotics Simulators for Testing_," by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:
+
+| Reason for not using simulation  | #  | %  |
+|---|---|---|
+| Lack of time or resources | 15 | 53.57% |
+| Not realistic/accurate enough | 15 | 53.57% |
+| Lack of expertise or knowledge on how to use software-based simulation | 6  | 21.43% |
+| There was no simulator for the robot | 4  | 14.29% |
+| Not applicable | 4  | 14.29% |
+| Too much time or compute resources | 2  | 7.14%  |
+| Nobody suggested it | 0  | 0.00%  |
+| Other | 2  | 7.14%  |
+
+The RMF project also
 aims to address these hurdles by simplifying the process of setting up
 simulation environments for multi-fleet traffic control.
 
