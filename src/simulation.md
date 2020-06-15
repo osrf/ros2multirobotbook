@@ -15,14 +15,14 @@ following benefits.
   scale, so do costs associated with purchasing hardware and consumables for
   testing. This is especially true with solutions such as RMF which aim to
   integrate several mobile/stationary robots, and building systems such as doors
-  and lifts. Simulations provide a cost effective and time saving alternative
+  and lifts. Simulations provide a potentially cost effective and time saving alternative
   for evaluating the behavior of robot systems at scale. More importantly
-  simulations can help answer questions with deployment such as how many
+  simulations can help answer questions prior to deployment such as how many
   participants can be supported or how the existing behavior would change with
   the introduction of a new fleet, both of which can inform purchasing decisions
   for facility owners. 
 
-- **Robust testing:** Robots in simulation do not run out of battery and don't cost any money if your robots happen to unfortunately crash into something. Scenarios
+- **Robust testing:** Robots in simulation neither run out of battery nor incur costs when they happen to unfortunately crash into something. Scenarios
   can be tested for hours at a stretch, at faster speeds, to fine tune
   algorithms and verify their robustness. One factor on how much scenario testing to run is a decision on how much compute power you want to avail for the simulation. With the introduction of cloud simulation, this limit is then a trade off of cost and speed as well. As scenarios in simulation are
   repeatable, fixes for undesirable bugs encountered can be readily validated.
@@ -137,9 +137,7 @@ positional arguments:
 
 ## RMF Assets and Plugins
 
-Assets play a pivotal role in recreating environments in simulation. Through the
-RMF project, several 3D models of robots, mechanical infrastructure systems and
-scene objects have been open sourced. They are available for download [here](https://app.ignitionrobotics.org/OpenRobotics/fuel/collections/Hospital).
+Assets play a pivotal role in recreating environments in simulation. Projects such as RMF, SubT and others have allowed developers to create and open source 3D models of robots, mechanical infrastructure systems and scene objects. They are available for download [here](https://app.ignitionrobotics.org/OpenRobotics/fuel/collections/).
 Beyond imparting visual accuracy, assets may be dynamic and interface with rmf
 core systems through the aid of plugins. 
 
