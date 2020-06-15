@@ -36,7 +36,7 @@ Physics-based simulators such as `Gazebo`, carry the benefit of easily
 interfacing with ROS2 nodes through wrappers provided by `gazebo_ros_pkgs`.
 Gazebo plugins can be developed that accurately emulate the behavior of robots,
 sensors and infrastructure systems which enhance the overall fidelity of
-simulations. It is worth emphasizing here that the code used to run simulations
+simulations. It is worth emphasizing here that the exact same code used to run the simulations
 will be run on physical hardware as well without any changes.
 
 However, despite these compelling benefits, simulations are sparingly employed
