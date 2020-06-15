@@ -24,7 +24,7 @@ following benefits.
 
 - **Robust testing:** Robots in simulation do not run out of battery and don't cost any money if your robots happen to unfortunately crash into something. Scenarios
   can be tested for hours at a stretch, at faster speeds, to fine tune
-  algorithms and verify their robustness. As scenarios in simulation are
+  algorithms and verify their robustness. One factor on how much scenario testing to run is a decision on how much compute power you want to avail for the simulation. With the introduction of cloud simulation, this limit is then a trade off of cost and speed as well. As scenarios in simulation are
   repeatable, fixes for undesirable bugs encountered can be readily validated.
   Reaction of the system to edge cases which are rare but have severe
   consequences can also be studied through simulation. Data logged from hardware
