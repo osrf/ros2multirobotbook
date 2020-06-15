@@ -147,7 +147,7 @@ To simulate the behavior of hardware such as robot models and infrastructure
 systems, several Gazebo plugins have been architected. These plugins are derivates of the [ModelPlugin](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1ModelPlugin.html) class and tie in standard ROS2 and rmf_core messages to provide necessary functionality. The following sections briefly describe some of these plugins.
 
 #### Robots
-As highlighted earlier, several robot models (MiR100, Magni, Hospi) have been
+As highlighted earlier, several robot models (SESTO, MiR100, Magni, Hospi) have been
 open sourced for use in simulation. For these models to emulate the behavior of
 their physical counterparts which have been integrated with RMF, they need to 1)
 interface with `rmf_fleet_adapters` and 2) navigate to locations in the
