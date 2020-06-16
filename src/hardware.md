@@ -112,7 +112,11 @@ If however the user wishes to add more complexity to his or her fleet's behavior
 
 In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system `free_fleet` could be used. 
 
-`free_fleet` can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigational software, and is intended to have direct control over the mobile robot, while at the same time is able to monitor its status to be reported back to the server. The server is run on a central computer, consolidates the incoming status updates from each client to be either visualized using the developer UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF, down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role as a fleet management system. The communication between the server and clients is implemented using `CycloneDDS`, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.
+`free_fleet` can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigational software, and is intended to have direct control over the mobile robot, while at the same time is able to monitor its status to be reported back to the server. The client's base implementation is designed to allow interaction with different configurations of mobile robots, while at the same time all report to the same server. This way, users are able to use `free_fleet` to manage a heterogenrous fleet of robots, each using different distributions of ROS, versions of ROS, navigation software, or onboard communication protocols.
+
+The server is run on a central computer, consolidates the incoming status updates from each client to be either visualized using the developer UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF, down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role as a fleet management system. The server can be implemented and used as its own fleet management system, or work with larger systems like RMF, bridging the gap between each mobile robot's API and RMF's API and interface.
+
+The communication between the server and clients is implemented using `CycloneDDS`, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.
 
 In this section, we will address 4 different configurations of using `free_fleet` to integrate with RMF, specifically the navigation stack used by the robot. Each configuration maintains a similar systems architecture, which is illustrated in the simple block diagram below.
 
@@ -225,17 +229,53 @@ In the meantime, if required, users can also implement their own `free_fleet` cl
 
 #### Custom Navigation Stack
 
-In this configuration, it is assumed that the software running on the mobile robot was written by the users themselves, therefore users have a good understanding of their own APIs and intefaces. This would be extremely useful, for implementing their own `free_fleet` client and server wrappers. The block diagram below tries to illustrate this configuration and 
+In this configuration, it is assumed that the software running on the mobile robot was written by the users themselves, therefore users have a good understanding of their own APIs and intefaces. This would be extremely useful, for implementing their own `free_fleet` client wrapper. The block diagram below tries to illustrate this configuration. 
+
+<img src="images/free_fleet_custom_config.png">
+
+Once the custom `free_fleet` client is fully functional, it will be a simple task of launching the same ROS2 `free_fleet` server as mentioned the past section, to work with the fleet adapters through ROS2 messages and topics.
 
 #### Vendor Navigation Stack
 
-<!-- vendor navigation stack that someone else wrote and I can't change it -->
+This configuration assumes that the provided mobile robot is operating on vendor software and hardware, which in most cases, require more effort when it comes to systems integration. There are 2 ways to go about integrating vendor mobile robots with RMF.
+
+The first way to go about it, would be implementing a fleet driver for this robot, as documented in the previous section regarding [Mobile Robot Fleets](#mobile-robot-fleets). This will ensure that the mobile robot communicates directly with fleet adapters, using the provided vendor API, without the need to run a client on the robot. This would be the recommended way of working with vendor mobile robots or vendor navigation stacks.
+
+If however the user intends to both manage the mobile robots using a fleet management system and integrate with RMF, a more roundabout way is possible, by implementing non-intrusive `free_fleet` clients running on the same machine as the server. The `free_fleet` client implementation would need to utilize the provided vendor API to get status updates and provide navigation commands. This implementation is not advisable as it needlessly extends the communication route from RMF to the mobile robot, however if the user intends to manage a heterogeneous fleet of robots, each using different stacks of software and hardware, `free_fleet` could be a reasonable solution to that.
 
 ## Doors
 
+Door integration is an important consideration when introducing RMF into a new environment. They play a significant role in streamlining the operation of mobile robots, as well as increasing their capabilities for navigation and performing deliveries.
+
+For obvious reasons, only automated doors can be integrated with RMF. An automated door can be defined as an electronically powered door that is remotely controllable, either using a remote trigger or has been outfitted with a computing unit capable of commanding the doors when needed, using certain interfaces.
+
+Doors can be integrated with RMF using a ROS2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component.
+
+<img src="images/doors_block_diagram.png">
+
+The door node will have to be implemented based on the model of the door that is being integrated, in order to properly access the API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state using the ROS2 `rmf_door_msgs/DoorState` message over the topic `door_states`, while receiving commands using `rmf_door_msgs/DoorRequests` over `door_requests`.
+
+The door adapter stands in between the rest of the RMF core systems, fleet adapters, and the door node, and acts like a state supervisor, ensuring that the doors are not acting on requests that might obstruct an ongoing mobile robot task or damaging it by closing on it. It keeps track of the door state from the door node, and receives requests from the `adapter_door_requests` topic which are published by either fleet adapters or other parts of the RMF core system. Only when the door adapter deems that a request is safe enough to be performed, it will instruct the door node using a request. It should also be noted that direct requests sent to the door node, without going through the door adapter will be negated by the door adapter, to return it to its state befoe, to prevent disruptions during operations with mobile robots.
+
+<!-- how doors can be drawn in traffic editor -->
+
 ## Elevators
 
+Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the requirements are that the lift controllers accepts commands using a certain protocol, `OPC` is one such example.
+
+The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other.
+
+<img src="images/lifts_block_diagram.png">
+
+The lift node will act as a driver to work with the lift controller. There already exists an example of a lift node, you can find the repository [here](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state over the topic `lift_states`, and receive lift requests over the topic `lift_request`.
+
+A lift adapter subscribes to `lift_states` while keeping track of the internal and desired state of the lift, to prevent it from performing any actions that might interrupt mobile robot operation or cause damage to humans, infrastructure or mobile robots. It performs this task by receiving lift requests from the fleet adapters and the rest of the RMF core systems, and only relaying the instructions to the lift node if it is deemed safe. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.
+
+<!-- how lifts can be drawn in traffic editor -->
+
 ## Workcells
+
+To be updated.
 
 # Map data requirements for integration with RoMi-H / rmf_core
 
