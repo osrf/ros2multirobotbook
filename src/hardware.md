@@ -104,27 +104,30 @@ The final piece of the puzzle is the Fleet Driver, which interacts with the Flee
 
 The block diagram below shows an example implementation using a fleet of MiR100™ mobile robot, with a Full Control Fleet Adapter. On one end the Fleet Driver uses the ROS2 message and topic interfaces to interact with the Fleet Adapter, while on the other end it uses the REST API that comes with the MiR100™ robots to communicate and control each mobile robot.
 
-<img src="../media/hardware_mir_fleet_driver_blocks.png">
+<img src="images/hardware_mir_fleet_driver_blocks.png">
 
 If however the user wishes to add more complexity to his or her fleet's behavior, the Fleet Adapter and Fleet Drivers can be implemented from scratch using the API provided in the `rmf_core` repository. In this scenario, the user can opt for implementing both the adapter and driver into a single module, without the need to use ROS2 topic and messages between them.
 
 ### Standalone Mobile Robot
 
-In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system **Free Fleet** could be used. 
+In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system `free_fleet` could be used. 
 
-Free Fleet can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigational software, and is intended to have direct control over the mobile robot, while at the same time is able to monitor its status to be reported back to the server. The server is run on a central computer, consolidates the incoming status updates from each client to be either visualized using the developer UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF, down to the clients to be executed. The communication between the server and client is implemented using `CycloneDDS`, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.
+`free_fleet` can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigational software, and is intended to have direct control over the mobile robot, while at the same time is able to monitor its status to be reported back to the server. The server is run on a central computer, consolidates the incoming status updates from each client to be either visualized using the developer UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF, down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role as a fleet management system. The communication between the server and clients is implemented using `CycloneDDS`, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.
 
-In this section, we will address 4 different configurations of using Free Fleet to integrate with RMF, specifically the navigation stack used by the robot.
+In this section, we will address 4 different configurations of using `free_fleet` to integrate with RMF, specifically the navigation stack used by the robot. Each configuration maintains a similar systems architecture, which is illustrated in the simple block diagram below.
+
+<img src="images/free_fleet_block_diagram.png">
 
 #### ROS1 Navigation Stack
 
-An implementation of a Free Fleet client that works with a ROS1 navigation stack can be found in the repository, under branches named after ROS1 distributions, for example `melodic-devel`, under the package `ff_client`. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status using the `sensor_msgs/BatteryState` message.
+An implementation of a `free_fleet` client that works with a ROS1 navigation stack can be found in the [repository](https://github.com/osrf/free_fleet). The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status using the `sensor_msgs/BatteryState` message.
 
-After following the build instructions on the README (should the instructions be included here?) on the mobile robot, the user can launch the client as part of his launch script, while at the same time define all the necessary parameters using `rosparam`. Below is a small snippet example of how a client can be launched, with its paramters defined,
+After following the build instructions on the README on the mobile robot, the user can launch the client as part of his launch script, while at the same time define all the necessary parameters using `rosparam`. Below is a small snippet example of how a client can be launched, with its paramters defined,
 
 ```xml
-<node name="example_free_fleet_client_node" 
-    pkg="ff_client" type="ff_client_node" output="screen">
+<node name="free_fleet_client_node" 
+    pkg="free_fleet_client_ros1"
+    type="free_fleet_client_ros1" output="screen">
 
   <!-- These parameters will be used to identify the mobile robots -->
   <param name="fleet_name" type="string" value="example_fleet"/>
@@ -132,15 +135,15 @@ After following the build instructions on the README (should the instructions be
   <param name="robot_model" type="string" value="Turtlebot3"/>
 
   <!-- These are the topics required to get battery and level information -->
-  <param name="battery_state" type="string" value="example_bot/battery_state"/>
-  <param name="level_name" type="string" value="example_bot/level_name"/>
+  <param name="battery_state_topic" type="string" value="example_bot/battery_state"/>
+  <param name="level_name_topic" type="string" value="example_bot/level_name"/>
 
   <!-- These frames will be used to update the mobile robot's location -->
   <param name="map_frame" type="string" value="example_bot/map"/>
   <param name="robot_frame" type="string" value="example_bot/base_footprint"/>
 
   <!-- The name of the move_base server for actions -->
-  <param name="move_base_server" type="string" value="example_bot/move_base"/>
+  <param name="move_base_server_name" type="string" value="example_bot/move_base"/>
 
   <!-- These are DDS configurations used between Free Fleet clients and servers -->
   <param name="dds_domain" type="int" value="42"/>
@@ -152,20 +155,77 @@ After following the build instructions on the README (should the instructions be
   <!-- This decides how long the client should wait for a valid transform and action server before failing -->
   <param name="wait_timeout" type="double" value="10"/>
   
-  <!-- These define the frequency at which the client checks for commands and publishes the robot state to the server -->
+  <!-- These define the frequency at which the client checks for commands and 
+  publishes the robot state to the server -->
   <param name="update_frequency" type="double" value="10.0"/>
   <param name="publish_frequency" type="double" value="1.0"/>
 
-  <!-- The client will only pass on navigation commands if the destination or first waypoint of the path is within this distance away, otherwise it will ignore the command -->
+  <!-- The client will only pass on navigation commands if the destination or first waypoint 
+  of the path is within this distance away, otherwise it will ignore the command -->
   <param name="max_dist_to_first_waypoint" type="double" value="10.0"/>
+
 </node>
 ```
 
+The running `free_fleet` client will communicate with the nodes running on the robot via ROS1, while publishing its state and subscribing to requests over DDS with the `free_fleet` Server.
+
+The current implementation of the `free_fleet` server is implemented with ROS2 and communicates with RMF using the aforementioned ROS2 message and topic interfaces of an RMF fleet adapter. The ROS2 build instructions can also be found on the same repository. Similar to the client, a simple ROS2 wrapper has been implemented, and it can be started using a `.launch.xml` file like so,
+
+```xml
+<node pkg="free_fleet_server_ros2"
+    exec="free_fleet_server_ros2"
+    name="free_fleet_server_node"
+    node-name="free_fleet_server_node"
+    output="both">
+
+  <!-- Fleet name will be used to identify robots -->
+  <param name="fleet_name" value="example_fleet"/>
+
+  <!-- These are the ROS2 topic names that will be used to communicate with RMF -->
+  <param name="fleet_state_topic" value="fleet_states"/>
+  <param name="mode_request_topic" value="robot_mode_requests"/>
+  <param name="path_request_topic" value="robot_path_requests"/>
+  <param name="destination_request_topic" value="robot_destination_requests"/>
+
+  <!-- These are the DDS specific configurations used to communicate with the clients -->
+  <param name="dds_domain" value="42"/>
+  <param name="dds_robot_state_topic" value="robot_state"/>
+  <param name="dds_mode_request_topic" value="mode_request"/>
+  <param name="dds_path_request_topic" value="path_request"/>
+  <param name="dds_destination_request_topic" value="destination_request"/>
+
+  <!-- This determines the frequency it checks for incoming state and request messages,
+  as well as how often it publishes its fleet state to RMF -->
+  <param name="update_state_frequency" value="20.0"/>
+  <param name="publish_state_frequency" value="2.0"/>
+
+  <!-- These transformations are required when the frame of the robot fleet is
+  different from that of RMF globally. In order to transform a pose from the RMF
+  frame to the free fleet robot frame, it is first scaled, rotated, then 
+  translated using these parameters -->
+  <param name="scale" value="0.928"/>
+  <param name="rotation" value="-0.013"/>
+  <param name="translation_x" value="-4.117"/>
+  <param name="translation_y" value="27.26"/>
+
+</node>
+```
+
+Furthermore, an example of this configuration can be found in the repository as well, under the packages `ff_examples_ros1` and `ff_exmaples_ros2`. This example launches the example simulation from `ROBOTIS`, shown [here](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#ros-1-simulation), which has a small simulated world with 3 Turtlebot3 mobile robots, each running its own ROS1 navigation stack.
+
+After successful builds for both ROS1 and ROS2 workspaces, the simulation can be launched following [these instructions](https://github.com/osrf/free_fleet#turtlebot3-simulation), which also includes a ROS2 `free_fleet` server, publishing fleet state messages and accepting mode and navigation requests over ROS2 messages and topics.
+
 #### ROS2 Navigation Stack
+
+Similar to a ROS1 navigation stack, the only difference would be the middleware used onboard the mobile robot, which in this scenario is ROS2. Unfortunately, the ROS2 `free_fleet` client is still currently under development, and this section will be updated once the refactoring, implementation and testing has been done.
+
+The same ready `free_fleet` server implementation in the repository is good to go to work in this scenario, as the interfaces provided by the fleet adapters are still the same ROS2 messages and topics.
+
+In the meantime, if required, users can also implement their own `free_fleet` client, by working with the `free_fleet` library that contains the base implementation and API for the DDS communication. This can be further elaborated in the next section [Custom Navigation Stack](#custom-navigation-stack).
 
 #### Custom Navigation Stack
 
-<!-- navigation stack that I wrote -->
+In this configuration, it is assumed that the software running on the mobile robot was written by the users themselves, therefore users have a good understanding of their own APIs and intefaces. This would be extremely useful, for implementing their own `free_fleet` client and server wrappers. The block diagram below tries to illustrate this configuration and 
 
 #### Vendor Navigation Stack
 
