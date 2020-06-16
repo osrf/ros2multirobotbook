@@ -58,6 +58,7 @@ The code for this tutorial is available at <https://github.com/osrf/ros2multirob
 ## Requirements
 
   * nodejs >= 10
+  * rmf_core (<https://github.com/osrf/rmf_core>)
   * soss (<https://github.com/osrf/soss>)
   * romi-soss-ros2 (<https://github.com/osrf/romi-soss-ros2>)
   * rmf_demos (<https://github.com/osrf/rmf_demos>)
