@@ -30,6 +30,40 @@ We have identified a number of different scenarios where mobile robots are integ
 
 Before all that, let us revisit the diagram and description in the [hardware introduction section](#hardware). Fleet adapters not only serve as a bridge between the mobile robot fleet and RMF, an additional level of complexity also exists to address traffic monitoring, scheduling and conflict resolution between all the mobile robots scattered across multiple fleets in the environment. Fleet drivers are then responsible to interact with the mobile robots/fleets, to update the adapters and relay commands, via simple ROS2 messages and topic interfaces. More information about how fleet adapters work can be found in Chapter 5 rmf-core.
 
+### Map data requirements for integration with RMF
+
+#### Motivation
+RoMi-H / RMF uses robot route maps to be able to predict the future motions of robots in the building. RoMi-H generates "multi-fleet" predictions which can be used to help avoid conflicts between robot fleets and individual robots, provide multi-fleet visualization to building staff, and improve scheduling of resources, among other benefits.
+
+Robot route maps in large buildings are complex and may evolve over time in response to customer requests and building renovations. As a result, RoMi-H works best when scripts can automatically import robot route maps, and re-import them in the future after changes are made.
+
+#### Minimum Map Information Required
+- list of waypoints or nodes
+  - name of waypoint
+  - level name (B1, L1, L2, etc.)
+  - (x, y) location in meters within the level
+  - any special properties or flags, such as:
+    - is this a dropoff/pickup parking point?
+    - is this a charger?
+    - is this a safe parking spot during an emergency alarm?
+- list of edges or "travel lanes" between nodes
+  - (start, end) waypoint names
+  - two-way or one-way traffic?
+    - if one-way, identify direction of travel
+  - any other information, such as speed limit along this segment
+
+#### Format requirements
+We can write import scripts to handle virtually any "open" file format that contains the required information. This includes, in order of preference:
+  - YAML
+  - XML
+  - plain text (space or comma-separated ASCII, etc.)
+  - DXF
+  - DWG
+  - SVG
+
+## Comments
+If the map data is provided in textual form, screenshots are helpful for "sanity-checking" the coordinate system and alignment with building features.
+
 ### Mobile Robot Fleets
 
 Mobile robots in industrial settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. For this configuration, we will focus on how we can integrate with RMF using a Fleet Adapter to control and communicate with the mobile robots via the fleet manager.
@@ -245,6 +279,12 @@ If however the user intends to both manage the mobile robots using a fleet manag
 
 ## Doors
 
+### Map requirements
+
+Before a door can be properly integrated, be sure to draw up the door locations with the correct door names on the navigation graph using `traffic_editor`. The instructions to do so can be found in Chapter 3. Traffic Editor.
+
+### Integration
+
 Door integration is an important consideration when introducing RMF into a new environment. They play a significant role in streamlining the operation of mobile robots, as well as increasing their capabilities for navigation and performing deliveries.
 
 For obvious reasons, only automated doors can be integrated with RMF. An automated door can be defined as an electronically powered door that is remotely controllable, either using a remote trigger or has been outfitted with a computing unit capable of commanding the doors when needed, using certain interfaces.
@@ -253,13 +293,24 @@ Doors can be integrated with RMF using a ROS2 door node and a door adapter, whic
 
 <img src="images/doors_block_diagram.png">
 
-The door node will have to be implemented based on the model of the door that is being integrated, in order to properly access the API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state using the ROS2 `rmf_door_msgs/DoorState` message over the topic `door_states`, while receiving commands using `rmf_door_msgs/DoorRequests` over `door_requests`.
+The door node will have to be implemented based on the model of the door that is being integrated, in order to properly access the API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state and receiving commands over ROS2, using the messages and topics listed below.
+
+| Message Types | ROS2 Topic | Description |
+|---------------|------------|-------------|
+| `rmf_door_msgs/DoorState` | `/door_states` | State of the door published by the door node
+| `rmf_door_msgs/DoorRequest` | `/door_requests` | Direct requests subscribed by the door node and published by the door adapter
+| `rmf_door_msgs/DoorRequest` | `/adapter_door_requests` | Requests to be sent to the door adapter/supervisor to request safe operation of doors |
+
 
 The door adapter stands in between the rest of the RMF core systems, fleet adapters, and the door node, and acts like a state supervisor, ensuring that the doors are not acting on requests that might obstruct an ongoing mobile robot task or damaging it by closing on it. It keeps track of the door state from the door node, and receives requests from the `adapter_door_requests` topic which are published by either fleet adapters or other parts of the RMF core system. Only when the door adapter deems that a request is safe enough to be performed, it will instruct the door node using a request. It should also be noted that direct requests sent to the door node, without going through the door adapter will be negated by the door adapter, to return it to its state befoe, to prevent disruptions during operations with mobile robots.
 
-<!-- how doors can be drawn in traffic editor -->
-
 ## Elevators
+
+### Map requirements
+
+Before a lift can be properly integrated, be sure to draw up the lift locations with the correct lift names and levels on the navigation graph using `traffic_editor`. The instructions to do so can be found in Chapter 3. Traffic Editor.
+
+### Integration
 
 Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the requirements are that the lift controllers accepts commands using a certain protocol, `OPC` is one such example.
 
@@ -267,46 +318,16 @@ The elevators will be integrated in a similar fashion as doors as well, relying 
 
 <img src="images/lifts_block_diagram.png">
 
-The lift node will act as a driver to work with the lift controller. There already exists an example of a lift node, you can find the repository [here](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state over the topic `lift_states`, and receive lift requests over the topic `lift_request`.
+The lift node will act as a driver to work with the lift controller. There already exists an example of a lift node, you can find the repository [here](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state and receive lift requests over ROS2, using the messages and topics listed below.
+
+| Message Types | ROS2 Topic | Description |
+|---------------|------------|-------------|
+| `rmf_lift_msgs/LiftState` | `/lift_states` | State of the lift published by the lift node
+| `rmf_lift_msgs/LiftRequest` | `/lift_requests` | Direct requests subscribed by the lift node and published by the lift adapter
+| `rmf_lift_msgs/LiftRequest` | `/adapter_lift_requests` | Requests to be sent to the lift adapter/supervisor to request safe operation of lifts |
 
 A lift adapter subscribes to `lift_states` while keeping track of the internal and desired state of the lift, to prevent it from performing any actions that might interrupt mobile robot operation or cause damage to humans, infrastructure or mobile robots. It performs this task by receiving lift requests from the fleet adapters and the rest of the RMF core systems, and only relaying the instructions to the lift node if it is deemed safe. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.
 
-<!-- how lifts can be drawn in traffic editor -->
-
 ## Workcells
 
-To be updated.
-
-# Map data requirements for integration with RoMi-H / rmf_core
-
-## Motivation
-RoMi-H / RMF uses robot route maps to be able to predict the future motions of robots in the building. RoMi-H generates "multi-fleet" predictions which can be used to help avoid conflicts between robot fleets and individual robots, provide multi-fleet visualization to building staff, and improve scheduling of resources, among other benefits.
-
-Robot route maps in large buildings are complex and may evolve over time in response to customer requests and building renovations. As a result, RoMi-H works best when scripts can automatically import robot route maps, and re-import them in the future after changes are made.
-
-## Minimum Map Information Required
-- list of waypoints or nodes
-  - name of waypoint
-  - level name (B1, L1, L2, etc.)
-  - (x, y) location in meters within the level
-  - any special properties or flags, such as:
-    - is this a dropoff/pickup parking point?
-    - is this a charger?
-    - is this a safe parking spot during an emergency alarm?
-- list of edges or "travel lanes" between nodes
-  - (start, end) waypoint names
-  - two-way or one-way traffic?
-    - if one-way, identify direction of travel
-  - any other information, such as speed limit along this segment
-
-## Format requirements
-We can write import scripts to handle virtually any "open" file format that contains the required information. This includes, in order of preference:
-  - YAML
-  - XML
-  - plain text (space or comma-separated ASCII, etc.)
-  - DXF
-  - DWG
-  - SVG
-
-## Comments
-If the map data is provided in textual form, screenshots are helpful for "sanity-checking" the coordinate system and alignment with building features.
+Work in progress.
