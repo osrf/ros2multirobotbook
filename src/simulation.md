@@ -306,7 +306,7 @@ The plugin subscribes to `/lift_requests` topic and responds to `LiftRequest` me
 Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/lift_supervisor/main.cpp) is started in practice to manage requests from different robot fleets.
 
 
-#### Workcells and Dispensers
+#### Workcells
 Robots performing deliveries within facilities is a common use case and hence a `Delivery` task is configured into the `rmf_fleet_adapters`. In a delivery task, a payload is loaded onto the robot at one location and unloaded at another. The loading and unloading of the payload may be automated by a robot/workcell in a facility. To integrate these systems (generalized as "dispensers") with RMF core systems, a set of dispenser messages are [defined](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg). When the robot reaches the loading station, the `rmf_fleet_adapter` publishes a `DispenserRequest` message which the dispenser receives and begins processing. When the dispensing is successful, the dispenser is required to publish a `DispenserResult` message with `SUCCESS` status. The `rmf_fleet_adapter` then instructs the robot to proceed to the unloading station where a similar set of message are exchanged with the workcell unloading the payload.
 
 To replicate this delivery behavior in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) are designed. These plugins are loaded into [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models) the same names. 
