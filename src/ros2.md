@@ -6,7 +6,7 @@ applications. This chapter is laid out from the most general concepts, necessary
 for decision makers to make sound decisions, to specific API references needed
 by engineers to develop new robotic applications. Somewhere in between high
 level concepts, and low level API commands lives the knowledge necessary for
-those maintaining and supporting multi-robot deployments in the field. 
+those maintaining and supporting multi-robot deployments in the field.
 
 A good analogy to learning about ROS is the process of learning about motor
 vehicles. At the practical, day-to-day level, most people will learn how to
@@ -21,7 +21,7 @@ the engine of your vehicle with something more powerful, or potentially build a
 wholly new vehicle from scratch, then the ROS API is the set of tools that will
 make this possible. Generally speaking, automotive engineers don't appear into
 the world fully formed, and the same is true for robotocists. It is advisable to
-work through each phase of understanding as you develop your skills with ROS.  
+work through each phase of understanding as you develop your skills with ROS.
 
 Following from our analogy above the process of learning how to use robotic
 systems built on ROS can be divided roughly into four parts. This chapter works
@@ -31,31 +31,23 @@ applications. The four parts of this chapter are as follows.
 
 * Meta-discussion of the tools and resources available to help you in the
   learning process.
-  
+
 * A high level discussion to the design patterns use in ROS. These patterns are
   roughly analogous to the subsystems you would find in a vehicle (engine,
-  breaks, safety, climate control, etc). 
-  
+  breaks, safety, climate control, etc).
+
 * A treatment of the command line interface (CLI) for ROS. The CLI is a set of
   programs for starting, inspecting, controlling, and monitoring a ROS
   robot. You can think of this topic as teaching you how check a robot's oil,
-  and read the instrument panel. 
+  and read the instrument panel.
 
 * An introduction to the ROS application programming interface. This section
   will show you how to create your own applications and modify existing software
-  for your specific application. 
-  
+  for your specific application.
+
 While this books aims to cover the basics it should be made clear that ROS, like
 almost all software is a moving target. Technology moves quickly, and while
 print media is helpful and delivering high fidelity instruction, that
 instruction can become rapidly outdated. For this reason we start this chapter
 with a meta-discussion of ROS resources that can be used to help you in your
-learning process. 
-
-{{#include ros2_tools_resources.md}}
-
-{{#include ros2_design_patterns.md}}
-
-{{#include ros2_api.md}}
-
-{{#include ros2_cli.md}}
+learning process.

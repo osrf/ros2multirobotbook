@@ -1,6 +1,6 @@
-## The ROS Command Line Interface 
+# The ROS Command Line Interface
 
-The ROS command line interface, or CLI for short, is a set of programs for 
+The ROS command line interface, or CLI for short, is a set of programs for
 starting, inspecting, controlling, and monitoring a ROS robot. The best way to
 think of the CLI is a collection of small and simple programs that allow you
 perform basic tasks in ROS. Drawing from our car analogy, the CLI can be thought
@@ -11,7 +11,7 @@ gear, turn on the radio, and perhaps check your oil to perform routine
 maintenance. The ROS 2 CLI draws heavily from the Unix/Linux philosophy of small
 programs that can be composed together. If you are familiar with the command
 line interface found in Unix and Linux, or to a lesser extent in MacOS or
-Windows you'll feel right at home. 
+Windows you'll feel right at home.
 
 The ROS command line tools draw heavily from the design patterns mentioned in the
 previous section, and directly interface with the APIs we will treat in the next
@@ -21,7 +21,7 @@ we discussed in the previous section. If your goal is to simply interface with a
 particular piece of software written using ROS, the CLI interface is the way you
 will go about starting, stopping, and controlling the underlying ROS
 software. For more advanced users these tools will allow you to study a ROS
-system by exploring the underlying software processes in the system. 
+system by exploring the underlying software processes in the system.
 
 There are only two things you need to memorize from this section. It is actually
 quite an amazing feat; everything you need to know about the ROS 2
@@ -43,7 +43,7 @@ plan on doing this every time you want to use ROS. The most common mistake new
 users have is not running this command. If you're not sure if your ran the
 command in a shell, that's okay. The command is idempotent; meaning running it
 twice in a row won't break anything. You can run it a million times in a row and
-it won't make any difference. 
+it won't make any difference.
 
 The other command you need to commit to memory is `ROS2`. That's it. That's all
 there is to it. Almost everything in the ROS 2 CLI starts with ROS 2. Go ahead,
@@ -51,7 +51,7 @@ try it, in the same shell where you just sourced the setup file. If everything
 is working correctly you should see the following:
 
 ``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 
+kscottz@kscottz-ratnest:~$ ros2
 usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
 
 ros2 is an extensible command-line tool for ROS 2.
@@ -91,7 +91,7 @@ all English sentences start with a capital letter, all ROS CLI commands start
 with `ROS2` followed by a command. After the command any number of other things
 can come, but most of the commands will tell you and show you what they
 want. The rest of this section just walks through each of the commands one by
-one. 
+one.
 
 It is worth noting before we move on one particular trick. If you are new to the
 command line there are two things that will make your life much much
@@ -103,7 +103,7 @@ your mind, but for common command combinations you usually only need to type the
 first one or two letters. Another tool is the up arrow key. When you use the
 command line sometimes you mistype a command, or need to rerun a
 command. Pressing the up key will cycle through the previous commands which you
-can either rerun, or edit as needed. 
+can either rerun, or edit as needed.
 
 Running Your First ROS Program
 ==============================
@@ -121,7 +121,7 @@ ros2 run: error: the following arguments are required: package_name, executable_
 
 This output is helpful, but not _that_ helpful. There is one trick to get more
 complete information about a ROS 2 command, simply ask the command for help by
-adding `--help` to the command. Let's try that again. 
+adding `--help` to the command. Let's try that again.
 
 
 ``` {.sourceCode .bash}
@@ -165,11 +165,11 @@ called _math_, and an executable called _add_ that takes in two numbers and
 returns the result. In this case _argv_ would be the two numbers to add. The
 final command would look like:
 
-`ros2 run math add 1 2` 
+`ros2 run math add 1 2`
 
 Finally, below the positional arguments we have _optional arguments_. These
 arguments are, as the name would suggest, optional. You don't need to included
-them, unless you need to. 
+them, unless you need to.
 
 Now that we've looked into our help file let's run our first ROS program. For
 these tutorials we're going to use a package called "turtlesim", and the program
@@ -181,7 +181,7 @@ complete!). Your command should look like the following:
 If everything goes smoothly you should see the following
 
 ``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 run turtlesim turtlesim_node 
+kscottz@kscottz-ratnest:~$ ros2 run turtlesim turtlesim_node
 [INFO] [turtlesim]: Starting turtlesim with node name /turtlesim
 [INFO] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
 ```
@@ -196,7 +196,7 @@ below.
 The real power in ROS, isn't that it can run a program, it is that it can run
 lots of programs all that same time, all talking together to make a robot, or
 multiple robots, all working together. To illustrate this let's run a second ROS
-program that makes our little turtle move around 
+program that makes our little turtle move around
 
 
 To do this we'll first open a new terminal (using `CTRL-SHIFT-T`). Next we'll
@@ -204,12 +204,12 @@ tell that terminal that we want to use ROS Eloquent by using the `source
 /opt/ros/eloquent/setup.bash `. Finally, we'll run another program in the
 `turtlesim` package to draw a square. See if you can find the program
 yourself. If everything works you should have typed the following, and the
-following output should be visible. 
+following output should be visible.
 
 
 ``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ source /opt/ros/eloquent/setup.bash 
-kscottz@kscottz-ratnest:~$ ros2 run turtlesim draw_square 
+kscottz@kscottz-ratnest:~$ source /opt/ros/eloquent/setup.bash
+kscottz@kscottz-ratnest:~$ ros2 run turtlesim draw_square
 [INFO] [draw_square]: New goal [7.544445 5.544445, 0.000000]
 [INFO] [draw_square]: Reached goal
 [INFO] [draw_square]: New goal [7.448444 5.544445, 1.570796]
@@ -227,9 +227,9 @@ reasons on most flavors of linux terminal `CTRL-C` ends a program while
 `CTRL-SHIFT-C` and `CTRL-SHIFT-V` is used to paste. The reason for this arcane
 and not worth discussing, just accept this confusing detail that you must
 remember. Feel free to try it out. Start and stop the programs and then restart
-them. 
+them.
 
-ROS Topics 
+ROS Topics
 ==========
 
 As it stands we now have to ROS 2 programs running from the `turtlesim` package,
@@ -246,7 +246,7 @@ parethesis, and dashes to break up these sections, ROS topics use words and
 slashes. Another analogy for ROS topics are the file systems where files are
 located in a directory structure broken up by slashes (e.g. C:\foo\bar or
 /home/foo/bar). No matter how you do it, these symbols all work to logically
-group things together, and topic is just a stream of data arranged in a smart 
+group things together, and topic is just a stream of data arranged in a smart
 way. For example, in a vehicle running ROS, the positions of each wheel may be
 organized as follows:
 
@@ -266,7 +266,7 @@ or as we like to say in ROS `publishing`, or if it is reading the data, what we 
 `subscribing` to the topic. Another way to think of subscribing is _listening_,
 this is to say, you listening to values being _published_ on the topic to which
 the node has _subscribed_. Many ROS nodes subscribe to one set of topics,
-process that input data, and then publish to another set of topics. 
+process that input data, and then publish to another set of topics.
 
 Let's return to our turtlesim example and see if we can use the ROS CLI to
 understand the topics, publishers, and subscribers. Let's example the help
@@ -334,7 +334,7 @@ arguments, sometimes called flags, can have two types. A short form indicated
 with a single dash ("-"), and a long form indicated by a double dash
 ("--"). Don't worry, despite looking different both versions of the argument do
 the same thing. Let's try running this command, sub command pair with the
-`-show-types` argument. 
+`-show-types` argument.
 
 ``` {.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 topic list --show-types
@@ -353,7 +353,7 @@ brackets ("[]") define the messages used on the topic. Our car wheel example was
 simple, we were only publishing velocity, but ROS allows you to publish more
 complex data structures that are defined by a _message type_. When we added the
 `--show-types` flag we told the command to include this information. We'll dig
-into messages in detail a bit later. 
+into messages in detail a bit later.
 
 One of the more commonly used topic sub commands for the
 topic command is
@@ -377,7 +377,7 @@ That seems pretty straight forward. Let's give it a go by running it on
 `/turtle1/pose`
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info /turtle1/pose 
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info /turtle1/pose
 Type: turtlesim/msg/Pose
 Publisher count: 1
 Subscriber count: 1
@@ -389,11 +389,11 @@ messages have a predefined message type that can be shared by different
 programming languages and between different nodes. We can also see that this
 topic has a single publisher, that is to say a single node generating data on the
 topic. The topic also has a single subscriber, also called a listener, who is
-processing the incoming pose data. 
+processing the incoming pose data.
 
 For what it is worth, if we just wanted to know the message type of a topic
 there is a sub command just for that called, `type`. Let's take a look at its
-help file and its result. 
+help file and its result.
 
 ```
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic type --help
@@ -433,14 +433,14 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show turtlesim/msg/Pose 
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show turtlesim/msg/Pose
 float32 x
 float32 y
 float32 theta
 
 float32 linear_velocity
 float32 angular_velocity
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ 
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$
 ```
 What does all of this mean? The first thing we see in the output is `float32`
 which is just a number type. If you are a computer programmer then this should
@@ -450,7 +450,7 @@ position of our turtle, and "theta" is the direction the head is pointing. The
 next two values "linear_velocity" and "angular_velocity" are, respectively how
 fast the turtle is moving, and how quickly it is turning. To summarize, this
 message tells us where a turtle is on the screen, where it is headed, and how
-fast it is moving or rotating. 
+fast it is moving or rotating.
 
 
 Now that we know what ROS topics are on our simple turtlesim, and their message
@@ -511,11 +511,11 @@ give the simple case a whirl before we address some of the optional
 elements. Two things to keep in mind: first is that  topics are long and easy to mess
 up, use the TAB key, second is that this will print a lot of data, fast. You can
 use `CTRL-C` to stop command and stop all the output. Let's take a look at the
-`/turtle1/pose` topic. 
+`/turtle1/pose` topic.
 
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose 
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose
 x: 5.4078755378723145
 y: 7.081490516662598
 theta: -1.0670461654663086
@@ -534,14 +534,14 @@ theta: -1.0670461654663086
 linear_velocity: 1.0
 angular_velocity: 0.0
 ---
-<< GOING ON FOREVER>> 
+<< GOING ON FOREVER>>
 ```
 
 What can see all sorts of data. Let's examine what is going on. Between the
 dashes (`---`) is a single ROS message on our topic. If you examine the numbers
 closely you can see that they are changing; and changing in relation to the
 movement of the turtle. Going back to our car example you can see how this would
-be useful for understanding the instantaneous velocity of each of our wheels. 
+be useful for understanding the instantaneous velocity of each of our wheels.
 
 Now that we have the basics down let's dig into a few of the optional
 arguments. We see a variety of commands that start with `--qos`, "QOS" here
@@ -550,7 +550,7 @@ ROS 2. Without getting too technical QOS is a way of asking for a certain level
 of networking robustness. A ROS system can operate over a network, and just like
 streaming video or video games, packets can get dropped or not get to their
 destination. The QOS settings help you control which packets are the most
-important and should get the highest priority. 
+important and should get the highest priority.
 
 Most of the other commands deal with changing the output format of this CLI
 program, but there is one in particular that is super handy, and it is also new
@@ -560,14 +560,14 @@ echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file using just a little bit of
 magic. What's great about this is it allows you to save data for later
 review or analysis. To do this file saving in linux we use the `>` character
-followed by a file name. Below I show two examples of using the `--csv` 
+followed by a file name. Below I show two examples of using the `--csv`
 
 
 ``` {.sourceCode .bash}
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose --csv
 7.097168922424316,8.498645782470703,2.442624092102051,0.0,0.4000000059604645
 7.097168922424316,8.498645782470703,2.449024200439453,0.0,0.4000000059604645
-... 
+...
 <CRTL-C>
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose --csv > mydata.csv
 <nothing happens>
@@ -576,7 +576,7 @@ kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose
 
 The second command above creates a file called mydata.csv. You can look at it
 using a CLI utility called `less` (press q to quit), or open it with your
-favorite spread sheet tool. 
+favorite spread sheet tool.
 
 Now that we've looked at `ros2 topic echo` let's take a look at a few other
 topic sub commands. One thing you may have noticed is that topics can make a lot
@@ -624,7 +624,7 @@ optional arguments:
   --window WINDOW, -w WINDOW
                         window size, in # of messages, for calculating rate
                         (default: 100)
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ 
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$
 
 ```
 Both `bw` and `hz` follow the same pattern, they simply take in a topic name
@@ -633,7 +633,7 @@ followed by a few optional arguments. The only argument worth noting is the
 messages, how many messages to use in calculating those statistics in the window
 size. The default value for window is 100, so when you call `ros2 topic bw` it
 will first collect 100 messages then use that data to calculate the average
-message size. Let's give it a shot (use `TAB` to complete and `CTRL-C` to exit) 
+message size. Let's give it a shot (use `TAB` to complete and `CTRL-C` to exit)
 
 ```
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic hz /turtle1/pose
@@ -655,12 +655,12 @@ at 60.021, where the unit is hz, or 60.021 times a second. Notice that the
 command give the publishing frequency as an average, followed by the minimum,
 maximum, and standard deviation, in seconds. The bandwidth sub command is very
 similar; and we can see that the topic is producing 1.44 kilobytes of data per
-second. This command has similar outputs around the minimum, maximum, and mean. 
+second. This command has similar outputs around the minimum, maximum, and mean.
 
 
 Returning to our sile turtle example, we have two nodes, the turtlesim node
 publishes the position of the turtle, and listens, or subscribes for commands to
-move the turtle. The draw_square node simply publishes command  
+move the turtle. The draw_square node simply publishes command
 
 
 
@@ -710,7 +710,7 @@ Let's try `ros2 node list`
 ``` {.sourceCode .bash::}
 kscottz@ade:~$ ros2 node list
 /draw_square  <== This is the node moving the turtle.
-/turtlesim    <== This is the node rendering the turtle. 
+/turtlesim    <== This is the node rendering the turtle.
 ```
 
 We can see the two nodes we started.
@@ -808,8 +808,8 @@ kscottz@ade:~$ ros2 topic list
 /rosout
 /turtle1/cmd_vel
 /turtle1/color_sensor
-/turtle1/pose      
-kscottz@ade:~$ 
+/turtle1/pose
+kscottz@ade:~$
 ```
 
 One thing of interest, note how `/turtle1/` is in front of the last
@@ -857,10 +857,10 @@ You should see roughly the following...
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 topic echo /turtle1/pose
 ---
-x: 6.5681657791137695     <-- X position of turtle 
-y: 5.584629058837891      <-- Y position of turtle 
+x: 6.5681657791137695     <-- X position of turtle
+y: 5.584629058837891      <-- Y position of turtle
 theta: 0.2597956657409668 <-- Orientation of turtle
-linear_velocity: 1.0      <-- Speed 
+linear_velocity: 1.0      <-- Speed
 angular_velocity: 0.0     <-- Rotation Speed
 ---
 <THIS JUST KEEPS GOING!>
@@ -917,7 +917,7 @@ Topic Diagnostics
     deviation of the message publishing frequency.
 
 ``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 topic hz /turtle1/pose 
+kscottz@ade:~$ ros2 topic hz /turtle1/pose
 average rate: 63.917
         min: 0.001s max: 0.017s std dev: 0.00218s window: 65
 average rate: 63.195
@@ -932,7 +932,7 @@ The `info` command lists the number of publishers and subscribers
 Let's take a quick look:
 
 ``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 topic info /turtle1/pose 
+kscottz@ade:~$ ros2 topic info /turtle1/pose
 Topic: /turtle1/pose
 Publisher count: 1
 Subscriber count: 1
@@ -948,8 +948,8 @@ you know don't know where or what you are looking for it can help!
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 msg show turtlesim/msg/
-turtlesim/msg/Color  turtlesim/msg/Pose   
-kscottz@ade:~$ ros2 msg show turtlesim/msg/Pose 
+turtlesim/msg/Color  turtlesim/msg/Pose
+kscottz@ade:~$ ros2 msg show turtlesim/msg/Pose
 float32 x
 float32 y
 float32 theta
@@ -1056,9 +1056,9 @@ usage: ros2 param list [-h] [--spin-time SPIN_TIME] [--include-hidden-nodes]
 
 positional arguments:
   node_name             Name of the ROS node
-< CLIPPED >  
+< CLIPPED >
 
-kscottz@ade:~$ ros2 param list 
+kscottz@ade:~$ ros2 param list
 /draw_square:
   use_sim_time
 /turtlesim:
@@ -1247,7 +1247,7 @@ float32 y
 float32 theta
 string name # Optional.  A unique name will be created and returned if this is empty
 ---
-string 
+string
 ```
 
 We can see now that this message takes an x,y position, an angle theta,
@@ -1281,7 +1281,7 @@ requester: making request: turtlesim.srv.Spawn_Request(x=4.0, y=3.0, theta=0.4, 
 response:
 turtlesim.srv.Spawn_Response(name='curly')
 
-kscottz@ade:~$ 
+kscottz@ade:~$
 ```
 
 Service call results!
@@ -1381,13 +1381,13 @@ message. Let's take a look.
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 action show turtlesim/action/RotateAbsolute
 # The desired heading in radians
-float32 theta  #< --- This section is the GOAL 
+float32 theta  #< --- This section is the GOAL
 ---
 # The angular displacement in radians to the starting position
 float32 delta  #< --- This section is the final result, different from the goal.
 ---
 # The remaining rotation in radians
-float32 remaining # < --- This is the current state. 
+float32 remaining # < --- This is the current state.
 ```
 
 What does this say about rotate absolute?
@@ -1543,7 +1543,7 @@ Use `F2` or `F3` to go to a second terminal. Just like a running robot,
 you should be able `list` and `echo` topics.
 
 ``` {.sourceCode .bash}
-kscottz@ade:~ros2 topic list 
+kscottz@ade:~ros2 topic list
 /parameter_events
 /rosout
 /turtle1/pose

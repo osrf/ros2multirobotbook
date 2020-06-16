@@ -1,5 +1,5 @@
-ROS Resources 
-============= 
+ROS Resources
+=============
 
 The most up to date to date information about ROS can be found on the web and
 there are a myriad of resources on-line to help you out in your educational or
@@ -19,7 +19,7 @@ their modification or removal. It is worth noting that ROS versions are usually
 pegged to specific version of Ubuntu Linux. If your search engine results are
 specific enough for your particular problem it is a good practice to append your
 ROS version to your search. Moreover, when seeking help or posting questions
-online you should always specify the version of ROS version you are using. 
+online you should always specify the version of ROS version you are using.
 
 
 ROS grew up with the modern web, and as such it has a variety of tools and
@@ -31,21 +31,21 @@ website similar to StackOverflow. Once you register for Answers you can ask or
 answer any question ROS related. Be aware that asking a question well can be
 difficult. You should include as much information as possible to help others
 answer your question. This means you should include the ROS version, any
-debugging or stack trace information you have, and the offending source code. 
+debugging or stack trace information you have, and the offending source code.
 
 Aside from ROS Answers you should check out both the ROS 2 tutorials and API
 documentation and the ROS 1 wiki. The ROS 1 wiki can be found at
 [<http://wiki.ros.org/>](http://wiki.ros.org/) and while it is specifically
 dedicated to ROS 1, much of the information is still relevant to ROS 2. If you
 are searching for up to date ROS 2 information your go to source for this
-information is the ROS 2 tutorials and API documents located at 
+information is the ROS 2 tutorials and API documents located at
 [<https://index.ros.org/doc/ros2/>](https://index.ros.org/doc/ros2/). Many of
 the tutorials you will find in this book pull directly from this body of
 work. If you would like to find the latest ROS news and discuss various ROS
 features the ROS Discourse forum at
 [<https://discourse.ros.org/>](https://discourse.ros.org/) is your best bet. ROS
 discourse is the community hub where developers discuss their latest projects
-and debate the finer points of ROS development. 
+and debate the finer points of ROS development.
 
 For ROS application developers there are number of tools to help you connect
 with the broader ROS developer community. Open Robotics supports
@@ -58,7 +58,7 @@ packages [GitHub maintains a ROS code
 tag](https://github.com/topics/ros?o=desc&s=updated). This tag will allow you to
 search all of the tagged repositories that are publicly listed. At the time of
 writing there were close to 4000 repositories listed on github, so there is a
-pretty good chance you'll find what you need. 
+pretty good chance you'll find what you need.
 
 
 Finally, there are a variety of unofficial resources that you should be aware of
@@ -71,7 +71,7 @@ news. We also have a yearly ROS developers conference called
 on the web. There are a few other resources that can also be useful including the [ROS
 subreddit](https://www.reddit.com/r/ROS/) an "unofficial" [ROS Discord](https://discord.com/invite/HnVcz5a).
 
-Setting Up Your Computer 
+Setting Up Your Computer
 ===
 
 For this chapter we assume that you are working on a modern desktop with a
@@ -92,10 +92,10 @@ machine. Roughly the process for doing so is as follows:
    machine.
 1. Create a virtual machine using the software, and install [Desktop Ubuntu 18.04 Bionic
    Beaver from the Canonical website.](https://ubuntu.com/download/desktop)
-   Configure the installation as you wish. 
+   Configure the installation as you wish.
 1. Now start your virtual machine and log in as a user. The directions below
-   should be applicable. 
-   
+   should be applicable.
+
 For these initial tutorials we will be working with the pre-compiled ROS 2:
 Eloquent Elusor desktop version. These directions follow directly from the
 installation instructions found on the [Eloquent release
@@ -115,7 +115,7 @@ will check that the language used by your computer uses a particular format of
 text. If you are in a minimal environment, such as a docker container, the locale may be
 something minimal like POSIX. We test with the following settings. It
 should be fine if you're using a different UTF-8 supported locale.
- 
+
 ``` {.sourceCode .bash}
 sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
@@ -143,7 +143,7 @@ Install ROS 2 packages
 The next steps for installing ROS is to do a system update (i.e. check for newer
 programs) and then install ROS Eloquent. To do this we run the following
 commands. Be aware that these commands will download a lot of data and may take
-awhile. It is best to run these commands on your home network. 
+awhile. It is best to run these commands on your home network.
 
 ``` {.sourceCode .bash}
 sudo apt update
@@ -164,7 +164,7 @@ sudo apt install ros-eloquent-turtlesim
 
 ROS 2 command line tools use argcomplete for autocompletion. If you
 want autocompletion, installing argcomplete is necessary. We're also going to
-install a few other tools to make our lives easier. 
+install a few other tools to make our lives easier.
 
 ``` {.sourceCode .bash}
 sudo apt install python3-argcomplete htop byobu
@@ -188,7 +188,7 @@ open a new terminal. Yes, this is annoying, but it is a sound approach as it
 makes the version of ROS you are using explicit. On Ubuntu 18.04 all versions of
 ROS live in `/opt/ros/`. Inside this directory will be a programs and script
 files to run ROS. To tell the operating system that we want to use ROS Eloquent
-we simply source the ROS Eloquent setup.bash file using the command below. 
+we simply source the ROS Eloquent setup.bash file using the command below.
 
 
 ``` {.sourceCode .bash}
@@ -200,7 +200,7 @@ test our installation by running two small ROS programs called `talker` and
 `listener`. These two programs will send data back and forth using ROS to
 perform the communication. One program was written in C++ and the other in
 Python. Running these two different programs is a quick and easy way to check
-that your ROS system is configured correctly. To start the talker run the following command.  
+that your ROS system is configured correctly. To start the talker run the following command.
 
 ``` {.sourceCode .bash}
 source /opt/ros/eloquent/setup.bash
@@ -222,7 +222,7 @@ example to make sure we installed Python correctly. First we will need a second 
 open a new terminal tab by entering `CTRL-SHIFT-T` in our terminal. We can also
 create a wholly new terminal by pressing `CTRL-ALT-T`. Pick whatever works best
 for you. Now in your new terminal source your bash file and run the following
-command. 
+command.
 
 
 ``` {.sourceCode .bash}
@@ -245,4 +245,4 @@ ROS most programs run in infinite loops until the robot is shut down. To stop
 these programs we navigate to the terminal running the program and press the
 `Ctrl` and `C` keys simultaneously. We call this combo `CTRL-C` and you can use
 it to stop just about any program in a terminal. Use it to stop the talk and
-listener programs. 
+listener programs.
