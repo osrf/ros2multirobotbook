@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We have looked at how we can integrate new hardware into RoMi, now we will look at how we can write end user applications that integrates into RoMi. We will briefly go through the requirements of a RoMi UI application and proceed with a tutorial of how we can write a React Webapp that interfaces with RoMi.
+We have looked at how we can integrate new hardware into RMF, now we will look at how we can write end user applications that integrates into RMF. We will briefly go through the requirements of a RMF UI application and proceed with a tutorial of how we can write a React Webapp that interfaces with RMF.
 
 ## Overview
 
@@ -22,11 +22,11 @@ The most common way to write a UI application is to make use of a UI framework, 
     * Gtk
     * WPF (Windows only)
 
-Each of these frameworks has its own pros and cons, there isn't a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RoMi due to the technologies they are built upon, to understand why, let's take a brief overview at how a RoMi UI application would work.
+Each of these frameworks has its own pros and cons, there isn't a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to the technologies they are built upon, to understand why, let's take a brief overview at how a RMF UI application would work.
 
-## How does a RoMi UI Application Work?
+## How does a RMF UI Application Work?
 
-Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publishes door states and subscribes to door requests, here we are doing the reverse, subscribing to door states and publishing door requests. We will be listening to door states coming in from RoMi and updating our display to match, and sending door requests when the user clicks the open or close button.
+Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publishes door states and subscribes to door requests, here we are doing the reverse, subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and sending door requests when the user clicks the open or close button.
 
 We need to use a libray to help us do that, in the hardware adapter examples, we are using the `rclcpp` library, but `rclcpp` isn't the only way to use ROS2, here are some libraries that also works well
 
@@ -45,13 +45,13 @@ A "direct" library is able to send and receive ROS2 messages directly from the a
 <b>Note</b>: This is not an exhaustive list, you can find many third party projects that aims to bring the ROS2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS2. You can also write your own bindings and middlewares!
 </div>
 
-At the end of the day, writing a RoMi UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS2 in response to user input and updating the state.
+At the end of the day, writing a RMF UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS2 in response to user input and updating the state.
 
 # Tutorial: React WebApp
 
-In this section, we will go through an example of creating a React based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RoMi, basic knowledge of React and typescript is needed.
+In this section, we will go through an example of creating a React based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF, basic knowledge of React and typescript is needed.
 
-Note that this isn't the only way to create a RoMi UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS2 messages.
+Note that this isn't the only way to create a RMF UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS2 messages.
 
 The code for this tutorial is available at <https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial>.
 
@@ -66,7 +66,7 @@ We will not go through the process of setting up the dependencies, instructions 
 
 ## Setting Up
 
-We will be using an example from rmf_demo as the RoMi deployment that we will be interacting with. This is a good time to test if your installation of `rmf_demo` is working properly, start the demo with the following command
+We will be using an example from rmf_demo as the RMF deployment that we will be interacting with. This is a good time to test if your installation of `rmf_demo` is working properly, start the demo with the following command
 
 ```
 ros2 launch demos office.launch.xml
@@ -90,7 +90,7 @@ Go inside the newly created `react-app-tutorial` directory and run the follow co
 npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport jsonwebtoken @types/jsonwebtoken
 ```
 
-These libraries are not strictly required but they contain helpful functions to use soss and to communicate with RoMi. If you are building a javascript based RoMi app, it is recommended to make use of them, we will see later how they simplify the communicaton to RoMi.
+These libraries are not strictly required but they contain helpful functions to use soss and to communicate with RMF. If you are building a javascript based RMF app, it is recommended to make use of them, we will see later how they simplify the communicaton to RMF.
 
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS2 messages directly, however it does not work on the browser. It is preferred if you are writing a nodejs based desktop application using something like electron, or you are writing a server based application like a REST API provider.
@@ -153,7 +153,7 @@ Great! we now have a base to start implementing the rest of the app.
 
 ## Obtaing List of Doors
 
-Previously we made a simple door component and tested rendering it with hardcoded values, obviusly this won't work in a proper app, here we will look at how we can obtain the list of actual doors from RoMi.
+Previously we made a simple door component and tested rendering it with hardcoded values, obviusly this won't work in a proper app, here we will look at how we can obtain the list of actual doors from RMF.
 
 Start of by adding a react state to track the list of doors
 
@@ -161,7 +161,7 @@ Start of by adding a react state to track the list of doors
 const [doors, setDoors] = React.useState<RomiCore.Door[]>([]);
 ```
 
-RoMi has a `get_building_map` service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS2 service call, since there isn't ROS2 support on the browser, we will be using an "indirect" approach with `soss`. A websocket connection is made to soss which will then act as a middleman and pass our messages to the ROS2 network.
+RMF has a `get_building_map` service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS2 service call, since there isn't ROS2 support on the browser, we will be using an "indirect" approach with `soss`. A websocket connection is made to soss which will then act as a middleman and pass our messages to the ROS2 network.
 
 An easy way to use soss is with the `@osrf/romi-js-soss-transport` package, so let's do it now. Add a react effect hook to your `App` component
 
@@ -199,7 +199,7 @@ it uses `RomiCore` so add this to your imports
 import * as RomiCore from '@osrf/romi-js-core-interfaces';
 ```
 
-this downloads and parses the building map from RoMi. `romi-js` simplifies a ROS2 service call with the async `call` method. If you are familiar with `rclnodejs`, this is roughly equivalent to
+this downloads and parses the building map from RMF. `romi-js` simplifies a ROS2 service call with the async `call` method. If you are familiar with `rclnodejs`, this is roughly equivalent to
 
 ```js
 const client = node.createClient(
@@ -212,7 +212,7 @@ client.sendRequest({}, response => {
 });
 ```
 
-Notice that we need to provide it with type of the message (`building_map_msgs/srv/GetBuildingMap`) and the name of the service (`get_building_map`), but how do we find out what is the service name and type? We could read the RoMi manual or query the ROS2 system while RoMi is running, another way is with the help of `RomiCore`, it provides a list of known RoMi services and messages so you don't have to go through the trouble of finding them yourself.
+Notice that we need to provide it with type of the message (`building_map_msgs/srv/GetBuildingMap`) and the name of the service (`get_building_map`), but how do we find out what is the service name and type? We could read the RMF manual or query the ROS2 system while RMF is running, another way is with the help of `RomiCore`, it provides a list of known RMF services and messages so you don't have to go through the trouble of finding them yourself.
 
 In this statement here, we are using `RomiCore` to call the `get_building_map` service without needing to know what is the service name and types
 
@@ -293,7 +293,7 @@ Don't worry about the door state for now. If everything goes well, you should se
 
 ## Listening for Door States
 
-Previously we managed to render the list of doors in the RoMi system but the building map doesn't tells us the door states so we will now fix it here. First, let's add a react state to track the door states
+Previously we managed to render the list of doors in the RMF system but the building map doesn't tells us the door states so we will now fix it here. First, let's add a react state to track the door states
 
 ```js
 const [doorStates, setDoorStates] = React.useState<Record<string, RomiCore.DoorState>>({});
@@ -357,7 +357,7 @@ And just like that we now have the door states!
 
 ![with door states](ui-resources/with-door-states-number.png)
 
-But wait... the door states are numbers like `1` and `2`, this is because RoMi uses a constant to represent door states, we could run a simple function to convert these constants into string
+But wait... the door states are numbers like `1` and `2`, this is because RMF uses a constant to represent door states, we could run a simple function to convert these constants into string
 
 ```js
 function doorModeString(doorMode: RomiCore.DoorMode): string {
@@ -374,7 +374,7 @@ function doorModeString(doorMode: RomiCore.DoorMode): string {
 }
 ```
 
-but how do we know `2` means "Open" etc? We can find out by reading the RoMi manual or inspecting the ROS2 message definitions, but we can do better with `RomiCore`, it provides the list of constants in a more readable form
+but how do we know `2` means "Open" etc? We can find out by reading the RMF manual or inspecting the ROS2 message definitions, but we can do better with `RomiCore`, it provides the list of constants in a more readable form
 
 ```js
 function doorModeString(doorMode: RomiCore.DoorMode): string {
@@ -445,7 +445,7 @@ Great! Now we have readable door states instead of cryptic numbers.
 
 ## Sending Door Requests
 
-As you may have expected by now, all we have to do here is to send door requests to RoMi.
+As you may have expected by now, all we have to do here is to send door requests to RMF.
 
 First, create a publisher, add this to the start of the render function.
 
@@ -469,7 +469,7 @@ const requestDoor = (door: RomiCore.Door, mode: number) => {
 };
 ```
 
-it takes in a `RomiCore.Door` and a number, representing the desired mode and simply craft a `RomiCore.DoorRequest` message and sends it using the publisher. Normally you would have to consult the RoMi manual or the ROS2 definitions to know exactly what you need to send, again, `RoMiCore` provides the typing information to make it easier to fill in the required fields.
+it takes in a `RomiCore.Door` and a number, representing the desired mode and simply craft a `RomiCore.DoorRequest` message and sends it using the publisher. Normally you would have to consult the RMF manual or the ROS2 definitions to know exactly what you need to send, again, `RomiCore` provides the typing information to make it easier to fill in the required fields.
 
 and finally add this to the props passed to the door component
 
@@ -536,19 +536,19 @@ function App() {
 export default App;
 ```
 
-Try clicking on the open and close buttons now, you should see the door state being updated, you can also see the door opening/closing in gazebo. Congratulations! You have just written a simple RoMi UI application! Obviously the design leaves much to be desired as we didn't do any CSS styling but that is outside the scope of this tutorial.
+Try clicking on the open and close buttons now, you should see the door state being updated, you can also see the door opening/closing in gazebo. Congratulations! You have just written a simple RMF UI application! Obviously the design leaves much to be desired as we didn't do any CSS styling but that is outside the scope of this tutorial.
 
-Extending this to provide more features like lift control, fleet states etc follows the same principal. All the available topics and services exposed by RoMi are available in `RomiCore`, you can also find more detailed information by reading the rest of the manual. This also extends to writing UI applications for other platforms and frameworks, at the core you are really just publishing and subscribing to ROS2 messages so you can apply the same principals in other languages and frameworks.
+Extending this to provide more features like lift control, fleet states etc follows the same principal. All the available topics and services exposed by RMF are available in `RomiCore`, you can also find more detailed information by reading the rest of the manual. This also extends to writing UI applications for other platforms and frameworks, at the core you are really just publishing and subscribing to ROS2 messages so you can apply the same principals in other languages and frameworks.
 
 ## Conclusion
 
-We have just created a minimal RoMi UI application that reports the door state and control them. There isn't much feature but hopefully this tutorial provides the basic knowledge of how to create a RoMi UI application not just in React but also in any frameworks that you like.
+We have just created a minimal RMF UI application that reports the door state and control them. There isn't much feature but hopefully this tutorial provides the basic knowledge of how to create a RMF UI application not just in React but also in any frameworks that you like.
 
-If you would like more examples of a React RoMi application, you can take a look at the official [RoMi dashboard](https://github.com/osrf/romi-dashboard).
+If you would like more examples of a React RMF application, you can take a look at the official [RoMi dashboard](https://github.com/osrf/romi-dashboard).
 
 ## Extra: Extending romi-js
 
-Throughout the tutorial, we are using `romi-js` to simplify the communication to RoMi. As you might have noticed `romi-js` is actually a collection of packages, this design makes it possible to easily extend it with new topic, services and even transports.
+Throughout the tutorial, we are using `romi-js` to simplify the communication to RMF. As you might have noticed `romi-js` is actually a collection of packages, this design makes it possible to easily extend it with new topic, services and even transports.
 
 ### Adding Topics and Services
 
