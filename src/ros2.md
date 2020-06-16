@@ -55,11 +55,12 @@ learning process.
 
 {{#include ros2_tools_resources.md}}
 
+{{#include ros2_design_patterns.md}}
+
 {{#include ros2_api.md}}
 
 {{#include ros2_cli.md}}
 
-{{#include ros2_design_patterns.md}}
 
 Pull from slide content below
 
