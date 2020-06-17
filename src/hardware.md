@@ -72,7 +72,7 @@ We have identified 4 different levels of control when working with fleets of mob
 
 * **Paths** - RMF is provided with status and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest compliance with RMF, which allows it to reduces stoppages and deal with unexpected scenarios gracefully.
 
-* **Traffic Light** - RMF is given the status as well as pauce/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.
+* **Traffic Light** - RMF is given the status as well as pause/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.
 
 * **Read Only** - RMF is not given any control over the mobile robots, however is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet.
 
