@@ -79,7 +79,7 @@ Next let's test if soss is working. In order to run soss, you need to provide it
 soss <path_to_config>
 ```
 
-Once the environment is set up, we can finally proceed to setting up our actual app. First, create a React workspace with
+Once the environment is set up, we can then proceed to set up our actual app. First, create a React workspace with:
 
 ```
 npx create-react-app react-app-tutorial --template typescript
