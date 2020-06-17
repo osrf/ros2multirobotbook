@@ -312,7 +312,7 @@ Before a lift can be properly integrated, be sure to draw up the lift locations 
 
 ### Integration
 
-Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the requirements are that the lift controllers accepts commands using a certain protocol, `OPC` is one such example.
+Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the basic requirement is that the lift controllers accepts commands using a prescribed protocol, `OPC` is one such example.
 
 The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other.
 
