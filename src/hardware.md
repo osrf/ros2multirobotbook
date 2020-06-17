@@ -261,21 +261,21 @@ The same ready `free_fleet` server implementation in the repository will work in
 
 If required in the meantime, users can implement their own `free_fleet` client, by working with the `free_fleet` library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section [Custom Navigation Stack](#custom-navigation-stack).
 
-#### Custom Navigation Stack
+#### Developer Navigation Stack
 
-In this configuration, it is assumed that the software running on the mobile robot was written by the developers themselves and the developers have a good understanding of their own API's and interfaces. This will be necessary for implementing your own `free_fleet` client wrapper. The block diagram below illustrate this configuration. 
+In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own `free_fleet` client wrapper. The block diagram below illustrate this configuration.  
 
 <img src="images/free_fleet_custom_config.png">
 
-Once the custom `free_fleet` client is fully functional, it will be a simple task of launching the same ROS 2 `free_fleet` server as mentioned earlier in this section to work with the fleet adapters through ROS 2 messages and topics.
+Once the developer's `free_fleet` client is fully functional, it will be a simple task of launching the same ROS 2 `free_fleet` server as mentioned earlier in this section to work with the fleet adapters through ROS 2 messages and topics.
 
-#### Vendor Navigation Stack
+#### System Integrator via API
 
-This configuration assumes that the provided mobile robot is operating on vendor software and hardware, which in most cases, require more effort when it comes to systems integration. There are 2 ways to go about integrating vendor mobile robots with RMF.
+In this implementation, a system integrator (not the robot developer) would like to integrate with RMF. Typically system integrators will only have API level access provided by the robot developer. This scenario may be more difficult depending on the level of collaboration between the system integrator and the robot developer as well as the level of access granted. There are 2 potential approaches a system integrator may consider to a integrate a vendor developed robot with RMF.
 
-The first way to go about it, would be implementing a fleet driver for this robot, as documented in the previous section regarding [Mobile Robot Fleets](#mobile-robot-fleets). This will ensure that the mobile robot communicates directly with fleet adapters, using the provided vendor API, without the need to run a client on the robot. This would be the recommended way of working with vendor mobile robots or vendor navigation stacks.
+The first and recommended approach is to implement a fleet driver for the robot, as documented in the previous section regarding [Mobile Robot Fleets](#mobile-robot-fleets). This will ensure that the mobile robot communicates directly with fleet adapters, using the provided vendor API, without the need to run a client on the robot.
 
-If however the user intends to both manage the mobile robots using a fleet management system and integrate with RMF, a more roundabout way is possible, by implementing non-intrusive `free_fleet` clients running on the same machine as the server. The `free_fleet` client implementation would need to utilize the provided vendor API to get status updates and provide navigation commands. This implementation is not advisable as it needlessly extends the communication route from RMF to the mobile robot, however if the user intends to manage a heterogeneous fleet of robots, each using different stacks of software and hardware, `free_fleet` could be a reasonable solution to that.
+If however the system integrator intends to both manage the mobile robots using a fleet management system and integrate with RMF, a more indirect way may be required by implementing non-intrusive `free_fleet` clients running on the same machine as the server. The `free_fleet` client implementation would need to utilize the provided developer API to get status updates and receive navigation commands. This implementation is not advisable as it needlessly extends the communication route from RMF to the mobile robot. However if the user intends to manage a heterogeneous fleet of robots, each using different stacks of software and hardware, `free_fleet` could be a reasonable solution to that.
 
 ## Doors
 
