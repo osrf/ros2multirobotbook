@@ -26,7 +26,7 @@ Each framework has pros and cons and we do not feel there is a "best" framework 
 
 ## How does an RMF UI Application Work?
 
-Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publishes door states and subscribes to door requests, here we are doing the reverse, subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and sending door requests when the user clicks the open or close button.
+Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publish door states and subscribe to door requests. Here we are doing the reverse; subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and we will also be sending door requests when the user clicks the open or close button.
 
 We need to use a libray to help us do that, in the hardware adapter examples, we are using the `rclcpp` library, but `rclcpp` isn't the only way to use ROS2, here are some libraries that also works well
 
