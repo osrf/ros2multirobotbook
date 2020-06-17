@@ -26,7 +26,7 @@ RMF uses ROS 2 messages and topic interfaces. Hence, in most cases we use compon
 
 ## Mobile Robots
 
-We have identified a number of different scenarios where mobile robots are integrated with RMF. In this section, we will be addressing each scenario or configuration and how users can go about working with them.
+We have identified a number of different scenarios where mobile robots are integrated with RMF, though preliminary focus and use cases have involved delivery service mobile robots. In this section, we will be addressing each scenario or configuration and how users can go about working with them.
 
 Before all that, let us revisit the diagram and description in the [hardware introduction section](#hardware). Fleet adapters not only serve as a bridge between the mobile robot fleet and RMF, an additional level of complexity also exists to address traffic monitoring, scheduling and conflict resolution between all the mobile robots scattered across multiple fleets in the environment. Fleet drivers are then responsible to interact with the mobile robots/fleets, to update the adapters and relay commands, via simple ROS2 messages and topic interfaces. More information about how fleet adapters work can be found in Chapter 5 rmf-core.
 
