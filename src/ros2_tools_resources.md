@@ -67,7 +67,7 @@ the latest ROS projects and features. Both [Open
 Robotics](https://twitter.com/openroboticsorg) and
 [ROS](https://twitter.com/rosorg) maintain  twitter feeds to share the latest
 news. We also have a yearly ROS developers conference called
-[ROSCon](https://roscon.ros.org/2020/); most of old talks are freely available
+[ROSCon](https://roscon.ros.org/2020/); most talks are freely available
 on the web. There are a few other resources that can also be useful including the [ROS
 subreddit](https://www.reddit.com/r/ROS/) an "unofficial" [ROS Discord](https://discord.com/invite/HnVcz5a).
 
@@ -180,7 +180,7 @@ script file isn't magic; it is just a series of commands to enter into the
 terminal, just like the series of commands we just entered to setup ROS. It is
 possible to have different version of ROS running on a single computer. Using
 the wrong version of ROS can lead to all sorts of problems and is a common
-mistake for new users! _If you are having problems try sourcing the correct ROS
+mistake for new users! If you are having problems try sourcing the correct ROS
 bash file. From now on, whenever you open a new terminal, you will
 need to tell the computer which version of ROS to use. To set the necessary
 environment variables for ROS you need to `source` a bash file every time you

@@ -45,8 +45,8 @@ command in a shell, that's okay. The command is idempotent; meaning running it
 twice in a row won't break anything. You can run it a million times in a row and
 it won't make any difference.
 
-The other command you need to commit to memory is `ROS2`. That's it. That's all
-there is to it. Almost everything in the ROS 2 CLI starts with ROS 2. Go ahead,
+The other command you need to commit to memory is `ros2`. That's it. That's all
+there is to it. Almost everything in the ROS 2 CLI starts with `ros2`. Go ahead,
 try it, in the same shell where you just sourced the setup file. If everything
 is working correctly you should see the following:
 
@@ -88,7 +88,7 @@ this one command you can figure out what every single ROS 2 CLI program does and
 how to use it. If you study the list above you'll notice that there is a long
 list of commands. The ROS 2 CLI has a syntax just like most languages. Just like
 all English sentences start with a capital letter, all ROS CLI commands start
-with `ROS2` followed by a command. After the command any number of other things
+with `ros2` followed by a command. After the command any number of other things
 can come, but most of the commands will tell you and show you what they
 want. The rest of this section just walks through each of the commands one by
 one.
@@ -109,7 +109,7 @@ Running Your First ROS Program
 ==============================
 
 Let's get started with our first ROS CLI command. The first command we'll visit
-is `RUN`. Let's start by looking at the documentation for the run command. First
+is `run`. Let's start by looking at the documentation for the run command. First
 we'll type `ros2 run` and see what happens. Give it a try, you won't break
 anything.
 
@@ -224,22 +224,22 @@ It is worth noting that You can stop any ROS program by typing the `Ctrl` and
 `C` keys at the same time in the terminal , we call this `CTRL-C`. The astute reader may notice
 that `CTRL-C` is usually used at the hotkey combination for copy. For arcane
 reasons on most flavors of linux terminal `CTRL-C` ends a program while
-`CTRL-SHIFT-C` and `CTRL-SHIFT-V` is used to paste. The reason for this arcane
-and not worth discussing, just accept this confusing detail that you must
-remember. Feel free to try it out. Start and stop the programs and then restart
-them.
+`CTRL-SHIFT-C` and `CTRL-SHIFT-V` is used to paste. The reasons for this are
+arcane and not worth discussing, just accept this confusing detail that you
+must remember. Feel free to try it out. Start and stop the programs and then
+restart them.
 
 ROS Topics
 ==========
 
-As it stands we now have to ROS 2 programs running from the `turtlesim` package,
+As it stands we now have two ROS 2 programs running from the `turtlesim` package,
 `turtle_node` and `draw_square`. If we reflect on this for a moment we have
 `turtle_node` that draws our turtle simulation, and `draw_square` spitting out
 commands that make the turtle in `turtle_node` move around. How are these two
 programs communicating? ROS programs, also called _nodes_, communicate over
 _topics_ on the ROS _message bus_. ROS _topics_ are very similar to telephone
 numbers. In the US, like most countries, telephone numbers are broken into
-logical sections. In North America You start with a two digit country code,
+logical sections. In North America, you start with a country code,
 followed by a three digit area code, followed by an exchange, and then finally a
 house number. ROS topics are very similar but instead of using numbers,
 parethesis, and dashes to break up these sections, ROS topics use words and
@@ -300,9 +300,9 @@ Commands:
   Call `ros2 topic <command> -h` for more detailed usage.
 ```
 
-Like a Russian nesting doll this ROS command has sub commands! There are quite a
-few sub commands; we won't give a treatment of all of them, but let's look at a
-few of them.What's great about the ROS CLI is that the sub commands have their
+Like a Russian nesting doll this ROS command has subcommands! There are quite a
+few subcommands; we won't give a treatment of all of them, but let's look at a
+few of them.What's great about the ROS CLI is that the subcommands have their
 own help command! Why don't we examine the `list` command. Repeating our command
 pattern let's try running `ros2 topic list --help`.
 
@@ -333,7 +333,7 @@ the `-t, --show-types` line looks interesting. It is worth noting that command
 arguments, sometimes called flags, can have two types. A short form indicated
 with a single dash ("-"), and a long form indicated by a double dash
 ("--"). Don't worry, despite looking different both versions of the argument do
-the same thing. Let's try running this command, sub command pair with the
+the same thing. Let's try running this command, subcommand pair with the
 `-show-types` argument.
 
 ``` {.sourceCode .bash}
@@ -355,10 +355,9 @@ complex data structures that are defined by a _message type_. When we added the
 `--show-types` flag we told the command to include this information. We'll dig
 into messages in detail a bit later.
 
-One of the more commonly used topic sub commands for the
-topic command is
-`info`. Unsurprisingly info provides info about a topic. Let's peek at its help
-file using `ros2 topic info --help`
+One of the more commonly used topic subcommands for the topic command is
+`info`. Unsurprisingly, `info` provides info about a topic.  Let's peek at its
+help file using `ros2 topic info --help`
 
 ``` {.sourceCode .bash}
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info --help
@@ -392,7 +391,7 @@ topic. The topic also has a single subscriber, also called a listener, who is
 processing the incoming pose data.
 
 For what it is worth, if we just wanted to know the message type of a topic
-there is a sub command just for that called, `type`. Let's take a look at its
+there is a subcommand just for that called, `type`. Let's take a look at its
 help file and its result.
 
 ```
@@ -411,15 +410,15 @@ turtlesim/msg/Pose
 ```
 
 While it is not part of topic command it is worthwhile for us to jump ahead
-briefly and look at one particular command, sub command pair, namely the `interface`
-command and the show sub command. This sub command will print all the
+briefly and look at one particular command, subcommand pair, namely the `interface`
+command and the show subcommand. This subcommand will print all the
 information related to a message type using you can better understand the data
 being moved over a topic. In the previous example we saw that the `topic type`
-sub command told up the `/turtle1/pose` topic has a type `turtlesim/msg/Pose`.
+subcommand told up the `/turtle1/pose` topic has a type `turtlesim/msg/Pose`.
 But what is a `turtlesim/msg/Pose` you may ask? We can look at the data
 structure transferred by this topic by running: `ros2 interface show`
-sub command and giving the message type name as an input. Let's look at the help
-for this sub command and its output:
+subcommand and giving the message type name as an input. Let's look at the help
+for this subcommand and its output:
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show --help
@@ -445,20 +444,20 @@ kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$
 What does all of this mean? The first thing we see in the output is `float32`
 which is just a number type. If you are a computer programmer then this should
 look familiar, if you're not a programmer a float is just a number with a
-decimal like "1.2345" or "424123123.1231231". The values "x" and "y" are the
-position of our turtle, and "theta" is the direction the head is pointing. The
-next two values "linear_velocity" and "angular_velocity" are, respectively how
+decimal like "1.2345" or "424123123.1231231". The values `x` and `y` are the
+position of our turtle, and `theta` is the direction the head is pointing. The
+next two values `linear_velocity` and `angular_velocity` are, respectively, how
 fast the turtle is moving, and how quickly it is turning. To summarize, this
 message tells us where a turtle is on the screen, where it is headed, and how
 fast it is moving or rotating.
 
 
 Now that we know what ROS topics are on our simple turtlesim, and their message
-type  we can dig in and
-find out more about how everything works. If we look back at our topic sub commands we
-can see a sub command called `echo`. Echo is computer jargon that means "repeat"
-something. If you echo a topic it means you want the CLI to repeat what's on a
-topic. Let's look at the echo subcommand's help:
+types, we can dig in and find out more about how everything works. If we look
+back at our topic subcommands, we can see a subcommand called `echo`. Echo is
+computer jargon that means "repeat" something. If you echo a topic it means you
+want the CLI to repeat what's on a topic. Let's look at the `echo` subcommand's
+help text:
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 topic echo --help
@@ -555,7 +554,7 @@ important and should get the highest priority.
 Most of the other commands deal with changing the output format of this CLI
 program, but there is one in particular that is super handy, and it is also new
 in ROS 2. The `--csv` flag stands for "comma separated values" and it a very
-simple way of defining a spread sheet. What this argument does is make the topic
+simple way of defining a spreadsheet. What this argument does is make the topic
 echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file using just a little bit of
 magic. What's great about this is it allows you to save data for later
@@ -576,20 +575,21 @@ kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose
 
 The second command above creates a file called mydata.csv. You can look at it
 using a CLI utility called `less` (press q to quit), or open it with your
-favorite spread sheet tool.
+favorite spreadsheet tool.
 
 Now that we've looked at `ros2 topic echo` let's take a look at a few other
-topic sub commands. One thing you may have noticed is that topics can make a lot
-of data! More complex robots, like a self driving car, can saturate a high speed
-internet connection with how much data it produces. There are two topic sub
-commands that can be used to diagnose performance issues. The first sub command
-is `topic hz` which is the abbreviation of Hertz, the unit of frequency, as in
-the frequency of a radio station. The `hz` sub command will tell you how often a
-particular topic produces a message. Similarly there is the `topic bw` sub
-command, where `bw` stands for bandwidth, which is a engineering term related to
-the _volume_ of data being produced. A high bandwidth connection can move more
-data, like high definition video, than a low bandwidth data, which might move a
-radio show. Let's take a look at the help for these two commands.
+topic subcommands. One thing you may have noticed is that topics can make a lot
+of data! More complex robots, like a self driving car, can saturate a high
+speed internet connection with how much data it produces. There are two topic
+subcommands that can be used to diagnose performance issues. The first
+subcommand is `topic hz` which is the abbreviation of Hertz, the unit of
+frequency, as in the frequency of a radio station. The `hz` subcommand will
+tell you how often a particular topic produces a message. Similarly there is
+the `topic bw` subcommand, where `bw` stands for bandwidth, which is a
+engineering term related to the _volume_ of data being produced. A high
+bandwidth connection can move more data, like high definition video, than a low
+bandwidth data, which might move a radio show. Let's take a look at the help
+for these two commands.
 
 
 ```{.sourceCode .bash}
@@ -651,7 +651,7 @@ average: 1.52KB/s
 As we can see above the `hz` command says that the topic is publishing messages
 at 60.021, where the unit is hz, or 60.021 times a second. Notice that the
 command give the publishing frequency as an average, followed by the minimum,
-maximum, and standard deviation, in seconds. The bandwidth sub command is very
+maximum, and standard deviation, in seconds. The bandwidth subcommand is very
 similar; and we can see that the topic is producing 1.44 kilobytes of data per
 second. This command has similar outputs around the minimum, maximum, and mean.
 
@@ -662,8 +662,8 @@ means to search all topics for a specific type. If all you want to know is a
 topic's type you can use the `type` command which will return a type that can
 then be further explored with the `interface` command. If instead you would like
 to know what topics use a particular message type you can use the `topic find`
-command / sub command pair. Both the `topic type` and `topic interface` command
-/ sub command pairs have a very limited set of optional arguments, so we simply
+command / subcommand pair. Both the `topic type` and `topic interface` command
+/ subcommand pairs have a very limited set of optional arguments, so we simply
 provide them with our desired topic or message type. Let's take a look at these two commands together: 
 
 ```{.sourceCode .bash}
@@ -695,20 +695,20 @@ optional arguments:
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic find  turtlesim/msg/Pose 
 /turtle1/pose
 ```
-The last sub command for the topic command is `pub`, pub simply means publish,
+The last subcommand for the topic command is `pub`, pub simply means publish,
 and it allows you to publish a command to any ROS topic from the command
 line. While you shouldn't need to use this command regularly it can be
 particularly handy for testing and debugging when you are building a robot
 system. The `pub` command has a number of optional arguments that allow you to
 send one or more message, and with different quality of service (QoS)
-presets. The format of the command is `ros2 topic pub topic_name message_type
-flags`, which means for it to work successfully you must include a
+presets. The format of the command is `ros2 topic pub TOPIC_NAME MESSAGE_TYPE
+VALUES`, which means for it to work successfully you must include a
 target topic, the topic's message type, and finally the message's values. The
 values for the message are specified in the YAML format and we can use the
 `interface show` command to understand the format. To illustrate the utility of this
 command we'll issue a message to rotate and stop  our turtle by publishing
 to the `/turtle1/cmd_vel/` topic. Let's first take a look at the `topic pub`
-documentation before we construct our command: 
+documentation before we construct our command:
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic pub --help
@@ -786,7 +786,7 @@ ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 4.0
 ```
 
 If you did everything correctly you should have moved around the turtle on the
-screen. Try changing the command to draw a small picture. 
+screen. Try changing the command to draw a small picture.
 
 
 ROS 2 Services and Actions
@@ -795,17 +795,17 @@ ROS 2 Services and Actions
 
 ROS has two main patterns for encapsulating robot behaviors: services and
 actions. As we have discussed previously services are the name given to short,
-synchronous robot behaviors that can be done quickly, like turning on lights and
-switching components on or off. Action is the term to describe longer term,
+synchronous robot behaviors that can be done quickly, like turning on lights
+and switching components on or off. Action is the term to describe longer term,
 asynchronous, tasks, that may have intermediate steps. A classic example of an
-action is navigation, where a goal position and asked to navigate to that
-goal. Try as the robot might, it can move infinitely fast, and it takes to move
-to a goal, and sometimes its path may become blocked. These two primitives are
-the backbone of most robotic systems using ROS, and learning how to use them via
-the command line will allow you quickly and easily command a robot to complete a
-task for you. To aid in clarity of this section we'll also touch on the `ros2
-node` command to determine what node, or software process is conducting a
-particular action or service. 
+action is navigation: a robot is provided a goal position and asked to navigate
+to that goal. Try as the robot might, since it cannot move infinitely fast, it
+takes time to move to a goal and sometimes its path may become blocked. These
+two primitives are the backbone of most robotic systems using ROS, and learning
+how to use them via the command line will allow you quickly and easily command
+a robot to complete a task for you. To aid in clarity of this section we'll
+also touch on the `ros2 node` command to determine what node, or software
+process is conducting a particular action or service.
 
 Let's get nodes out of the way quickly. As we have alluded to ROS nodes are
 small programs, running in their own process. A ROS system can have ten,
@@ -813,11 +813,11 @@ hundreds, or even thousands of nodes running concurrently. Moreover, a ROS
 system can have multiple copies of the same node running concurrently on the
 same system. In the case of our turtle simulation we can actually create
 multiple turtles, each with their own node, all running the exact same
-program. ROS Nodes, like ROS topics, have name spaces so that you can address
+program. ROS Nodes, like ROS topics, have namespaces so that you can address
 specific nodes in the case where multiple copies of the same node (program) are
 running. Let's dig in a bit by restarting our turtle simulation in a terminal
 using `ros2 run turtlesim turtlesim_node`. Now in a new terminal let's first
-examine what `ros2 node` has to offer by asking for help. 
+examine what `ros2 node` has to offer by asking for help.
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 node --help
@@ -835,7 +835,7 @@ Commands:
 
   Call `ros2 node <command> -h` for more detailed usage.
 ```
-Much like topics we see two sub commands, `info` and `list`. Node list works much the
+Much like topics we see two subcommands, `info` and `list`. Node list works much the
 same as topic list and simply prints a list of all running nodes. Let's see what
 is running on our system. 
 
@@ -846,7 +846,7 @@ kscottz@kscottz-ratnest:~$ ros2 node list
 
 We have a single node running called "turtlesim". `node info` works in a way
 very similar to `topic info` except that it lists information about the nodes we
-give it. Why don't we call it with our single ROS Node `/turtlesim` as its
+give it. Let's call it with our single ROS Node `/turtlesim` as its
 argument.
 
 
@@ -888,11 +888,11 @@ to. We can also see a number of "action servers" and "service servers". It is
 worth noting the client and server relationship here. Since ROS may have
 multiple nodes running some nodes may offer service, these are servers, and
 other ROS nodes may call those servers, these are the clients. The clients can
-be other ROS nodes, or for these examples, a human using the CLI. 
+be other ROS nodes, or for these examples, a human using the CLI.
 
 The command line interface for services and actions are very similar, in fact
-the both have only four sub commands. Let's run the `action` and `service`
-commands and compare them. 
+the both have only four subcommands. Let's run the `action` and `service`
+commands and compare them.
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 action --help
@@ -975,18 +975,18 @@ kscottz@kscottz-ratnest:~$ ros2 action list
 /turtle1/rotate_absolute
 ```
 
-Let's begin digging into services. There seems to be quite a few services
+Let's begin digging into services. There seem to be quite a few services
 listed. Let's take a look at the `/spawn` service, which will create more
 turtles. ROS services and actions use messages similar to those used in topics
-to communicate and in fact actions and services are built on top of messages. . We can use the `service type` sub command to determine the message type
+to communicate and in fact actions and services are built on top of messages. . We can use the `service type` subcommand to determine the message type
 used by a particular service. We can find specifics of the message by using the
-`interface show` command. Let's see this in practice with the `spawn` service. 
+`interface show` command. Let's see this in practice with the `spawn` service.
 
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 service type /spawn
 turtlesim/srv/Spawn
-kscottz@kscottz-ratnest:~$ ros2 interface show turtlesim/srv/Spawn 
+kscottz@kscottz-ratnest:~$ ros2 interface show turtlesim/srv/Spawn
 float32 x
 float32 y
 float32 theta
@@ -995,11 +995,11 @@ string name # Optional.  A unique name will be created and returned if this is e
 string name
 ```
 
-We can see from the output above that the spawn message takes three "float32"
+We can see from the output above that the spawn message takes three `float32`
 values for its position and orientation as well a "string" for its name. The
-`---` indicate the return value of the services. Unlike topics, services can
-return a set up values, which enables them to do things like perform
-computations and calculations. 
+`---` indicate the return value of the services. Unlike topics, services have
+a return value, which enables them to do things like perform computations and
+calculations.
 
 Let's examine the help for calling a service by running `ros2 service call --help`.
 
@@ -1130,7 +1130,7 @@ We can see here that we need to know the action name, the type, and the
 values. Now the only problem is figuring out the format of the
 action type.
 
-Let's understand the RotateAbsolute action message
+Let's understand the `RotateAbsolute` action message
 
 The `ros2 interface show` command can be used to find the type of action
 message. Let's take a look.
@@ -1271,10 +1271,11 @@ Set parameter successful
 ```
 
 
-ROS Bag!
+ROS bag
+==============
 
--   ROS Bags are ROS's tool for recording, and replaying data.
--   ROSBags are kinda like log files that let you store data along with
+-   ROS bags are ROS's tool for recording, and replaying data.
+-   ROS bags are kinda like log files that let you store data along with
     messages.
 -   ROS systems can generate a lot of data, so you select which topics
     you want to bag.
@@ -1302,7 +1303,7 @@ First use `F2` or `F3` to go to the other terminal. Start the
 
 The command for that is: `ros2 run turtlesim draw_square`
 
-Now let's look at `ros2 bag -h`
+Now let's look at `ros2 bag record -h`
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 bag record -h
@@ -1379,7 +1380,7 @@ kscottz@ade:~$ ros2 bag play turtle1
 
 Nothing should happen visibly, but a lot is happening under the hood.
 Use `F2` or `F3` to go to a second terminal. Just like a running robot,
-you should be able `list` and `echo` topics.
+you should be able to `list` and `echo` topics.
 
 ``` {.sourceCode .bash}
 kscottz@ade:~ros2 topic list

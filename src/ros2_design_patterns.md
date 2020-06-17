@@ -62,7 +62,7 @@ are sent as *messages* from *publishers* to *subscribers*. A publisher may have
 zero, one, or multiple subscribers listening to its published messages. Messages
 may be published at any time, making the system *asynchronous*.
 
-In ROS, a nodes publish and subscribe via topics, each of which has a name and a
+In ROS, nodes publish and subscribe via topics, each of which has a name and a
 type. A publisher announces that it will be publishing data by *advertising* a
 topic. For example, the camera driver node may advertise a topic named `/image`
 with type `sensor_msgs/Image`. If the blob finder node subscribes to a topic
@@ -191,7 +191,7 @@ We might implement the new high-res snapshot capability like so:
 - **Define a new service type.** Because services are less widely used than
  topics, there are relatively few "standard" service types predefined.
 In our case, the new service's request message might include the desired
-resolution of the snapshot. The request message could be a standard `
+resolution of the snapshot. The request message could be a standard
 `sensor_msgs/Image`.
 - **Implement the service.** In the camera driver, we would
  advertise the newly defined service so that when a request is

@@ -20,7 +20,7 @@ functioning correctly. Finally, if you are the type that would like to swap out
 the engine of your vehicle with something more powerful, or potentially build a
 wholly new vehicle from scratch, then the ROS API is the set of tools that will
 make this possible. Generally speaking, automotive engineers don't appear into
-the world fully formed, and the same is true for robotocists. It is advisable to
+the world fully formed, and the same is true for roboticists. It is advisable to
 work through each phase of understanding as you develop your skills with ROS.
 
 Following from our analogy above the process of learning how to use robotic
@@ -34,7 +34,7 @@ applications. The four parts of this chapter are as follows.
 
 * A high level discussion to the design patterns use in ROS. These patterns are
   roughly analogous to the subsystems you would find in a vehicle (engine,
-  breaks, safety, climate control, etc).
+  brakes, safety, climate control, etc).
 
 * A treatment of the command line interface (CLI) for ROS. The CLI is a set of
   programs for starting, inspecting, controlling, and monitoring a ROS
