@@ -572,7 +572,7 @@ export interface RomiService<Request, Response> {
 }
 ```
 
-If you are familiar with ROS2, the `type` field specify the message type that the topic or service expects, `topic`/`service` are the topic and service names respectively. Sometimes a topic or service is expected to use a different QoS option, for example a topic that does not only publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The `options` specify the "default" QoS options that should be used, in this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.
+If you are familiar with ROS 2, the `type` field specifies the message type that the topic or service expects while `topic`/`service` are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not only publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The `options` specify the "default" QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.
 
 The `validate*` methods are used by the transport to convert an abitary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.
 
