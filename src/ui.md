@@ -588,7 +588,7 @@ export const myTopic: RomiTopic<MyMessage> = {
 
 ### Adding Transport
 
-A `Transport` in `romi-js` is a class with the interface
+A `Transport` in `romi-js` is a class with the interface:
 
 ```js
 export interface Subscription {
