@@ -318,7 +318,7 @@ The elevators will be integrated in a similar fashion as doors as well, relying 
 
 <img src="images/lifts_block_diagram.png">
 
-The lift node will act as a driver to work with the lift controller. There already exists an example of a lift node, you can find the repository [here](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state and receive lift requests over ROS2, using the messages and topics listed below.
+The lift node will act as a driver to work with the lift controller. An example of a lift node can be found in this [repository](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state and receive lift requests over ROS 2, using the messages and topics listed below.
 
 | Message Types | ROS2 Topic | Description |
 |---------------|------------|-------------|
