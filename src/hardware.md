@@ -22,7 +22,7 @@ In general, all the interactions can be summed up with this system architecture 
 
 <img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
 
-RMF uses simple ROS2 messages and topic interfaces. Hence, most of the time, we use components called Adapters to bridge between the hardware's own interface and the RMF's, with some exception for robot fleets, which also have fleet drivers in the process, this will be further elaborated in the next few sections.
+RMF uses ROS 2 messages and topic interfaces. Hence, in most cases we use components called Adapters to bridge between the hardware interfaces and RMF with some exception for robot fleets which also have fleet drivers in the process. Robot fleets will be further elaborated in the next few sections.
 
 ## Mobile Robots
 
