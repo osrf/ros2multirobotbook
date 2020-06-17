@@ -293,7 +293,7 @@ Doors can be integrated with RMF using a ROS2 door node and a door adapter, whic
 
 <img src="images/doors_block_diagram.png">
 
-The door node will have to be implemented based on the model of the door that is being integrated, in order to properly access the API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state and receiving commands over ROS2, using the messages and topics listed below.
+The door node will have to be implemented based on the make and model of the door that is being integrated in order to address the specific API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state and receiving commands over ROS 2, using the messages and topics listed below.
 
 | Message Types | ROS2 Topic | Description |
 |---------------|------------|-------------|
