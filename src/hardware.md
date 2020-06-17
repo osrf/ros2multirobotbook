@@ -16,7 +16,7 @@
 
 # Hardware
 
-In this chapter, we will describe the integration requirements and steps to have hardware working with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions are occur.
+In this chapter, we will describe the integration requirements and basic steps to have hardware working with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions occur.
 
 In general, all the interactions can be summed up with this system architecture diagram,
 
