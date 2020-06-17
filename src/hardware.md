@@ -66,7 +66,7 @@ If the map data is provided in textual form, screenshots are helpful for "sanity
 
 ### Mobile Robot Fleets
 
-Mobile robots in industrial settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. For this configuration, we will focus on how we can integrate with RMF using a Fleet Adapter to control and communicate with the mobile robots via the fleet manager.
+Mobile robots in production settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. For this configuration, we will focus on how we can integrate mobile robots with RMF using a Fleet Adapter to control and communicate with the mobile robots via their respective fleet manager.
 
 We have identified 4 different levels of control when working with fleets of mobile robots, namely,
 
