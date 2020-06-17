@@ -22,7 +22,7 @@ The most common way to write a UI application is to make use of a UI framework. 
     * Gtk
     * WPF (Windows only)
 
-Each of these frameworks has its own pros and cons, there isn't a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to the technologies they are built upon, to understand why, let's take a brief overview at how a RMF UI application would work.
+Each framework has pros and cons and we do not feel there is a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.
 
 ## How does a RMF UI Application Work?
 
