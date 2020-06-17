@@ -631,6 +631,6 @@ export interface Transport extends TransportEvents {
 }
 ```
 
-There isn't a general guide on how the interface should be implemented, the details would be different for each transport. One thing to note is that it might tempting to return a type derived from `any` (e.g. `Publisher<any>`) to pass the typescript checks but doing so is not recommended. You should call the `validate*` methods in the topic or service to convert something into a type of `Message`.
+There isn't a general guide on how the interface should be implemented since the details would be different for each transport. One thing to note is that it might be tempting to return a type derived from `any` (e.g. `Publisher<any>`) to pass the typescript checks but doing so is not recommended. You should call the `validate*` methods in the topic or service to convert something into a type of `Message`.
 
 To ensure compatibilities with different topics and services, transports must deserialize the data to a plain old data object. It can use either number arrays or typed arrays, the `validate*` methods should support converting them to the expected types.
