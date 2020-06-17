@@ -326,7 +326,7 @@ The lift node will act as a driver to work with the lift controller. There alrea
 | `rmf_lift_msgs/LiftRequest` | `/lift_requests` | Direct requests subscribed by the lift node and published by the lift adapter
 | `rmf_lift_msgs/LiftRequest` | `/adapter_lift_requests` | Requests to be sent to the lift adapter/supervisor to request safe operation of lifts |
 
-A lift adapter subscribes to `lift_states` while keeping track of the internal and desired state of the lift, to prevent it from performing any actions that might interrupt mobile robot operation or cause damage to humans, infrastructure or mobile robots. It performs this task by receiving lift requests from the fleet adapters and the rest of the RMF core systems, and only relaying the instructions to the lift node if it is deemed safe. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.
+A lift adapter subscribes to `lift_states` while keeping track of the internal and desired state of the lift in order to prevent it from performing any actions that might interrupt mobile robot or normal operations. The lift adapter performs this task by receiving lift requests from the fleet adapters and the RMF core systems and only relaying the instructions to the lift node if it is deemed appropriate. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.
 
 ## Workcells
 
