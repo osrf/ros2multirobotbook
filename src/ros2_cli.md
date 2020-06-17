@@ -904,22 +904,6 @@ Various action related sub-commands
 
 optional arguments:
 -h, --help            show this help message and exit
---spin-time SPIN_TIME
-                      Spin time in seconds to wait for discovery (only
-                      applies when not using an already running daemon)
--t, --show-types      Additionally show the topic type
--c, --count-topics    Only display the number of topics discovered
---include-hidden-topics
-                     Consider hidden topics as well
-kscottz@ade:~$ ros2 topic list
-/parameter_events
-/rosout
-/turtle1/cmd_vel
-/turtle1/color_sensor
-/turtle1/pose
-kscottz@ade:~$
-```
-
 
 Commands:
   info       Print information about an action
@@ -928,6 +912,9 @@ Commands:
   show       Output the action definition
 
   Call `ros2 action <command> -h` for more detailed usage.
+```
+
+```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~$ ros2 service --help
 usage: ros2 service [-h] [--include-hidden-services]
                     Call `ros2 service <command> -h` for more detailed usage.
@@ -942,10 +929,11 @@ optional arguments:
 
 Commands:
   call  Call a service
-  find  Oukscottz@kscottz-ratnest:~$ ros2 action --help
-usage: ros2 action [-h]
-                   Call `ros2 action <command> -h` for more detailed usage.
-                   ... 
+  find  Output a list of available services of a given type
+  list  Output a list of available services
+  type  Output a service's type
+
+  Call `ros2 service <command> -h` for more detailed usage.
 ```
 
 We can see that both commands have a `list` command that gives a list of
