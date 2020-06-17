@@ -553,7 +553,7 @@ Throughout the tutorial, we are using `romi-js` to simplify the communication to
 
 ### Adding Topics and Services
 
-Adding topics and services are very simple, a topic and service is defined by the interfaces
+Adding topics and services are very simple, a topic and service is defined by the interfaces:
 
 ```js
 export interface RomiTopic<Message> {
