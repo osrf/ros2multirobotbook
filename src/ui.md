@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We have looked at how we can integrate new hardware into RMF, now we will look at how we can write end user applications that integrates into RMF. We will briefly go through the requirements of a RMF UI application and proceed with a tutorial of how we can write a React Webapp that interfaces with RMF.
+We have looked at how we can integrate new hardware into RMF, now we will look at how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.
 
 ## Overview
 
