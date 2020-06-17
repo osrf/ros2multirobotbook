@@ -24,7 +24,7 @@ The most common way to write a UI application is to make use of a UI framework. 
 
 Each framework has pros and cons and we do not feel there is a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.
 
-## How does a RMF UI Application Work?
+## How does an RMF UI Application Work?
 
 Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publishes door states and subscribes to door requests, here we are doing the reverse, subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and sending door requests when the user clicks the open or close button.
 
