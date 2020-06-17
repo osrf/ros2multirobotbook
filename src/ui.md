@@ -6,7 +6,7 @@ We have looked at how we can integrate new hardware into RMF, now we will look a
 
 ## Overview
 
-The most common way to write a UI application is to make use of a UI framework, there are many UI frameworks out there, here are some of the popular frameworks out there
+The most common way to write a UI application is to make use of a UI framework. There are many available UI frameworks, the list below are some of the popular frameworks for reference:
 
   * Multi-Paradigm
     * Qt
