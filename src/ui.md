@@ -543,7 +543,7 @@ Extending this to provide more features like lift control, fleet states etc foll
 
 ## Conclusion
 
-We have just created a minimal RMF UI application that reports the door state and control them. There isn't much feature but hopefully this tutorial provides the basic knowledge of how to create a RMF UI application not just in React but also in any frameworks that you like.
+We have just created a minimal RMF UI application that reports the door state and allows a user to control the door. For simplicity, there aren't many features included but this tutorial should provide the basic knowledge of how to create an RMF UI application not only in React but also in any framework that you like!
 
 If you would like more examples of a React RMF application, you can take a look at the official [RoMi dashboard](https://github.com/osrf/romi-dashboard).
 
