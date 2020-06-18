@@ -36,9 +36,9 @@ pub = node.create_publisher(String, 'chatter', 10)
 msg = String()
 i = 0
 while rclpy.ok():
-    msg.data = 'Hello world: %d' % i
+    msg.data = f'Hello World: {i}'
     i += 1
-    print('Publishing: "%s"' % (msg.data))
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 ```
@@ -87,7 +87,7 @@ import rclpy
 from std_msgs.msg import String
 
 def cb(msg):
-    print('I heard: "%s"' % (msg.data))
+    print(f'I heard: "{msg.data}"')
 
 rclpy.init()
 node = rclpy.create_node('my_subscriber')
@@ -167,7 +167,7 @@ function that we also defined in the listener:
 
 ``` {sourceCode .py}
 def cb(msg):
-    print('I heard: "%s"' % (msg.data))
+    print(f'I heard: "{msg.data}"')
 ```
 
 That function will be called whenever the listener receives a message,
@@ -190,9 +190,9 @@ Back in the talker, we create a simple loop to use our `Publisher`:
 msg = String()
 i = 0
 while rclpy.ok():
-    msg.data = 'Hello world: %d' % i
+    msg.data = f'Hello World: {i}'
     i += 1
-    print('Publishing: "%s"' % (msg.data))
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 ```
