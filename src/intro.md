@@ -5,7 +5,19 @@ system for integrating multiple robots.
 
 # ROS 2
 
-(insert)
+The Robot Operating System (ROS) is a set of software libraries and tools for building robot applications. From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project. And it’s all open source.
+
+Before we talk specifically about ROS 2, let's review some history. Since ROS was started in 2007, a lot has changed in the robotics and ROS community. ROS 1, which at that time was just "ROS", began life as the development environment for the Willow Garage PR2 robot. The primary goal was to provide the software tools that users would need to undertake novel research and development projects with the PR2. At the same time, the ROS 1 development team knew that the PR2 would not be the only, or even the most important, robot in the world, and they wanted ROS 1 to be useful on other robots. The original focus was on defining levels of abstraction (usually through message interfaces) that would allow much of the software to be reused elsewhere.
+
+It is fair to say that ROS 1 satisfied the PR2 use case, but also overshot by becoming useful on a surprisingly wide variety of robots. ROS 1 was used on robots that are similar to the PR2, but also on wheeled robots of all sizes, legged humanoids, industrial arms, outdoor ground vehicles (including self-driving cars), aerial vehicles, surface vehicles, and more. In addition, ROS 1 adoption was happening in domains beyond the mostly academic research community that was the initial focus. ROS 1-based products were coming to market, including manufacturing robots, agricultural robots, commercial cleaning robots, and others. Government agencies were also looking more closely at ROS for use in their fielded systems; e.g., NASA expected to be running ROS on the Robonaut 2 that was deployed to the International Space Station.
+
+With all these new uses of ROS, the platform became stretched in unexpected ways. While it was holding up well, the ROS 1 team believed that they could better meet the needs of the broader ROS community by tackling their new use cases head-on. And so ROS 2 was born.
+
+The initial goal of the ROS 2 project was to adapt to the changing landscape, leveraging what is great about ROS 1 and improving what isn’t. But there was also a desire to keep ROS 1 as it existed to keep working and be unaffected by the development of ROS 2. So ROS 2 has been built as a parallel set of packages that can be installed alongside and interoperate with ROS 1 (e.g., through message bridges).
+
+As of this writing, we have reacehd the 13th and last official ROS 1 release, [Noetic Ninjemys](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release), and the first LTS release of ROS 2, [Foxy Fitzroy](https://www.openrobotics.org/blog/2020/6/5/ros-2-foxy-fitzroy-release). :tada:
+
+There is a large and growing amount of ROS 2 resources which can be found on the web. A great place to start for ROS 2 is on the ROS Index page for [ROS 2](https://index.ros.org/doc/ros2/) and farther along in this book in the ROS 2 chapter. Enjoy your journey!
 
 # Robotics Middleware Framework (RMF)
 
