@@ -29,7 +29,7 @@ Historically ROS development has focused heavily on the software running on or n
 
 First and foremost, RMF is a collection of reusable, sclable libraries and tools building on top of ROS 2 which enable the interoperability of heterogeneous fleets of any type of robotic systems. RMF utilizes standardized communication protocals to infrastructure, environments and automation where robots are deployed to optimize the use of critical resources (i.e. robots, elevators/lifts, doors, passageways, etc). It adds intelligence to the system through resource allocation and by preventing conflicts over shared resources through the RMF Core which will be described in detail later in this book. RMF is flexible and robust enough to operate over virtually any communications layer and integrate with any number of IOT devices. The architecture of RMF is designed in such a way to allow scalability as the level of automation in an environment increases. There are various ways for systems and users to interact with RMF via APIs and customizable user interfaces. Once deployed in an environment, RMF will save cost by allowing resources to be shared and integrations to be minimized. In a nutshell, it is what robotic developers and robot customers have been looking for and here it is:
 
-![RMF Book Architecture Diagram](https://user-images.githubusercontent.com/43839559/84983724-f0ee7d80-b16b-11ea-9aad-ac42b82da447.png)
+![RMF Book Architecture Diagram](https://user-images.githubusercontent.com/43839559/84993068-55fd9f80-b17b-11ea-9854-00cd7305c148.png)
 
 ## How does RMF make the magic happen?
 
