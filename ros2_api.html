@@ -148,8 +148,353 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#the-ros-api" id="the-ros-api">The ROS API</a></h1>
-<p>This section will show you how to create your own applications and modify
-existing software for your specific application.</p>
+<p>ROS comprises many software libraries that provide a wide array of
+functionality that is useful when building robot applications. The libraries
+you need will depend on the details of your project. In this section we will
+introduce two core libraries that you are likely to interact with
+frequently when developing with ROS:</p>
+<ul>
+<li><code>rclpy</code> : Python client library</li>
+<li><code>rclcpp</code> : C++ client library</li>
+</ul>
+<p>A ROS <em>client library</em> provides the data structures, functions, and
+syntactic sugar that make it convenient to develop in a particular
+programming language. Here we will cover just the Python and C++
+libraries because they're the most widely used. But you can find ROS
+client libraries for many other languages, from Ada to JavaScript to
+Rust, and beyond.</p>
+<p><strong>Note:</strong> In this section we aim for a gentle and efficient introduction
+to the ROS API. In service of that goal, we will purposefully ignore
+and/or violate various conventions and patterns.</p>
+<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-python" id="publishing-and-subscribing-to-topics-in-python">Publishing and subscribing to topics in Python</a></h2>
+<p>Publishing data with ROS is easy. Here is a complete Python program that
+publishes string messages:</p>
+<pre><code class="language-{.sourceCode.py}">from time import sleep
+import rclpy
+from std_msgs.msg import String
+
+rclpy.init()
+node = rclpy.create_node('my_publisher')
+pub = node.create_publisher(String, 'chatter', 10)
+msg = String()
+i = 0
+while rclpy.ok():
+    msg.data = f'Hello World: {i}'
+    i += 1
+    print(f'Publishing: &quot;{msg.data}&quot;')
+    pub.publish(msg)
+    sleep(0.5)
+</code></pre>
+<p>Try it out yourself. (Make sure that in every shell used below you have
+sourced your ROS setup file as we discussed earlier; e.g., <code>source /opt/ros/foxy/setup.bash</code>.) Copy the code block above into a file, call
+it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
+<pre><code class="language-{.sourceCode.bash}">$ python3 talker.py
+</code></pre>
+<p>You should see:</p>
+<pre><code>Publishing: &quot;Hello world: 0&quot;
+Publishing: &quot;Hello world: 1&quot;
+Publishing: &quot;Hello world: 2&quot;
+</code></pre>
+<p>So it prints to console. But is the data going anywhere? We can check
+our work using the <code>ros2 topic</code> tool that was introduced earlier. In
+another shell (leave your talker running):</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+</code></pre>
+<p>You should see (numbers will vary depending on timing between the two
+commands):</p>
+<pre><code>data: 'Hello world: 13'
+---
+data: 'Hello world: 14'
+---
+data: 'Hello world: 15'
+</code></pre>
+<p>So we have a working talker. Now we can add our own listener to use in
+place of <code>ros2 topic</code>. Here is a complete Python program that subscribes
+to string messages and prints them to console:</p>
+<pre><code class="language-{sourceCode.py}">import rclpy
+from std_msgs.msg import String
+
+def cb(msg):
+    print(f'I heard: &quot;{msg.data}&quot;')
+
+rclpy.init()
+node = rclpy.create_node('my_subscriber')
+sub = node.create_subscription(String, 'chatter', cb, 10)
+rclpy.spin(node)
+</code></pre>
+<p>Try it out yourself. Copy the code block above into a file and call it
+<code>listener.py</code>. With your talker still running in one shell, start up your
+listener in another shell:</p>
+<pre><code class="language-{sourceCode.bash}">$ python3 listener.py
+</code></pre>
+<p>You should see (again, numbers will vary depending on timing):</p>
+<pre><code>I heard: &quot;Hello world: 35&quot;
+I heard: &quot;Hello world: 36&quot;
+I heard: &quot;Hello world: 37&quot;
+</code></pre>
+<h3><a class="header" href="#digging-into-the-python-code" id="digging-into-the-python-code">Digging into the Python code</a></h3>
+<p>Now that we know these programs work, we can dig into their code. Both
+programs start with the same preamble:</p>
+<pre><code class="language-{sourceCode.py}">import rclpy
+from std_msgs.msg import String
+</code></pre>
+<p>We obviously need to import the <code>rclpy</code> client library, which gives us
+much of what we need write ROS applications in Python. But we also need
+to specifically import the ROS message type(s) that we will use. In this
+case we are using the simple <code>std_msgs/String</code> message, which contains a
+single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
+<code>sensor_msgs/Image</code> message, which represents camera images, then we
+would <code>from sensor_msgs.msg import Image</code>.</p>
+<p>After the imports, both programs perform common initialization:</p>
+<pre><code class="language-{sourceCode.py}">rclpy.init()
+node = rclpy.create_node('my_node_name')
+</code></pre>
+<p>We initialize the <code>rclpy</code> library and then call into it to create a
+<code>Node</code> object, giving it a name. Subsequently we will operate on that
+<code>Node</code> object.</p>
+<p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
+<pre><code class="language-{sourceCode.py}">pub = node.create_publisher(String, 'chatter', 10)
+</code></pre>
+<p>We declare the type of data we will publish (<code>std_msgs/String</code>), the
+name of the topic on which we will publish (<code>chatter</code>), and the maximum
+number of outbound messages to locally queue up (10). That last
+argument comes into play when we are publishing faster than subscribers
+are consuming the data.</p>
+<p>The equivalent step in the listener is to create a <code>Subscription</code>
+object:</p>
+<pre><code class="language-{sourceCode.py}">sub = node.create_subscription(String, 'chatter', cb, 10)
+</code></pre>
+<p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
+as for the <code>create_publisher()</code> call, and the final argument (10) is
+setting an analogous maximum queue size for inbound messages. The key
+difference is the <code>cb</code> argument, which refers to this <em>callback</em>
+function that we also defined in the listener:</p>
+<pre><code class="language-{sourceCode.py}">def cb(msg):
+    print(f'I heard: &quot;{msg.data}&quot;')
+</code></pre>
+<p>That function will be called whenever the listener receives a message,
+and the received message will be passed in as an argument. In this case
+we simply print the content to console.</p>
+<p>With the callback defined and the <code>Subscription</code> created, the rest of
+the listener is one line:</p>
+<pre><code class="language-{sourceCode.py}">rclpy.spin(node)
+</code></pre>
+<p>This call hands control over to <code>rclpy</code> to wait for new messages to
+arrive (and more generally for events to occur) and invoke our callback.</p>
+<p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
+<pre><code class="language-{sourceCode.py}">msg = String()
+i = 0
+while rclpy.ok():
+    msg.data = f'Hello World: {i}'
+    i += 1
+    print(f'Publishing: &quot;{msg.data}&quot;')
+    pub.publish(msg)
+    sleep(0.5)
+</code></pre>
+<p>These steps are clear enough: we create a message object and then on
+each iteration of the loop, we update the message content and publish
+it, sleeping briefly between iterations.</p>
+<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-c" id="publishing-and-subscribing-to-topics-in-c">Publishing and subscribing to topics in C++</a></h2>
+<p>Now we will write the same talker and listener pair, this time in C++.</p>
+<p>Here is a complete C++ program that publishes string messages:</p>
+<pre><code class="language-{sourceCode.cpp}">#include &lt;unistd.h&gt;
+#include &lt;iostream&gt;
+#include &quot;rclcpp/rclcpp.hpp&quot;
+#include &quot;std_msgs/msg/string.hpp&quot;
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared(&quot;minimal_publisher&quot;);
+  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+  std_msgs::msg::String message;
+  auto i = 0;
+  while (rclcpp::ok()) {
+    message.data = &quot;Hello world: &quot; + std::to_string(i++);
+    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    pub-&gt;publish(message);
+    usleep(500000);
+  }
+  return 0;
+}
+</code></pre>
+<p>Of course, as for all C++, we need to compile this program. Managing the
+compilation arguments for C++ is cumbersome, so we use CMake to help.
+Here is a complete CMake code that allows us to build the talker
+example:</p>
+<pre><code>cmake_minimum_required(VERSION 3.5)
+project(talker_listener)
+
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+add_executable(talker talker.cpp)
+target_include_directories(talker PRIVATE ${rclcpp_INCLUDE_DIRS} ${std_msgs_INCLUDE_DIRS})
+target_link_libraries(talker ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
+</code></pre>
+<p>Try it out yourself. Copy the C++ code into a file called <code>talker.cpp</code>
+and the CMake code into a file called <code>CMakeLists.txt</code>. Have them
+side-by-side in a directory and then invoke <code>cmake</code> followed by <code>make</code>:</p>
+<pre><code class="language-{sourceCode.bash}">$ cmake .
+$ make
+</code></pre>
+<p>You should end up with a compiled executable called <code>talker</code>. Run it:</p>
+<pre><code class="language-{sourceCode.bash}">$ ./talker
+</code></pre>
+<p>You should see:</p>
+<pre><code>Publishing: &quot;Hello world: 0&quot;
+Publishing: &quot;Hello world: 1&quot;
+Publishing: &quot;Hello world: 2&quot;
+</code></pre>
+<p>Keep the talker running and another shell try <code>ros2 topic</code> to listen
+in:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+</code></pre>
+<p>You should see (numbers will vary depending on timing between the two
+commands):</p>
+<pre><code>data: 'Hello world: 13'
+---
+data: 'Hello world: 14'
+---
+data: 'Hello world: 15'
+</code></pre>
+<p>Now we can write our own listener to use in place of <code>ros2 topic</code>. Here
+is a complete C++ program that subscribes to string messages and prints
+them to console:</p>
+<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+#include &quot;std_msgs/msg/string.hpp&quot;
+
+void cb(const std_msgs::msg::String::SharedPtr msg)
+{
+  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+}
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared(&quot;my_subscriber&quot;);
+  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+  rclcpp::spin(node);
+  return 0;
+}
+</code></pre>
+<p>Copy the code block into a file called <code>talker.cpp</code>. To arrange for it
+to be compiled, we also need to add some corresponding CMake code to the
+bottom of our <code>CMakeLists.txt</code> file from earlier:</p>
+<pre><code>add_executable(listener listener.cpp)
+target_include_directories(listener PRIVATE ${rclcpp_INCLUDE_DIRS} ${std_msgs_INCLUDE_DIRS})
+target_link_libraries(listener ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
+</code></pre>
+<p>Configure and build again:</p>
+<pre><code class="language-{sourceCode.bash}">$ cmake .
+$ make
+</code></pre>
+<p>Now you should have also have a <code>listener</code> executable. With your talker
+still running in one shell, start up your listener in another shell:</p>
+<pre><code class="language-{sourceCode.bash}">$ ./listener
+</code></pre>
+<p>You should see (again, numbers will vary depending on timing):</p>
+<pre><code>I heard: &quot;Hello world: 35&quot;
+I heard: &quot;Hello world: 36&quot;
+I heard: &quot;Hello world: 37&quot;
+</code></pre>
+<h3><a class="header" href="#digging-into-the-c-code" id="digging-into-the-c-code">Digging into the C++ code</a></h3>
+<p>Now that we know these programs work, we can dig into their code. Both
+programs start with the same preamble:</p>
+<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+#include &quot;std_msgs/msg/string.hpp&quot;
+</code></pre>
+<p>We obviously need to include the <code>rclcpp</code> client library, which gives us
+much of what we need write ROS applications in C++. But we also need to
+specifically import the ROS message type(s) that we will use. In this
+case we are using the simple <code>std_msgs/String</code> message, which contains a
+single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
+<code>sensor_msgs/Image</code> message, which represents camera images, then we
+would <code>#include &quot;sensor_msgs/msg/image.hpp&quot;</code>.</p>
+<p>After the imports, both programs perform common initialization:</p>
+<pre><code class="language-{sourceCode.cpp}">  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared(&quot;my_node_name&quot;);
+</code></pre>
+<p>We initialize the <code>rclcpp</code> library and then call into it to create a
+<code>Node</code> object, giving it a name. Subsequently we will operate on that
+<code>Node</code> object.</p>
+<p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
+<pre><code class="language-{sourceCode.cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+</code></pre>
+<p>We declare via template the type of data we will publish (<code>std_msgs/String</code>), the
+name of the topic on which we will publish (<code>chatter</code>), and the maximum
+number of outbound messages to locally queue up (10). That last
+argument comes into play when we are publishing faster than subscribers
+are consuming the data.</p>
+<p>The equivalent step in the listener is to create a <code>Subscription</code>
+object:</p>
+<pre><code class="language-{sourceCode.cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+</code></pre>
+<p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
+as for the <code>create_publisher()</code> call, and the numerical argument (10) is
+setting an analogous maximum queue size for inbound messages. The key
+difference is the <code>cb</code> argument, which refers to this <em>callback</em>
+function that we also defined in the listener:</p>
+<pre><code class="language-{sourceCode.cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
+{
+  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+}
+</code></pre>
+<p>That function will be called whenever the listener receives a message,
+and the received message will be passed in as an argument. In this case
+we simply print the content to console.</p>
+<p>With the callback defined and the <code>Subscription</code> created, the rest of
+the listener is one line:</p>
+<pre><code class="language-{sourceCode.cpp}">  rclcpp::spin(node);
+</code></pre>
+<p>This call hands control over to <code>rclcpp</code> to wait for new messages to
+arrive (and more generally for events to occur) and invoke our callback.</p>
+<p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
+<pre><code class="language-{sourceCode.cpp}">  std_msgs::msg::String message;
+  auto i = 0;
+  while (rclcpp::ok()) {
+    message.data = &quot;Hello world: &quot; + std::to_string(i++);
+    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    pub-&gt;publish(message);
+    usleep(500000);
+  }
+</code></pre>
+<p>These steps are clear enough: we create a message object and then on
+each iteration of the loop, we update the message content and publish
+it, sleeping briefly between iterations.</p>
+<h2><a class="header" href="#where-to-go-from-here" id="where-to-go-from-here">Where to go from here</a></h2>
+<p>That was a very brief introduction and we only covered topics, not
+services, actions, parameters, or the many other facets of ROS. Luckily,
+the online <a href="https://index.ros.org/doc/ros2/Tutorials">ROS tutorials</a> are
+an excellent resource for learning about the rest of ROS. We
+specifically recommend the <a href="https://index.ros.org/doc/ros2/Tutorials/#beginner-client-libraries">Beginner: Client
+Libraries</a>
+collection as a natural next step after reading this chapter.</p>
+<h2><a class="header" href="#regarding-the-shortcuts-we-took" id="regarding-the-shortcuts-we-took">Regarding the shortcuts we took</a></h2>
+<p>In this section we have presented the simplest, shortest example ROS
+programs that we could come up with. Such programs are easy to
+understand and learn from, as they do not have unnecessary structure or
+decoration. But in exchange such programs are not easily extensible,
+composable, or maintainable.</p>
+<p>The techniques that we used in the example code in this section are
+useful for prototyping and experimentation (an important aspect of any
+good robotics project!), but we do not recommend them for serious work.
+As you go through the <a href="https://index.ros.org/doc/ros2/Tutorials">ROS
+tutorials</a> and start reading
+existing ROS code, you will learn about a number of concepts, patterns,
+and conventions, such as:</p>
+<ul>
+<li>organizing your code into <em>packages</em>;</li>
+<li>organizing your packages into a <em>workspace</em>;</li>
+<li>managing <em>dependencies</em> among packages;</li>
+<li>using the <code>colcon</code> tool to build code in multiple packages in dependency order;</li>
+<li>using the <code>ament</code> module in your <code>CMakeLists.txt</code> files;</li>
+<li>structuring your code to allow run-time control of how nodes maps to processes; and</li>
+<li>using the client libraries' console-logging routines for output to screen and elsewhere.</li>
+</ul>
+<p>These techniques will serve you well when you start building your own ROS
+applications, especially when you want to share your code with others, whether
+on your team or out in the world.</p>
 
                     </main>
 
