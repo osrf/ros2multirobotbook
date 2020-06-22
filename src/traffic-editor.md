@@ -450,7 +450,7 @@ coordinate system while the `rmf_fleet_adapters` also issue path requests in the
 
 To derive such transforms, the `traffic_editor` GUI allows users to overlay
 robot maps on a floor plan and, apply scale, translation and rotation
-transformations such that the two maps overlap desirably. The user can then
+transformations such that the two maps align correctly. The user can then
 apply the same transformations to convert between robot map and RMF coordinates
 when programming interfaces for their robot. 
 
