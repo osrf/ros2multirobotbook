@@ -112,7 +112,7 @@ Each mode has a unique set of tools while the following are common:
 | ![](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
 
 The `SideBar` contains multiple tabs with various functionalities:
-* **levels:** to add a new level to the building using a floor plan
+* **levels:** to add a new level to the building. This can be done from scratch of by importing a floor plan image file
 * **layers:** to overlap other images such as lidar maps over the level
 * **lifts:** to configure and add lifts to the building
 * **traffic:** to add navigation graphs to the level which are a collection of
