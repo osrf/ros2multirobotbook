@@ -200,7 +200,7 @@ presented below.
   planning, i.e., the robot is allowed to wait at this waypoint for an indefinite
   period of time.
 * **is_charger:** if true and if the waypoint is part of a traffic lane, the
-  `rmf_fleet_adapter` will treat this as a charing station.
+  `rmf_fleet_adapter` will treat this as a charging station.
 * **dock_name:** if specified and if the waypoint is part of a traffic lane, the
   `rmf_fleet_adapter` will issue an `rmf_fleet_msgs::ModeRequest` message with
   `MODE_DOCKING` and `task_id` equal to the specified name to the robot as it
