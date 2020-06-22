@@ -1,5 +1,4 @@
-
-### Free Fleet
+# Free Fleet
 
 In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system `free_fleet` could be used.
 
@@ -13,7 +12,7 @@ In this section, we will address 4 different approaches of using `free_fleet` to
 
 <img src="images/free_fleet_block_diagram.png">
 
-#### ROS 1 Navigation Stack
+## ROS 1 Navigation Stack
 
 An implementation of a `free_fleet` client that works with a ROS 1 navigation stack can be found in the [repository](https://github.com/osrf/free_fleet). The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status published using the `sensor_msgs/BatteryState` message.
 
@@ -110,7 +109,7 @@ Furthermore, an example of this configuration can be found in the repository as 
 
 After successful builds for both ROS 1 and ROS 2 workspaces, the simulation can be launched following [these instructions](https://github.com/osrf/free_fleet#turtlebot3-simulation), which also includes a ROS 2 `free_fleet` server, publishing fleet state messages and accepting mode and navigation requests over ROS 2 messages and topics.
 
-#### ROS 2 Navigation Stack
+## ROS 2 Navigation Stack
 
 An implementation for a robot using ROS 2 would be similar to a ROS 1 navigation stack described earlier. At this time, the ROS 2 `free_fleet` client is still under development. This section will be updated once the refactoring, implementation and testing has been completed.
 
@@ -118,7 +117,7 @@ The same ready `free_fleet` server implementation in the repository will work in
 
 If required in the meantime, users can implement their own `free_fleet` client, by working with the `free_fleet` library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section [Custom Navigation Stack](#custom-navigation-stack).
 
-#### Developer Navigation Stack
+## Developer Navigation Stack
 
 In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own `free_fleet` client wrapper. The block diagram below illustrate this configuration.
 
