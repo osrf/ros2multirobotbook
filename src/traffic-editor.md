@@ -197,7 +197,7 @@ by clicking the `Add` button in the figure. Short descriptions of these are
 presented below.
 * **is_parking_spot:** if true and if the waypoint is part of a traffic lane,
   the `rmf_fleet_adapter` will treat this as a _holding point_ during path
-  planning, ie, the robot is allowed to wait at this waypoint for an indefinite
+  planning, i.e., the robot is allowed to wait at this waypoint for an indefinite
   period of time.
 * **is_charger:** if true and if the waypoint is part of a traffic lane, the
   `rmf_fleet_adapter` will treat this as a charing station.
