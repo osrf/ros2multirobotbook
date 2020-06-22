@@ -1179,9 +1179,6 @@ If everything worked correctly we should see our turtle has rotated.
 ROS parameters
 ==============
 
-[The full ROS Param tutorial can be found
-here.](https://index.ros.org/doc/ros2/Tutorials/Parameters/Understanding-ROS2-Parameters/)
-
 In ROS, parameters are values that are shared between nodes in the
 system (if you are familiar with the [blackboard design
 pattern](https://en.wikipedia.org/wiki/Blackboard_(design_pattern)) in
@@ -1192,7 +1189,7 @@ example, if you were building an autonomous vehicle and wanted to cap
 the maximum velocity of the vehicle at 100 km/h, you could create a
 parameter called "MAX\_SPEED" that is visible to all the nodes.
 
-Let's take a look at the high level param program.
+Let's take a look at the high level param command by running `ros2 param --help`.
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 param --help
@@ -1206,35 +1203,98 @@ Commands:
   Call `ros2 param <command> -h` for more detailed usage.
 ```
 
-Params used by TurtleSim
+At a high level ROS 2 param command has sub commands to get and set a variable,
+along with a `list` functionality, and a `delete` command. As with most of the
+other commands we've worked through it is instructive to look at list
+first. Let's see what the docs say about the list command and then see what
+happens when we call the sub command.
 
-Let's see what the docs say and then see what happens when we call
-`ros2 param list`
 
 ``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 param --help
-usage: ros2 param [-h]
-optional arguments:
-  use_sim_time
-/turtlesim:
-  background_b
-  background_g
-  background_r
+kscottz@kscottz-ratnest:~$ ros2 param list --help
 usage: ros2 param list [-h] [--spin-time SPIN_TIME] [--include-hidden-nodes]
+                       [--param-prefixes PARAM_PREFIXES [PARAM_PREFIXES ...]]
+                       [node_name]
+
+Output a list of available parameters
 
 positional arguments:
   node_name             Name of the ROS node
-< CLIPPED >
 
-kscottz@ade:~$ ros2 param list
-/draw_square:
-  use_sim_time
+optional arguments:
+  -h, --help            show this help message and exit
+  --spin-time SPIN_TIME
+                        Spin time in seconds to wait for discovery (only
+                        applies when not using an already running daemon)
+  --include-hidden-nodes
+                        Consider hidden nodes as well
+  --param-prefixes PARAM_PREFIXES [PARAM_PREFIXES ...]
+                        Only list parameters with the provided prefixes
+kscottz@kscottz-ratnest:~$ ros2 param list 
 /turtlesim:
   background_b
   background_g
   background_r
   use_sim_time
+
 ```
+
+The only argument  of note in this sub command is the `node_name` which allows
+you to narrow the scope of param list to only those params used by a particular
+node. In terms of parameters in the turtlesim we see that our call to `param
+list` gives us for parameters: three background color control params named
+`background_x` and a `use_sim_time` parameter. To learn all about the param
+command why don't we try to change these background color parameters using the
+CLI. 
+
+The first step in changing the background color is to see what the current color
+is. The `param get` sub command requires both a node name and a parameter
+name. In our list above we can see the node name as the top level element with
+the forward slash in front of it, namely `/turtlesim`. The syntax for `param
+get` is `ros2 param get <node_name> <param>`. Let's give it a whirl and see our
+current background color values. 
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 param get /turtlesim background_b
+Integer value is: 255
+kscottz@kscottz-ratnest:~$ ros2 param get /turtlesim background_g
+Integer value is: 86
+kscottz@kscottz-ratnest:~$ ros2 param get /turtlesim background_r
+Integer value is: 69
+kscottz@kscottz-ratnest:~$ 
+```
+
+On most computers color is represented as a triplet of <R,G,B> values. The color
+value of <69,86,255> corresponds to periwinkle blue color, so those values are
+correct. To change the color of the turtlesim we need to first set the parameter
+value and then reset the turtlesim to make it apply the color changes. We
+covered the basics of calling a service previously so we won't cover the steps
+of constructing a service call. Let's try setting our background color's blue
+component to 128. 
+
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 param set turtlesim background_b 128
+Set parameter successful
+kscottz@kscottz-ratnest:~$ ros2 service call /reset std_srvs/srv/Empty 
+requester: making request: std_srvs.srv.Empty_Request()
+
+response:
+std_srvs.srv.Empty_Response()
+```
+
+If everything worked correctly your turtle should look like the screen below. 
+
+
+![image](./images/blue_screen.png)
+
+
+
+
+
+
+
+
 
 Let's try getting/setting parameters
 
