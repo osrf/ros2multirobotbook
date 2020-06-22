@@ -111,7 +111,7 @@ Each mode has a unique set of tools while the following are common:
 |  ![](images/traffic_editor/icons/move.svg)  |  Move  |    `m`   |  Move an entity in the `Working Area`  |
 | ![](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
 
-The `SideBar` consists multiple tabs with various functionalities:
+The `SideBar` contains multiple tabs with various functionalities:
 * **levels:** to add a new level to the building using a floor plan
 * **layers:** to overlap other images such as lidar maps over the level
 * **lifts:** to configure and add lifts to the building
