@@ -195,7 +195,7 @@ Toolbar` and anywhere on the canvas. The default attributes of a vertex are its
 coordinates along with an empty name field. Additional attributes may be added
 by clicking the `Add` button in the figure. Short descriptions of these are
 presented below.
-* **is_partking_spot:** if true and if the waypoint is part of a traffic lane,
+* **is_parking_spot:** if true and if the waypoint is part of a traffic lane,
   the `rmf_fleet_adapter` will treat this as a _holding point_ during path
   planning, ie, the robot is allowed to wait at this waypoint for an indefinite
   period of time.
