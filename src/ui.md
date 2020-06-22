@@ -49,7 +49,7 @@ At the end of the day, writing a RMF UI application isn't much different from wr
 
 # Tutorial: React WebApp
 
-In this section, we will go through an example of creating a React-based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF, basic knowledge of React and Typescript is needed.
+In this section, we will go through an example of creating a React-based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF, basic knowledge of React and TypeScript is needed.
 
 Note that this isn't the only way to create a RMF UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS2 messages.
 
