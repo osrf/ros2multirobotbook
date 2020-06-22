@@ -357,7 +357,7 @@ One of the most important tools in the `traffic_editor` GUI is the _Add lane_
 tool available in the _Traffic_ edit mode. The allowable motions of each fleet
 operating in the facility is conveyed through its respective Graph which
 consists of waypoints and connecting lanes. In this approach, we assume that
-robots travel along straight-line like paths between waypoints. While this may
+robots travel along effectively straight-line paths between waypoints. While this may
 be perceived as an oversimplification of paths taken by robots that are capable
 of autonomous navigation, in practice the assumption holds fairly well given
 that these robots mostly travel along corridors or hallways and seldom in
