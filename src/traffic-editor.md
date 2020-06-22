@@ -98,6 +98,7 @@ list in the `Main Toolbar` or using shortkeys:
   regions alone which can be specified in this mode.
 
 Each mode has a unique set of tools while the following are common:
+
 |                    Icon                    |  Name  | Shortkey |               Function               |
 |:------------------------------------------:|:------:|:--------:|:------------------------------------:|
 | ![](images/traffic_editor/icons/select.svg) | Select |   `Esc`  | Select an entity in the `Working Area` |
