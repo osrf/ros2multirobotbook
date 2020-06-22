@@ -91,7 +91,7 @@ Go inside the newly created `react-app-tutorial` directory and run the follow co
 npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport jsonwebtoken @types/jsonwebtoken
 ```
 
-These libraries are not strictly required but they contain helpful functions to use `soss` and to communicate with RMF. If you are building a JavaScript-based RMF app, it is recommended to make use of them, we will see later how they simplify the communication to RMF.
+These libraries are not strictly required but they contain helpful functions to use `soss` and to communicate with RMF. If you are building a JavaScript-based RMF app, it is recommended to make use of them, we will see later how they simplify the communicaton to RMF.
 
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS2 messages directly, however it does not work on the browser. It is preferred if you are writing a nodejs based desktop application using something like electron, or you are writing a server based application like a REST API provider.
