@@ -25,7 +25,7 @@ accurately reflect physical environments.
 
 ## Overview
 
-The `traffic_editor` [repository](https://github.com/osrf/traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output. 
+The `traffic_editor` [repository](https://github.com/osrf/traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output. The GUI is an easy to use interface which can be used to create and annotate 2D floor plans with robot traffic along with building infrastructure information. In the case there are existing floor plans of the environment, the `traffic_editor` is able to import those images for faster layout and floor generation.
 The functionality of the GUI is to load and annotate 2D floor plans with robot
 traffic along with building infrastructure information. While readily available
 3D models of sites would ease the process running simulations, in practice these
