@@ -26,13 +26,6 @@ accurately reflect physical environments.
 ## Overview
 
 The `traffic_editor` [repository](https://github.com/osrf/traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output. The GUI is an easy to use interface which can be used to create and annotate 2D floor plans with robot traffic along with building infrastructure information. In the case there are existing floor plans of the environment, the `traffic_editor` is able to import those images for faster layout and floor generation.
-The functionality of the GUI is to load and annotate 2D floor plans with robot
-traffic along with building infrastructure information. While readily available
-3D models of sites would ease the process running simulations, in practice these
-are often unavailable or do not exist for distribution from facility owners. Floor
-plans however are relatively easier to access. Hence, the `traffic_editor` is
-designed to work with such 2D drawings to help build up accurate digital
-representations of facilities.
 
 The `traffic_editor` GUI projects are stored as `yaml` files with
 `.project.yaml` file extensions. The template of a project file is seen below.
@@ -415,11 +408,12 @@ The properties of edge "b" are:
     demo_mock_lift_name: LIFT001
 ```
 
-If the robot is to travel from 1 to 3, the `rmf_fleet_adapter` will request for
-the "mock lift" to arrive at L1 when the robot approaches waypoint 1. With confirmation
-of the "lift" at L1 and its doors in "open" state, the robot will be instructed
-to move into the "lift" to waypoint 2. Once the "lift" indicates that it has
-reached L3, the robot will exit along lane b toward waypoint 3.
+If the robot is to travel from waypoint 1 to waypoint 3, the `rmf_fleet_adapter`
+will request for the "mock lift" to arrive at L1 when the robot approaches
+waypoint 1. With confirmation of the "lift" at L1 and its doors in "open" state,
+the robot will be instructed to move into the "lift" to waypoint 2. Once the
+"lift" indicates that it has reached L3, the robot will exit along lane b toward
+waypoint 3.
 
 
 Note: when annotating graphs, it is highly recommended to follow an ascending
