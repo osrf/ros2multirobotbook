@@ -416,7 +416,7 @@ The properties of edge "b" are:
 ```
 
 If the robot is to travel from 1 to 3, the `rmf_fleet_adapter` will request for
-the "mock lift" to arrive at L1 when the robot approaches 1. With confirmation
+the "mock lift" to arrive at L1 when the robot approaches waypoint 1. With confirmation
 of the "lift" at L1 and its doors in "open" state, the robot will be instructed
 to move into the "lift" to waypoint 2. Once the "lift" indicates that it has
 reached L3, the robot will exit along lane b toward waypoint 3.
