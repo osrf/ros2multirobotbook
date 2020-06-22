@@ -201,7 +201,7 @@ its ends, the type of door (hinged, double_hinged, sliding, double_sliding) and
 its range of motion (for hinged doors).
 
 
-![Figure X](images/door_traffic_editor.png)
+![](images/door_traffic_editor.png)
 
 The `building_map_generator gazebo` script parses a `.building.yaml` file for
 any doors and automatically generates an sdf sub-element with links and joints
@@ -275,10 +275,9 @@ To avoid situations where one robot requests a door to close on another robot, a
 #### Lifts
 The ability to test lift integration is crucial as these systems are often the operational bottlenecks in facilities given their shared usage by both humans and multi robot fleets. As with annotated doors, lifts can be customized in a number of ways in the `traffic_editor` gui including the dimension & orientation of the cabin and mapping cabin doors to building levels.
 
-TODO: update gazebo image
 ![](images/lift_traffic_editor.png)
 
-The `building_map_generator gazebo` script parses the `.building.yaml` file for lifts definitions and auto-generates the sdf elements for the cabin, cabin doors as well as lift shaft doors. A prismatic joint is defined at the base of the cabin which is actuated by the lift plugin to move the cabin between different levels. While the cabin doors are part of the cabin structure, the shaft doors are fixed to building. Both sets of doors open/close simultaneously at a given level and are controlled by the lift plugin itself. These doors are created using the same method as other doors in the building and include the door plugin as well. The `building_map_generator` also appends a lift [plugin](todo add link) element with required parameters to the lift's model sdf block.
+The `building_map_generator gazebo` script parses the `.building.yaml` file for lifts definitions and auto-generates the sdf elements for the cabin, cabin doors as well as lift shaft doors. A prismatic joint is defined at the base of the cabin which is actuated by the lift plugin to move the cabin between different levels. While the cabin doors are part of the cabin structure, the shaft doors are fixed to building. Both sets of doors open/close simultaneously at a given level and are controlled by the lift plugin itself. These doors are created using the same method as other doors in the building and include the door plugin as well. The `building_map_generator` also appends a lift plugin todo add link element with required parameters to the lift's model sdf block.
 
 ```xml
 <plugin filename="liblift.so" name="lift">
@@ -307,19 +306,26 @@ Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.co
 
 
 #### Workcells
-Robots performing deliveries within facilities is a common use case and hence a `Delivery` task is configured into the `rmf_fleet_adapters`. In a delivery task, a payload is loaded onto the robot at one location and unloaded at another. The loading and unloading of the payload may be automated by a robot/workcell in a facility. To integrate these systems (generalized as "dispensers") with RMF core systems, a set of dispenser messages are [defined](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg). When the robot reaches the loading station, the `rmf_fleet_adapter` publishes a `DispenserRequest` message which the dispenser receives and begins processing. When the dispensing is successful, the dispenser is required to publish a `DispenserResult` message with `SUCCESS` status. The `rmf_fleet_adapter` then instructs the robot to proceed to the unloading station where a similar set of messages are exchanged with the workcell unloading the payload.
+Robots performing deliveries within facilities is a common use case and hence a `Delivery` task is configured into the `rmf_fleet_adapters`. In a delivery task, a payload is loaded onto the robot at one location and unloaded at another. The loading and unloading of the payload may be automated by a robot/workcell in the facility. To integrate these systems with RMF core systems, a set of dispenser messages are [defined](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg). Despite their names, the messages are generalized for use by systems other than dispensers as well. When a robot reaches the loading station, its `rmf_fleet_adapter` publishes a `DispenserRequest` message which the station receives and begins processing. When the loading is successful, the station publishes a `DispenserResult` message with `SUCCESS` status. The `rmf_fleet_adapter` then instructs the robot to proceed to the unloading station where a similar set of messages are exchanged with the workcell unloading the payload.
 
-To replicate this delivery behavior in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) are designed. These plugins are loaded into [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models) the same names.
-To setup a payload loading station:
-* Assign a `workcell_name` attribute to the waypoint (see figure below)
-* Add a `TeleportDispenser` model beside the waypoint with `name` matching the `workcell_name`
+To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) are designed. These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models) respectively.
+To setup a payload loading station in simulation:
+* Add a `TeleportDispenser` model beside the pickup waypoint and assign it a
+  unique `name`.
 * Add the payload model beside the `TeleportDispenser` model (Coke can in image below)
 
-To setup a payload unloading station:
-* Assign a `workcell_name` attribute to the waypoint (see figure below)
-* Add a `TeleportIngestor` model beside the waypoint with `name` matching the `workcell_name`
+To setup a payload unloading station in simulation:
+* Add a `TeleportIngestor` model beside the dropoff waypoint and assign it a
+  unique `name`.
 
-When a `DispenserRequest` message is published with `target_guid` matching the name of the `TeleportDispenser` model, the plugin will teleport the payload onto the nearest robot model. Conversely, when the `target_guid` matches the name of the `TeleportIngestor` model, the `TeleportIngestor` plugin will teleport the payload on the robot to its location in the world. The combinations of these plugins allow for delivery requests to be simulation. In the future, this mechanism will be replaced by actual workcells or robot arms but the underlying message exchanges will remain the same.
+When a `DispenserRequest` message is published with `target_guid` matching the
+name of the `TeleportDispenser` model, the plugin will teleport the payload onto
+the nearest robot model. Conversely, when the `target_guid` matches the name of
+the `TeleportIngestor` model, the `TeleportIngestor` plugin will teleport the
+payload on the robot to its location in the world. The combinations of these
+plugins allow delivery requests to be simulated. In the future, these mechanisms
+will be replaced by actual workcells or robot arms but the underlying message
+exchanges will remain the same.
 
 ![](images/dispensers.png)
 
@@ -327,7 +333,7 @@ When a `DispenserRequest` message is published with `target_guid` matching the n
 The section aims to provide an overview of the various components in the `rmf_demos` [repository](https://github.com/osrf/rmf_demos) which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the `office` world.
 
 #### Map package
-The `rmf_demo_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figures below highlight special attributes assigned to certain waypoints to indicate robot spawn locations as well as disperser workcells.
+The `rmf_demo_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.
 
 ![](images/rmf_demo_maps.png)
 
