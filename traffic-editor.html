@@ -148,7 +148,444 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#traffic-editor" id="traffic-editor">Traffic Editor</a></h1>
-<p>In this section, we shall describe the traffic-editor GUI.</p>
+<p>In this section, we shall describe the traffic-editor GUI and simulation tools.</p>
+<h2><a class="header" href="#introduction-and-objectives" id="introduction-and-objectives">Introduction and Objectives</a></h2>
+<p>Traffic management of heterogeneous robot fleets is non-trivial. One of the
+challenges with coordinated management arises from varying semantics in
+information models used across fleets. Representations of waypoints, lanes,
+charging/docking stations, restricted zones, infrastructure  systems such as
+doors &amp; lifts among others are subject to vendor's discretion. However,
+standardized conventions that convey the capabilities and intentions of fleets
+in a shared facility are quintessential for planning. Multi-agent participants
+in other modes of transportation such as roadways collectively adhere to a set
+of rules and conventions which minimize chaos. More importantly, they allow for
+a new participant to readily integrate into the system by following the
+prescribed rules. Existing agents can accommodate the new participant as its
+behavior is apparent. Traffic conventions for multi-robot systems do not exist.
+The objective of the <code>traffic_editor</code> is to fill this gap by expressing the
+intentions of various fleets in a standardized, vendor neutral manner through a
+graphical interface. Collated traffic information from different fleets can then
+be exported for planning and control. A secondary objective and benefit of the
+<code>traffic_editor</code> is to facilitate generation of 3D simulations worlds which
+accurately reflect physical environments.</p>
+<h2><a class="header" href="#overview" id="overview">Overview</a></h2>
+<p>The <code>traffic_editor</code> <a href="https://github.com/osrf/traffic_editor">repository</a> is home to the <code>traffic_editor</code> GUI and tools to auto-generate simulation worlds from GUI output. The GUI is an easy to use interface which can be used to create and annotate 2D floor plans with robot traffic along with building infrastructure information. In the case there are existing floor plans of the environment, the <code>traffic_editor</code> is able to import those images for faster layout and floor generation.</p>
+<p>The <code>traffic_editor</code> GUI projects are stored as <code>yaml</code> files with
+<code>.project.yaml</code> file extensions. The template of a project file is seen below.
+The structure essentially breaks a project into <code>.building.yaml</code> files that may
+represent various buildings that make up a given site. Populating the <code>filename</code>
+tag with the appropriate <code>.building.yaml</code> file will set the editor to load and
+apply any annotations to this file.</p>
+<pre><code class="language-yaml">building:
+  filename: &quot;&quot;
+name: &quot;&quot;
+traffic_maps:
+  {}
+version: 1
+</code></pre>
+<p>Each <code>.building.yaml</code> file encompasses several attributes for each level in
+the site as annotated by the user. A detailed description of the various
+options are discussed in the subsequent section.</p>
+<pre><code class="language-yaml">levels:
+  L1:
+    doors:
+      - []
+    drawing:
+      filename:
+    fiducials:
+    elevation: 0
+    flattened_x_offset: 0
+    flattened_y_offset: 0
+    floors:
+      - parameters: {}
+        vertices: []
+    lanes:
+      - []
+    layers:
+      {}
+    measurements:
+      - []
+
+    models:
+      -{}
+    vertices:
+      {}
+    walls:
+      {}
+lifts:
+  {}
+name: building
+
+</code></pre>
+<h2><a class="header" href="#gui-layout" id="gui-layout">GUI Layout</a></h2>
+<p>The layout of the <code>traffic_editor</code> comprises of a <code>Main Toolbar</code>, a <code>Working Area</code>
+and a <code>Sidebar</code> as seen in the figure below.</p>
+<p><img src="images/traffic_editor/layout.png" alt="" /></p>
+<p>The editor operates in three modes as selectable from the <code>Edit mode</code> dropdown
+list in the <code>Main Toolbar</code> or using shortkeys:</p>
+<ul>
+<li><strong>Building (Ctrl + B):</strong> to annotate <em>walls</em>, floors (<em>polygons</em>), <em>doors</em>,
+<em>measurements</em> to set the scale of the drawing, <em>fiducials</em> to align levels
+for multi-level simulations and environment assets to add virtual models to your simulated environment.</li>
+<li><strong>Traffic (Ctrl + T):</strong> to annotate traffic lanes of various robots on each level</li>
+<li><strong>Scenario (Ctrl + E):</strong> to define special regions of interest on a level. In
+larger facilities robot traffic may be limited to certain areas only. Hence,
+it may be more meaningful to generate simulation worlds of these special
+regions alone which can be specified in this mode.</li>
+</ul>
+<p>Each mode has a unique set of tools while the following are common:
+|                    Icon                    |  Name  | Shortkey |               Function               |
+|:------------------------------------------:|:------:|:--------:|:------------------------------------:|
+| <img src="images/traffic_editor/icons/select.svg" alt="" /> | Select |   <code>Esc</code>  | Select an entity in the <code>Working Area</code> |
+|  <img src="images/traffic_editor/icons/move.svg" alt="" />  |  Move  |    <code>m</code>   |  Move an entity in the <code>Working Area</code>  |
+| <img src="images/traffic_editor/icons/rotate.svg" alt="" /> | Rotate |    <code>r</code>   | Rotate an entity in the <code>Working Area</code> |</p>
+<p>The <code>SideBar</code> contains multiple tabs with various functionalities:</p>
+<ul>
+<li><strong>levels:</strong> to add a new level to the building. This can be done from scratch of by importing a floor plan image file</li>
+<li><strong>layers:</strong> to overlap other images such as lidar maps over the level</li>
+<li><strong>lifts:</strong> to configure and add lifts to the building</li>
+<li><strong>traffic:</strong> to add navigation graphs to the level which are a collection of
+lanes occupiable by a fleet of robots. Each graph corresponds to a single fleet
+operating in the facility.</li>
+<li><strong>scenarios:</strong> to configure scenarios for simulation</li>
+</ul>
+<p>The <code>Working Area</code> is where the levels along with their annotations are
+rendered. The user is able to zoom via the <code>Mouse Scroll</code> and pan the view by
+holding the <code>Scroll Button</code> and moving the mouse cursor.</p>
+<h2><a class="header" href="#annotation-guide" id="annotation-guide">Annotation Guide</a></h2>
+<p>The objective of this section is to walk through the process of annotating
+facilities while highlighting the capabilities of the <code>traffic_editor</code> GUI.</p>
+<p>To create a new <code>traffic_editor</code> project, setup a working directory as shown
+below with empty <code>.project.yaml</code> and <code>.building.yaml</code> files.</p>
+<pre><code>maps/
+├── tutorial.project.yaml
+└── tutorial.building.yaml
+</code></pre>
+<p>Next launch the traffic editor from a terminal window
+(source workspace if <code>traffic_editor</code> is built from source).</p>
+<pre><code class="language-bash">traffic-editor tutorial.project.yaml
+</code></pre>
+<p>To configure the project to work with the <code>tutorial.building.yaml</code> file, locate
+the path to this file from the dialog box that opens from from clicking <code>Edit -&gt; Project Properties</code>. The project can be assigned a name from the same box.
+Saving (<code>Ctrl + S</code>) the project will write the configuration to the
+<code>tutorial.project.yaml</code> file while populating the <code>tutorial.building.yaml</code> file
+with a basic template. Additional <code>.building.yaml</code> files may be created for
+other building in the site. The project configuration can be updated to
+reference the new file accordingly.</p>
+<h3><a class="header" href="#adding-a-level" id="adding-a-level">Adding a level</a></h3>
+<p>A new level in the building can be added by clicking the <code>Add</code> button in the
+<code>levels</code> tab of the <code>Sidebar</code>. The operation will open a dialog box where the
+<code>name</code>, <code>elevation</code> (in meters) and path to a 2D <code>drawing</code> file (<code>.png</code>) can be
+specified. In most use cases, the floor plan for the level is used as the
+drawing. If unspecified, the user may explicitly enter dimensions of the level
+in the fields provided.</p>
+<p><img src="images/traffic_editor/add_level.png" alt="" /></p>
+<p>In the figure above, a new level <code>L1</code> at <code>0m</code> elevation and a floor plan has
+been added as reflected in the <code>levels</code> tab. A default scale fo <code>1px = 5cm</code> is
+applied. The actual scale can be set by adding a measurement. Any offsets
+applied to align levels will be reflected in the <code>X</code> and <code>Y</code> columns. Saving the
+project will update the <code>tutorial.building.yaml</code> files as seen below.</p>
+<pre><code class="language-yaml">
+levels:
+  L1:
+    drawing:
+      filename: office.png
+    elevation: 0
+    flattened_x_offset: 0
+    flattened_y_offset: 0
+    layers:
+      {}
+lifts:
+  {}
+name: building
+</code></pre>
+<h3><a class="header" href="#adding-a-vertex" id="adding-a-vertex">Adding a vertex</a></h3>
+<table><thead><tr><th align="center">Icon</th><th align="center">Shortkey</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/vertex.svg" alt="" /></td><td align="center"><code>v</code></td></tr>
+</tbody></table>
+<p>A vertex is a fundamental component of multiple annotations. Walls,
+measurements, doors, floor polygons and traffic lanes are created from two or
+more vertices. To create a vertex, click on the vertex icon in the <code>Main Toolbar</code> and anywhere on the canvas. The default attributes of a vertex are its
+coordinates along with an empty name field. Additional attributes may be added
+by clicking the <code>Add</code> button in the figure. Short descriptions of these are
+presented below.</p>
+<ul>
+<li><strong>is_parking_spot:</strong> if true and if the waypoint is part of a traffic lane,
+the <code>rmf_fleet_adapter</code> will treat this as a <em>holding point</em> during path
+planning, i.e., the robot is allowed to wait at this waypoint for an indefinite
+period of time.</li>
+<li><strong>is_charger:</strong> if true and if the waypoint is part of a traffic lane, the
+<code>rmf_fleet_adapter</code> will treat this as a charging station.</li>
+<li><strong>dock_name:</strong> if specified and if the waypoint is part of a traffic lane, the
+<code>rmf_fleet_adapter</code> will issue an <code>rmf_fleet_msgs::ModeRequest</code> message with
+<code>MODE_DOCKING</code> and <code>task_id</code> equal to the specified name to the robot as it
+approaches this waypoint.</li>
+<li><strong>workcell_name [deprecated]:</strong> This attribute was previously used by the
+<code>rmf_fleet_adapter</code> to issue an <code>rmf_dispenser_msgs::DispenerRequest</code> message
+with <code>target_guid</code> equal to the name specified when a robot reached this
+waypoint. In the latest version of <code>rmf_core</code> the workcell name is passed via
+the <code>rmf_task_msgs::Delivery</code> message. See Chapter <a href="simulation.html">Simulation</a>
+for more details.</li>
+<li><strong>spawn_robot_type:</strong> the name of the robot model to spawn at this waypoint in
+simulation. The value must match the model's folder name in the assets
+repository. More details on the robot model and plugin required for simulation
+can be found in <a href="simulation.html">Simulation</a></li>
+<li><strong>spawn_robot_name:</strong> a unique identifier for the robot spawned at this
+waypoint. The <code>rmf_fleet_msgs::RobotState</code> message published by this robot
+will have <code>name</code> field equal to this value.</li>
+</ul>
+<p><img src="images/traffic_editor/add_vertex.png" alt="" /></p>
+<p>Each vertex is stored in the <code>tutorial.building.yaml</code> file as a list of
+x-coordinate, y-coordinate, elevation, vertex_name and a set of additional
+parameters.</p>
+<pre><code class="language-yaml">  vertices:  
+    - [1364.76, 1336.717, 0, magni1_charger, {is_charger: [4, true], is_parking_spot: [4, true], spawn_robot_name: [1, magni1], spawn_robot_type: [1, Magni]}]
+</code></pre>
+<h3><a class="header" href="#adding-a-measurement" id="adding-a-measurement">Adding a Measurement</a></h3>
+<table><thead><tr><th align="center">Icon</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/measurement.svg" alt="" /></td></tr>
+</tbody></table>
+<p>Adding a measurement sets the scale of the imported 2D drawing which is
+essential for simulation accuracy. Scalebars or reference dimensions in the
+floor plan aid with the process. With the editor in <em>Building</em> mode, select the
+<em>Add Measurement</em> tool and click on two points with known dimension. A pink line is
+rendered on the map with two vertices at its ends at the selected points. Note:
+A measurement line may be drawn by clicking on existing vertices. In this
+scenario, no additional vertices are created at its ends.</p>
+<p>Selecting the line populates various parameters in the Properties window of the
+<code>Sidebar</code>. Setting the <code>distance</code> parameter to the physical distance between the
+points (in meters) will then update the <code>Scale</code> for the level. Save the project
+and reload to see the changes reflected.</p>
+<p><img src="images/traffic_editor/add_measurement.png" alt="" /></p>
+<p>The above process adds two <code>vertices</code> and a <code>measurement</code> field to the
+<code>tutorial.building.yaml</code> file as seen below. For the measurement field, the
+first two elements represent the indices of vertices representing the ends of
+the line. The <code>distance</code> value is stored in a sub-list of parameters.</p>
+<pre><code class="language-yaml">levels:
+  L1:
+    drawing:
+      filename: office.png
+    elevation: 0
+    flattened_x_offset: 0
+    flattened_y_offset: 0
+    layers:
+      {}
+    measurements:
+      - [1, 0, {distance: [3, 8.409]}]
+    vertices:
+      - [2951.728, 368.353, 0, &quot;&quot;]
+      - [2808.142, 1348.9, 0, &quot;&quot;]
+
+lifts:
+  {}
+name: building
+</code></pre>
+<h3><a class="header" href="#adding-a-wall" id="adding-a-wall">Adding a wall</a></h3>
+<table><thead><tr><th align="center">Icon</th><th align="center">Shortkey</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/wall.svg" alt="" /></td><td align="center"><code>w</code></td></tr>
+</tbody></table>
+<p>To annotate walls in the map, select the <em>Add Wall</em> icon from the <code>Main Toolbar</code>
+and click on consecutive vertices that represent the corners of the wall. The
+selection process is continuous and can be exited by pressing the <code>Esc</code> key.
+Blue lines between vertices are rendered on the map which represent the drawn
+walls. If the corner vertices are not present, they will automatically be
+created when using this tool. Meshes of the annotated walls are automatically
+generated during 3D world generating using <code>building_map_generator</code>. By default
+the walls are of thickness of 10cm and height 2.5m. These attributes may be
+modified <a href="https://github.com/osrf/traffic_editor/blob/3fa2486ad5ab51973c95fdf74511bb7196bb255b/building_map_tools/building_map/level.py#L42">here</a></p>
+<p><img src="images/traffic_editor/add_wall.png" alt="" /></p>
+<p>Walls are stored in the <code>tutorial.building.yaml</code> file as a list with indices of
+start and end vertices of the wall segment along with an empty parameter set.</p>
+<pre><code class="language-yaml">    walls:
+      - [3, 4, {}]
+      - [4, 5, {}]
+      - [5, 6, {}]
+      - [6, 7, {}]
+      - [6, 8, {}]
+      - [8, 9, {}]
+</code></pre>
+<h3><a class="header" href="#adding-a-floor" id="adding-a-floor">Adding a floor</a></h3>
+<table><thead><tr><th align="center">Icon</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/floor.svg" alt="" /></td></tr>
+</tbody></table>
+<p>Flooring is essential for simulations as it provides a ground plane for the
+robots to travel over. Floors are annotated using the <em>Add floor polygon</em> tool
+from the <code>Main Toolbar</code> in <em>Building</em> edit mode. To define a floor, select
+consecutive vertices to create a polygon that accurately represents the flooring
+area as seen below. These vertices will need to be added manually prior to this
+step. Once created, save the project and reload. Selecting the defined floor
+highlights its texture attributes. The default list of textures available is
+found <a href="https://github.com/osrf/traffic_editor/tree/master/building_map_tools/building_map_generator/textures">here</a></p>
+<p><img src="images/traffic_editor/add_floor.png" alt="" /></p>
+<p>It may of interest in certain scenarios to have floors with cavities, for
+example, to represent elevator shafts. The <em>Add hole polygon</em> tool may be used
+for this purpose. Additionally the shape of a drawn polygon (floor or hole) may
+be modified using the <em>Edit polygon</em> tool. Clicking on the tool after selecting
+an existing polygon enables the user to modify vertices of the polygon.</p>
+<p>Each polygon is stored in the <code>tutorial.building.yaml</code> file in the format below.</p>
+<pre><code class="language-yaml">    floors:
+      - parameters: {texture_name: [1, blue_linoleum], texture_rotation: [3, 0], texture_scale: [3, 1]}
+        vertices: [11, 10, 14, 15, 13, 12]
+</code></pre>
+<h3><a class="header" href="#adding-a-door" id="adding-a-door">Adding a door</a></h3>
+<table><thead><tr><th align="center">Icon</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/door.svg" alt="" /></td></tr>
+</tbody></table>
+<p>A door between two vertices can be added in <em>Building</em> edit mode by selecting
+the <em>Add door</em> tool from the <code>Main Toolbar</code>, and clicking on vertices
+representing the ends of the door. Selecting an annotated door highlights its
+properties as seen in the figure below. Presently, four door <code>types</code> are
+supported: &quot;hinged&quot;, &quot;double_hinged&quot;, &quot;sliding&quot; and &quot;double_sliding&quot;. The
+<code>motion_degrees</code> parameter specifies the range of motion in the case of hinged
+doors while the <code>motion_direction</code> dictates the direction of swing. In order for
+the door to work in simulation, a <code>name</code> must be given to the door.</p>
+<p><img src="images/traffic_editor/add_door.png" alt="" /></p>
+<p>Doors are stored in the <code>tutorial.building.yaml</code> file as a list with indices of
+start and end vertices of the along with the set of parameters that describes the door.</p>
+<pre><code class="language-yaml"> doors:
+      - [24, 25, {motion_axis: [1, start], motion_degrees: [3, 90], motion_direction: [2, 1], name: [1, D001], type: [1, double_sliding]}]
+</code></pre>
+<h3><a class="header" href="#adding-a-traffic-lane" id="adding-a-traffic-lane">Adding a traffic lane</a></h3>
+<p>One of the most important tools in the <code>traffic_editor</code> GUI is the <em>Add lane</em>
+tool available in the <em>Traffic</em> edit mode. The allowable motions of each fleet
+operating in the facility is conveyed through its respective Graph which
+consists of waypoints and connecting lanes. The <code>traffic</code> tab in the <code>Sidebar</code>
+has a default of nine Graphs for nine different fleets. To annotate lanes for a
+graph, say Graph 0, select the Graph from the <code>traffic</code> tab and click the <em>Add
+lane</em> tool. Lanes for this graph can be drawn by clicking vertices to be
+connected. If a vertex is not present, it will automatically be added.
+Properties may be assigned to each vertex as described in the preceding section.
+To issue tasks to waypoints that require the robot to terminate at any waypoint,
+a name must be assigned to the waypoint. </p>
+<p><img src="images/traffic_editor/add_lane.png" alt="" /></p>
+<p>Each Graph has a unique color for its lanes and their visibility may be
+toggled using the checkbox in the <code>traffic</code> tab. A lane that is defined between
+two waypoints may be configured with these additional properties</p>
+<ul>
+<li><strong>bidirectional:</strong> if <code>true</code>, the <code>rmf_fleet_adapter</code> will plan routes for its
+robot assuming the lanes can be traversed in both directions. Lanes that are
+not bidirectional have arrows indicating their directionality (indigo lanes in
+figure above).</li>
+<li><strong>graph_idx</strong>: the Graph number a lane corresponds to.</li>
+<li><strong>orientation</strong>: constrain the lane to make the robot travel in <code>forward</code> or <code>backward</code> orientation.</li>
+</ul>
+<p>While lifts that move between levels are now supported in the <code>traffic_editor</code>,
+the <strong>demo_mock_floor_name</strong> and <strong>demo_mock_lift_name</strong> properties were
+originally engineered to showcase shared lift access in a single floor
+demonstration environment with a &quot;mock&quot; lift that receives lift commands and
+transmits lift states but does not actually move between any different floors in
+a building. However, as there may be interest such functionality for testing
+single-floor hardware setups that seek to emulate multi-floor scenarios, these
+properties were retained.</p>
+<ul>
+<li><strong>demo_mock_floor_name</strong>: name of the floor that the robot is on while
+traversing the lane</li>
+<li><strong>demo_mock_lift_name</strong>: name of the lift that is being entered or exited
+while the robot traverses the lane</li>
+</ul>
+<p>To further explain these properties, consider this representation of a
+navigation graph where numbers are waypoints and letters are lanes:</p>
+<pre><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3
+
+Waypoint 1 is on floor L1
+Waypoint 2 is inside the &quot;lift&quot; named LIFT001
+Waypoint 3 is on floor L3
+The properties of edge &quot;a&quot; are:
+    bidirectional: true
+    demo_mock_floor_name: L1
+    demo_mock_lift_name: LIFT001
+The properties of edge &quot;b&quot; are:
+    bidirectional: true
+    demo_mock_floor_name: L3
+    demo_mock_lift_name: LIFT001
+</code></pre>
+<p>If the robot is to travel from waypoint 1 to waypoint 3, the <code>rmf_fleet_adapter</code>
+will request for the &quot;mock lift&quot; to arrive at L1 when the robot approaches
+waypoint 1. With confirmation of the &quot;lift&quot; at L1 and its doors in &quot;open&quot; state,
+the robot will be instructed to move into the &quot;lift&quot; to waypoint 2. Once the
+&quot;lift&quot; indicates that it has reached L3, the robot will exit along lane b toward
+waypoint 3.</p>
+<p>Note: when annotating graphs, it is highly recommended to follow an ascending
+sequence of graph indices without skipping intermediate numbers. Drawn lanes can
+only be interacted with if their associated Graph is first selected in the
+<code>traffic</code> tab.</p>
+<p>The annotated Graphs are eventually exported as <code>navigation graphs</code> using the
+<code>building_map_generator</code> which are then used by respective <code>rmf_fleet_adapters</code>
+for path planning. </p>
+<p>Lanes are stored in the following format in <code>tutorial.building.yaml</code>. The data structure is a list with first two elements representing the indices of the two vertices of the lane and a set of parameters with configured properties.</p>
+<pre><code class="language-yaml">    lanes:
+      - [32, 33, {bidirectional: [4, true], demo_mock_floor_name: [1, &quot;&quot;], demo_mock_lift_name: [1, &quot;&quot;], graph_idx: [2, 2], orientation: [1, forward]}]
+</code></pre>
+<h3><a class="header" href="#adding-fiducials" id="adding-fiducials">Adding fiducials</a></h3>
+<table><thead><tr><th align="center">Icon</th></tr></thead><tbody>
+<tr><td align="center"><img src="images/traffic_editor/icons/fiducial.svg" alt="" /></td></tr>
+</tbody></table>
+<p>For maps with multiple levels, fiducials provide a means to scale and align
+different levels with respect to a reference level. This is crucial for ensuring
+dimensional accuracy of annotations across different levels and aligning the
+same for simulation. Fiducials are reference markers placed at locations which
+are expected to be vertically aligned between two or more levels. For example,
+structural columns may run through multiple floors and their locations are often
+indicated on floor plans. With two or more pairs of corresponding markers between a level and a reference level, a geometric transformation (translation, rotation and scale) may be derived between the two levels. This transformation can then be applied to all the vertices and models in the newly defined level.</p>
+<p>To begin, add two or more non-collinear fiducials to the reference level with
+unique <code>name</code> attributes using the <em>Add fiducial</em> tool (left image in figure
+below). In the newly created level, add the same number of fiducials at
+locations that are expected to be vertically aligned with matching names as the
+reference level (right image in figure below). Saving and reloading the project
+computes the transformation between the levels which is evident from the Scale
+and X-Y offsets for the new level as seen in the <code>levels</code> tab. This level is
+now ready to be annotated.</p>
+<p><img src="images/traffic_editor/add_fiducial.png" alt="" /></p>
+<p>For each level, fiducials are stored in a list of their X &amp; Y coordinates along with their name. </p>
+<pre><code class="language-yaml">    fiducials:
+      - [936.809, 1323.141, F1]
+      - [1622.999, 1379.32, F2]
+      - [2762.637, 346.69, F3]
+</code></pre>
+<h3><a class="header" href="#adding-a-lift" id="adding-a-lift">Adding a lift</a></h3>
+<p>Lifts are integral resources that are shared between humans and robot fleets in
+multi-level facilities. To add a lift to a building, click the <code>Add</code> button in
+the <code>lifts</code> tab in the <code>Sidebar</code>. A dialog box with various configurable
+properties will load. It is essential to specify the Name, Reference level and
+the X&amp;Y coordinates (pixel units) of its cabin center. A yaw (radians) may
+further be added to orient the lift as desired. The width and depth of the cabin
+(meters) can also be customized. Lifts can be designed to have multiple cabin
+doors which may open at more than one level. To add a cabin door, click the
+<code>Add</code> button in the box below the cabin image. Each cabin door requires a name along with positional and orientational information. Here, the X&amp;Y coordinates are relative to the cabin center.</p>
+<p><img src="images/traffic_editor/add_lift.png" alt="" /></p>
+<p>The configured lift is stored in the <code>tutorial.building.yaml</code> file as described below.</p>
+<pre><code class="language-yaml">lifts:
+  LF001:
+    depth: 2
+    doors:
+      door1:
+        door_type: 2
+        motion_axis_orientation: 1.57
+        width: 1
+        x: 1
+        y: 0
+      door2:
+        door_type: 2
+        motion_axis_orientation: 1.57
+        width: 1
+        x: -1
+        y: 0
+    level_doors:
+      L1: [door1]
+      L2: [door2]
+    reference_floor_name: L1
+    width: 2
+    x: 827
+    y: 357.7
+    yaw: 1.09
+</code></pre>
+<h3><a class="header" href="#adding-environment-assets" id="adding-environment-assets">Adding environment assets</a></h3>
+<p>Levels may be annotated with thumbnails of models available for simulation using the <em>Add model</em> tool in <em>Building</em> edit mode. Selecting this tool opens a dialog box with a list of model names and matching thumbnails which can be imported to the map. Once on the map, their positions and orientations can be adjusted using the <em>Move</em> and <em>Rotate</em> tools. Instructions on expanding the list of thumbnails for other models is found <a href="https://github.com/osrf/traffic_editor/tree/master/traffic_editor/thumbnail_generator">here</a></p>
+<p><img src="images/traffic_editor/add_model.png" alt="" /></p>
+<h3><a class="header" href="#adding-a-scenario" id="adding-a-scenario">Adding a scenario</a></h3>
+<p>[ in progress]</p>
+<h3><a class="header" href="#conclusion" id="conclusion">Conclusion</a></h3>
+<p>This chapter covered various capabilities of the <code>traffic_editor</code> which are useful for annotating maps of facilities while adhering to a standardized set of semantics. Examples of other traffic editor projects can be found in the <a href="https://github.com/osrf/rmf_demos">rmf_demos</a> repository. Running physics based simulations with RMF in the annotated sites is described in the <a href="simulation.html">Simulation</a> chapter.</p>
 
                     </main>
 
