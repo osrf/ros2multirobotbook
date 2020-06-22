@@ -97,7 +97,7 @@ The editor operates in three modes as selectable from the `Edit mode` dropdown
 list in the `Main Toolbar` or using shortkeys:
 * **Building (Ctrl + B):** to annotate _walls_, floors (_polygons_), _doors_,
   _measurements_ to set the scale of the drawing, _fiducials_ to align levels
-  for multi-level simulations.  
+  for multi-level simulations and environment assets to add virtual models to your simulated environment.  
 * **Traffic (Ctrl + T):** to annotate traffic lanes of various robots on each level
 * **Scenario (Ctrl + E):** to define special regions of interest on a level. In
   larger facilities robot traffic may be limited to certain areas only. Hence,
