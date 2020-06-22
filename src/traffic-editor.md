@@ -19,7 +19,7 @@ behavior is apparent. Traffic conventions for multi-robot systems do not exist.
 The objective of the `traffic_editor` is to fill this gap by expressing the
 intentions of various fleets in a standardized, vendor neutral manner through a
 graphical interface. Collated traffic information from different fleets can then
-be exported for planning and control. A secondary objective of the
+be exported for planning and control. A secondary objective and benefit of the
 `traffic_editor` is to facilitate generation of 3D simulations worlds which
 accurately reflect physical environments.
 
