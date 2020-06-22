@@ -12,7 +12,7 @@ doors & lifts among others are subject to vendor's discretion. However,
 standardized conventions that convey the capabilities and intentions of fleets
 in a shared facility are quintessential for planning. Multi-agent participants
 in other modes of transportation such as roadways collectively adhere to a set
-of rules and conventions which minimizes chaos. More importantly, they allow for
+of rules and conventions which minimize chaos. More importantly, they allow for
 a new participant to readily integrate into the system by following the
 prescribed rules. Existing agents can accommodate the new participant as its
 behavior is apparent. Traffic conventions for multi-robot systems do not exist.
