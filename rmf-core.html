@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>RMF Core - Programming Multiple Robots with ROS 2</title>
+        <title>RMF Core Overview - Programming Multiple Robots with ROS 2</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item expanded "><a href="rmf-core.html" class="active"><strong aria-hidden="true">5.</strong> RMF Core</a></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="hardware.html"><strong aria-hidden="true">7.</strong> Hardware</a></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item expanded "><a href="rmf-core.html" class="active"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">7.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">7.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">7.2.</strong> Mobile Robot Fleets</a></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">7.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">7.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">7.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">7.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">7.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,26 +147,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#rmf-core" id="rmf-core">rmf-core</a></h1>
+                        <h1><a class="header" href="#rmf-core-overview" id="rmf-core-overview">RMF Core Overview</a></h1>
 <p>RMF is an umbrella term for a wide range of open specifications and software
 tools that aim to ease the integration and interoperability of robotic systems,
-building infrastructure, and user interfaces. <code>rmf_core</code> is an implementation
-of some of these core scheduling and traffic management systems.</p>
+building infrastructure, and user interfaces. <a href="https://github.com/osrf/rmf_core"><code>rmf_core</code></a>
+is an implementation of some of the core scheduling and traffic management systems.</p>
 <p>Avoiding mobile robot traffic conflicts is a key functionality of <code>rmf_core</code>.
 There are two levels to traffic deconfliction: (1) prevention, and (2)
 resolution.</p>
-<p><em>Prevention:</em> Whenever possible, it would be good to prevent traffic conflicts
+<h3><a class="header" href="#prevention" id="prevention">Prevention</a></h3>
+<p>Whenever possible, it would be good to prevent traffic conflicts
 from happening in the first place. To facilitate this, we have implemented a
 platform agnostic Traffic Schedule Database. The traffic schedule is a living
 database whose contents will change over time to reflect delays, cancelations,
-or route changes. All fleet managers that are integrated into RoMi-H must
+or route changes. All fleet managers that are integrated into an RMF deployment must
 report the expected itineraries of their vehicles to the traffic schedule. With
 the information available on the schedule, compliant fleet managers can plan
 routes for their vehicles that avoid conflicts with any other vehicles, no
-matter which fleet they belong to. <code>rmf_traffic</code> provides a Planner class to
-help facilitate this for vehicles that behave like standard AGVs. In the future
-we intend to provide a similar utility for AMRs.</p>
-<p><em>Resolution:</em> It is not always possible to perfectly prevent traffic conflicts.
+matter which fleet they belong to. <code>rmf_traffic</code> provides a
+<a href="https://github.com/osrf/rmf_core/blob/master/rmf_traffic/include/rmf_traffic/agv/Planner.hpp"><code>Planner</code></a>
+class to help facilitate this for vehicles that behave like standard AGVs which
+rigidly follow routes along a pre-determined grid. In the future
+we intend to provide a similar utility for AMRs that can perform ad hoc motion
+planning around unanticipated obstacles.</p>
+<h3><a class="header" href="#negotiation" id="negotiation">Negotiation</a></h3>
+<p>It is not always possible to perfectly prevent traffic conflicts.
 Mobile robots may experience delays because of unanticipated obstacles in their
 environment, or the predicted schedule may be flawed for any number of reasons.
 In cases where a conflict does arise, <code>rmf_traffic</code> has a Negotiation scheme.
@@ -178,157 +183,50 @@ itineraries that can accommodate the others. A third-party judge (deployed by
 the system integrator) will choose the set of proposals that is considered
 preferable and notify the fleet managers about which itineraries they should
 follow.</p>
-<h2><a class="header" href="#schedules" id="schedules">Schedules</a></h2>
-<p>The schedule is a centralized database of all the intended robot traffic
-trajectories in a facility. Note that it's the intended trajectories, so it's
+<p>There may be situations where a sudden, urgent task needs to take place
+(e.g. a response to an emergency), and the current traffic schedule does not
+accommodate it in a timely manner. In such a situation, a traffic participant
+may intentionally post a traffic conflict onto the schedule and force a
+negotiation to take place. The negotiation can be forced to choose an itinerary
+arrangement that favors the emergency task by implementing the third-party
+judge to always favor the high-priority participant.</p>
+<h2><a class="header" href="#traffic-schedule" id="traffic-schedule">Traffic Schedule</a></h2>
+<p>The traffic schedule is a centralized database of all the intended robot traffic
+trajectories in a facility. Note that it's the intended trajectories, so it is
 looking into the future. The job of the schedule is to identify conflicts in
 the intentions of the different robot fleets and notify the fleets when a
-conflict is noticed. It will also facilitate a procedure for the fleets to
-automatically resolve their conflict. If no resolution is found in a reasonable
-time, the conflict may be escalated to the attention of a human operator.</p>
-<h2><a class="header" href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h4><a class="header" href="#why-is-this-traffic-management-system-so-complicated" id="why-is-this-traffic-management-system-so-complicated">Why is this traffic management system so complicated?</a></h4>
-<p>RMF has a number of system design constraints that create unique challenges for
-traffic management. The core goal of RMF is to facilitate system integration
-for heterogeneous mobile robot fleets that may be provided by different vendors
-and may have different technical capabilities.</p>
-<p>Vendors tend to want to keep their computing systems independent from other
-vendors. Since vendors are often responsible for ensuring uptime and
-reliability on their computing infrastructure, they may view it as an
-unacceptable liability to share computing resources with another vendor. This
-means that the traffic management system must be able to function while being
-distributed across different machines on a network.</p>
-<p>Different robot platforms may have different capabilities. Many valuable AGV
-platforms that are currently deployed are not able to change their itineraries
-dynamically. Some AGV platforms can change course when instructed to, as long
-as they stick to a predefined navigation graph. Some AMR platforms can
-dynamically navigate themselves around unanticipated obstacles in their
-environment. Since RMF is meant to be an enabling technology, it is important
-that we design a system that can maximize the utility of all these different
-types of systems without placing detrimental constraints on any of them.</p>
-<p>These considerations led to the current design of distributed conflict
-prevention and distributed schedule negotiation. There is plenty of space
-within the design to create simpler and more efficient subsets for categories
-of mobile robots that fit certain sets of requirements, but these optimizations
-can be added later, building on top of the existing completely generalized
-framework.</p>
-<h4><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both" id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h4>
-<p>The responsibility of knowing when a door needs to be opened and then sending
-the command to open it belongs to the &quot;fleet adapter&quot;. The basic design is:</p>
+conflict is identified. Upon receiving the notification, the fleets will begin
+a traffic negotiation, as described above.</p>
+<h2><a class="header" href="#fleet-adapters" id="fleet-adapters">Fleet Adapters</a></h2>
+<p>Each robot fleet that participates in an RMF deployment is expected to have a
+fleet adapter that connects its fleet-specific API to the interfaces
+of the core RMF traffic scheduling and negotiation system. The fleet adapter is
+also responsible for handling communication between the fleet and the various
+standardized smart infrastructure interfaces, e.g. to open doors, summon lifts,
+and wake up dispensers.</p>
+<p>Different robot fleets have different features and capabilities, dependent on
+how they were designed and developed. The traffic scheduling and negotiation system
+makes no a-priori assumptions about what the capabilities of the fleets will be.
+However, to minimize the duplication of integration effort, we have identified 4
+different broad categories of control that we expect to encounter among various
+real-world fleet managers.</p>
 <ul>
-<li>The fleet adapter keeps track of the robot's progress</li>
-<li>When the robot needs to go through a door, the fleet adapter will recognize this</li>
-<li>The fleet adapter will send a signal to the door to open</li>
-<li>Once the door is open, the fleet adapter will command the robot to proceed</li>
-<li>Once the robot is through the door, the fleet adapter will command the robot wait until the door is closed</li>
-<li>The fleet adapter will command the door to close</li>
-<li>Once the door is closed, the fleet adapter will command the robot to proceed</li>
-</ul>
-<p>The way a fleet adapter knows about the doors is by parsing the navigation
-graph that is provided to it. The navigation graph is a required parameter for
-the <code>full_control</code> type of fleet adapter. <code>rmf_demos</code> shows an example of
-providing a navigation graph to the fleet adapter.</p>
-<p>The recommended way to construct a navigation graph is to use the
-<code>traffic-editor</code> tool. The <code>rmf_demos</code> repos shows some examples of
-<code>traffic-editor</code> project files.</p>
-<p>However, it's entirely possible to construct your own navigation graphs. They
-use a very simple yaml format.</p>
-<h4><a class="header" href="#are-lifts-supported" id="are-lifts-supported">Are lifts supported?</a></h4>
-<p>Proper lift support (meaning, specifying an actual lift that can move between
-floors, and exporting that information into the navigation graph) is not
-something that has been developed yet due to time constraints and the need to
-prioritize certain features over others.</p>
-<p>However, for testing and demonstration purposes, there are two special
-navigation graph edge properties that can allow a RMF fleet adapter to emulate
-lift usage. This is meant for demo scenarios where a &quot;mock lift&quot; has been
-created that receives lift commands and transmits lift states but does not
-actually move between any different floors in a building. For example, tape
-on the floor of a lab to indicate the &quot;lift cabin&quot; box, to allow development
-and testing without occupying the actual building lift.</p>
-<p>These properties were initially included for demonstration purposes, but they
-are proving useful enough that we might make them officially supported
-properties. Due to the cost and scarcity of &quot;real&quot; lifts, there seems to be
-broad interest in having single-floor hardware test setups that emulate
-multi-floor scenarios.</p>
-<p>The edge properties are:</p>
-<ul>
-<li><code>demo_mock_floor_name</code>: The name of the floor that the robot is on while traversing the edge</li>
-<li><code>demo_mock_lift_name</code>: The name of the lift that is being entered or exited while the robot traverses the edge</li>
-</ul>
-<p>The idea is that if you have a single floor demonstration environment but want
-to demonstrate interaction with a lift, then you can set up a mock &quot;lift&quot; and
-imagine that each side of the &quot;lift&quot; opens to a different floor, and the robot
-is only allowed to enter/exit that side of the &quot;lift&quot; when the &quot;lift&quot; believes
-it is on that floor. This emulates lift cabins with two sets of doors.</p>
-<p>To make this idea more concrete, imagine you have a single-floor hardware
-testing area, and a box is drawn on the ground with an LED display next to it
-that reads off pretend floor names. The mock lift will transmit lift state
-messages that match up with whatever floor the LED is displaying. There is also
-some indication of whether the lift doors are open or closed. You can further
-imagine that entering or exiting from west side of the &quot;lift&quot; is only allowed
-when the lift believes it is on floor L1 whereas entering or exiting the &quot;lift&quot;
-from the east side is only allowed when it believes it is on floor L3.</p>
-<p>In that setup, for a robot to &quot;correctly&quot; navigate from a waypoint on L1 to a
-waypoint on L3, the robot needs to:</p>
-<ul>
-<li>Approach the &quot;lift&quot; from the west side</li>
-<li>Call the &quot;lift&quot; down to L1</li>
-<li>Wait until the lift state has it on floor L1 with the doors open</li>
-<li>Move into the &quot;lift&quot; (i.e. the box drawn on the ground) and request that it &quot;moves&quot; to L3</li>
-<li>Wait until the &quot;lift&quot; indicates that it has reached L3 and that its doors are open</li>
-<li>Exit the &quot;lift&quot; on the east side</li>
-</ul>
-<p>A rough ASCII diagram would look like this (numbers are waypoints and letters
-are edges):</p>
-<p><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3</code></p>
-<ul>
-<li>Waypoint 1 is on floor L1</li>
-<li>Waypoint 2 is inside the &quot;lift&quot; named LIFT001</li>
-<li>Waypoint 3 is on floor L3</li>
-<li>The properties of edge a are:
-<ul>
-<li>bidirectional: true</li>
-<li>demo_mock_floor_name: L1</li>
-<li>demo_mock_lift_name: LIFT001</li>
-</ul>
+<li>
+<p><strong>Full Control</strong> <em>(API available)</em> - RMF is provided with live status updates and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest overall efficiency and compliance with RMF, which allows RMF to minimize stoppages and deal with unexpected scenarios gracefully.</p>
 </li>
-<li>The properties of edge b are:
-<ul>
-<li>bidirectional: true</li>
-<li>demo_mock_floor_name: L3</li>
-<li>demo_mock_lift_name: LIFT001</li>
-</ul>
+<li>
+<p><strong>Traffic Light</strong> <em>(API not available yet)</em> - RMF is given the status as well as pause/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.</p>
+</li>
+<li>
+<p><strong>Read Only</strong> <em>(Preliminary API available)</em> - RMF is not given any control over the mobile robots but is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet. <em>Note that any shared space is allowed to have a maximum of just one &quot;Read Only&quot; fleet in operation. Having none is ideal!</em></p>
+</li>
+<li>
+<p><strong>No Interface</strong> <em>(Not compatible)</em> - Without any interface to the fleet, other fleets cannot coordinate with it through RMF, and will likely result in deadlocks when sharing the same navigable environment or resource. This level will not function with an RMF-enabled environment.</p>
 </li>
 </ul>
-<h4><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen" id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h4>
-<p>It's not implemented yet, but there's a design worked out for a bidding system
-where a task request will be converted to a bid request. The bid request will
-be sent to each fleet adapter, and each fleet adapter that can perform the task
-will report its best estimate for how soon it would be able to have the task
-finished. The fleet adapter that offers the lowest bid will be assigned the
-task.</p>
-<p>The API and implementation for this is on the backburner right now as we
-finalize some of the more critical components.</p>
-<h4><a class="header" href="#can-some-robots-have-priority-over-other-robots" id="can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h4>
-<p>The negotiation system concept does support prioritization for which robot will
-accommodate the other robot(s). Any arbitrary metric or weighting system can be
-used when resolving a negotiation. But in the current implementation that we
-are using, we are treating all vehicles as equal and choosing the resolution
-that minimizes the net delay across all the robots, without any prioritization
-or weighting.</p>
-<p>Since this codebase is open source, you can easily fork the code and modify it
-to use any prioritization system that you'd like. Specifically, replace
-<code>rmf_traffic::schedule::QuickestFinishEvaluator()</code> your own
-<code>Negotiation::Evaluator</code> class that behaves in whatever way you would like.</p>
-<h4><a class="header" href="#what-distance-is-maintained-between-two-robots" id="what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h4>
-<p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and
-<code>vicinity_radius</code>. The <code>footprint_radius</code> represents an estimate of the
-vehicle's physical footprint. The <code>vicinity_radius</code> represents an estimate of
-the region which the robot needs other vehicles to stay clear of. A &quot;schedule
-conflict&quot; is defined as an instance where one vehicle's &quot;footprint&quot; is
-scheduled to enter another vehicle's &quot;vicinity&quot;. The job of the negotiation
-system is to come up with a fix to the schedule that keeps all vehicles'
-&quot;footprints&quot; out of all other vehicles' &quot;vicinities&quot;.</p>
+<p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together. Note again that there can only ever be one &quot;Read Only&quot; fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
+<p>Currently we provide a reusable C++ API (as well as Python bindings) for integrating the <strong>Full Control</strong> category of fleet. A preliminary ROS2-message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API (with Python bindings available) in a future release. The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it. To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
+<p>The API for the <strong>Full Control</strong> category is described in the <a href="./integration_fleets.html">Mobile Robot Fleets</a> section, and the <strong>Read Only</strong> category is described in the <a href="./integration_read-only.html">Read Only Fleets</a> section.</p>
 
                     </main>
 
@@ -341,7 +239,7 @@ system is to come up with a fix to the schedule that keeps all vehicles'
                         
 
                         
-                            <a rel="next" href="soss.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="rmf-core_faq.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -359,7 +257,7 @@ system is to come up with a fix to the schedule that keeps all vehicles'
                 
 
                 
-                    <a rel="next" href="soss.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="rmf-core_faq.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

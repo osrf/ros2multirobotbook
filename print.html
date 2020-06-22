@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core</a></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="hardware.html"><strong aria-hidden="true">7.</strong> Hardware</a></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">7.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">7.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">7.2.</strong> Mobile Robot Fleets</a></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">7.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">7.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">7.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">7.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">7.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -3123,26 +3123,31 @@ usage: request_delivery [-h] [-p PICKUP] [-d DROPOFF] [-i TASK_ID]
 </code></pre>
 <p>As an alternative, UIs may be developed to send out these requests. More information can be found in the <a href="ui.html">UI</a> chapter. The <code>rmf_demos</code> repository contains a <code>rmf_rviz_plugin</code> package which defines a custom Panel that can be used to send the above commands from RViz. A snapshot of the same is seen below.</p>
 <p><img src="images/rmf_panel.png" alt="" /></p>
-<h1><a class="header" href="#rmf-core" id="rmf-core">rmf-core</a></h1>
+<h1><a class="header" href="#rmf-core-overview" id="rmf-core-overview">RMF Core Overview</a></h1>
 <p>RMF is an umbrella term for a wide range of open specifications and software
 tools that aim to ease the integration and interoperability of robotic systems,
-building infrastructure, and user interfaces. <code>rmf_core</code> is an implementation
-of some of these core scheduling and traffic management systems.</p>
+building infrastructure, and user interfaces. <a href="https://github.com/osrf/rmf_core"><code>rmf_core</code></a>
+is an implementation of some of the core scheduling and traffic management systems.</p>
 <p>Avoiding mobile robot traffic conflicts is a key functionality of <code>rmf_core</code>.
 There are two levels to traffic deconfliction: (1) prevention, and (2)
 resolution.</p>
-<p><em>Prevention:</em> Whenever possible, it would be good to prevent traffic conflicts
+<h3><a class="header" href="#prevention" id="prevention">Prevention</a></h3>
+<p>Whenever possible, it would be good to prevent traffic conflicts
 from happening in the first place. To facilitate this, we have implemented a
 platform agnostic Traffic Schedule Database. The traffic schedule is a living
 database whose contents will change over time to reflect delays, cancelations,
-or route changes. All fleet managers that are integrated into RoMi-H must
+or route changes. All fleet managers that are integrated into an RMF deployment must
 report the expected itineraries of their vehicles to the traffic schedule. With
 the information available on the schedule, compliant fleet managers can plan
 routes for their vehicles that avoid conflicts with any other vehicles, no
-matter which fleet they belong to. <code>rmf_traffic</code> provides a Planner class to
-help facilitate this for vehicles that behave like standard AGVs. In the future
-we intend to provide a similar utility for AMRs.</p>
-<p><em>Resolution:</em> It is not always possible to perfectly prevent traffic conflicts.
+matter which fleet they belong to. <code>rmf_traffic</code> provides a
+<a href="https://github.com/osrf/rmf_core/blob/master/rmf_traffic/include/rmf_traffic/agv/Planner.hpp"><code>Planner</code></a>
+class to help facilitate this for vehicles that behave like standard AGVs which
+rigidly follow routes along a pre-determined grid. In the future
+we intend to provide a similar utility for AMRs that can perform ad hoc motion
+planning around unanticipated obstacles.</p>
+<h3><a class="header" href="#negotiation" id="negotiation">Negotiation</a></h3>
+<p>It is not always possible to perfectly prevent traffic conflicts.
 Mobile robots may experience delays because of unanticipated obstacles in their
 environment, or the predicted schedule may be flawed for any number of reasons.
 In cases where a conflict does arise, <code>rmf_traffic</code> has a Negotiation scheme.
@@ -3154,16 +3159,52 @@ itineraries that can accommodate the others. A third-party judge (deployed by
 the system integrator) will choose the set of proposals that is considered
 preferable and notify the fleet managers about which itineraries they should
 follow.</p>
-<h2><a class="header" href="#schedules" id="schedules">Schedules</a></h2>
-<p>The schedule is a centralized database of all the intended robot traffic
-trajectories in a facility. Note that it's the intended trajectories, so it's
+<p>There may be situations where a sudden, urgent task needs to take place
+(e.g. a response to an emergency), and the current traffic schedule does not
+accommodate it in a timely manner. In such a situation, a traffic participant
+may intentionally post a traffic conflict onto the schedule and force a
+negotiation to take place. The negotiation can be forced to choose an itinerary
+arrangement that favors the emergency task by implementing the third-party
+judge to always favor the high-priority participant.</p>
+<h2><a class="header" href="#traffic-schedule" id="traffic-schedule">Traffic Schedule</a></h2>
+<p>The traffic schedule is a centralized database of all the intended robot traffic
+trajectories in a facility. Note that it's the intended trajectories, so it is
 looking into the future. The job of the schedule is to identify conflicts in
 the intentions of the different robot fleets and notify the fleets when a
-conflict is noticed. It will also facilitate a procedure for the fleets to
-automatically resolve their conflict. If no resolution is found in a reasonable
-time, the conflict may be escalated to the attention of a human operator.</p>
-<h2><a class="header" href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a></h2>
-<h4><a class="header" href="#why-is-this-traffic-management-system-so-complicated" id="why-is-this-traffic-management-system-so-complicated">Why is this traffic management system so complicated?</a></h4>
+conflict is identified. Upon receiving the notification, the fleets will begin
+a traffic negotiation, as described above.</p>
+<h2><a class="header" href="#fleet-adapters" id="fleet-adapters">Fleet Adapters</a></h2>
+<p>Each robot fleet that participates in an RMF deployment is expected to have a
+fleet adapter that connects its fleet-specific API to the interfaces
+of the core RMF traffic scheduling and negotiation system. The fleet adapter is
+also responsible for handling communication between the fleet and the various
+standardized smart infrastructure interfaces, e.g. to open doors, summon lifts,
+and wake up dispensers.</p>
+<p>Different robot fleets have different features and capabilities, dependent on
+how they were designed and developed. The traffic scheduling and negotiation system
+makes no a-priori assumptions about what the capabilities of the fleets will be.
+However, to minimize the duplication of integration effort, we have identified 4
+different broad categories of control that we expect to encounter among various
+real-world fleet managers.</p>
+<ul>
+<li>
+<p><strong>Full Control</strong> <em>(API available)</em> - RMF is provided with live status updates and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest overall efficiency and compliance with RMF, which allows RMF to minimize stoppages and deal with unexpected scenarios gracefully.</p>
+</li>
+<li>
+<p><strong>Traffic Light</strong> <em>(API not available yet)</em> - RMF is given the status as well as pause/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.</p>
+</li>
+<li>
+<p><strong>Read Only</strong> <em>(Preliminary API available)</em> - RMF is not given any control over the mobile robots but is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet. <em>Note that any shared space is allowed to have a maximum of just one &quot;Read Only&quot; fleet in operation. Having none is ideal!</em></p>
+</li>
+<li>
+<p><strong>No Interface</strong> <em>(Not compatible)</em> - Without any interface to the fleet, other fleets cannot coordinate with it through RMF, and will likely result in deadlocks when sharing the same navigable environment or resource. This level will not function with an RMF-enabled environment.</p>
+</li>
+</ul>
+<p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together. Note again that there can only ever be one &quot;Read Only&quot; fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
+<p>Currently we provide a reusable C++ API (as well as Python bindings) for integrating the <strong>Full Control</strong> category of fleet. A preliminary ROS2-message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API (with Python bindings available) in a future release. The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it. To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
+<p>The API for the <strong>Full Control</strong> category is described in the <a href="./integration_fleets.html">Mobile Robot Fleets</a> section, and the <strong>Read Only</strong> category is described in the <a href="./integration_read-only.html">Read Only Fleets</a> section.</p>
+<h1><a class="header" href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a></h1>
+<h3><a class="header" href="#why-is-this-traffic-management-system-so-complicated" id="why-is-this-traffic-management-system-so-complicated">Why is this traffic management system so complicated?</a></h3>
 <p>RMF has a number of system design constraints that create unique challenges for
 traffic management. The core goal of RMF is to facilitate system integration
 for heterogeneous mobile robot fleets that may be provided by different vendors
@@ -3188,7 +3229,7 @@ within the design to create simpler and more efficient subsets for categories
 of mobile robots that fit certain sets of requirements, but these optimizations
 can be added later, building on top of the existing completely generalized
 framework.</p>
-<h4><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both" id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h4>
+<h3><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both" id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h3>
 <p>The responsibility of knowing when a door needs to be opened and then sending
 the command to open it belongs to the &quot;fleet adapter&quot;. The basic design is:</p>
 <ul>
@@ -3209,7 +3250,7 @@ providing a navigation graph to the fleet adapter.</p>
 <code>traffic-editor</code> project files.</p>
 <p>However, it's entirely possible to construct your own navigation graphs. They
 use a very simple yaml format.</p>
-<h4><a class="header" href="#are-lifts-supported" id="are-lifts-supported">Are lifts supported?</a></h4>
+<h3><a class="header" href="#are-lifts-supported" id="are-lifts-supported">Are lifts supported?</a></h3>
 <p>Proper lift support (meaning, specifying an actual lift that can move between
 floors, and exporting that information into the navigation graph) is not
 something that has been developed yet due to time constraints and the need to
@@ -3276,7 +3317,7 @@ are edges):</p>
 </ul>
 </li>
 </ul>
-<h4><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen" id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h4>
+<h3><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen" id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h3>
 <p>It's not implemented yet, but there's a design worked out for a bidding system
 where a task request will be converted to a bid request. The bid request will
 be sent to each fleet adapter, and each fleet adapter that can perform the task
@@ -3285,7 +3326,7 @@ finished. The fleet adapter that offers the lowest bid will be assigned the
 task.</p>
 <p>The API and implementation for this is on the backburner right now as we
 finalize some of the more critical components.</p>
-<h4><a class="header" href="#can-some-robots-have-priority-over-other-robots" id="can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h4>
+<h3><a class="header" href="#can-some-robots-have-priority-over-other-robots" id="can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h3>
 <p>The negotiation system concept does support prioritization for which robot will
 accommodate the other robot(s). Any arbitrary metric or weighting system can be
 used when resolving a negotiation. But in the current implementation that we
@@ -3296,7 +3337,7 @@ or weighting.</p>
 to use any prioritization system that you'd like. Specifically, replace
 <code>rmf_traffic::schedule::QuickestFinishEvaluator()</code> your own
 <code>Negotiation::Evaluator</code> class that behaves in whatever way you would like.</p>
-<h4><a class="header" href="#what-distance-is-maintained-between-two-robots" id="what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h4>
+<h3><a class="header" href="#what-distance-is-maintained-between-two-robots" id="what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h3>
 <p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and
 <code>vicinity_radius</code>. The <code>footprint_radius</code> represents an estimate of the
 vehicle's physical footprint. The <code>vicinity_radius</code> represents an estimate of
@@ -3323,19 +3364,16 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
     I have some mobile robots with their own fleet manager(s)
         it has a REST API or some other formal API (XMLRPC)
         it has some other communication mechanism (SQL database, etc.) -->
-<h1><a class="header" href="#hardware" id="hardware">Hardware</a></h1>
-<p>In this chapter, we will describe the integration requirements and basic steps to have hardware working with RMF. These include <a href="hardware.html#mobile-robots">mobile robots</a>, <a href="hardware.html#doors">doors</a>, <a href="hardware.html#elevators">elevators</a> and <a href="hardware.html#workcells">workcells</a>. In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by <code>rmf_core</code>, as well as possible scenarios where such interactions occur.</p>
+<h1><a class="header" href="#integration" id="integration">Integration</a></h1>
+<p>In this chapter, we will describe the integration requirements and basic steps to have hardware working with RMF. These include <a href="integration.html#mobile-robots">mobile robots</a>, <a href="integration.html#doors">doors</a>, <a href="integration.html#elevators">elevators</a> and <a href="integration.html#workcells">workcells</a>. In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by <code>rmf_core</code>, as well as possible scenarios where such interactions occur.</p>
 <p>In general, all the interactions can be summed up with this system architecture diagram,</p>
 <img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
 <p>RMF uses ROS 2 messages and topic interfaces. Hence, in most cases we use components called Adapters to bridge between the hardware interfaces and RMF with some exception for robot fleets which also have fleet drivers as part of the process. Robot fleets will be further elaborated in the next few sections.</p>
-<h2><a class="header" href="#mobile-robots" id="mobile-robots">Mobile Robots</a></h2>
-<p>We have identified a number of different scenarios where mobile robots are integrated with RMF, though preliminary focus and use cases have involved delivery service mobile robots. In this section, we will be addressing each scenario or configuration and how users can go about working with them.</p>
-<p>Before all that, let us revisit the diagram and description in the <a href="hardware.html#hardware">hardware introduction section</a>. Fleet adapters serve as a bridge between the mobile robot fleet and RMF. However, an additional level of complexity also exists to address traffic monitoring, scheduling and conflict resolution between the multitude of robots and robot fleets throughout the environment. Fleet drivers are then necessary to interact with the mobile robots/fleets in order to update the adapters and relay commands via simple ROS 2 message and topic interfaces. More information about how fleet adapters work can be found in Chapter 5, rmf-core.</p>
-<h3><a class="header" href="#map-data-requirements-for-integration-with-rmf" id="map-data-requirements-for-integration-with-rmf">Map data requirements for integration with RMF</a></h3>
-<h4><a class="header" href="#motivation-1" id="motivation-1">Motivation</a></h4>
-<p>RMF uses robot route maps to predict the navigation paths of robots working in the environment. RMF generates path predictions for all active robots in the environment which can be used to proactively avoid conflicts between the various robot path plans. This is often referred to as &quot;traffic monitoring&quot; in RMF. Along with the traffic monitoring, RMF can help enable multi-fleet visualization to building/robot operations staff, improve scheduling of resources (such as lifts and corridors), reduce robot deadlock and more.</p>
+<h1><a class="header" href="#route-map-data-requirements-for-integration-with-rmf" id="route-map-data-requirements-for-integration-with-rmf">Route Map data requirements for integration with RMF</a></h1>
+<h2><a class="header" href="#motivation-1" id="motivation-1">Motivation</a></h2>
+<p>RMF uses robot route maps to predict the navigation paths of robots working in the environment. RMF generates path predictions for all active robots in the environment which can be used to proactively avoid conflicts between the various robot path plans. This is often referred to as &quot;traffic management&quot; in RMF. Along with the traffic management, RMF can help enable multi-fleet visualization to building/robot operations staff, improve scheduling of resources (such as lifts and corridors), reduce robot deadlock and more.</p>
 <p>Robot route maps in large buildings are complex and may evolve over time in response to customer requests and building renovations. As a result, RMF works best when scripts can automatically import robot route maps, and re-import them in the future after changes are made.</p>
-<h4><a class="header" href="#minimum-map-information-required" id="minimum-map-information-required">Minimum Map Information Required</a></h4>
+<h2><a class="header" href="#minimum-map-information-required" id="minimum-map-information-required">Minimum Map Information Required</a></h2>
 <ul>
 <li>list of waypoints or nodes
 <ul>
@@ -3363,7 +3401,7 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 </ul>
 </li>
 </ul>
-<h4><a class="header" href="#format-requirements" id="format-requirements">Format requirements</a></h4>
+<h2><a class="header" href="#format-requirements" id="format-requirements">Format requirements</a></h2>
 <p>We can write import scripts to handle virtually any &quot;open&quot; file format that contains the required information. This includes, in order of preference:</p>
 <ul>
 <li>YAML</li>
@@ -3373,89 +3411,52 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 <li>DWG</li>
 <li>SVG</li>
 </ul>
-<h2><a class="header" href="#comments" id="comments">Comments</a></h2>
+<h4><a class="header" href="#remark" id="remark">Remark</a></h4>
 <p>If the map data is provided in textual form, screenshots are helpful for &quot;sanity-checking&quot; the coordinate system and alignment with building features.</p>
-<h3><a class="header" href="#mobile-robot-fleets" id="mobile-robot-fleets">Mobile Robot Fleets</a></h3>
-<p>Mobile robots in production settings are often controlled and monitored as a fleet, with a central fleet management system keeping things in check. For this configuration, we will focus on how we can integrate mobile robots with RMF using a Fleet Adapter to control and communicate with the mobile robots via their respective fleet manager.</p>
-<p>We have identified 4 different levels of control when working with fleets of mobile robots, namely,</p>
+<h2><a class="header" href="#traffic-editor-2" id="traffic-editor-2">Traffic Editor</a></h2>
+<p>If the robot route map does not exist yet, then the <a href="./traffic-editor.html">traffic editor tool</a> can be used to help create one. The traffic editor tool will also export the route map in an RMF-friendly format.</p>
+<h1><a class="header" href="#mobile-robot-fleet-integration" id="mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
+<p>Here we will cover integrating a mobile robot fleet that offers the <strong>Full Control</strong> category of fleet adapter. This means we assume the mobile robot fleet manager allows us to specify explicit paths for the robot to follow, and that the path can be interrupted at any time and replaced with a new path. Furthermore, each robot's position will be updated live as the robots are moving.</p>
+<h2><a class="header" href="#route-map" id="route-map">Route Map</a></h2>
+<p>Before such a fleet can be integrated, you will need to procure or produce a route map as described in the <a href="./integration_nav-maps.html">previous section</a>. The fleet adapter uses the route map to plan out feasible routes for the vehicles under its control, taking into account the schedules of all other vehicles. It will also use the route map to decide out how to negotiate with other fleet adapters when a scheduling conflict arises. The adapter will only consider moving the robots along routes that are specified on the route map, so it is important that the route coverage is comprehensive. At the same time, if there are extraneous waypoints on the route map, the adapter might spend more time considering all the possibilities than what should really needed, so it is a good idea to have a balance of comprehensiveness and leanness.</p>
+<h2><a class="header" href="#c-api" id="c-api">C++ API</a></h2>
+<p>The C++ API for full-control automated guided vehicle (AGV) fleets can be found in the <a href="https://github.com/osrf/rmf_core/tree/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv"><code>rmf_fleet_adapter</code></a> package of the <code>rmf_core</code> repo. The API consists of four critical classes:</p>
 <ul>
-<li>
-<p><strong>Path</strong> - RMF is provided with status and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest overall efficiency and compliance with RMF, which allows RMF to reduce stoppages and deal with unexpected scenarios gracefully.</p>
-</li>
-<li>
-<p><strong>Traffic Light</strong> - RMF is given the status as well as pause/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors.</p>
-</li>
-<li>
-<p><strong>Read Only</strong> - RMF is not given any control over the mobile robots, however is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet. <em>Note that any environment can have a maximum of one &quot;Read Only&quot; fleet in operation. Having none is ideal!</em></p>
-</li>
-<li>
-<p><strong>No Control</strong> - This will prevent other fleets to coordinate with it through RMF, and will likely cause deadlocks when sharing the same navigable environment or resource. This level will not function with an RMF-enabled environment.</p>
-</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/Adapter.hpp"><code>Adapter</code></a> - Initializes and maintains communication with the other core RMF systems. Use this to register one or more fleets and receive a <code>FleetUpdateHandle</code> for each fleet.</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp"><code>FleetUpdateHandle</code></a> - Allows you to configure a fleet by adding robots and specifying settings for the fleet (e.g. specifying what types of deliveries the fleet can perform). New robots can be added to the fleet at any time.</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp"><code>RobotUpdateHandle</code></a> - Use this to update the position of a robot and to notify the adapter if the robot's progress gets interrupted.</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotCommandHandle.hpp"><code>RobotCommandHandle</code></a> - This is a pure abstract interface class. The functions of this class must be implemented to call upon the API of the specific fleet manager that is being adapted.</li>
 </ul>
-<p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together. Note again that there can only ever be one &quot;Read Only&quot; fleet in an environment, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
-<p>After identifying the level of control the fleet can provide, users can select to use the basic fleet adapters labelled by their control level, that have been implemented within the <code>rmf_core</code> repository. These fleet adapters are designed to work seamlessly with RMF, requiring the users simply set up a list of parameters during launch. Below is an example of the parameters required for launching a Path level fleet adapter:</p>
-<pre><code class="language-xml">&lt;include file=&quot;$(find-pkg-share rmf_fleet_adapter)/fleet_adapter.launch.xml&quot;&gt;
-
-  &lt;!-- The name and control type of the fleet --&gt;
-  &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-  &lt;arg name=&quot;control_type&quot; value=&quot;full_control&quot;/&gt;
-
-  &lt;!-- The graph that this fleet should use for navigation --&gt;
-  &lt;arg name=&quot;nav_graph_file&quot; value=&quot;$(var nav_graph_file)&quot; /&gt;
-
-  &lt;!-- The nominal linear and angular velocity of this fleet's vehicles --&gt;
-  &lt;arg name=&quot;linear_velocity&quot; value=&quot;0.5&quot;/&gt;
-  &lt;arg name=&quot;angular_velocity&quot; value=&quot;0.4&quot;/&gt;
-
-  &lt;!-- The nominal linear and angular acceleration of this fleet's vehicles --&gt;
-  &lt;arg name=&quot;linear_acceleration&quot; value=&quot;0.3&quot;/&gt;
-  &lt;arg name=&quot;angular_acceleration&quot; value=&quot;1.0&quot;/&gt;
-
-  &lt;!-- The radius of the circular footprint of this fleet's vehicles --&gt;
-  &lt;arg name=&quot;footprint_radius&quot; value=&quot;0.6&quot;/&gt;
-  &lt;!-- Other robots are not allowed within this radius --&gt; 
-  &lt;arg name=&quot;vicinity_radius&quot; value=&quot;2.0&quot;/&gt;
-
-  &lt;!-- Whether to use sim time --&gt;
-  &lt;arg name=&quot;use_sim_time&quot; value=&quot;$(var use_sim_time)&quot;/&gt;
-
-  &lt;!-- How long it can be delayed before we give up and start over --&gt;
-  &lt;arg name=&quot;delay_threshold&quot; value=&quot;15.0&quot;/&gt;
-
-  &lt;!-- Don't make the mir wait long to retry --&gt;
-  &lt;arg name=&quot;retry_wait&quot; value=&quot;10.0&quot;/&gt;
-
-  &lt;!-- Give everything time to discover --&gt;
-  &lt;arg name=&quot;discovery_timeout&quot; value=&quot;60.0&quot;/&gt;
-
-  &lt;!-- Whether it can perform deliveries --&gt;
-  &lt;arg name=&quot;perform_deliveries&quot; value=&quot;true&quot;/&gt;
-
-&lt;/include&gt;
-</code></pre>
-<p>This exact launch file can be found in the <code>rmf_demos</code> <a href="https://github.com/osrf/rmf_demos">repository</a>, while the variable <code>nav_graph_file</code> describes the path to a navigation graph file that was either generated by <code>building_map_tools</code> or in a similar format. The graph describes the various traversable waypoints and lanes for the particular mobile robot fleet. The other parameters listed are used by RMF to make estimations and predictions of the movements of each mobile robot within this fleet, in order to predict potential conflicts between mobile robots, re-plan and resolve them before they can occur.</p>
-<p>The final piece of the puzzle is the Fleet Driver, which interacts with the Fleet Adapter over ROS 2 messages, while at the same time using the fleet manager's API to directly obtain status updates and relay commands to each mobile robot. Fleet Drivers for various fleets are expected to have unique implementations as required by their specific API which could be based on <code>REST</code>, <code>XMLRPC</code>, <code>SQL</code> databases, or other approaches. Users implementing their own Fleet Drivers will need to communicate with the Fleet Adapters using these standardized ROS 2 messages and topics listed in the table below:</p>
-<table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
-<tr><td><code>rmf_fleet_msgs/ModeRequest</code></td><td><code>/robot_mode_requests</code></td><td>Allows RMF to give pause/resume and emergency commands.</td></tr>
-<tr><td><code>rmf_fleet_msgs/PathRequest</code></td><td><code>/robot_path_requests</code></td><td>Allows full control over the path which mobile robots use during navigation, provided in the form of a list of waypoints.</td></tr>
-<tr><td><code>rmf_fleet_msgs/DestinationRequest</code></td><td><code>/destination_requests</code></td><td>Gives mobile robots a one-way command to a certain location/waypoint.</td></tr>
-<tr><td><code>rmf_fleet_msgs/FleetState</code></td><td><code>/fleet_states</code></td><td>Provides RMF with fleet and mobile robot status updates, including the their locations, as well as their current path and task information.</td></tr>
-</tbody></table>
-<p>(** These messages and topics are referenced from the code-base, it might not be the most up-to-date)</p>
-<p>The block diagram below shows an example implementation using a fleet of MiR100™ mobile robots, with a Path Fleet Adapter. On one end the Fleet Driver uses the ROS 2 message and topic interfaces to interact with the Fleet Adapter, while on the other end it uses the REST API that comes with the MiR100™ robots to communicate and control each mobile robot.</p>
-<img src="images/hardware_mir_fleet_driver_blocks.png">
-<p>If however the user wishes to add more complexity to his or her fleet's behavior, the Fleet Adapter and Fleet Drivers can be implemented from scratch using the API provided in the <code>rmf_core</code> <a href="https://github.com/osrf/rmf_core">repository</a>. In this scenario, the user can opt for implementing both the adapter and driver into a single module, without the need to use ROS 2 topic and messages between them.</p>
-<h3><a class="header" href="#free-fleet-1" id="free-fleet-1">Free Fleet</a></h3>
-<p>In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system <code>free_fleet</code> could be used. </p>
-<p><code>free_fleet</code> can be split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigation software and is intended to have direct control over the mobile robot while at the same time monitor its status and reported back to the server. The client's base implementation is designed to allow interaction with different configurations of mobile robots yet report to the same server. This way, users are able to use <code>free_fleet</code> to manage a heterogenrous fleet of robots, each using different distributions of ROS, versions of ROS, navigation software, or onboard communication protocols.</p>
-<p>The server is run on a central computer and consolidates the incoming status updates from each client to be either visualized using a UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or RMF down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role as a fleet management system. The server can be implemented and used as its own fleet management system or work with larger systems like RMF, bridging the gap between each mobile robot's API and RMF's API and interface.</p>
+<p>The basic workflow of developing a fleet adapter is the following:</p>
+<ol>
+<li>Create an application that links to the <code>rmf_fleet_adapter</code> library.</li>
+<li>Have the application read in runtime parameters in whatever way is desired (e.g. command line arguments, configuration file, ROS parameters, REST API calls, environment variables, etc).</li>
+<li>Construct a route graph for each fleet that this application is providing the adapter for (a single adapter application can service any number of fleets), and/or parse the route graph from a yaml file using the <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/parse_graph.hpp"><code>rmf_fleet_adapter::agv::parse_graph</code></a> utility.</li>
+<li>Instantiate an <code>rmf_fleet_adapter::agv::Adapter</code> using <code>Adapter::make(~)</code> or <code>Adapter::init_and_make(~)</code>.</li>
+<li>Add the fleets that the application will be responsible for adapting, and save the <code>rmf_fleet_adapter::agv::FleetUpdateHandlePtr</code> instances that are passed back.</li>
+<li>Implement the <code>RobotCommandHandle</code> class for the fleet manager API that is being adapted.</li>
+<li>Add the robots that the adapter is responsible for controlling. The robots can be added based on the startup configuration, or they can be dynamically added during runtime as they are discovered over the fleet manager API (or both).
+<ul>
+<li>When adding a robot, you will need to create a new instance of the custom <code>RobotCommandHandle</code> that you implemented.</li>
+<li>You will also need to provide a callback that will be triggered when the adapter is finished registering the robot. This callback will provide you with a new <code>RobotUpdateHandle</code> for your robot. It is imperative to save this update handle so you can use it to update the robot's position over time.</li>
+</ul>
+</li>
+<li>As new information arrives from the fleet manager API, use the collection of <code>RobotUpdateHandle</code>s to keep the adapter up-to-date on the robots' positions.</li>
+</ol>
+<p>An example of a functioning fleet adapter application can be found in the <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/full_control/main.cpp"><code>full_control</code> backwards-compatability adapter</a>. This is a fleet adapter whose fleet-side API is the &quot;Fleet Driver API&quot;, which is a deprecated prototype API for the RMF <strong>Full Control</strong> category of fleet adapters. This fleet adapter exists temporarily to maintain backwards compatibility with the old &quot;Fleet Driver&quot; implementations and to serve as an example of how to implement a fleet adapter using the new C++ API.</p>
+<h2><a class="header" href="#python-bindings" id="python-bindings">Python Bindings</a></h2>
+<p>You may also choose to use Python to implement your fleet adapter. You can find Python bindings for the C++ API in <a href="https://github.com/osrf/rmf_fleet_adapter_python">this repo</a>. The Python bindings literally just port the C++ API into Python so that you can develop your fleet adapter using Python instead of C++. The above API and workflow are exactly the same, just in Python instead. This should be very useful for fleets that use REST APIs, because you'll have access to tools like <a href="https://swagger.io/tools/open-source/getting-started/">Swagger</a> which can help you generate client code for the fleet's REST API server.</p>
+<h1><a class="header" href="#free-fleet-1" id="free-fleet-1">Free Fleet</a></h1>
+<p>In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system <code>free_fleet</code> could be used.</p>
+<p>The <code>free_fleet</code> system is split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigation software and is intended to have direct control over the mobile robot while at the same time monitor its status and report back to the server. The client's base implementation is designed to allow interaction with different configurations of mobile robots yet report to the same server. This way, users are able to use <code>free_fleet</code> to manage a heterogenrous fleet of robots, each using different distributions of ROS, versions of ROS, navigation software, or onboard communication protocols.</p>
+<p>The server is run on a central computer and consolidates the incoming status updates from each client to be either visualized using a UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or from RMF down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role of a fleet management system. The server can be implemented and used as its own fleet management system or work with larger systems like RMF, bridging the gap between each mobile robot's API and RMF's API and interface.</p>
 <p>The communication between the <code>free_fleet</code> server and <code>free_fleet</code> clients is implemented using <code>CycloneDDS</code>, therefore we are not concerned if the mobile robot or central computer is running different versions of ROS.</p>
 <p>In this section, we will address 4 different approaches of using <code>free_fleet</code> to integrate with RMF, specifically the navigation stack used by the robot. Each approach maintains a similar systems architecture, which is illustrated in the simple block diagram below, but there are specific examples depending on the software choice for the navigation stack used by the robot developer.</p>
 <img src="images/free_fleet_block_diagram.png">
-<h4><a class="header" href="#ros-1-navigation-stack" id="ros-1-navigation-stack">ROS 1 Navigation Stack</a></h4>
+<h2><a class="header" href="#ros-1-navigation-stack" id="ros-1-navigation-stack">ROS 1 Navigation Stack</a></h2>
 <p>An implementation of a <code>free_fleet</code> client that works with a ROS 1 navigation stack can be found in the <a href="https://github.com/osrf/free_fleet">repository</a>. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the <code>move_base</code> action library, as well as publishing its battery status published using the <code>sensor_msgs/BatteryState</code> message.</p>
 <p>After following the build instructions on the README on the mobile robot, the user can launch the client as part of their launch script while at the same time define the necessary parameters using <code>rosparam</code>. Below is a small snippet example of how a client can be launched, with its paramters defined,</p>
-<pre><code class="language-xml">&lt;node name=&quot;free_fleet_client_node&quot; 
+<pre><code class="language-xml">&lt;node name=&quot;free_fleet_client_node&quot;
     pkg=&quot;free_fleet_client_ros1&quot;
     type=&quot;free_fleet_client_ros1&quot; output=&quot;screen&quot;&gt;
 
@@ -3481,16 +3482,16 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
   &lt;param name=&quot;dds_mode_request_topic&quot; type=&quot;string&quot; value=&quot;mode_request&quot;/&gt;
   &lt;param name=&quot;dds_path_request_topic&quot; type=&quot;string&quot; value=&quot;path_request&quot;/&gt;
   &lt;param name=&quot;dds_destination_request_topic&quot; type=&quot;string&quot; value=&quot;destination_request&quot;/&gt;
-  
+
   &lt;!-- This decides how long the client should wait for a valid transform and action server before failing --&gt;
   &lt;param name=&quot;wait_timeout&quot; type=&quot;double&quot; value=&quot;10&quot;/&gt;
-  
-  &lt;!-- These define the frequency at which the client checks for commands and 
+
+  &lt;!-- These define the frequency at which the client checks for commands and
   publishes the robot state to the server --&gt;
   &lt;param name=&quot;update_frequency&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
   &lt;param name=&quot;publish_frequency&quot; type=&quot;double&quot; value=&quot;1.0&quot;/&gt;
 
-  &lt;!-- The client will only pass on navigation commands if the destination or first waypoint 
+  &lt;!-- The client will only pass on navigation commands if the destination or first waypoint
   of the path is within this distance away, otherwise it will ignore the command --&gt;
   &lt;param name=&quot;max_dist_to_first_waypoint&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
 
@@ -3527,7 +3528,7 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 
   &lt;!-- These transformations are required when the frame of the robot fleet is
   different from that of RMF globally. In order to transform a pose from the RMF
-  frame to the free fleet robot frame, it is first scaled, rotated, then 
+  frame to the free fleet robot frame, it is first scaled, rotated, then
   translated using these parameters --&gt;
   &lt;param name=&quot;scale&quot; value=&quot;0.928&quot;/&gt;
   &lt;param name=&quot;rotation&quot; value=&quot;-0.013&quot;/&gt;
@@ -3538,22 +3539,77 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 </code></pre>
 <p>Furthermore, an example of this configuration can be found in the repository as well, under the packages <code>ff_examples_ros1</code> and <code>ff_exmaples_ros2</code>. This example launches the example simulation from <code>ROBOTIS</code>, shown <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#ros-1-simulation">here</a>, which has a small simulated world with 3 Turtlebot3 mobile robots, each running its own ROS 1 navigation stack.</p>
 <p>After successful builds for both ROS 1 and ROS 2 workspaces, the simulation can be launched following <a href="https://github.com/osrf/free_fleet#turtlebot3-simulation">these instructions</a>, which also includes a ROS 2 <code>free_fleet</code> server, publishing fleet state messages and accepting mode and navigation requests over ROS 2 messages and topics.</p>
-<h4><a class="header" href="#ros-2-navigation-stack" id="ros-2-navigation-stack">ROS 2 Navigation Stack</a></h4>
+<h2><a class="header" href="#ros-2-navigation-stack" id="ros-2-navigation-stack">ROS 2 Navigation Stack</a></h2>
 <p>An implementation for a robot using ROS 2 would be similar to a ROS 1 navigation stack described earlier. At this time, the ROS 2 <code>free_fleet</code> client is still under development. This section will be updated once the refactoring, implementation and testing has been completed.</p>
 <p>The same ready <code>free_fleet</code> server implementation in the repository will work in this scenario, as the interfaces provided by the fleet adapters are still the same ROS 2 messages and topics.</p>
-<p>If required in the meantime, users can implement their own <code>free_fleet</code> client, by working with the <code>free_fleet</code> library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section <a href="hardware.html#custom-navigation-stack">Custom Navigation Stack</a>.</p>
-<h4><a class="header" href="#developer-navigation-stack" id="developer-navigation-stack">Developer Navigation Stack</a></h4>
+<p>If required in the meantime, users can implement their own <code>free_fleet</code> client, by working with the <code>free_fleet</code> library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section <a href="integration_free-fleet.html#custom-navigation-stack">Custom Navigation Stack</a>.</p>
+<h2><a class="header" href="#developer-navigation-stack" id="developer-navigation-stack">Developer Navigation Stack</a></h2>
 <p>In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own <code>free_fleet</code> client wrapper. The block diagram below illustrate this configuration.</p>
 <img src="images/free_fleet_custom_config.png">
 <p>Once the developer's <code>free_fleet</code> client is fully functional, it will be a simple task of launching the same ROS 2 <code>free_fleet</code> server as mentioned earlier in this section to work with the fleet adapters through ROS 2 messages and topics.</p>
-<h4><a class="header" href="#system-integrator-via-api" id="system-integrator-via-api">System Integrator via API</a></h4>
-<p>In this implementation, a system integrator (not the robot developer) would like to integrate with RMF. Typically system integrators will only have API level access provided by the robot developer. This scenario may be more difficult depending on the level of collaboration between the system integrator and the robot developer as well as the level of access granted. There are 2 potential approaches a system integrator may consider to a integrate a vendor developed robot with RMF.</p>
-<p>The first and recommended approach is to implement a fleet driver for the robot, as documented in the previous section regarding <a href="hardware.html#mobile-robot-fleets">Mobile Robot Fleets</a>. This will ensure that the mobile robot communicates directly with fleet adapters, using the provided vendor API, without the need to run a client on the robot.</p>
-<p>If however the system integrator intends to both manage the mobile robots using a fleet management system and integrate with RMF, a more indirect way may be required by implementing non-intrusive <code>free_fleet</code> clients running on the same machine as the server. The <code>free_fleet</code> client implementation would need to utilize the provided developer API to get status updates and receive navigation commands. This implementation is not advisable as it needlessly extends the communication route from RMF to the mobile robot. However if the user intends to manage a heterogeneous fleet of robots, each using different stacks of software and hardware, <code>free_fleet</code> could be a reasonable solution to that.</p>
+<h1><a class="header" href="#read-only-fleet-integration" id="read-only-fleet-integration">Read-only Fleet Integration</a></h1>
+<p>In this section, we will cover the prototype API for integrating the <strong>Read Only</strong> category of mobile robot fleets. This means we assume the mobile robot fleet manager only allows RMF to see updates about where its robots are located and where they intend to go, but it does not offer any control over where the robots are going or how they can move around. This type of adapter is primarily aimed at legacy systems that were developed before RMF and did not anticipate the possibility of a third-party being able to command the robots.</p>
+<h2><a class="header" href="#fleet-driver-api" id="fleet-driver-api">Fleet Driver API</a></h2>
+<p>The Fleet Driver API was an experimental API developed in the early stages of the RMF research project. It can still be used for a read-only fleet adapter implementation until an officially supported C++ API comes out to replace it.</p>
+<p>The Fleet Driver API uses ROS2 messages from the <a href="https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs"><code>rmf_fleet_msgs</code></a> package. To use this API, you will want to write a ROS2 application (using either rclcpp or rclpy) which we will refer to as the <em>Fleet Driver</em>. The job of the Fleet Driver is to transmit <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/FleetState.msg"><code>rmf_fleet_msgs/FleetState</code></a> messages out to the <code>&quot;fleet_states&quot;</code> topic.</p>
+<p>Inside the <code>FleetState</code> message is the <code>name</code> field. Be sure to fill in the correct name for your fleet state. There is also a collection of <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/RobotState.msg"><code>rmf_fleet_msgs/RobotState</code></a> messages. For integrating a read-only fleet with RMF, the most crucial fields of the <code>RobotState</code> message are:</p>
+<ul>
+<li><code>name</code> - The name of the robot whose state is being specified.</li>
+<li><code>location</code> - The current location of the robot.</li>
+<li><code>path</code> - The sequence of locations that the robot will be traveling through.</li>
+</ul>
+<p>Inside the <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/Location.msg"><code>rmf_fleet_msgs/Location</code></a> message, the <code>t</code> field (which represents time) is generally ignored by the read-only fleet adapter. We assume that it is too cumbersome for your Fleet Driver to make timing predictions, so we have the read-only fleet adapter make the predictions for you based on the traits of the vehicle.</p>
+<h2><a class="header" href="#configuring-the-read-only-fleet-adapter" id="configuring-the-read-only-fleet-adapter">Configuring the Read Only Fleet Adapter</a></h2>
+<p>For the prototype read-only integration, there are two applications that need to be launched:</p>
+<ol>
+<li>The Fleet Driver mentioned above which you write specifically for your fleet's custom API</li>
+<li>The <code>read_only</code> fleet adapter which must be launched through ROS2</li>
+</ol>
+<p>To launch the fleet adapter, you will need to use <code>ros2 launch</code> and include <code>rmf_fleet_adapter/fleet_adapter.launch.xml</code> file with the required parameters filled in. An example of this using the XML front-end of ros2 launch <a href="https://github.com/osrf/rmf_demos/blob/master/demos/launch/include/adapters/caddy_adapter.launch.xml">can be found in <code>rmf_demos</code></a>, copied below:</p>
+<pre><code>&lt;?xml version='1.0' ?&gt;
+
+&lt;launch&gt;
+
+  &lt;arg name=&quot;fleet_name&quot; default=&quot;caddy&quot; description=&quot;Name of this fleet of caddy robots&quot;/&gt;
+
+  &lt;group&gt;
+    &lt;include file=&quot;$(find-pkg-share rmf_fleet_adapter)/fleet_adapter.launch.xml&quot;&gt;
+
+      &lt;!-- The name and control type of the fleet --&gt;
+      &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
+      &lt;arg name=&quot;control_type&quot; value=&quot;read_only&quot;/&gt;
+
+      &lt;!-- The nominal linear and angular velocity of the caddy --&gt;
+      &lt;arg name=&quot;linear_velocity&quot; value=&quot;1.0&quot;/&gt;
+      &lt;arg name=&quot;angular_velocity&quot; value=&quot;0.6&quot;/&gt;
+
+      &lt;!-- The nominal linear and angular acceleration of the caddy --&gt;
+      &lt;arg name=&quot;linear_acceleration&quot; value=&quot;0.7&quot;/&gt;
+      &lt;arg name=&quot;angular_acceleration&quot; value=&quot;1.5&quot;/&gt;
+
+      &lt;!-- The radius of the circular footprint of the caddy --&gt;
+      &lt;arg name=&quot;footprint_radius&quot; value=&quot;1.5&quot;/&gt;
+      &lt;!-- Other robots are not allowed within this radius --&gt;
+      &lt;arg name=&quot;vicinity_radius&quot; value=&quot;5.0&quot;/&gt;
+
+      &lt;arg name=&quot;delay_threshold&quot; value=&quot;1.0&quot;/&gt;
+
+    &lt;/include&gt;
+  &lt;/group&gt;
+</code></pre>
+<p>The critical parameters are:</p>
+<ul>
+<li><code>fleet_name</code>: This must match the <code>name</code> value that the Fleet Driver gives to its <code>FleetState</code> messages.</li>
+<li><code>control_type</code>: This must be <code>&quot;read_only&quot;</code>.</li>
+<li><code>linear_velocity</code>, <code>angular_velocity</code>, <code>linear_acceleration</code>, and <code>angular_acceleration</code>: These are estimates of the kinematic properties of the vehicles. For the sake of effective scheduling, it is preferable to overestimate these values than underestimate them, so it is best to think of these parameters as upper bounds for the values.</li>
+<li><code>footprint_radius</code>: The radius of physical space that the vehicle occupies. This should cover the maximum extent of the physical footprint.</li>
+<li><code>vicinity_radius</code>: The radius around the robot in which other robots are forbidden to physically enter. It is assumed that another robot entering this radius will interfere with the ability of this robot to operate.</li>
+</ul>
+<p>When the launch file and Fleet Driver application are both ready, you can launch them side-by-side and the integration of the read-only fleet adapter will be complete.</p>
 <h2><a class="header" href="#doors-1" id="doors-1">Doors</a></h2>
 <h3><a class="header" href="#map-requirements" id="map-requirements">Map requirements</a></h3>
 <p>Before a door can be properly integrated, be sure to draw up the door locations with the correct door names on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in Chapter 3. Traffic Editor.</p>
-<h3><a class="header" href="#integration" id="integration">Integration</a></h3>
+<h3><a class="header" href="#integration-1" id="integration-1">Integration</a></h3>
 <p>Door integration is required when integrating RMF into a new environment. For hopefully obvious reasons, only automated doors can be integrated with RMF though it may be possible to trigger an alert to a designated human to open a manual door but this is not recommended. An automated door can be defined as an electronically powered door that is remotely controllable, either using a remote trigger or has been outfitted with a computing unit capable of commanding the door to open and close when needed, using certain interfaces.</p>
 <p>Doors can be integrated with RMF using a ROS 2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component.</p>
 <img src="images/doors_block_diagram.png">
@@ -3564,11 +3620,11 @@ Websockets are supported. Such composite systems can be called The ROS-SOSS.</p>
 <tr><td><code>rmf_door_msgs/DoorRequest</code></td><td><code>/adapter_door_requests</code></td><td>Requests to be sent to the door adapter/supervisor to request safe operation of doors</td></tr>
 </tbody></table>
 <p>The door adapter stands in between the rest of the RMF core systems, fleet adapters, and the door node, and acts like a state supervisor ensuring that the doors are not acting on requests that might obstruct an ongoing mobile robot task or accidentally closing on it. It keeps track of the door state from the door node, and receives requests from the <code>adapter_door_requests</code> topic which are published by either fleet adapters or other parts of the RMF core system. Only when the door adapter deems that a request is safe enough to be performed, it will instruct the door node using a request. It should also be noted that direct requests sent to the door node, without going through the door adapter will be negated by the door adapter, to return it to its prior state in order to prevent disruptions during operations with mobile robots.</p>
-<h2><a class="header" href="#elevators" id="elevators">Elevators</a></h2>
-<h3><a class="header" href="#map-requirements-1" id="map-requirements-1">Map requirements</a></h3>
+<h1><a class="header" href="#lifts-aka-elevators" id="lifts-aka-elevators">Lifts (a.k.a. Elevators)</a></h1>
+<h2><a class="header" href="#map-requirements-1" id="map-requirements-1">Map requirements</a></h2>
 <p>Before a lift can be properly integrated, be sure to draw up the lift locations with the correct lift names and levels on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in Chapter 3. Traffic Editor.</p>
-<h3><a class="header" href="#integration-1" id="integration-1">Integration</a></h3>
-<p>Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the basic requirement is that the lift controllers accepts commands using a prescribed protocol, <code>OPC</code> is one such example.</p>
+<h2><a class="header" href="#integration-2" id="integration-2">Integration</a></h2>
+<p>Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the basic requirement is that the lift controller accepts commands using a prescribed protocol, <code>OPC</code> is one such example.</p>
 <p>The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other.</p>
 <img src="images/lifts_block_diagram.png">
 <p>The lift node will act as a driver to work with the lift controller. An example of a lift node can be found in this <a href="https://github.com/sharp-rmf/kone_lift_controller">repository</a>. The node will publish its state and receive lift requests over ROS 2, using the messages and topics listed below.</p>
