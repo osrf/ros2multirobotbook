@@ -1,5 +1,9 @@
 # SOSS
 
+The system-of-systems synthesizer (SOSS) is a tool which provides protocol translation between different subsystems. Such composite systems can be called The ROS-SOSS. To see the current implementation status, see the [SOSS repository](https://github.com/osrf/soss). 
+
+##Motivation and Introduction
+
 The ecosystem of different message passing systems is vast and diverse. Without any one single system that is unanimously considered the best for all applications, we are left to consider how we can tie together disparate message passing systems to bridge the gap between the different kinds of applications that all play a critical role in a modern, intelligent robotics solution. The best protocols to use for inter-robot communication might not be the best for remote operator communication or for end-user communication.
 
 This creates a scalability problem. If there are \\[N\\] different message passing frameworks being used in a robot deployment with \\[M\\] different message types being passed between them, then manually creating inter-compatibility bridges between them could become an \\[O(MN^2)\\] complexity problem. This motivates us to use a highly modular, user-friendly integration system that allows the interoperability to be as automatic as possible for as many different message-passing frameworks as we can tie together. The \\[O(MN^2)\\] problem can be reduced to \\[O(N)\\] complexity, where a plugin is written for each \\[N\\] framework, and all \\[M\\] message types are automatically converted between their \\[N\\] different representations.
