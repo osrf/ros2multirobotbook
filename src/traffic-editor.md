@@ -545,7 +545,7 @@ Levels may be annotated with thumbnails of models available for simulation using
 
 ![](images/traffic_editor/add_model.png)
 ### Adding a scenario
-[ in progress]
+Future improvement not yet fully implemented
 
 ### Conclusion
 This chapter covered various capabilities of the `traffic_editor` which are useful for annotating maps of facilities while adhering to a standardized set of semantics. Examples of other traffic editor projects can be found in the [rmf_demos](https://github.com/osrf/rmf_demos) repository. Running physics based simulations with RMF in the annotated sites is described in the [Simulation](simulation.md) chapter.
