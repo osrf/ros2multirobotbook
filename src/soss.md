@@ -12,4 +12,4 @@ The integration service we use for this is called System-of-Systems Synthesizer,
 
 The base SOSS package also provides some cmake tools to help with auto-generating message definitions for message-passing systems that require static message definitions at compile-time. For message-passing systems with dynamic message types, the plugin can automatically take care of the translation at runtime, so auto-generation is unnecessary.
 
-For a deeper look at how to use SOSS, we recommend reading [the documentation provided by eProsima](https://integration-service.docs.eprosima.com/en/latest/).
+For a deeper look at how to use SOSS, we recommend reading [the documentation provided by eProsima](https://soss.docs.eprosima.com/en/latest/index.html).
