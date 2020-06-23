@@ -1289,48 +1289,19 @@ If everything worked correctly your turtle should look like the screen below.
 ![image](./images/blue_screen.png)
 
 
+ROS Bags
+========
 
+ROS bags are ROS's tool for recording, and replaying data; ROS bags are like log
+files that let you store data along with messages. ROS systems can generate a
+lot of data, so when you bag data you must select which topics you want.  Bags
+are a great tool for testing and debugging your application and a great tool for
+building robust unit tests. 
 
-
-
-
-
-
-Let's try getting/setting parameters
-
-The syntax for getting a parameter is as follows:
-
-`ros2 param get <node name> <param name>`
-
-Let's give it a shot.
-
-``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 param get /turtlesim background_b
-Integer value is: 255
-```
-
-Let's try setting a parameter. The syntax for that is as follows:
-
-`ros2 set <node name> <param name> <value>`
-
-``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 param set /turtlesim background_b 0
-Set parameter successful
-```
-
-
-ROS bag
-==============
-
--   ROS bags are ROS's tool for recording, and replaying data.
--   ROS bags are kinda like log files that let you store data along with
-    messages.
--   ROS systems can generate a lot of data, so you select which topics
-    you want to bag.
--   Bags are a great tool for testing and debugging your application as
-    well.
-
-Let's take a look at the base `bag` verb.
+Let's take a look at the root ROS Bag command by typing `ros2 bag --help` into
+the terminal. If you get an error you might need to install ROS Bag as it is
+often in a separate package. On Linux you can run `sudo apt install
+ros-eloquent-ros2bag` and it should automatically install the package for you. 
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 bag -h
@@ -1344,26 +1315,36 @@ Commands:
   record  ros2 bag record
 ```
 
-Let's try recording our first Bag
+As you can see there are three sub commands, record, play, and info. In this
+command you can record a bag file, find information about a bag file, and then
+play/replay the file you just recorded. 
 
-First use `F2` or `F3` to go to the other terminal. Start the
-`draw_square` demo again to get the default turtle moving.
 
-The command for that is: `ros2 run turtlesim draw_square`
+Let's try recording our first bag file to do this we'll need three terminals all
+running ROS. The first terminal should already have our turtlesim running. If it
+isn't running you can restart it with `ros2 run turtlesim turtlesim_node`. Next
+you'll need to start the `draw_square` demo again to get the default turtle
+moving. To do this run `ros2 run turtlesim draw_square`. Now, in a third
+terminal we can bag some data by running the bag command. Let's first look at
+the record sub command by running `ros2 bag record -h`
 
-Now let's look at `ros2 bag record -h`
 
 ``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 bag record -h
+kscottz@kscottz-ratnest:~$ ros2 bag record -h 
 usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
                        [-f SERIALIZATION_FORMAT] [--no-discovery]
-           [-p POLLING_INTERVAL]
-           [topics [topics ...]]
+                       [-p POLLING_INTERVAL] [-b MAX_BAG_SIZE]
+                       [topics [topics ...]]
+
 ros2 bag record
+
 positional arguments:
   topics                topics to be recorded
+
 optional arguments:
-  -a, --all             recording all topics, required if no topics are listed explicitly.
+  -h, --help            show this help message and exit
+  -a, --all             recording all topics, required if no topics are listed
+                        explicitly.
   -o OUTPUT, --output OUTPUT
                         destination of the bagfile to create, defaults to a
                         timestamped folder in the current directory
@@ -1372,14 +1353,29 @@ optional arguments:
   -f SERIALIZATION_FORMAT, --serialization-format SERIALIZATION_FORMAT
                         rmw serialization format in which the messages are
                         saved, defaults to the rmw currently in use
+  --no-discovery        disables topic auto discovery during recording: only
+                        topics present at startup will be recorded
+  -p POLLING_INTERVAL, --polling-interval POLLING_INTERVAL
+                        time in ms to wait between querying available topics
+                        for recording. It has no effect if --no-discovery is
+                        enabled.
+  -b MAX_BAG_SIZE, --max-bag-size MAX_BAG_SIZE
+                        maximum size in bytes before the bagfile will be
+                        split. Default it is zero, recording written in single
+                        bagfile and splitting is disabled.
 ```
 
-Let's Bag!
+We can see from the help file that the syntax for recording a bag is to simply
+give the sub command a list of topics to record. Most of the other arguments are
+for more advanced users to help configure how and when data is stored. It is
+worth noting that there is a `-a, --all` command that records all the data. You
+can also specify the output bag file with the `-o, --output command`. 
 
--   Let's bag the pose data on the `/turtle1/pose topic`
--   Save the data to the directory `turtle1.bag` using the `-o` flag.
--   The program will bag until you hit `CTRL+C`. Give it a good 30
-    seconds.
+Let's go ahead and run our bag command, and let's bag the pose data on the
+`/turtle1/pose` topic and save it to the file `turtle1.bag` using the `-o`
+flag. Be aware that the program will continue bagging data  until you hit
+`CTRL+C`, so give the command a good 30 seconds to collect data before you kill
+it. 
 
 Here's my example.
 
@@ -1392,11 +1388,9 @@ kscottz@ade:~$ ros2 bag record /turtle1/pose -o turtle1
 ^C[INFO] [rclcpp]: signal_handler(signal_value=2)
 ```
 
-Let's inspect our Bag.
-
-You can introspect any bag file using the `ros2 bag info` command. This
-command will list the messages in the bag, the duration of file, and the
-number of messages.
+Now that we collected our data let's inspect our bag file. You can introspect
+any bag file using the `ros2 bag info` command. This command will list the
+messages in the bag, the duration of file, and the number of messages.
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 bag info turtle1
@@ -1409,17 +1403,14 @@ End                May  4 2020 16:11:35.262 (1588633895.262)
 Messages:          4249
 Topic information: Topic: /turtle1/pose | Type: turtlesim/msg/Pose | Count: 4249 | Serialization Format: cdr
 ```
-
-Replaying a Bag
-
-Bags are a great tool for debugging and testing. You can treat a ROS bag
+Once you have collected a bag file you can replay the file just like a running
+system.  Bags are a great tool for debugging and testing. You can treat a ROS bag
 like a recording of a running ROS system. When you play a bag file you
 can use most of the ros2 cli tools to inspect the recorded topics.
 
-To replay the bag, first use `F2/F3` and `CTRL+C` to turn off the main
-turtle node and the `draw_square` node.
-
-Now in a new terminal replay the bag file using the following command:
+To replay the bag, first use `CTRL+C` to turn off the main
+turtle node and the `draw_square` node. Now in a new terminal replay the bag
+file using the following command:
 
 ``` {.sourceCode .bash}
 kscottz@ade:~$ ros2 bag play turtle1
@@ -1427,8 +1418,8 @@ kscottz@ade:~$ ros2 bag play turtle1
 ```
 
 Nothing should happen visibly, but a lot is happening under the hood.
-Use `F2` or `F3` to go to a second terminal. Just like a running robot,
-you should be able to `list` and `echo` topics.
+To see what is happening go to a second terminal. Just like a running robot,
+you should be able to `list` and `echo` topics. See my example below.
 
 ``` {.sourceCode .bash}
 kscottz@ade:~ros2 topic list
@@ -1445,3 +1436,66 @@ angular_velocity: 0.0
 ---
 ```
 
+
+ROS2 Component Command
+======================
+
+
+ROS2 Daemon Command
+===================
+
+ROS2 Doctor Command
+===================
+
+With any complex system problems can sometimes arise, and knowing how to describe your
+system and what is happening can do a lot to help others help you fix your
+problem. ROS 2 has a `doctor` command that you can use to print a variety of
+reports that you can use to help communicate the state of your system to others
+trying to provide help. Whether it is one of your co-workers, a vendor, or an
+on-line forum providing detailed and complete information about your ROS system
+can go a long way to solving your problem. Let's call `--help` on the ROS 2
+doctor command. 
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 doctor --help
+usage: ros2 doctor [-h] [--report | --report-failed] [--include-warnings]
+
+Check ROS setup and other potential issues
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --report, -r          Print all reports.
+  --report-failed, -rf  Print reports of failed checks only.
+  --include-warnings, -iw
+                        Include warnings as failed checks. Warnings are
+                        ignored by default.
+```
+
+As we can see from the help file we have a couple of report options. One option
+is to print the full report (`-r`), or we just what failed, with `-rf`. If your
+run `ros2 doctor -r` you should see a fairly lengthy report generated giving
+information about your computer's operating system, your networking
+configuration, and your running ROS system. If you every run into an issue you
+should always include this full report. 
+
+ROS 2 Interface
+===============
+
+
+ROS 2 Launch
+============
+
+ROS 2 Lifecycle
+===============
+
+ROS 2 MSG (Message)
+====================
+
+ROS 2 PKG (Package)
+====================
+
+ROS 2 Run
+=========
+
+ROS 2 Security
+==============
