@@ -1481,6 +1481,164 @@ should always include this full report.
 ROS 2 Interface
 ===============
 
+As you've already seen ROS uses standard messages so that different packages and
+programs, potentially written in different programming languages, can all talk
+to one another. To make this all work ROS uses standard messages, and
+communication protocols built on top of those standard messages. This can make
+finding type information about a particular message, service, or action
+difficult. To help developers write both CLI command calls, and develop client
+code the ROS CLI has the interface command. We've touched on this command
+briefly in other sections, as it is your go to tool for message type
+information. 
+
+To better understand the interface command let's start by looking at its high
+level help command to see what sub commands are available. 
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface --help
+usage: ros2 interface [-h]
+                      Call `ros2 interface <command> -h` for more detailed
+                      usage. ...
+
+Show information about ROS interfaces
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Commands:
+  list      List all interface types available
+  package   Output a list of available interface types within one package
+  packages  Output a list of packages that provide interfaces
+  proto     Output an interface prototype
+  show      Output the interface definition
+
+  Call `ros2 interface <command> -h` for more detailed usage.
+```
+
+As we can see above the interface command above there are quite a few sub
+commands in interface. All of them are geared towards helping you understand
+available message types. Let's examine the list sub command in depth. The list
+command will list all of the available messages, services, and actions on your
+system. This command has flags that can help you narrow down the scope of your
+search. Even a basic ROS installation has a lot of messages, so a tool you
+should get familiar with is `grep`, grep lets you search through some text to
+find what you are looking for quickly and easily. You can grep in a case
+insensitive manner using the `-i` flag followed by the text you want to search
+for. We can tie this CLI tool to our interface tool by using the unix pipe operator `|`. The example below
+shows you how to use the list operation and then how to use it to do a search. 
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --only-msgs 
+Messages:
+    action_msgs/msg/GoalInfo
+    action_msgs/msg/GoalStatus
+	... <DOZENS OF DIFFERENT TYPES> ... 
+	visualization_msgs/msg/MarkerArray
+    visualization_msgs/msg/MenuEntry
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --only-msgs | grep -i point
+    geometry_msgs/msg/Point
+    geometry_msgs/msg/Point32
+    geometry_msgs/msg/PointStamped
+    map_msgs/msg/PointCloud2Update
+    pcl_msgs/msg/PointIndices
+    rcl_interfaces/msg/FloatingPointRange
+    sensor_msgs/msg/PointCloud
+    sensor_msgs/msg/PointCloud2
+    sensor_msgs/msg/PointField
+    trajectory_msgs/msg/JointTrajectoryPoint
+```
+
+Using grep to search through CLI output is common tactic used by developers to
+find just the specific information they need. The next two sub commands
+`package` and `packages` can be used to first determine what ROS packages are on
+your system, and then to drill down into an individual package to determine what
+messages are in that package. This tooling makes very easy to determine what
+packages your workspace can see, and what messages are available. Be aware that
+you can use `grep` just like before to search for your specific interest. The
+example below shows you how to first determine if `std_msgs` is installed and
+then to find out what sort of array types it contains.
+
+``` {.sourceCode .bash}
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface packages
+action_msgs
+action_tutorials_interfaces
+actionlib_msgs
+builtin_interfaces
+composition_interfaces
+diagnostic_msgs
+example_interfaces
+geometry_msgs
+lifecycle_msgs
+logging_demo
+map_msgs
+nav_msgs
+pcl_msgs
+pendulum_msgs
+rcl_interfaces
+rosgraph_msgs
+rqt_py_common
+sensor_msgs
+shape_msgs
+std_msgs
+std_srvs
+stereo_msgs
+tf2_msgs
+trajectory_msgs
+turtlesim
+unique_identifier_msgs
+visualization_msgs
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface package std_msgs | grep -i array
+std_msgs/msg/Int8MultiArray
+std_msgs/msg/Int32MultiArray
+std_msgs/msg/MultiArrayLayout
+std_msgs/msg/UInt64MultiArray
+std_msgs/msg/Float32MultiArray
+std_msgs/msg/UInt16MultiArray
+std_msgs/msg/UInt32MultiArray
+std_msgs/msg/Int16MultiArray
+std_msgs/msg/ByteMultiArray
+std_msgs/msg/Int64MultiArray
+std_msgs/msg/Float64MultiArray
+std_msgs/msg/UInt8MultiArray
+std_msgs/msg/MultiArrayDimension
+
+```
+
+The next two commands in the pantheon of interface commands are particularly
+helpful and you should remember them as they will make your life much easier. As
+we have discussed previously all message publication, service calls, and action
+calls in the CLI take in both the message type and data you want to transmit in
+YAML format. But what if you don't the message format, and you know a lot about
+YAML? The `interface show` and `interface proto` commands make this process
+easier by respectively telling you first the message type and then the message
+format. Recall earlier in the chapter when we called the `spawn` service on
+our turtle simulation. We can use `interface show` to tell us broadly about the
+service and what each of the values mean. We can then use `interface proto`,
+short for prototype to, then generate an empty message that we can then fill
+out. See the example below:
+
+```
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface show turtlesim/srv/Spawn 
+float32 x
+float32 y
+float32 theta
+string name # Optional.  A unique name will be created and returned if this is empty
+---
+string name
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface proto turtlesim/srv/Spawn 
+"x: 0.0
+y: 0.0
+theta: 0.0
+name: ''
+"
+kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 service call /spawn turtlesim/srv/Spawn "{<copy and paste proto here>}"
+
+```
+You can see from the example above how handy these tools can be. It is worth
+noting that you need to paste the prototype into a set of quotes and curly
+braces for the call to work `"{<prototype>}"`. 
+
+
 
 ROS 2 Launch
 ============
@@ -1493,9 +1651,6 @@ ROS 2 MSG (Message)
 
 ROS 2 PKG (Package)
 ====================
-
-ROS 2 Run
-=========
 
 ROS 2 Security
 ==============
