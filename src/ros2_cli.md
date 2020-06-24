@@ -1642,15 +1642,211 @@ braces for the call to work `"{<prototype>}"`.
 
 ROS 2 Launch
 ============
+The `launch` command is used to run ROS launch files. Up until this point we've
+been running single ROS programs by hand using the `run` command, however this
+is not how larger ROS systems are generally operated and many robots command
+tens if not hundreds of small program. The ROS launch command is different from
+most of the other ROS commands in that it has no sub commands and has a single
+function, to start a ROS launch file that executes multiple of programs. These
+launch files are fairly simple as the are simply instructions to start multiple
+programs like a shell script. To illustrate this command let's take a look at
+its help file. 
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 launch -h
+usage: ros2 launch [-h] [-d] [-p | -s] [-a]
+                   package_name [launch_file_name]
+                   [launch_arguments [launch_arguments ...]]
+
+Run a launch file
+
+positional arguments:
+  package_name          Name of the ROS package which contains the launch file
+  launch_file_name      Name of the launch file
+  launch_arguments      Arguments to the launch file; '<name>:=<value>' (for
+                        duplicates, last one wins)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d, --debug           Put the launch system in debug mode, provides more
+                        verbose output.
+  -p, --print, --print-description
+                        Print the launch description to the console without
+                        launching it.
+  -s, --show-args, --show-arguments
+                        Show arguments that may be given to the launch file.
+  -a, --show-all-subprocesses-output
+                        Show all launched subprocesses' output by overriding
+                        their output configuration using the
+                        OVERRIDE_LAUNCH_PROCESS_OUTPUT envvar.
+```
+
+Launch files are usually included with a ROS package and are commonly stored in a
+`launch` subdirectory. Modern launch files are usually written in python and end
+with the `*.launch.py` file extension. The `launch` command has two arguments,
+the first one is the package name and then launch file name. If you are unaware
+of the launch files in your package you can use tab completion to list all the
+available launch file. Finally, some launch files have arguments, that can be
+appended to the command. If you are unsure about what a launch file does, or
+what arguments it needs the `--print` and `--show-args` commands will tell you
+this information. Let's read up on the `multisym.launch.py` launch file and then
+run it following the example below (end the simulation with `CTRL-C`):
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --show-args
+Arguments (pass arguments as '<name>:=<value>'):
+
+  No arguments.
+kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --print 
+<launch.launch_description.LaunchDescription object at 0x7f75aab63828>
+├── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
+└── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
+kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --show-args
+Arguments (pass arguments as '<name>:=<value>'):
+
+  No arguments.
+kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py
+[INFO] [launch]: All log files can be found below /home/kscottz/.ros/log/2020-06-24-14-39-03-312667-kscottz-ratnest-20933
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [turtlesim_node-1]: process started with pid [20944]
+[INFO] [turtlesim_node-2]: process started with pid [20945]
+^C[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+```
 
 ROS 2 Lifecycle
 ===============
+ROS 2 has a new feature called `lifecycle` which allows for greater control over
+the state of a ROS node. Roughly, this feature allows nodes to have complex
+start-up and shut down procedures that are correctly handed. An example of such
+a node would be one that controls a sensor or actuator that needs to perform
+power on self test or calibration procedure prior to running. [The ROS design
+docs give a great primer on the states and transitions in a lifecycle
+node.](http://design.ros2.org/articles/node_lifecycle.html). Let's look at the
+`lifecycle` command to determine what sub commands are available. 
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 lifecycle -h
+usage: ros2 lifecycle [-h]
+                      Call `ros2 lifecycle <command> -h` for more detailed
+                      usage. ...
+
+Various lifecycle related sub-commands
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Commands:
+  get    Get lifecycle state for one or more nodes
+  list   Output a list of available transitions
+  nodes  Output a list of nodes with lifecycle
+  set    Trigger lifecycle state transition
+
+  Call `ros2 lifecycle <command> -h` for more detailed usage.
+kscottz@kscottz-ratnest:~$ 
+
+```
+
+The `nodes` sub command will list all the lifecycle nodes on a given system, and
+unfortunately our current demo code does not include a working example to
+list. Once you have listed the nodes you can this list each node's available
+transitions using `ros2 lifecycle list <nodename>`. These transitions are
+dictated by the node's current state with some states having more transitions
+available than others. If instead of available transitions you wish to query the
+current state you can use the `lifecycle get` to return the current state of
+your target node. Once you have satisfactorily determined the state of the node
+and the available transitions the `lifecycle set` command can be used to trigger
+the node to transition to a new state. Generally, these CLI commands are used to
+diagnose failure modes of system, or to manually transition a particular
+component. 
+
 
 ROS 2 MSG (Message)
 ====================
+ROS 2 Eloquent is the last version of ROS to use the message command. All of the
+commands in `msg` are mirrored in the `interface` command. These features are
+currently deprecated and will be removed in Foxy.  
 
 ROS 2 PKG (Package)
 ====================
+The ROS 2 package command is a very useful command to understand what ROS
+packages are installed on your system, where the are installed, and the
+executables contained within each package. These tools are particularly useful
+for understanding an existing robot configuration and finding tools that are
+only used on occasion. Let's start by taking a look at the top level help file for the `pkg` command.
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 pkg -h
+usage: ros2 pkg [-h] Call `ros2 pkg <command> -h` for more detailed usage. ...
+
+Various package related sub-commands
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Commands:
+  create       Create a new ROS2 package
+  executables  Output a list of package specific executables
+  list         Output a list of available packages
+  prefix       Output the prefix path of a package
+  xml          Output the XML of the package manifest or a specific tag
+
+  Call `ros2 pkg <command> -h` for more detailed usage.
+```
+This command has a variety of sub commands, many of which should look fairly
+familiar at this point. The list sub command acts in a manner very similar to
+list sub commands we have discussed previously but this one only lists the
+installed system packages. This sub command is often used with grep to help you
+find out if a particular package is installed. 
+
+Once you have located an installed package you can then have it list the
+executables contained by the package using the `executables` command. This is
+much more practical than finding the executables manually. The sub command takes
+in a single argument which is the package name. The executables command has a
+single optional argument `--full-path` which will output the full path to all
+the executable programs. The example below shows an example of how to use these
+commands to check the path for all of the turtlesim executables. 
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
+turtlesim
+kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
+turtlesim
+kscottz@kscottz-ratnest:~$ ros2 pkg executables turtlesim --full-path
+/opt/ros/eloquent/lib/turtlesim/draw_square
+/opt/ros/eloquent/lib/turtlesim/mimic
+/opt/ros/eloquent/lib/turtlesim/turtle_teleop_key
+/opt/ros/eloquent/lib/turtlesim/turtlesim_node
+kscottz@kscottz-ratnest:~$ 
+```
+If you just wanted to know the path to the turtlesim executables you could use
+the `prefix` sub command, which returns the path for given packages
+executables. 
+
+Each ROS package contains an XML file that contains metadata for the package,
+including information such as the license, maintainer, and its dependencies. ROS
+pkg has a handy `xml` subcommand to print these files to the screen, saving you
+the hassle of locating and opening the file. You can use grep on the output of
+this command to get just the info you need. The example below shows and
+example. The example below shows an example of `xml` and `prefix` used to find
+the directory of turtlesim, its maintainer, and its license. 
+
+```{.sourceCode .bash}
+kscottz@kscottz-ratnest:~$ ros2 pkg prefix turtlesim
+/opt/ros/eloquent
+kscottz@kscottz-ratnest:~$ ros2 pkg xml turtlesim | grep maintainer
+  <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
+kscottz@kscottz-ratnest:~$ ros2 pkg xml turtlesim | grep license
+  <license>BSD</license>
+kscottz@kscottz-ratnest:~$ 
+
+```
+
+The last sub command in the `pkg` command is `create`. `Create` is a tool to help
+you create a ROS package. We'll use this subcommand later in the chapter to
+create a new ROS package. The short of it is that you feed the command your
+package name and all of the relevant information for your package as optional
+arguments. 
+
 
 ROS 2 Security
 ==============
