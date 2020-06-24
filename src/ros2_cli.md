@@ -242,7 +242,7 @@ numbers. In the US, like most countries, telephone numbers are broken into
 logical sections. In North America, you start with a country code,
 followed by a three digit area code, followed by an exchange, and then finally a
 house number. ROS topics are very similar but instead of using numbers,
-parethesis, and dashes to break up these sections, ROS topics use words and
+parenthesis, and dashes to break up these sections, ROS topics use words and
 slashes. Another analogy for ROS topics are the file systems where files are
 located in a directory structure broken up by slashes (e.g. C:\foo\bar or
 /home/foo/bar). No matter how you do it, these symbols all work to logically
@@ -300,9 +300,9 @@ Commands:
   Call `ros2 topic <command> -h` for more detailed usage.
 ```
 
-Like a Russian nesting doll this ROS command has subcommands! There are quite a
+Like a Russian nesting doll this ROS command has sub commands! There are quite a
 few subcommands; we won't give a treatment of all of them, but let's look at a
-few of them.What's great about the ROS CLI is that the subcommands have their
+few of them.What's great about the ROS CLI is that the sub commands have their
 own help command! Why don't we examine the `list` command. Repeating our command
 pattern let's try running `ros2 topic list --help`.
 
@@ -333,7 +333,7 @@ the `-t, --show-types` line looks interesting. It is worth noting that command
 arguments, sometimes called flags, can have two types. A short form indicated
 with a single dash ("-"), and a long form indicated by a double dash
 ("--"). Don't worry, despite looking different both versions of the argument do
-the same thing. Let's try running this command, subcommand pair with the
+the same thing. Let's try running this command, sub command pair with the
 `-show-types` argument.
 
 ``` {.sourceCode .bash}
@@ -355,7 +355,7 @@ complex data structures that are defined by a _message type_. When we added the
 `--show-types` flag we told the command to include this information. We'll dig
 into messages in detail a bit later.
 
-One of the more commonly used topic subcommands for the topic command is
+One of the more commonly used topic sub commands for the topic command is
 `info`. Unsurprisingly, `info` provides info about a topic.  Let's peek at its
 help file using `ros2 topic info --help`
 
@@ -391,7 +391,7 @@ topic. The topic also has a single subscriber, also called a listener, who is
 processing the incoming pose data.
 
 For what it is worth, if we just wanted to know the message type of a topic
-there is a subcommand just for that called, `type`. Let's take a look at its
+there is a sub command just for that called, `type`. Let's take a look at its
 help file and its result.
 
 ```
@@ -410,15 +410,15 @@ turtlesim/msg/Pose
 ```
 
 While it is not part of topic command it is worthwhile for us to jump ahead
-briefly and look at one particular command, subcommand pair, namely the `interface`
-command and the show subcommand. This subcommand will print all the
+briefly and look at one particular command, sub command pair, namely the `interface`
+command and the show sub command. This sub command will print all the
 information related to a message type using you can better understand the data
 being moved over a topic. In the previous example we saw that the `topic type`
-subcommand told up the `/turtle1/pose` topic has a type `turtlesim/msg/Pose`.
+sub command told up the `/turtle1/pose` topic has a type `turtlesim/msg/Pose`.
 But what is a `turtlesim/msg/Pose` you may ask? We can look at the data
 structure transferred by this topic by running: `ros2 interface show`
-subcommand and giving the message type name as an input. Let's look at the help
-for this subcommand and its output:
+sub command and giving the message type name as an input. Let's look at the help
+for this sub command and its output:
 
 ```{.sourceCode .bash}
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show --help
@@ -454,9 +454,9 @@ fast it is moving or rotating.
 
 Now that we know what ROS topics are on our simple turtlesim, and their message
 types, we can dig in and find out more about how everything works. If we look
-back at our topic subcommands, we can see a subcommand called `echo`. Echo is
+back at our topic sub commands, we can see a sub command called `echo`. Echo is
 computer jargon that means "repeat" something. If you echo a topic it means you
-want the CLI to repeat what's on a topic. Let's look at the `echo` subcommand's
+want the CLI to repeat what's on a topic. Let's look at the `echo` sub command's
 help text:
 
 ```{.sourceCode .bash}
@@ -545,10 +545,10 @@ be useful for understanding the instantaneous velocity of each of our wheels.
 Now that we have the basics down let's dig into a few of the optional
 arguments. We see a variety of commands that start with `--qos`, "QOS" here
 means "quality of service" and it is a really cool feature that is only in
-ROS 2. Without getting too technical QOS is a way of asking for a certain level
+ROS 2. Without getting too technical OS is a way of asking for a certain level
 of networking robustness. A ROS system can operate over a network, and just like
 streaming video or video games, packets can get dropped or not get to their
-destination. The QOS settings help you control which packets are the most
+destination. The OS settings help you control which packets are the most
 important and should get the highest priority.
 
 Most of the other commands deal with changing the output format of this CLI
@@ -578,14 +578,14 @@ using a CLI utility called `less` (press q to quit), or open it with your
 favorite spreadsheet tool.
 
 Now that we've looked at `ros2 topic echo` let's take a look at a few other
-topic subcommands. One thing you may have noticed is that topics can make a lot
+topic sub commands. One thing you may have noticed is that topics can make a lot
 of data! More complex robots, like a self driving car, can saturate a high
 speed internet connection with how much data it produces. There are two topic
-subcommands that can be used to diagnose performance issues. The first
-subcommand is `topic hz` which is the abbreviation of Hertz, the unit of
-frequency, as in the frequency of a radio station. The `hz` subcommand will
+sub commands that can be used to diagnose performance issues. The first
+sub command is `topic hz` which is the abbreviation of Hertz, the unit of
+frequency, as in the frequency of a radio station. The `Hz` subcommand will
 tell you how often a particular topic produces a message. Similarly there is
-the `topic bw` subcommand, where `bw` stands for bandwidth, which is a
+the `topic bw` sub command, where `bw` stands for bandwidth, which is a
 engineering term related to the _volume_ of data being produced. A high
 bandwidth connection can move more data, like high definition video, than a low
 bandwidth data, which might move a radio show. Let's take a look at the help
@@ -662,8 +662,8 @@ means to search all topics for a specific type. If all you want to know is a
 topic's type you can use the `type` command which will return a type that can
 then be further explored with the `interface` command. If instead you would like
 to know what topics use a particular message type you can use the `topic find`
-command / subcommand pair. Both the `topic type` and `topic interface` command
-/ subcommand pairs have a very limited set of optional arguments, so we simply
+command / sub command pair. Both the `topic type` and `topic interface` command
+/ sub command pairs have a very limited set of optional arguments, so we simply
 provide them with our desired topic or message type. Let's take a look at these two commands together: 
 
 ```{.sourceCode .bash}
@@ -695,7 +695,7 @@ optional arguments:
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic find  turtlesim/msg/Pose 
 /turtle1/pose
 ```
-The last subcommand for the topic command is `pub`, pub simply means publish,
+The last sub command for the topic command is `pub`, pub simply means publish,
 and it allows you to publish a command to any ROS topic from the command
 line. While you shouldn't need to use this command regularly it can be
 particularly handy for testing and debugging when you are building a robot
@@ -835,7 +835,7 @@ Commands:
 
   Call `ros2 node <command> -h` for more detailed usage.
 ```
-Much like topics we see two subcommands, `info` and `list`. Node list works much the
+Much like topics we see two sub commands, `info` and `list`. Node list works much the
 same as topic list and simply prints a list of all running nodes. Let's see what
 is running on our system. 
 
@@ -891,7 +891,7 @@ other ROS nodes may call those servers, these are the clients. The clients can
 be other ROS nodes, or for these examples, a human using the CLI.
 
 The command line interface for services and actions are very similar, in fact
-the both have only four subcommands. Let's run the `action` and `service`
+the both have only four sub commands. Let's run the `action` and `service`
 commands and compare them.
 
 ```{.sourceCode .bash}
@@ -966,7 +966,7 @@ kscottz@kscottz-ratnest:~$ ros2 action list
 Let's begin digging into services. There seem to be quite a few services
 listed. Let's take a look at the `/spawn` service, which will create more
 turtles. ROS services and actions use messages similar to those used in topics
-to communicate and in fact actions and services are built on top of messages. . We can use the `service type` subcommand to determine the message type
+to communicate and in fact actions and services are built on top of messages. . We can use the `service type` sub command to determine the message type
 used by a particular service. We can find specifics of the message by using the
 `interface show` command. Let's see this in practice with the `spawn` service.
 
@@ -1406,7 +1406,7 @@ Topic information: Topic: /turtle1/pose | Type: turtlesim/msg/Pose | Count: 4249
 Once you have collected a bag file you can replay the file just like a running
 system.  Bags are a great tool for debugging and testing. You can treat a ROS bag
 like a recording of a running ROS system. When you play a bag file you
-can use most of the ros2 cli tools to inspect the recorded topics.
+can use most of the ros2 CLI tools to inspect the recorded topics.
 
 To replay the bag, first use `CTRL+C` to turn off the main
 turtle node and the `draw_square` node. Now in a new terminal replay the bag
@@ -1524,7 +1524,7 @@ search. Even a basic ROS installation has a lot of messages, so a tool you
 should get familiar with is `grep`, grep lets you search through some text to
 find what you are looking for quickly and easily. You can grep in a case
 insensitive manner using the `-i` flag followed by the text you want to search
-for. We can tie this CLI tool to our interface tool by using the unix pipe operator `|`. The example below
+for. We can tie this CLI tool to our interface tool by using the UNIX pipe operator `|`. The example below
 shows you how to use the list operation and then how to use it to do a search. 
 
 ``` {.sourceCode .bash}
@@ -1682,7 +1682,7 @@ optional arguments:
 ```
 
 Launch files are usually included with a ROS package and are commonly stored in a
-`launch` subdirectory. Modern launch files are usually written in python and end
+`launch` sub directory. Modern launch files are usually written in python and end
 with the `*.launch.py` file extension. The `launch` command has two arguments,
 the first one is the package name and then launch file name. If you are unaware
 of the launch files in your package you can use tab completion to list all the
@@ -1824,7 +1824,7 @@ executables.
 
 Each ROS package contains an XML file that contains metadata for the package,
 including information such as the license, maintainer, and its dependencies. ROS
-pkg has a handy `xml` subcommand to print these files to the screen, saving you
+pkg has a handy `xml` sub command to print these files to the screen, saving you
 the hassle of locating and opening the file. You can use grep on the output of
 this command to get just the info you need. The example below shows and
 example. The example below shows an example of `xml` and `prefix` used to find
@@ -1842,7 +1842,7 @@ kscottz@kscottz-ratnest:~$
 ```
 
 The last sub command in the `pkg` command is `create`. `Create` is a tool to help
-you create a ROS package. We'll use this subcommand later in the chapter to
+you create a ROS package. We'll use this sub command later in the chapter to
 create a new ROS package. The short of it is that you feed the command your
 package name and all of the relevant information for your package as optional
 arguments. 
