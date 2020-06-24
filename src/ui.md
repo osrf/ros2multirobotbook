@@ -60,7 +60,7 @@ The code for this tutorial is available at <https://github.com/osrf/ros2multirob
   * nodejs >= 10
   * rmf_core (<https://github.com/osrf/rmf_core>)
   * soss (<https://github.com/osrf/soss>)
-  * romi-soss-ros2 (<https://github.com/osrf/romi-soss-ros2>)
+  * rmf-soss-ros2 (<https://github.com/osrf/rmf-soss-ros2>)
   * rmf_demos (<https://github.com/osrf/rmf_demos>)
 
 We will not go through the process of setting up the dependencies, instructions to set them up can be easily found on the web or from their project homepages.
