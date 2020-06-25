@@ -9,29 +9,29 @@ From drivers to state-of-the-art algorithms, and with powerful developer tools, 
 And it’s all open source.
 
 Since ROS was started in 2007, a lot has changed in the robotics and ROS community.
-ROS 1, which was originally just "ROS", began life as the development environment for the Willow Garage PR2 robot.
-The primary goal was to provide the software tools that users would need to undertake novel research and development projects with the PR2.
-At the same time, the ROS 1 development team knew that the PR2 would not be the only robot in the world, nor the most important, so they wanted ROS 1 to be useful on other robots, too.
+ROS 1, originally just "ROS", began life as the development environment for the Willow Garage PR2 robot.
+The primary goal was to provide the software tools users would need to undertake novel research and development projects with the PR2.
+At the same time, the ROS 1 development team knew the PR2 would not be the only robot in the world, nor the most important, so they wanted ROS 1 to be useful on other robots, too.
 The original focus was on defining levels of abstraction (usually through message interfaces) that would allow much of the software to be reused elsewhere.
 
-ROS 1 satisfied the PR2 use case, but also overshot by becoming useful on a surprisingly wide variety of robots.
-ROS 1 was used on robots that are similar to the PR2, but also on wheeled robots of all sizes, legged humanoids, industrial arms, outdoor ground vehicles (including self-driving cars), aerial vehicles, surface vehicles, and more.
-In addition, ROS 1 adoption was happening in domains beyond the mostly academic research community that was the initial focus.
-ROS 1 based products were coming to market, including manufacturing robots, agricultural robots, commercial cleaning robots, and others.
-Government agencies were also looking more closely at ROS for use in their fielded systems; NASA, for example, expected to be running ROS on the Robonaut 2 that was deployed to the International Space Station.
+ROS 1 satisfied the PR2 use case, but also became useful on a surprisingly wide variety of robots.
+This included robots similar to the PR2, but also wheeled robots of all sizes, legged humanoids, industrial arms, outdoor ground vehicles (including self-driving cars), aerial vehicles, surface vehicles, and more.
+ROS 1 adoption also took a surprising turn, happening in domains beyond the mostly academic research community that was the initial focus.
+ROS-1-based products were coming to market, including manufacturing robots, agricultural robots, commercial cleaning robots, and others.
+Government agencies were also looking more closely at ROS for use in their fielded systems; NASA, for example, expected to run ROS on the Robonaut 2 deployed to the International Space Station.
 
-With all these new uses of ROS, the platform became stretched in unexpected ways.
-While it was holding up well, the ROS 1 team believed that they could better meet the needs of the broader ROS community by tackling their new use cases head-on.
+All of these applications certainly grew the ROS platform in unexpected ways.
+Though it held up well, the ROS 1 team believed they could better meet the needs of the broader ROS community by tackling their new use cases head-on.
 And so, ROS 2 was born.
 
 The initial goal of the ROS 2 project was to adapt to the changing landscape, leveraging what was great about ROS 1 and improving what wasn’t.
-But there was also a desire to keep ROS 1 as it existed to keep working and be unaffected by the development of ROS 2.
-So ROS 2 was built as a parallel set of packages that can be installed alongside and interoperate with ROS 1 (for example, through message bridges).
+But there was also a desire to preserve ROS 1 as it existed, to continue working and remain unaffected by the development of ROS 2.
+So, ROS 2 was built as a parallel set of packages that can be installed alongside and interoperate with ROS 1 (for example, through message bridges).
 
 At the time of writing, we have reached the 13th and last official ROS 1 release, [Noetic Ninjemys](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release), and the first LTS release of ROS 2, [Foxy Fitzroy](https://www.openrobotics.org/blog/2020/6/5/ros-2-foxy-fitzroy-release).
 
-There is a large and growing amount of ROS 2 resources which can be found on the web.
-A great place to start for ROS 2 is on the ROS Index page for [ROS 2](https://index.ros.org/doc/ros2/) and farther along in this book in the ROS 2 chapter.
+A large and growing amount of ROS 2 resources can be found on the web.
+A great place to start is on the ROS Index page for [ROS 2](https://index.ros.org/doc/ros2/) and further along in this book in the ROS 2 chapter.
 Enjoy your journey!
 
 # Robotics Middleware Framework (RMF)
@@ -45,7 +45,7 @@ These ideas are achievable today using an amazing system called RMF.
 
 The current generation of robots in production environments today are able to provide services including both bulk and single piece flow delivery, cleaning, disinfecting, security, monitoring, and much more.
 These diverse use cases most likely mean the best-in-class robots for each task will come from different robot providers or system integrators.
-This modern reality makes it critical for a common software framework to be in place to manage these heterogeneous resources and to ensure that information is being used effectively from different platforms to promote overall system efficiency.
+This modern reality makes it critical for a common software framework in place to manage these heterogeneous resources and to ensure  information is being used effectively from different platforms to promote overall system efficiency.
 
 Without a plan for a holistically efficient robotics system in place, there can be significant but hidden risks for end users when committing to a single system or platform provider.
 Hidden risks are likely to force an end user to limit their selection of future solutions from that particular provider to minimize operational risk and avoid redundant integration costs.
@@ -64,7 +64,7 @@ Unlock your options, your facility and your future with RMF.
 
 ## So what is RMF?
 
-RMF is a collection of reusable, scalable libraries and tools building on top of ROS 2 which enable the interoperability of heterogeneous fleets of any type of robotic systems.
+RMF is a collection of reusable, scalable libraries and tools building on top of ROS 2 that enable the interoperability of heterogeneous fleets of any type of robotic systems.
 RMF utilizes standardized communication protocols to infrastructure, environments and automation where robots are deployed to optimize the use of critical resources (i.e. robots, lifts, doors, passageways, etc).
 It adds intelligence to the system through resource allocation and by preventing conflicts over shared resources through the RMF Core which will be described in detail later in this book.
 
@@ -80,7 +80,7 @@ In a nutshell, here is RMF:
 ## How does RMF make the magic happen?
 
 One of the principles of RMF's design is to simplify and standardize messaging as much as possible.
-You can see in the below diagram of the RMF Core that all of the complex interactions and coordination currently boils down to only fourteen standard messages:
+You can see all of the complex interactions and coordination currently boils down to only fourteen standard messages in the below diagram of the RMF Core:
 
 <img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
 
