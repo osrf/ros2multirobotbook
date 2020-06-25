@@ -89,7 +89,7 @@ name: building
 The layout of the `traffic_editor` comprises of a `Main Toolbar`, a `Working Area`
 and a `Sidebar` as seen in the figure below:
 
-![](images/traffic_editor/layout.png)
+![Traffic Editor GUI](images/traffic_editor/layout.png)
 
 The editor operates in three modes selectable from the `Edit mode` dropdown
 list in the `Main Toolbar`, or by using shortkeys:
@@ -104,11 +104,11 @@ list in the `Main Toolbar`, or by using shortkeys:
 
 Each mode has a unique set of tools, but the following tools are common across all modes:
 
-|                    Icon                    |  Name  | Shortkey |               Function               |
-|:------------------------------------------:|:------:|:--------:|:------------------------------------:|
-| ![](images/traffic_editor/icons/select.svg) | Select |   `Esc`  | Select an entity in the `Working Area` |
-|  ![](images/traffic_editor/icons/move.svg)  |  Move  |    `m`   |  Move an entity in the `Working Area`  |
-| ![](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
+|                    Icon                           |  Name  | Shortkey |               Function               |
+|:-------------------------------------------------:|:------:|:--------:|:------------------------------------:|
+| ![Select icon](images/traffic_editor/icons/select.svg) | Select |   `Esc`  | Select an entity in the `Working Area` |
+|  ![Move icon](images/traffic_editor/icons/move.svg)    |  Move  |    `m`   |  Move an entity in the `Working Area`  |
+| ![Rotate icon](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
 
 The `SideBar` contains multiple tabs with various functionalities:
 * **levels:** to add a new level to the building. This can be done from scratch or by importing a floor plan image file.
@@ -160,7 +160,7 @@ specified. In most use cases, the floor plan for the level is used as the
 drawing. If unspecified, the user may explicitly enter dimensions of the level
 in the fields provided.
 
-![](images/traffic_editor/add_level.png)
+![Add a level dialog](images/traffic_editor/add_level.png)
 
 In the figure above, a new level `L1` at `0m` elevation and a floor plan have
 been added as reflected in the `levels` tab. A default scale `1px = 5cm` is
@@ -184,7 +184,7 @@ name: building
 ### Adding a vertex
 |                    Icon                    | Shortkey |
 |:------------------------------------------:| :-------:|
-| ![](images/traffic_editor/icons/vertex.svg)| `v` |
+| ![Vertex icon](images/traffic_editor/icons/vertex.svg)| `v` |
 
 A vertex is a fundamental component of multiple annotations. Walls,
 measurements, doors, floor polygons and traffic lanes are created from two or
@@ -217,7 +217,7 @@ presented below:
   waypoint. The `rmf_fleet_msgs::RobotState` message published by this robot
   will have `name` field equal to this value.
 
-![](images/traffic_editor/add_vertex.png)
+![Vertex attributes](images/traffic_editor/add_vertex.png)
 
 Each vertex is stored in the `tutorial.building.yaml` file as a list of
 x-coordinate, y-coordinate, elevation, vertex_name and a set of additional
@@ -230,7 +230,7 @@ parameters.
 ### Adding a measurement
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/measurement.svg)|
+| ![Measurement icon](images/traffic_editor/icons/measurement.svg)|
 
 Adding a measurement sets the scale of the imported 2D drawing which is
 essential for simulation accuracy. Scalebars or reference dimensions in the
@@ -248,7 +248,7 @@ Selecting the line populates various parameters in the Properties window of the
 points (in meters) will then update the `Scale` for the level. Save the project
 and reload to see the changes reflected.
 
-![](images/traffic_editor/add_measurement.png)
+![Measurement properties](images/traffic_editor/add_measurement.png)
 
 The above process adds two `vertices` and a `measurement` field to the
 `tutorial.building.yaml` file as seen below. For the measurement field, the
@@ -279,7 +279,7 @@ name: building
 ### Adding a wall
 |                    Icon                    | Shortkey |
 |:------------------------------------------:| :-------:|
-| ![](images/traffic_editor/icons/wall.svg)| `w` |
+| ![Wall icon](images/traffic_editor/icons/wall.svg)| `w` |
 
 To annotate walls in the map, select the _Add Wall_ icon from the `Main Toolbar`
 and click on consecutive vertices that represent the corners of the wall. The
@@ -291,7 +291,7 @@ generated during 3D world generation using `building_map_generator`. By default
 the walls are of thickness of 10cm and height 2.5m. The `wall_height` and `wall_thickness` attributes may be
 modified [in the source code](https://github.com/osrf/traffic_editor/blob/master/building_map_tools/building_map/level.py#L42).
 
-![](images/traffic_editor/add_wall.png)
+![Annotating walls](images/traffic_editor/add_wall.png)
 
 Walls are stored in the `tutorial.building.yaml` file as a list with indices of
 start and end vertices of the wall segment along with an empty parameter set.
@@ -308,7 +308,7 @@ start and end vertices of the wall segment along with an empty parameter set.
 ### Adding a floor
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/floor.svg)|
+| ![Floor icon](images/traffic_editor/icons/floor.svg)|
 
 Flooring is essential for simulations as it provides a ground plane for the
 robots to travel over. Floors are annotated using the _Add floor polygon_ tool
@@ -318,7 +318,7 @@ area as seen below. These vertices will need to be added manually prior to this
 step. Once created, save the project and reload. Selecting the defined floor
 highlights its texture attributes. The [default list of available textures](https://github.com/osrf/traffic_editor/tree/master/building_map_tools/building_map_generator/textures) is available in the source code.
 
-![](images/traffic_editor/add_floor.png)
+![Highlighting floor's textures](images/traffic_editor/add_floor.png)
 
 Certain scenarios may call for floors with cavities, for
 example, to represent elevator shafts. The _Add hole polygon_ tool may be used
@@ -336,7 +336,7 @@ Each polygon is stored in the `tutorial.building.yaml` file in the format below:
 ### Adding a door
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/door.svg)|
+| ![Door icon](images/traffic_editor/icons/door.svg)|
 
 A door between two vertices can be added in _Building_ edit mode by selecting
 the _Add door_ tool from the `Main Toolbar`, and clicking on vertices
@@ -347,7 +347,7 @@ supported: "hinged", "double_hinged", "sliding" and "double_sliding". The
 doors while the `motion_direction` dictates the direction of swing. In order for
 the door to work in simulation, a `name` must be given to the door.
 
-![](images/traffic_editor/add_door.png)
+![Door type properties](images/traffic_editor/add_door.png)
 
 Doors are stored in the `tutorial.building.yaml` file as a list with indices of
 start and end vertices along with the set of parameters that describes the door.
@@ -376,7 +376,7 @@ will automatically be added. Properties may be assigned to each vertex as
 described in the preceding section. To issue tasks to waypoints that require the
 robot to terminate at any waypoint, a name must be assigned to the waypoint.
 
-![](images/traffic_editor/add_lane.png)
+![Graphs' lane colors](images/traffic_editor/add_lane.png)
 
 Each Graph has a unique color for its lanes, and their visibility may be
 toggled using the checkbox in the `traffic` tab. A lane that is defined between
@@ -466,18 +466,18 @@ in the `Sidebar`. A dialog box will then prompt the user to upload the robot map
 image. The same box contains fields for setting the scale for the image along
 with applying translations and rotation. Through visual feedback, the user can
 determine appropriate values for these fields. As seen in the image below,
-importing the robot generated map into the GUI has it located and oriented
+importing the robot-generated map into the GUI has it located and oriented
 differently than the floor plan. With the right transformation values, the two
 maps can be made to overlap.
 
-![](images/traffic_editor/coordinate_transform.png)
+![Overlap robot-generated map](images/traffic_editor/coordinate_transform.png)
 
 
 
 ### Adding fiducials
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/fiducial.svg)|
+| ![Fiducial icon](images/traffic_editor/icons/fiducial.svg)|
 
 For maps with multiple levels, fiducials provide a means to scale and align
 different levels with respect to a reference level. This is crucial for ensuring
@@ -496,7 +496,7 @@ computes the transformation between the levels which is evident from the Scale
 and X-Y offsets for the new level as seen in the `levels` tab. This level is
 now ready to be annotated.
 
-![](images/traffic_editor/add_fiducial.png)
+![Adding fiducials](images/traffic_editor/add_fiducial.png)
 
 For each level, fiducials are stored in a list of their X & Y coordinates along with their name.
 ```yaml
@@ -517,7 +517,7 @@ further be added to orient the lift as desired. The width and depth of the cabin
 doors which may open at more than one level. To add a cabin door, click the
 `Add` button in the box below the cabin image. Each cabin door requires a name along with positional and orientational information. Here, the X&Y coordinates are relative to the cabin center.
 
-![](images/traffic_editor/add_lift.png)
+![Configuring lift properties](images/traffic_editor/add_lift.png)
 
 The configured lift is stored in the `tutorial.building.yaml` file as described below:
 ```yaml
@@ -553,7 +553,7 @@ Selecting this tool opens a dialog box with a list of model names and matching t
 Once on the map, their positions and orientations can be adjusted using the _Move_ and _Rotate_ tools.
 The [thumbnail_generator documentation](https://github.com/osrf/traffic_editor/tree/master/traffic_editor/thumbnail_generator) contains instructions on expanding the list of thumbnails for other models.
 
-![](images/traffic_editor/add_model.png)
+![Model name and thumbnails dialog](images/traffic_editor/add_model.png)
 ### Adding a scenario
 Future improvement not yet fully implemented
 
