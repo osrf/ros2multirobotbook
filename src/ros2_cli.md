@@ -1239,7 +1239,7 @@ kscottz@kscottz-ratnest:~$ ros2 param list
 
 ```
 
-The only argument  of note in this sub command is the `node_name` which allows
+The only argument of note in this sub command is the `node_name` which allows
 you to narrow the scope of param list to only those params used by a particular
 node. In terms of parameters in the turtlesim we see that our call to `param
 list` gives us for parameters: three background color control params named
