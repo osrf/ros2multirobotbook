@@ -302,7 +302,7 @@ Commands:
 
 Like a Russian nesting doll this ROS command has sub commands! There are quite a
 few subcommands; we won't give a treatment of all of them, but let's look at a
-few of them.What's great about the ROS CLI is that the sub commands have their
+few of them.  What's great about the ROS CLI is that the sub commands have their
 own help command! Why don't we examine the `list` command. Repeating our command
 pattern let's try running `ros2 topic list --help`.
 
