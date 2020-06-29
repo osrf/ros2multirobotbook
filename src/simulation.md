@@ -1,7 +1,7 @@
 # Simulation
 
 This chapter describes how to generate building models from
-`traffic-editor` files, and then simulate fleets of robots in those models.
+`traffic_editor` files, and then simulate fleets of robots in those models.
 
 ## Motivation
 
@@ -58,7 +58,7 @@ The RMF project aims to address these hurdles by simplifying the process of sett
 simulation environments for multi-fleet traffic control, as we will explain further throughout this section.
 
 ## Building Map Generator
-Traffic_editor, discussed previously, is a tool to annotate building
+`traffic_editor`, discussed in the previous chapter, is a tool to annotate building
 floor plans with fleet-specific traffic information in a vendor neutral manner.
 This includes waypoints of interest, traffic lanes and shared resources such as
 doorways and lifts. It can also be used to markup the walls and floors and add
@@ -495,3 +495,10 @@ usage: request_delivery [-h] [-p PICKUP] [-d DROPOFF] [-i TASK_ID]
 As an alternative, UIs may be developed to send out these requests. More information can be found in the [UI chapter](ui.md). The `rmf_demos` repository contains a `rmf_rviz_plugin` package which defines a custom panel that can be used to send the above commands from RViz. A snapshot of the same is seen below.
 
 ![Custom RMF panel in RViz](images/rmf_panel.png)
+
+## Conclusion
+
+This chapter covered the utilization of the `traffic_editor` tool to create annotated maps that allow the auto-generation of 3D worlds for simulations.
+It also covered the assets used within simulations and the corresponding plugins necessary for ROS 2 and RMF to interface with them.
+A working example of these components running together, in the form of the `rmf_demo_maps` package, was provided as a reference for how to actualize a custom system.
+The next chapter will introduces the basic concept behind RMF.
