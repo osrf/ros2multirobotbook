@@ -1,19 +1,19 @@
 # Simulation
 
-This chapter will describe how to generate building models from the
-`traffic-editor` files and simulate fleets of robots in them.
+This chapter describes how to generate building models from
+`traffic-editor` files, and then simulate fleets of robots in those models.
 
 ## Motivation
 
 Simulation environments for testing robotic solutions offer immense value across
 various stages of R&D and deployment. More notably, simulations provide the
-following benefits.
+following benefits:
 
-- **Time and resource saving:** While testing with hardware is indispensible,
-  the process can slow the pace of development with additional setup time, robot
+- **Time and resource saving:** While testing with hardware is indispensable,
+  the process can slow development with additional setup time, robot
   downtime and reset periods between trials. As the number of participants
   scale, so do costs associated with purchasing hardware and consumables for
-  testing. This is especially true with solutions such as RMF which aim to
+  testing. This is especially true when utilizing a solution such as RMF, which aims to
   integrate several mobile/stationary robots together with building systems such as doors
   and lifts. Simulations provide a potentially cost-effective and time-saving alternative
   for evaluating the behavior of robot systems at scale. More importantly,
@@ -32,15 +32,15 @@ following benefits.
   helpful for debugging. Lastly, long running simulations can instill confidence
   in facility owners prior to deployment.
 
-Physics-based simulators such as `Gazebo`, carry the benefit of easily
-interfacing with ROS2 nodes through wrappers provided by `gazebo_ros_pkgs`.
+Physics-based simulators, such as `Gazebo`, carry the benefit of easily
+interfacing with ROS 2 nodes through wrappers provided by `gazebo_ros_pkgs`.
 Gazebo plugins can be developed that accurately emulate the behavior of robots,
 sensors and infrastructure systems which enhance the overall fidelity of
 simulations. It is worth emphasizing here that the exact same code used to run the simulations
 will also be run on the physical system as well without any changes.
 
 However, despite these compelling benefits, simulations are sparingly employed
-by developers and system integrators citing complexity over generating
+by developers and system integrators, citing complexity over generating
 environments and configuring them with appropriate plugins. In a recent publication "_A Study on the Challenges of Using Robotics Simulators for Testing_," by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:
 
 | Reason for not using simulation  | #  | %  |
@@ -54,29 +54,29 @@ environments and configuring them with appropriate plugins. In a recent publicat
 | Nobody suggested it | 0  | 0.00%  |
 | Other | 2  | 7.14%  |
 
-The RMF project also
-aims to address these hurdles by simplifying the process of setting up
-simulation environments for multi-fleet traffic control as we will explain further throughout this section.
+The RMF project aims to address these hurdles by simplifying the process of setting up
+simulation environments for multi-fleet traffic control, as we will explain further throughout this section.
 
 ## Building Map Generator
-The `traffic_editor` as discussed previously is a tool to annotate building
-floor plans with fleet specific traffic information in a vendor neutral manner.
+Traffic_editor, discussed previously, is a tool to annotate building
+floor plans with fleet-specific traffic information in a vendor neutral manner.
 This includes waypoints of interest, traffic lanes and shared resources such as
 doorways and lifts. It can also be used to markup the walls and floors and add
 thumbnails of artifacts in the environment. The ability to auto-generate a 3D
-world using this annotated map is of significant value towards simplifying the
+world using this annotated map is significantly valuable for simplifying the
 creation and management of simulations. To this end, the `building_map_tools`
 package in `traffic_editor` contains an executable `building_map_generator`. The
-executable operates in two modes 1) To generate a Gazebo/Ignition compliant
-`.world` file and 2) Export the fleet specific traffic information in the form
-of navigation graphs which are utilized by `fleet_adapters` for planning.
+executable operates in two modes:
 
-![](images/building_map_generator.png)
+1. Generate a Gazebo/Ignition compliant `.world` file
+2. Export the fleet specific traffic information in the form
+of navigation graphs which are utilized by `fleet_adapters` for planning
 
+![Building map generator](images/building_map_generator.png)
 
-To auto-generate a Gazebo simulation world, the executable takes in the command arugment "gazebo" along with others described below.
+To auto-generate a Gazebo simulation world, the executable takes in the command argument `gazebo` along with others described below:
 
-```bash
+```bas
 usage: building_map_generator gazebo [-h] [-o [OPTIONS [OPTIONS ...]]] [-n]
                                      [-m MODEL_PATH] [-c CACHE]
                                      INPUT OUTPUT_WORLD OUTPUT_MODEL_DIR
@@ -98,15 +98,11 @@ optional arguments:
 ```
 
 The script parses the `.building.yaml` file and generates meshes for the
-flooring and walls for each level which are combined into a `model.sdf` file in
+flooring and walls for each level. Those meshes are then combined into a `model.sdf` file in
 the `OUTPUT_MODEL_DIR/` directory. The `model.sdf` files for each level are
 imported into the `.world` with filepath `OUTPUT_WORLD`. Model sub-elements for
 various static objects annotated in the `traffic_editor` are included in the
-`.world` as seen in the snippet below. Similar blocks for annotated robots are
-generated. It is the responsibility of the user to append the environment
-variable `$GAZEBO_MODEL_PATH` with the relevant paths to the models prior to
-loading the `.world` file in Gazebo. This process can be simplified through ROS2
-launch files and will be discussed in later sections.
+`.world` as seen in the snippet below:
 
 ```xml
 <include>
@@ -116,35 +112,50 @@ launch files and will be discussed in later sections.
   <static>True</static>
 </include>
 ```
+
+Similar blocks for annotated robots are
+generated. It is the responsibility of the user to append the environment
+variable `$GAZEBO_MODEL_PATH` with the relevant paths to the models prior to
+loading the `.world` file in Gazebo. This process can be simplified through ROS 2
+launch files and will be discussed in later sections.
+
 The parser also includes sdf elements for other dynamic assets such as doors and
-lifts. Their mechanisms are discussed in the ensuing section. An `Ignition`
-compatible world can be generated by using the "command" argument "ignition".
+lifts. Their mechanisms are discussed in the next section. An Ignition
+compatible world can be generated by using the command argument `ignition`.
 
 Reconfiguring simulation environments becomes as trivial as editing the
 annotations on the 2D drawing and re-running the `building_map_generator`. This
 is exceedingly useful to quickly evaluate traffic flow as the spatial
 configuration in the facility changes.
 
-To generate navigation graphs for fleet adapters, the `building_map_generator` is executed with `command` argument "nav". The navigation graph is generated as a `.yaml` file and is parsed during launch by the corresponding fleet adapter.
+To generate navigation graphs for fleet adapters, the `building_map_generator`
+is executed with command argument `nav`. The navigation graph is generated as
+a `.yaml` file and is parsed during launch by the corresponding fleet adapter.
+
 ```bash
 usage: building_map_generator nav [-h] INPUT OUTPUT_DIR
 
 positional arguments:
   INPUT       Input building.yaml file to process
   OUTPUT_DIR  Path to output the nav .yaml files
-
 ```
 
 ## RMF Assets and Plugins
 
-Assets play a pivotal role in recreating environments in simulation. Projects such as RMF, SubT and others have allowed developers to create and open source 3D models of robots, mechanical infrastructure systems and scene objects. They are available for download [here](https://app.ignitionrobotics.org/OpenRobotics/fuel/collections/).
-Beyond imparting visual accuracy, assets may be dynamic and interface with rmf
+Assets play a pivotal role in recreating environments in simulation. Projects
+such as RMF, SubT and others have allowed developers to create and open source
+3D models of robots, mechanical infrastructure systems and scene objects.
+They are available for download on the [Ignition Fuel app](https://app.ignitionrobotics.org/OpenRobotics/fuel/collections/).
+Beyond imparting visual accuracy, assets can be dynamic and interface with RMF
 core systems through the aid of plugins.
 
 To simulate the behavior of hardware such as robot models and infrastructure
-systems, several Gazebo plugins have been architected. These plugins are derivates of the [ModelPlugin](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1ModelPlugin.html) class and tie in standard ROS2 and rmf_core messages to provide necessary functionality. The following sections briefly describe some of these plugins.
+systems, several Gazebo plugins have been architected. These plugins are
+derivatives of the [ModelPlugin](http://osrf-distributions.s3.amazonaws.com/gazebo/api/dev/classgazebo_1_1ModelPlugin.html)
+class and tie in standard ROS 2 and RMF core messages to provide necessary
+functionality. The following sections briefly describe some of these plugins.
 
-#### Robots
+### Robots
 As highlighted earlier, several robot models (SESTO, MiR100, Magni, Hospi) have been
 open sourced for use in simulation. For these models to emulate the behavior of
 their physical counterparts which have been integrated with RMF, they need to 1)
@@ -159,11 +170,11 @@ state to the `/robot_state` topic.
 To navigate the robot through waypoints in a `PathRequest` message, a simple
 "rail-like" navigation algorithm is utilized which accelerates and decelerates
 the robot along a straight line from its current position to the next waypoint.
-The plugin relies on these fundamental assumptions
+The plugin relies on these fundamental assumptions:
   * The robot model is a two-wheel differential drive robot
   * The left and right wheel joints are named  `joint_tire_left` and `joint_tire_right` respectively
 
-Other parameters, majority of which are kinematic properties of the robot are inferred from sdf parameters.
+Other parameters, the majority of which are kinematic properties of the robot, are inferred from sdf parameters:
 ```xml
 <plugin name="slotcar" filename="libslotcar.so">
   <nominal_drive_speed>0.5</nominal_drive_speed>
@@ -180,19 +191,19 @@ Other parameters, majority of which are kinematic properties of the robot are in
 ```
 
 During simulation, it is assumed that the robot's path is free of static
-obstacles but the plugin contains logic to pause the robot's motion if an
+obstacles, but the plugin still contains logic to pause the robot's motion if an
 obstacle is detected in its path. While it is possible to deploy a sensor based
 navigation stack, the approach is avoided to minimize the computational load on
 the system from running a navigation stack for each robot in the simulation.
 Given the focus on traffic management of heterogeneous fleets and not robot
 navigation, the `slotcar` plugin provides an efficient means to simulate the
-interaction between rmf core systems and robots.
+interaction between RMF core systems and robots.
 
 The `slotcar` plugin is meant to serve as a generalized solution. Vendors are
 encouraged to develop and distribute plugins that represent the
 capabilities of their robot and the level of integration with RMF more accurately.
 
-#### Doors
+### Doors
 Unlike robot models whose geometries are fixed and hence can be directly
 included in the generated `.world` file, doors are custom defined in
 `traffic_editor` and have their own generation pipeline. As seen in the figure
@@ -200,8 +211,7 @@ below, an annotated door has several properties which include the location of
 its ends, the type of door (hinged, double_hinged, sliding, double_sliding) and
 its range of motion (for hinged doors).
 
-
-![](images/door_traffic_editor.png)
+![Door properties](images/door_traffic_editor.png)
 
 The `building_map_generator gazebo` script parses a `.building.yaml` file for
 any doors and automatically generates an sdf sub-element with links and joints
@@ -272,12 +282,18 @@ The door [plugin](https://github.com/osrf/traffic_editor/blob/master/building_ga
 
 To avoid situations where one robot requests a door to close on another robot, a `door_supervisor` [node](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/door_supervisor/main.cpp) is deployed in practice. The node publishes to `/door_requests` and subscribes to `/adapter_door_requests` which the fleet adapters publish to when their robot requires access through a door. The `door_supervisor` keeps track of requests from all the fleet adapters in the system and relays the request to the door adapters while avoiding aforementioned conflicts.
 
-#### Lifts
-The ability to test lift integration is crucial as these systems are often the operational bottlenecks in facilities given their shared usage by both humans and multi robot fleets. As with annotated doors, lifts can be customized in a number of ways in the `traffic_editor` gui including the dimension & orientation of the cabin and mapping cabin doors to building levels.
+### Lifts
+The ability to test lift integration is crucial as these systems are often the operational bottlenecks in facilities given their shared usage by both humans and multi robot fleets. As with annotated doors, lifts can be customized in a number of ways in the `traffic_editor` GUI including the dimension & orientation of the cabin and mapping cabin doors to building levels.
 
-![](images/lift_traffic_editor.png)
+![Customizing lifts in Traffic Editor](images/lift_traffic_editor.png)
 
-The `building_map_generator gazebo` script parses the `.building.yaml` file for lifts definitions and auto-generates the sdf elements for the cabin, cabin doors as well as lift shaft doors. A prismatic joint is defined at the base of the cabin which is actuated by the lift plugin to move the cabin between different levels. While the cabin doors are part of the cabin structure, the shaft doors are fixed to building. Both sets of doors open/close simultaneously at a given level and are controlled by the lift plugin itself. These doors are created using the same method as other doors in the building and include the door plugin as well. The `building_map_generator` also appends a lift plugin todo add link element with required parameters to the lift's model sdf block.
+The `building_map_generator gazebo` script parses the `.building.yaml` file for lift definitions and auto-generates the sdf elements for the cabin, cabin doors and lift shaft doors.
+A prismatic joint is defined at the base of the cabin which is actuated by the lift plugin to move the cabin between different levels.
+While the cabin doors are part of the cabin structure, the shaft doors are fixed to the building.
+Both sets of doors open and close simultaneously at a given level and are controlled by the lift plugin itself.
+These doors are created using the same method as other doors in the building and include the door plugin as well.
+
+The `building_map_generator` also appends a lift plugin (TODO add link element with required parameters to the lift's model sdf block.)
 
 ```xml
 <plugin filename="liblift.so" name="lift">
@@ -301,22 +317,34 @@ The `building_map_generator gazebo` script parses the `.building.yaml` file for 
   <cabin_joint_name>cabin_joint</cabin_joint_name>
 </plugin>
 ```
-The plugin subscribes to `/lift_requests` topic and responds to `LiftRequest` messages with `lift_name` matching its `model name` sdf tag. The displacement between the cabin's current elevation and that of the `destination_floor` is computed and a suitable velocity is applied to the cabin joint. Prior to any motion, the cabin doors are closed and only opened at the `destination_floor` if specified in the LiftRequest message. As the cabin and shaft doors are configured with the `door` plugin, they are commanded through `DoorRequest` messages published by the `lift` plugin.
+
+The plugin subscribes to `/lift_requests` topic and responds to `LiftRequest` messages with `lift_name` matching its `model name` sdf tag.
+The displacement between the cabin's current elevation and that of the `destination_floor` is computed and a suitable velocity is applied to the cabin joint.
+Prior to any motion, the cabin doors are closed and only opened at the `destination_floor` if specified in the `LiftRequest` message.
+As the cabin and shaft doors are configured with the `door` plugin, they are commanded through `DoorRequest` messages published by the `lift` plugin.
 Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/lift_supervisor/main.cpp) is started in practice to manage requests from different robot fleets.
 
+### Workcells
 
-#### Workcells
-Robots performing deliveries within facilities is a common use case and hence a `Delivery` task is configured into the `rmf_fleet_adapters`. In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint). The loading and unloading of the payload may be automated by a robot/workcell in the facility. To integrate these systems with RMF core systems, a set of dispenser messages are [defined](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg). Despite their names, the messages are generalized for use by systems other than dispensers as well. When a robot reaches the pickup waypoint where the loading workcell is located, its `rmf_fleet_adapter` publishes a `DispenserRequest` message which the workcell receives and begins processing. When the loading is successful, the workcell publishes a `DispenserResult` message with `SUCCESS` status. The `rmf_fleet_adapter` then instructs the robot to proceed to the dropoff waypoint where the unloading workcell retrieves the payload while exchanging a similar set of messages.
+A common use case is robots performing deliveries within facilities, so a `Delivery` task is configured into the `rmf_fleet_adapters`.
+In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
+The loading and unloading of the payload may be automated by a robot/workcell in the facility.
+To integrate these systems with RMF core systems, a set of [dispenser messages](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg) are defined.
+Despite their names, the messages are generalized for use by systems other than dispensers as well.
+When a robot reaches the pickup waypoint where the loading workcell is located, its `rmf_fleet_adapter` publishes a `DispenserRequest` message which the workcell receives and begins processing.
+When the loading is successful, the workcell publishes a `DispenserResult` message with `SUCCESS` status.
+The `rmf_fleet_adapter` then instructs the robot to proceed to the dropoff waypoint where the unloading workcell retrieves the payload while exchanging a similar set of messages.
 
-To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) have been designed. These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models), respectively.
+To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) have been designed.
+These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models), respectively.
 To setup a payload loading station in simulation:
 * Add a `TeleportDispenser` model beside the pickup waypoint and assign it a
-  unique `name`.
+  unique `name`
 * Add the payload model beside the `TeleportDispenser` model (Coke can in image below)
 
 To setup a payload unloading station in simulation:
 * Add a `TeleportIngestor` model beside the dropoff waypoint and assign it a
-  unique `name`.
+  unique `name`
 
 When a `DispenserRequest` message is published with `target_guid` matching the
 name of the `TeleportDispenser` model, the plugin will teleport the payload onto
@@ -327,15 +355,15 @@ plugins allow delivery requests to be simulated. In the future, these mechanisms
 will be replaced by actual workcells or robot arms but the underlying message
 exchanges will remain the same.
 
-![](images/dispensers.png)
+![TeleportDispenser and TeleportIngestor models](images/dispensers.png)
 
 ## Creating Simulations and Running Scenarios
 The section aims to provide an overview of the various components in the `rmf_demos` [repository](https://github.com/osrf/rmf_demos) which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the `office` world.
 
-#### Map package
+### Map package
 The `rmf_demo_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.
 
-![](images/rmf_demo_maps.png)
+![Robot spawn location properties](images/rmf_demo_maps.png)
 
 To export a 3D world file along with the navigation graphs, the `building_map_generator` script is used. The `CMakeLists.txt` file of this package is configured to automatically run the generator scripts when the package is built. The outputs are installed to the `share/` directory for the package. This allows for the generated files to be easily located and used by other packages in the demo.
 
@@ -387,8 +415,8 @@ endforeach()
 
 ```
 
-#### Launch Files
-The `demos` package includes all the essential launch files required to bring up the simulation world and start various RMF services. The office simulation is launched using the `office.launch.xml` file. First, a `common.launch.xml` file is loaded and this starts
+### Launch Files
+The `demos` package includes all the essential launch files required to bring up the simulation world and start various RMF services. The office simulation is launched using the `office.launch.xml` file. First, a `common.launch.xml` file is loaded and starts:
   * The `rmf_traffic_schedule` node responsible for maintaining the database of robot trajectories and monitoring traffic for conflicts. If a conflict is detected, notifications are sent to relevant fleet adapters which begin the negotiation process to find an optimal resolution.
   * The `building_map_server` which publishes a `BuildingMap` message used by UIs for visualization. The executable takes in the path to the relevant `.building.yaml` file as an argument. The `office.building.yaml` file installed by the `rmf_demo_maps` package is located using the `find-pkg-share` substitution command and is stored in the `config_file` argument.
   * The `rmf_schedule_visualizer` which is an RViz based UI to visualize the traffic lanes, actual positions of the robots, expected trajectory of robots as reflected in the `rmf_traffic_schedule` and states of building systems such as door and lifts.
@@ -443,10 +471,11 @@ Lastly, instances of the "full control" `rmf_fleet_adapter` are launched for eac
   </include>
 </group>
 ```
-When testing RMF with hardware, the same launch files can be used with noted exception of not starting `Gazebo`. More information on running demos with hardware can be found [here](hardware.md).
+When testing RMF with hardware, the same launch files can be used, with the exception of starting `Gazebo`.
+More information on running demos with hardware can be found [the chapter on Integration](integration.md).
 
 
-#### Task Requests
+### Task Requests
 With the office world launched, robots may be issued tasks to carry out. At present, the rmf_fleet_adapters are designed to fulfil two classes of tasks: 1) `Loop` requests where a robot is requested to loop between two waypoints and 2) `Delivery` requests which requires a robot to pick up a payload from a dispenser and drop it off at an unloading station. The `rmf_fleet_adapters` listen for `Loop` and `Delivery` request [messages](https://github.com/osrf/rmf_core/tree/master/rmf_task_msgs/msg) published over `/loop_requests` and `delivery_requests` topics respectively and assign the task to an available robot in their fleet.
 
 Note: the `perform_deliveries` parameter in the fleet adapter launch file must be set `true` to enable the given fleet to perform delivery requests. In the current version it is advised to have only one fleet of robots capable of fulfilling delivery requests as a "task allocator" is yet to be implemented.
@@ -463,6 +492,6 @@ usage: request_delivery [-h] [-p PICKUP] [-d DROPOFF] [-i TASK_ID]
                         [-r ROBOT_TYPE]
 ```
 
-As an alternative, UIs may be developed to send out these requests. More information can be found in the [UI](ui.md) chapter. The `rmf_demos` repository contains a `rmf_rviz_plugin` package which defines a custom Panel that can be used to send the above commands from RViz. A snapshot of the same is seen below.
+As an alternative, UIs may be developed to send out these requests. More information can be found in the [UI chapter](ui.md). The `rmf_demos` repository contains a `rmf_rviz_plugin` package which defines a custom panel that can be used to send the above commands from RViz. A snapshot of the same is seen below.
 
-![](images/rmf_panel.png)
+![Custom RMF panel in RViz](images/rmf_panel.png)
