@@ -11,7 +11,8 @@ Door integration is required when integrating RMF into a new environment. For ho
 
 Doors can be integrated with RMF using a ROS 2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component.
 
-<img src="images/doors_block_diagram.png">
+![Doors diagram](images/doors_block_diagram.png)
+<!--<img src="images/doors_block_diagram.png">-->
 
 The door node will have to be implemented based on the make and model of the door that is being integrated in order to address the specific API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of `REST`, `RPCXML`, etc. The door node is in charge of publishing its state and receiving commands over ROS 2, using the messages and topics listed below.
 

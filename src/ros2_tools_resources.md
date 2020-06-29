@@ -116,7 +116,7 @@ text. If you are in a minimal environment, such as a docker container, the local
 something minimal like POSIX. We test with the following settings. It
 should be fine if you're using a different UTF-8 supported locale.
 
-``` {.sourceCode .bash}
+```bash
 sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -131,7 +131,7 @@ secure location. To do this the computer will prompt you for your root
 password. For more technical readers we need to authorize the ROS GPG key with
 apt by typing the following command in the terminal:
 
-``` {.sourceCode .bash}
+```bash
 sudo apt update && sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 ```
@@ -145,20 +145,20 @@ programs) and then install ROS Eloquent. To do this we run the following
 commands. Be aware that these commands will download a lot of data and may take
 awhile. It is best to run these commands on your home network.
 
-``` {.sourceCode .bash}
+```bash
 sudo apt update
 ```
 
 Desktop Install (Recommended): ROS, RViz, demos, tutorials.
 
-``` {.sourceCode .bash}
+```bash
 sudo apt install ros-eloquent-desktop
 ```
 
 Next we'll install a set of tutorials called `TurtleSim`. To do this we run
 another apt command.
 
-``` {.sourceCode .bash}
+```bash
 sudo apt install ros-eloquent-turtlesim
 ```
 
@@ -166,7 +166,7 @@ ROS 2 command line tools use argcomplete for autocompletion. If you
 want autocompletion, installing argcomplete is necessary. We're also going to
 install a few other tools to make our lives easier.
 
-``` {.sourceCode .bash}
+```bash
 sudo apt install python3-argcomplete htop byobu
 ```
 
@@ -191,7 +191,7 @@ files to run ROS. To tell the operating system that we want to use ROS Eloquent
 we simply source the ROS Eloquent setup.bash file using the command below.
 
 
-``` {.sourceCode .bash}
+```bash
 source /opt/ros/eloquent/setup.bash
 ```
 
@@ -202,14 +202,14 @@ perform the communication. One program was written in C++ and the other in
 Python. Running these two different programs is a quick and easy way to check
 that your ROS system is configured correctly. To start the talker run the following command.
 
-``` {.sourceCode .bash}
+```bash
 source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_cpp talker
 ```
 
 If everything is working correctly you should see something like the following:
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 run demo_nodes_cpp talker
 [INFO] [talker]: Publishing: 'Hello World: 1'
 [INFO] [talker]: Publishing: 'Hello World: 2'
@@ -225,7 +225,7 @@ for you. Now in your new terminal source your bash file and run the following
 command.
 
 
-``` {.sourceCode .bash}
+```bash
 source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_py listener
 ```
@@ -233,7 +233,7 @@ ros2 run demo_nodes_py listener
 If everything is working correctly you should see something like the following:
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 run demo_nodes_py listener
 [INFO] [listener]: I heard: [Hello World: 264]
 [INFO] [listener]: I heard: [Hello World: 265]

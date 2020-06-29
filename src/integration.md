@@ -20,6 +20,6 @@ In this chapter, we will describe the integration requirements and basic steps t
 
 In general, all the interactions can be summed up with this system architecture diagram,
 
-<img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
+![RMF Diagram](https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png)
 
 RMF uses ROS 2 messages and topic interfaces. Hence, in most cases we use components called Adapters to bridge between the hardware interfaces and RMF with some exception for robot fleets which also have fleet drivers as part of the process. Robot fleets will be further elaborated in the next few sections.

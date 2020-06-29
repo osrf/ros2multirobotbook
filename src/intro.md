@@ -41,13 +41,13 @@ Historically ROS development has focused heavily on the software running on or n
 
 First and foremost, RMF is a collection of reusable, sclable libraries and tools building on top of ROS 2 which enable the interoperability of heterogeneous fleets of any type of robotic systems. RMF utilizes standardized communication protocals to infrastructure, environments and automation where robots are deployed to optimize the use of critical resources (i.e. robots, elevators/lifts, doors, passageways, etc). It adds intelligence to the system through resource allocation and by preventing conflicts over shared resources through the RMF Core which will be described in detail later in this book. RMF is flexible and robust enough to operate over virtually any communications layer and integrate with any number of IOT devices. The architecture of RMF is designed in such a way to allow scalability as the level of automation in an environment increases. There are various ways for systems and users to interact with RMF via APIs and customizable user interfaces. Once deployed in an environment, RMF will save cost by allowing resources to be shared and integrations to be minimized. In a nutshell, it is what robotic developers and robot customers have been looking for and here it is:
 
-![RMF Book Architecture Diagram](https://user-images.githubusercontent.com/43839559/84993483-e89e3e80-b17b-11ea-8bc9-0a0d559de3ba.png)
+![RMF Book Architecture Diagram](images/rmf_book_architecture_diagram.png)
 
 ## How does RMF make the magic happen?
 
 One of the principles of RMF's design is to simplify and standardaize messaging as much as possible. You can see in the below diagram of the RMF Core that all of the complex interactions and coordination is currently boiled down to only fourteen standard messages. 
 
-<img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
+![RMF Diagram](images/rmf_core_integration_diagram.png)
 
 We will explore each of these functional areas in more detail in later chapters of this book but for now we'd like to also introduce some of the other utilities that you will find helpful when developing and integrating with RMF.
 

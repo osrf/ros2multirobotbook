@@ -10,7 +10,8 @@ The communication between the `free_fleet` server and `free_fleet` clients is im
 
 In this section, we will address 4 different approaches of using `free_fleet` to integrate with RMF, specifically the navigation stack used by the robot. Each approach maintains a similar systems architecture, which is illustrated in the simple block diagram below, but there are specific examples depending on the software choice for the navigation stack used by the robot developer.
 
-<img src="images/free_fleet_block_diagram.png">
+![FreeFleet Diagram](images/free_fleet_block_diagram.png)
+<!--<img src="images/free_fleet_block_diagram.png">-->
 
 ## ROS 1 Navigation Stack
 
@@ -121,6 +122,7 @@ If required in the meantime, users can implement their own `free_fleet` client, 
 
 In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own `free_fleet` client wrapper. The block diagram below illustrate this configuration.
 
-<img src="images/free_fleet_custom_config.png">
+![Custom Diagram](images/free_fleet_custom_config.png)
+<!--<img src="images/free_fleet_custom_config.png">-->
 
 Once the developer's `free_fleet` client is fully functional, it will be a simple task of launching the same ROS 2 `free_fleet` server as mentioned earlier in this section to work with the fleet adapters through ROS 2 messages and topics.

@@ -101,9 +101,9 @@ Each mode has a unique set of tools while the following are common:
 
 |                    Icon                    |  Name  | Shortkey |               Function               |
 |:------------------------------------------:|:------:|:--------:|:------------------------------------:|
-| ![](images/traffic_editor/icons/select.svg) | Select |   `Esc`  | Select an entity in the `Working Area` |
-|  ![](images/traffic_editor/icons/move.svg)  |  Move  |    `m`   |  Move an entity in the `Working Area`  |
-| ![](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
+| ![](images/traffic_editor/icons/select.png) | Select |   `Esc`  | Select an entity in the `Working Area` |
+|  ![](images/traffic_editor/icons/move.png)  |  Move  |    `m`   |  Move an entity in the `Working Area`  |
+| ![](images/traffic_editor/icons/rotate.png) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
 
 The `SideBar` contains multiple tabs with various functionalities:
 * **levels:** to add a new level to the building. This can be done from scratch of by importing a floor plan image file
@@ -180,7 +180,7 @@ name: building
 ### Adding a vertex
 |                    Icon                    | Shortkey |
 |:------------------------------------------:| :-------:| 
-| ![](images/traffic_editor/icons/vertex.svg)| `v` |
+| ![](images/traffic_editor/icons/vertex.png)| `v` |
 
 A vertex is a fundamental component of multiple annotations. Walls,
 measurements, doors, floor polygons and traffic lanes are created from two or
@@ -226,7 +226,7 @@ parameters.
 ### Adding a Measurement 
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/measurement.svg)|
+| ![](images/traffic_editor/icons/measurement.png)|
 
 Adding a measurement sets the scale of the imported 2D drawing which is
 essential for simulation accuracy. Scalebars or reference dimensions in the
@@ -273,7 +273,7 @@ name: building
 ### Adding a wall
 |                    Icon                    | Shortkey |
 |:------------------------------------------:| :-------:| 
-| ![](images/traffic_editor/icons/wall.svg)| `w` |
+| ![](images/traffic_editor/icons/wall.png)| `w` |
 
 To annotate walls in the map, select the _Add Wall_ icon from the `Main Toolbar`
 and click on consecutive vertices that represent the corners of the wall. The
@@ -302,7 +302,7 @@ start and end vertices of the wall segment along with an empty parameter set.
 ### Adding a floor
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/floor.svg)|
+| ![](images/traffic_editor/icons/floor.png)|
 
 Flooring is essential for simulations as it provides a ground plane for the
 robots to travel over. Floors are annotated using the _Add floor polygon_ tool
@@ -331,7 +331,7 @@ Each polygon is stored in the `tutorial.building.yaml` file in the format below.
 ### Adding a door
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/door.svg)|
+| ![](images/traffic_editor/icons/door.png)|
 
 A door between two vertices can be added in _Building_ edit mode by selecting
 the _Add door_ tool from the `Main Toolbar`, and clicking on vertices
@@ -470,7 +470,7 @@ maps can be made to overlap.
 ### Adding fiducials
 |                    Icon                    |
 |:------------------------------------------:|
-| ![](images/traffic_editor/icons/fiducial.svg)| 
+| ![](images/traffic_editor/icons/fiducial.png)| 
 
 For maps with multiple levels, fiducials provide a means to scale and align
 different levels with respect to a reference level. This is crucial for ensuring

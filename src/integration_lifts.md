@@ -10,7 +10,8 @@ Elevator integration will allow RMF to work over multiple levels, resolving conf
 
 The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other.
 
-<img src="images/lifts_block_diagram.png">
+![Lifts Diagram](images/lifts_block_diagram.png)
+<!--<img src="images/lifts_block_diagram.png">-->
 
 The lift node will act as a driver to work with the lift controller. An example of a lift node can be found in this [repository](https://github.com/sharp-rmf/kone_lift_controller). The node will publish its state and receive lift requests over ROS 2, using the messages and topics listed below.
 

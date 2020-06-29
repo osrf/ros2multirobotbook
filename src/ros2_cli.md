@@ -31,7 +31,7 @@ learn the two magic commands? The first command simply tells your computer that
 you are using ROS, and what version of ROS you want to use. Let's take a look at
 the magic command, you've actually already seen it before:
 
-``` {.sourceCode .bash}
+```bash
 source /opt/ros/eloquent/setup.bash
 ```
 
@@ -50,7 +50,7 @@ there is to it. Almost everything in the ROS 2 CLI starts with `ros2`. Go ahead,
 try it, in the same shell where you just sourced the setup file. If everything
 is working correctly you should see the following:
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2
 usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
 
@@ -113,7 +113,7 @@ is `run`. Let's start by looking at the documentation for the run command. First
 we'll type `ros2 run` and see what happens. Give it a try, you won't break
 anything.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 run
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 ros2 run: error: the following arguments are required: package_name, executable_name, argv
@@ -124,7 +124,7 @@ complete information about a ROS 2 command, simply ask the command for help by
 adding `--help` to the command. Let's try that again.
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 run --help
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 
@@ -180,7 +180,7 @@ complete!). Your command should look like the following:
 
 If everything goes smoothly you should see the following
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 run turtlesim turtlesim_node
 [INFO] [turtlesim]: Starting turtlesim with node name /turtlesim
 [INFO] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
@@ -190,7 +190,7 @@ A window should also pop up with a cute little turtle that looks like the one
 below.
 
 
-![image](./images/turtle.png)
+![image](./images/turtlesim_start.png)
 
 
 The real power in ROS, isn't that it can run a program, it is that it can run
@@ -207,7 +207,7 @@ yourself. If everything works you should have typed the following, and the
 following output should be visible.
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ source /opt/ros/eloquent/setup.bash
 kscottz@kscottz-ratnest:~$ ros2 run turtlesim draw_square
 [INFO] [draw_square]: New goal [7.544445 5.544445, 0.000000]
@@ -274,7 +274,7 @@ information for the `topic` command. To do this we'll run: `ros2 topic --help`.
 
 This command outputs the following:
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 topic --help
 usage: ros2 topic [-h] [--include-hidden-topics]
                   Call `ros2 topic <command> -h` for more detailed usage. ...
@@ -308,7 +308,7 @@ pattern let's try running `ros2 topic list --help`.
 
 
 
-``` {.sourceCode .bash}
+```bash
 usage: ros2 topic list [-h] [--spin-time SPIN_TIME] [-t] [-c]
                        [--include-hidden-topics]
 
@@ -336,7 +336,7 @@ with a single dash ("-"), and a long form indicated by a double dash
 the same thing. Let's try running this command, sub command pair with the
 `-show-types` argument.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 topic list --show-types
 /parameter_events [rcl_interfaces/msg/ParameterEvent]
 /rosout [rcl_interfaces/msg/Log]
@@ -359,7 +359,7 @@ One of the more commonly used topic sub commands for the topic command is
 `info`. Unsurprisingly, `info` provides info about a topic.  Let's peek at its
 help file using `ros2 topic info --help`
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info --help
 usage: ros2 topic info [-h] topic_name
 
@@ -375,7 +375,7 @@ optional arguments:
 That seems pretty straight forward. Let's give it a go by running it on
 `/turtle1/pose`
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic info /turtle1/pose
 Type: turtlesim/msg/Pose
 Publisher count: 1
@@ -420,7 +420,7 @@ structure transferred by this topic by running: `ros2 interface show`
 sub command and giving the message type name as an input. Let's look at the help
 for this sub command and its output:
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show --help
 usage: ros2 interface show [-h] type
 
@@ -459,7 +459,7 @@ computer jargon that means "repeat" something. If you echo a topic it means you
 want the CLI to repeat what's on a topic. Let's look at the `echo` sub command's
 help text:
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 topic echo --help
 usage: ros2 topic echo [-h]
                        [--qos-profile {system_default,sensor_data,services_default,parameters,parameter_events,action_status_default}]
@@ -513,7 +513,7 @@ use `CTRL-C` to stop command and stop all the output. Let's take a look at the
 `/turtle1/pose` topic.
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose
 x: 5.4078755378723145
 y: 7.081490516662598
@@ -562,7 +562,7 @@ review or analysis. To do this file saving in linux we use the `>` character
 followed by a file name. Below I show two examples of using the `--csv`
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic echo /turtle1/pose --csv
 7.097168922424316,8.498645782470703,2.442624092102051,0.0,0.4000000059604645
 7.097168922424316,8.498645782470703,2.449024200439453,0.0,0.4000000059604645
@@ -592,7 +592,7 @@ bandwidth data, which might move a radio show. Let's take a look at the help
 for these two commands.
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic hz --help
 usage: ros2 topic hz [-h] [--window WINDOW] [--filter EXPR] [--wall-time]
                      topic_name
@@ -634,7 +634,7 @@ size. The default value for window is 100, so when you call `ros2 topic bw` it
 will first collect 100 messages then use that data to calculate the average
 message size. Let's give it a shot (use `TAB` to complete and `CTRL-C` to exit)
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic hz /turtle1/pose
 average rate: 60.021
 	min: 0.001s max: 0.073s std dev: 0.00731s window: 65
@@ -666,7 +666,7 @@ command / sub command pair. Both the `topic type` and `topic interface` command
 / sub command pairs have a very limited set of optional arguments, so we simply
 provide them with our desired topic or message type. Let's take a look at these two commands together: 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
 Print a topic's type
@@ -710,7 +710,7 @@ command we'll issue a message to rotate and stop  our turtle by publishing
 to the `/turtle1/cmd_vel/` topic. Let's first take a look at the `topic pub`
 documentation before we construct our command:
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic pub --help
 usage: ros2 topic pub [-h] [-r N] [-p N] [-1] [-n NODE_NAME]
                       [--qos-profile {system_default,sensor_data,services_default,parameters,parameter_events,action_status_default}]
@@ -766,7 +766,7 @@ message types so we'll have to query the base message type. Here's a rough summa
 
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 topic type /turtle1/cmd_vel 
 geometry_msgs/msg/Twist
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook$ ros2 interface show geometry_msgs/msg/Twist
@@ -819,7 +819,7 @@ running. Let's dig in a bit by restarting our turtle simulation in a terminal
 using `ros2 run turtlesim turtlesim_node`. Now in a new terminal let's first
 examine what `ros2 node` has to offer by asking for help.
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 node --help
 usage: ros2 node [-h]
                  Call `ros2 node <command> -h` for more detailed usage. ...
@@ -839,7 +839,7 @@ Much like topics we see two sub commands, `info` and `list`. Node list works muc
 same as topic list and simply prints a list of all running nodes. Let's see what
 is running on our system. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 node list
 /turtlesim
 ```
@@ -850,7 +850,7 @@ give it. Let's call it with our single ROS Node `/turtlesim` as its
 argument.
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 node info /turtlesim
 /turtlesim
   Subscribers:
@@ -894,7 +894,7 @@ The command line interface for services and actions are very similar, in fact
 the both have only four sub commands. Let's run the `action` and `service`
 commands and compare them.
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 action --help
 usage: ros2 action [-h]
                    Call `ros2 action <command> -h` for more detailed usage.
@@ -914,7 +914,7 @@ Commands:
   Call `ros2 action <command> -h` for more detailed usage.
 ```
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 service --help
 usage: ros2 service [-h] [--include-hidden-services]
                     Call `ros2 service <command> -h` for more detailed usage.
@@ -944,7 +944,7 @@ In this case it would be much more efficient to use the list commands for the
 action and service commands. We can run these commands below and see that we get
 roughly the same list of actions and services listed in our single nodes. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 service list
 /clear
 /kill
@@ -971,7 +971,7 @@ used by a particular service. We can find specifics of the message by using the
 `interface show` command. Let's see this in practice with the `spawn` service.
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 service type /spawn
 turtlesim/srv/Spawn
 kscottz@kscottz-ratnest:~$ ros2 interface show turtlesim/srv/Spawn
@@ -991,7 +991,7 @@ calculations.
 
 Let's examine the help for calling a service by running `ros2 service call --help`.
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 service call --help
 usage: ros2 service call [-h] [-r N] service_name service_type [values]
 
@@ -1016,7 +1016,7 @@ encase the string in single quotes.  Let's give it a whirl by creating a turtle
 named `larry` at a position where all values are zero (tab complete is your
 friend). 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 0, y: 0, theta: 0.0, name: 'larry'}"
 requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, name='larry')
 
@@ -1051,7 +1051,7 @@ our ROS system by using the `action list`, `action show`, and `action info`
 commands. Recall, that when we called `ros2 action list` we got a single
 service. Now that we have "larry" things have changed. Let's take a look.
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 action list
 /larry/rotate_absolute
 /turtle1/rotate_absolute
@@ -1062,7 +1062,7 @@ Now there are two actions available, one for Larry and one for his friend
 "turtle1"! Let's rotate turtle1 to face Larry. First we'll call `action info`
 using `/turtle1/rotate_absolute` as the input and see what we get. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 action info /turtle1/rotate_absolute
 Action: /turtle1/rotate_absolute
 Action clients: 0
@@ -1075,7 +1075,7 @@ helpful. Why don't we look at the `action send_goal` help and see if we can
 figure out how to use it. 
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 action send_goal --help
 usage: ros2 action send_goal [-h] [-f] action_name action_type goal
 
@@ -1100,7 +1100,7 @@ We see each of our turtles have one service called `rotate_absolute`.
 Let's dig into this action using the info verb. This command has a `-t`
 flag to list the types of messages.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 action info /moe/rotate_absolute -t
 Action: /moe/rotate_absolute
 Action clients: 0
@@ -1123,7 +1123,7 @@ Let's understand the `RotateAbsolute` action message
 The `ros2 interface show` command can be used to find the type of action
 message. Let's take a look.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 interface show turtlesim/action/RotateAbsolute
 # The desired heading in radians
 float32 theta #< --- This section is the GOAL 
@@ -1146,7 +1146,7 @@ What does this say about rotate absolute?
 With this information we can create our call to the action server. We'll
 use the `-f` flag to make this a bit clearer. Keep an eye on your turtle! It should move, slowly.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 action send_goal -f /turtle1/rotate_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
 Waiting for an action server to become available...
 Sending goal:
@@ -1191,7 +1191,7 @@ parameter called "MAX\_SPEED" that is visible to all the nodes.
 
 Let's take a look at the high level param command by running `ros2 param --help`.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 param --help
 Various param related sub-commands
 
@@ -1210,7 +1210,7 @@ first. Let's see what the docs say about the list command and then see what
 happens when we call the sub command.
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 param list --help
 usage: ros2 param list [-h] [--spin-time SPIN_TIME] [--include-hidden-nodes]
                        [--param-prefixes PARAM_PREFIXES [PARAM_PREFIXES ...]]
@@ -1254,7 +1254,7 @@ the forward slash in front of it, namely `/turtlesim`. The syntax for `param
 get` is `ros2 param get <node_name> <param>`. Let's give it a whirl and see our
 current background color values. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 param get /turtlesim background_b
 Integer value is: 255
 kscottz@kscottz-ratnest:~$ ros2 param get /turtlesim background_g
@@ -1273,7 +1273,7 @@ of constructing a service call. Let's try setting our background color's blue
 component to 128. 
 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 param set turtlesim background_b 128
 Set parameter successful
 kscottz@kscottz-ratnest:~$ ros2 service call /reset std_srvs/srv/Empty 
@@ -1303,7 +1303,7 @@ the terminal. If you get an error you might need to install ROS Bag as it is
 often in a separate package. On Linux you can run `sudo apt install
 ros-eloquent-ros2bag` and it should automatically install the package for you. 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 bag -h
 usage: ros2 bag [-h] Call `ros2 bag <command> -h` for more detailed usage. ...
 
@@ -1329,7 +1329,7 @@ terminal we can bag some data by running the bag command. Let's first look at
 the record sub command by running `ros2 bag record -h`
 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 bag record -h 
 usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
                        [-f SERIALIZATION_FORMAT] [--no-discovery]
@@ -1379,7 +1379,7 @@ it.
 
 Here's my example.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 bag record /turtle1/pose -o turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 [INFO] [rosbag2_transport]: Listening for topics...
@@ -1392,7 +1392,7 @@ Now that we collected our data let's inspect our bag file. You can introspect
 any bag file using the `ros2 bag info` command. This command will list the
 messages in the bag, the duration of file, and the number of messages.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 bag info turtle1
 Files:             turtle1.db3
 Bag size:          268.4 KiB
@@ -1412,7 +1412,7 @@ To replay the bag, first use `CTRL+C` to turn off the main
 turtle node and the `draw_square` node. Now in a new terminal replay the bag
 file using the following command:
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~$ ros2 bag play turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 ```
@@ -1421,7 +1421,7 @@ Nothing should happen visibly, but a lot is happening under the hood.
 To see what is happening go to a second terminal. Just like a running robot,
 you should be able to `list` and `echo` topics. See my example below.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@ade:~ros2 topic list
 /parameter_events
 /rosout
@@ -1456,7 +1456,7 @@ on-line forum providing detailed and complete information about your ROS system
 can go a long way to solving your problem. Let's call `--help` on the ROS 2
 doctor command. 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 doctor --help
 usage: ros2 doctor [-h] [--report | --report-failed] [--include-warnings]
 
@@ -1494,7 +1494,7 @@ information.
 To better understand the interface command let's start by looking at its high
 level help command to see what sub commands are available. 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface --help
 usage: ros2 interface [-h]
                       Call `ros2 interface <command> -h` for more detailed
@@ -1527,7 +1527,7 @@ insensitive manner using the `-i` flag followed by the text you want to search
 for. We can tie this CLI tool to our interface tool by using the UNIX pipe operator `|`. The example below
 shows you how to use the list operation and then how to use it to do a search. 
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --only-msgs 
 Messages:
     action_msgs/msg/GoalInfo
@@ -1558,7 +1558,7 @@ you can use `grep` just like before to search for your specific interest. The
 example below shows you how to first determine if `std_msgs` is installed and
 then to find out what sort of array types it contains.
 
-``` {.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface packages
 action_msgs
 action_tutorials_interfaces
@@ -1652,7 +1652,7 @@ launch files are fairly simple as the are simply instructions to start multiple
 programs like a shell script. To illustrate this command let's take a look at
 its help file. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 launch -h
 usage: ros2 launch [-h] [-d] [-p | -s] [-a]
                    package_name [launch_file_name]
@@ -1692,7 +1692,7 @@ what arguments it needs the `--print` and `--show-args` commands will tell you
 this information. Let's read up on the `multisym.launch.py` launch file and then
 run it following the example below (end the simulation with `CTRL-C`):
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '<name>:=<value>'):
 
@@ -1724,7 +1724,7 @@ docs give a great primer on the states and transitions in a lifecycle
 node.](http://design.ros2.org/articles/node_lifecycle.html). Let's look at the
 `lifecycle` command to determine what sub commands are available. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 lifecycle -h
 usage: ros2 lifecycle [-h]
                       Call `ros2 lifecycle <command> -h` for more detailed
@@ -1774,7 +1774,7 @@ executables contained within each package. These tools are particularly useful
 for understanding an existing robot configuration and finding tools that are
 only used on occasion. Let's start by taking a look at the top level help file for the `pkg` command.
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 pkg -h
 usage: ros2 pkg [-h] Call `ros2 pkg <command> -h` for more detailed usage. ...
 
@@ -1806,7 +1806,7 @@ single optional argument `--full-path` which will output the full path to all
 the executable programs. The example below shows an example of how to use these
 commands to check the path for all of the turtlesim executables. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
 turtlesim
 kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
@@ -1830,7 +1830,7 @@ this command to get just the info you need. The example below shows and
 example. The example below shows an example of `xml` and `prefix` used to find
 the directory of turtlesim, its maintainer, and its license. 
 
-```{.sourceCode .bash}
+```bash
 kscottz@kscottz-ratnest:~$ ros2 pkg prefix turtlesim
 /opt/ros/eloquent
 kscottz@kscottz-ratnest:~$ ros2 pkg xml turtlesim | grep maintainer

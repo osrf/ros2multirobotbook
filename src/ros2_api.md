@@ -25,7 +25,7 @@ and/or violate various conventions and patterns.
 Publishing data with ROS is easy. Here is a complete Python program that
 publishes string messages:
 
-``` {.sourceCode .py}
+```python
 from time import sleep
 import rclpy
 from std_msgs.msg import String
@@ -49,7 +49,7 @@ sourced your ROS setup file as we discussed earlier; e.g., `source
 it `talker.py`, then feed it to your Python3 interpreter:
 
 
-``` {.sourceCode .bash}
+```bash
 $ python3 talker.py
 ```
 
@@ -64,7 +64,7 @@ So it prints to console. But is the data going anywhere? We can check
 our work using the `ros2 topic` tool that was introduced earlier. In
 another shell (leave your talker running):
 
-``` {.sourceCode .bash}
+```bash
 $ ros2 topic echo chatter
 ```
 
@@ -82,7 +82,7 @@ So we have a working talker. Now we can add our own listener to use in
 place of `ros2 topic`. Here is a complete Python program that subscribes
 to string messages and prints them to console:
 
-``` {sourceCode .py}
+```python
 import rclpy
 from std_msgs.msg import String
 
@@ -99,7 +99,7 @@ Try it out yourself. Copy the code block above into a file and call it
 `listener.py`. With your talker still running in one shell, start up your
 listener in another shell:
 
-``` {sourceCode .bash}
+```bash
 $ python3 listener.py
 ```
 
@@ -115,7 +115,7 @@ I heard: "Hello world: 37"
 Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:
 
-``` {sourceCode .py}
+```python
 import rclpy
 from std_msgs.msg import String
 ```
@@ -130,7 +130,7 @@ would `from sensor_msgs.msg import Image`.
 
 After the imports, both programs perform common initialization:
 
-``` {sourceCode .py}
+```python
 rclpy.init()
 node = rclpy.create_node('my_node_name')
 ```
@@ -141,7 +141,7 @@ We initialize the `rclpy` library and then call into it to create a
 
 In the talker, we use the `Node` object to create a `Publisher` object:
 
-``` {sourceCode .py}
+```python
 pub = node.create_publisher(String, 'chatter', 10)
 ```
 
@@ -155,7 +155,7 @@ The equivalent step in the listener is to create a `Subscription`
 object:
 
 
-``` {sourceCode .py}
+```python
 sub = node.create_subscription(String, 'chatter', cb, 10)
 ```
 
@@ -165,7 +165,7 @@ setting an analogous maximum queue size for inbound messages. The key
 difference is the `cb` argument, which refers to this *callback*
 function that we also defined in the listener:
 
-``` {sourceCode .py}
+```python
 def cb(msg):
     print(f'I heard: "{msg.data}"')
 ```
@@ -177,7 +177,7 @@ we simply print the content to console.
 With the callback defined and the `Subscription` created, the rest of
 the listener is one line:
 
-``` {sourceCode .py}
+```python
 rclpy.spin(node)
 ```
 
@@ -186,7 +186,7 @@ arrive (and more generally for events to occur) and invoke our callback.
 
 Back in the talker, we create a simple loop to use our `Publisher`:
 
-``` {sourceCode .py}
+```python
 msg = String()
 i = 0
 while rclpy.ok():
@@ -206,7 +206,7 @@ it, sleeping briefly between iterations.
 Now we will write the same talker and listener pair, this time in C++.
 
 Here is a complete C++ program that publishes string messages:
-``` {sourceCode .cpp}
+```c++
 #include <unistd.h>
 #include <iostream>
 #include "rclcpp/rclcpp.hpp"
@@ -251,7 +251,7 @@ and the CMake code into a file called `CMakeLists.txt`. Have them
 side-by-side in a directory and then invoke `cmake` followed by `make`:
 
 
-``` {sourceCode .bash}
+```bash
 $ cmake .
 $ make
 ```
@@ -259,7 +259,7 @@ $ make
 You should end up with a compiled executable called `talker`. Run it:
 
 
-``` {sourceCode .bash}
+```bash
 $ ./talker
 ```
 
@@ -273,7 +273,7 @@ Publishing: "Hello world: 2"
 Keep the talker running and another shell try `ros2 topic` to listen
 in:
 
-``` {.sourceCode .bash}
+```bash
 $ ros2 topic echo chatter
 ```
 
@@ -291,7 +291,7 @@ Now we can write our own listener to use in place of `ros2 topic`. Here
 is a complete C++ program that subscribes to string messages and prints
 them to console:
 
-``` {sourceCode .cpp}
+```c++
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -322,7 +322,7 @@ target_link_libraries(listener ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
 
 Configure and build again:
 
-``` {sourceCode .bash}
+```bash
 $ cmake .
 $ make
 ```
@@ -331,7 +331,7 @@ Now you should have also have a `listener` executable. With your talker
 still running in one shell, start up your listener in another shell:
 
 
-``` {sourceCode .bash}
+```bash
 $ ./listener
 ```
 
@@ -347,7 +347,7 @@ I heard: "Hello world: 37"
 Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:
 
-``` {sourceCode .cpp}
+```c++
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 ```
@@ -362,7 +362,7 @@ would `#include "sensor_msgs/msg/image.hpp"`.
 
 After the imports, both programs perform common initialization:
 
-``` {sourceCode .cpp}
+```c++
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("my_node_name");
 ```
@@ -373,7 +373,7 @@ We initialize the `rclcpp` library and then call into it to create a
 
 In the talker, we use the `Node` object to create a `Publisher` object:
 
-``` {sourceCode .cpp}
+```c++
   auto pub = node->create_publisher<std_msgs::msg::String>("chatter", 10);
 ```
 
@@ -387,7 +387,7 @@ The equivalent step in the listener is to create a `Subscription`
 object:
 
 
-``` {sourceCode .cpp}
+```c++
   auto sub = node->create_subscription<std_msgs::msg::String>("chatter", 10, cb);
 ```
 
@@ -397,7 +397,7 @@ setting an analogous maximum queue size for inbound messages. The key
 difference is the `cb` argument, which refers to this *callback*
 function that we also defined in the listener:
 
-``` {sourceCode .cpp}
+```c++
 void cb(const std_msgs::msg::String::SharedPtr msg)
 {
   std::cout << "I heard: " << msg->data << std::endl;
@@ -411,7 +411,7 @@ we simply print the content to console.
 With the callback defined and the `Subscription` created, the rest of
 the listener is one line:
 
-``` {sourceCode .cpp}
+```c++
   rclcpp::spin(node);
 ```
 
@@ -420,7 +420,7 @@ arrive (and more generally for events to occur) and invoke our callback.
 
 Back in the talker, we create a simple loop to use our `Publisher`:
 
-``` {sourceCode .cpp}
+```c++
   std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
