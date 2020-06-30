@@ -1,8 +1,8 @@
 ROS Resources
 =============
 
-The most up to date to date information about ROS can be found on the web and
-there are a myriad of resources on-line to help you out in your educational or
+The most up to date information about ROS can be found on the web. There are a
+myriad of resources on-line to help you out in your educational or
 practical journey. One thing to keep in mind is that ROS, like most software,
 has different versions, and the format and structure of commands and API calls
 may differ slightly between versions (although the developers try to keep things
@@ -22,73 +22,69 @@ ROS version to your search. Moreover, when seeking help or posting questions
 online you should always specify the version of ROS version you are using.
 
 
-ROS grew up with the modern web, and as such it has a variety of tools and
+ROS grew up with the modern web, and as such it has a variety of resources and
 forums to help you solve problems and learn about the API and tools. Some of our
 web resources actually pre-date more widely used systems, so it helps to know
 where they are and how to use them. Probably the most important resource on the
 web for ROS users is [answers.ros.org](http://anwers.ros.org). Answers is a Q&A
 website similar to StackOverflow. Once you register for Answers you can ask or
-answer any question ROS related. Be aware that asking a question well can be
+answer any ROS-related question. Be aware that asking a question well can be
 difficult. You should include as much information as possible to help others
 answer your question. This means you should include the ROS version, any
 debugging or stack trace information you have, and the offending source code.
 
 Aside from ROS Answers you should check out both the ROS 2 tutorials and API
-documentation and the ROS 1 wiki. The ROS 1 wiki can be found at
-[<http://wiki.ros.org/>](http://wiki.ros.org/) and while it is specifically
+documentation, and the ROS 1 wiki. The ROS 1 wiki can be found at
+[wiki.ros.org](http://wiki.ros.org/). While it is specifically
 dedicated to ROS 1, much of the information is still relevant to ROS 2. If you
-are searching for up to date ROS 2 information your go to source for this
-information is the ROS 2 tutorials and API documents located at
-[<https://index.ros.org/doc/ros2/>](https://index.ros.org/doc/ros2/). Many of
+are searching for up to date ROS 2 information, your go to source is the ROS 2 tutorials and API documents located at
+[index.ros.org/doc/ros2](https://index.ros.org/doc/ros2/). Many of
 the tutorials you will find in this book pull directly from this body of
 work. If you would like to find the latest ROS news and discuss various ROS
-features the ROS Discourse forum at
-[<https://discourse.ros.org/>](https://discourse.ros.org/) is your best bet. ROS
+features, the ROS Discourse forum at
+[discourse.ros.org](https://discourse.ros.org/) is your best bet. ROS
 discourse is the community hub where developers discuss their latest projects
 and debate the finer points of ROS development.
 
-For ROS application developers there are number of tools to help you connect
+For ROS application developers there are a number of tools to help you connect
 with the broader ROS developer community. Open Robotics supports
-[index.ros.org](https://index.ros.org/) which is an extended list of ROS
+[index.ros.org](https://index.ros.org/), which is an extended list of ROS
 packages sorted by version. If you are searching for a ROS driver for a
-particular piece of hardware then the index is a great place to start. If you
+particular piece of hardware, then the index is a great place to start. If you
 find a package with failing tests, or would like to know the build status of any
-ROS package at [build.ros.org](http://build.ros.org/). Similarly, for un-indexed
-packages [GitHub maintains a ROS code
-tag](https://github.com/topics/ros?o=desc&s=updated). This tag will allow you to
-search all of the tagged repositories that are publicly listed. At the time of
-writing there were close to 4000 repositories listed on github, so there is a
+ROS package, take a look at [build.ros.org](http://build.ros.org/). Similarly, for un-indexed
+packages [GitHub maintains a ROS code tag](https://github.com/topics/ros?o=desc&s=updated).
+This tag will allow you to search all of the tagged repositories that are publicly listed.
+At the time of writing there were close to 4000 repositories listed on GitHub, so there is a
 pretty good chance you'll find what you need.
 
 
 Finally, there are a variety of unofficial resources that you should be aware of
 that can be useful, particularly if you want to keep yourself up to date with
-the latest ROS projects and features. Both [Open
-Robotics](https://twitter.com/openroboticsorg) and
+the latest ROS projects and features. Both [Open Robotics](https://twitter.com/openroboticsorg) and
 [ROS](https://twitter.com/rosorg) maintain  twitter feeds to share the latest
 news. We also have a yearly ROS developers conference called
 [ROSCon](https://roscon.ros.org/2020/); most talks are freely available
-on the web. There are a few other resources that can also be useful including the [ROS
-subreddit](https://www.reddit.com/r/ROS/) an "unofficial" [ROS Discord](https://discord.com/invite/HnVcz5a).
+on the web. There are a few other resources that can also be useful including the [ROS subreddit](https://www.reddit.com/r/ROS/)
+and an "unofficial" [ROS Discord](https://discord.com/invite/HnVcz5a).
 
 Setting Up Your Computer
 ===
 
 For this chapter we assume that you are working on a modern desktop with a
-discrete graphics card. While a graphics card isn't necessary for this chapter
+discrete graphics card. While a graphics card isn't necessary for this chapter,
 later chapters will be graphics intensive and having one will greatly improve
 the end user experience. Moreover, this book assumes you are working with the
 Ubuntu Linux 20.04 operating system. While other operating systems are supported
 by ROS 2, all of the tutorials and instructions on this book assume you are
-running Linux. If instead use a Mac or Windows PC you can either install ROS 2
-Eloquent Elusor using the instructions found in the [ROS 2 installation
-instructions](https://index.ros.org/doc/ros2/Installation/Eloquent/). An
-alternative path for installation on Mac and PC is to using a virtual
+running Linux. If instead you're using a Mac or Windows PC, you can install ROS 2
+Eloquent Elusor using the instructions found on the [ROS 2 installation instructions](https://index.ros.org/doc/ros2/Installation/Eloquent/)
+page. An alternative path for installation on Mac and PC is to using a virtual
 machine. Roughly the process for doing so is as follows:
 
 1. Install virtual machine software like [Virtual
    Box](https://www.virtualbox.org/) or
-   [VMWare](https://www.vmware.com/products/workstation-pro.html). On your host
+   [VMWare](https://www.vmware.com/products/workstation-pro.html) on your host
    machine.
 1. Create a virtual machine using the software, and install [Desktop Ubuntu 18.04 Bionic
    Beaver from the Canonical website.](https://ubuntu.com/download/desktop)
