@@ -82,3 +82,74 @@ Open-source and freely distributable [assets](https://app.ignitionrobotics.org/f
 ## Jump in, the water is fine!
 
 So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the [RMF Demos](https://github.com/osrf/rmf_demos) repository and if you want a really quick overview of RMF then take a look at this [Mock Airport Terminal video demo](https://vimeo.com/405803151) (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!
+
+### Installation of the RMF Essentials
+
+As RMF makes heavy use of the ROS and Gazebo-Ignition ecosystem, we will have to setup their repositories as the first steps of the RMf installation process. The current binary release targets ubuntu bionic, therefore make sure you match the system and version before proceeding with the installation.
+
+#### Setup Locale
+
+Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale.
+
+```
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
+
+#### Setup ROS Sources
+
+You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:
+
+```
+sudo apt update && sudo apt install curl gnupg2 lsb-release
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+```
+
+And then add the repository to your sources list:
+
+```
+sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+```
+
+#### Setup Ignition-Gazebo Sources
+
+The same way we added ROS 2 repositories we follow with the igintion-gazebo ones. Let's authorize the key:
+
+```
+curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
+```
+
+And add the repository to our sources list:
+
+```
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+```
+
+#### Setup Sources and Installation of RMF 
+
+On the last step we setup the source of RMF packages similarly to the previous two. First autorzing the key:
+
+```
+curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
+```
+
+Secondly adding the repository to the apt sources:
+
+```
+sudo sh -c 'echo "deb http://rmf.servehttp.com/ubuntu/main/ bionic main" > /etc/apt/sources.list.d/rmf.list'
+```
+
+And now we are ready to install. Let's update our packages:
+
+```
+sudo apt-get update
+```
+
+Finally this installs a basic set of packages that should get you going with RMF:
+
+```
+sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
+```
+
+We encourage you to keep exploring the documentation to learn about the features of these and the rest of the packages!
