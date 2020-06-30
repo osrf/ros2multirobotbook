@@ -128,7 +128,7 @@ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `ls
 
 #### Setup Sources and Installation of RMF 
 
-On the last step we setup the source of RMF packages similarly to the previous two. First autorzing the key:
+Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:
 
 ```
 curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
