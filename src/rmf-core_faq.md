@@ -53,14 +53,13 @@ The recommended way to construct a navigation graph is to use the
 `traffic-editor` project files.
 
 However, it's entirely possible to construct your own navigation graphs. They
-use a very simple yaml format.
+use YAML format.
 
 ### Are lifts supported?
 
 Proper lift support (meaning, specifying an actual lift that can move between
 floors, and exporting that information into the navigation graph) is not
-something that has been developed yet due to time constraints and the need to
-prioritize certain features over others.
+something that has been developed yet.
 
 However, for testing and demonstration purposes, there are two special
 navigation graph edge properties that can allow a RMF fleet adapter to emulate
@@ -109,44 +108,45 @@ waypoint on L3, the robot needs to:
 A rough ASCII diagram would look like this (numbers are waypoints and letters
 are edges):
 
-```1 <---a---> 2 <---b---> 3```
+```
+1 <---a---> 2 <---b---> 3
+```
 
  * Waypoint 1 is on floor L1
  * Waypoint 2 is inside the "lift" named LIFT001
  * Waypoint 3 is on floor L3
- * The properties of edge a are:
+ * The properties of edge `a `are:
    * bidirectional: true
    * demo_mock_floor_name: L1
    * demo_mock_lift_name: LIFT001
- * The properties of edge b are:
+ * The properties of edge `b` are:
    * bidirectional: true
    * demo_mock_floor_name: L3
    * demo_mock_lift_name: LIFT001
 
 ### If multiple fleets can do the same task, which one is one chosen?
 
-It's not implemented yet, but there's a design worked out for a bidding system
+Though not implemented yet, there is a design worked out for a bidding system
 where a task request will be converted to a bid request. The bid request will
 be sent to each fleet adapter, and each fleet adapter that can perform the task
 will report its best estimate for how soon it would be able to have the task
 finished. The fleet adapter that offers the lowest bid will be assigned the
 task.
 
-The API and implementation for this is on the backburner right now as we
-finalize some of the more critical components.
+The API and implementation are awaiting finalization of some critical components.
 
 ### Can some robots have priority over other robots?
 
 The negotiation system concept does support prioritization for which robot will
 accommodate the other robot(s). Any arbitrary metric or weighting system can be
 used when resolving a negotiation. But in the current implementation that we
-are using, we are treating all vehicles as equal and choosing the resolution
+are using, we treat all vehicles as equal and choose the resolution
 that minimizes the net delay across all the robots, without any prioritization
 or weighting.
 
 Since this codebase is open source, you can easily fork the code and modify it
 to use any prioritization system that you'd like. Specifically, replace
-`rmf_traffic::schedule::QuickestFinishEvaluator()` your own
+`rmf_traffic::schedule::QuickestFinishEvaluator()` with your own
 `Negotiation::Evaluator` class that behaves in whatever way you would like.
 
 ### What distance is maintained between two robots?
