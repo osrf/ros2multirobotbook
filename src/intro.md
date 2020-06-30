@@ -120,7 +120,7 @@ You will also need to add the Ignition-Gazebo apt repositories similar to the RO
 curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
 ```
 
-And add the repository to our sources list:
+You will also need to add the repository to your sources list:
 
 ```
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
