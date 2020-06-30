@@ -114,7 +114,7 @@ sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.or
 
 #### Setup Ignition-Gazebo Sources
 
-The same way we added ROS 2 repositories we follow with the igintion-gazebo ones. Let's authorize the key:
+You will also need to add the Ignition-Gazebo apt repositories similar to the ROS 2 setup. Let's authorize the key:
 
 ```
 curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
