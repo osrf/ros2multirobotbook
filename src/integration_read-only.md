@@ -6,7 +6,7 @@ In this section, we will cover the prototype API for integrating the **Read Only
 
 The Fleet Driver API was an experimental API developed in the early stages of the RMF research project. It can still be used for a read-only fleet adapter implementation until an officially supported C++ API comes out to replace it.
 
-The Fleet Driver API uses ROS2 messages from the [`rmf_fleet_msgs`](https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs) package. To use this API, you will want to write a ROS2 application (using either rclcpp or rclpy) which we will refer to as the *Fleet Driver*. The job of the Fleet Driver is to transmit [`rmf_fleet_msgs/FleetState`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/FleetState.msg) messages out to the `"fleet_states"` topic.
+The Fleet Driver API uses ROS 2 messages from the [`rmf_fleet_msgs`](https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs) package. To use this API, you will want to write a ROS 2 application (using either rclcpp or rclpy) which we will refer to as the *Fleet Driver*. The job of the Fleet Driver is to transmit [`rmf_fleet_msgs/FleetState`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/FleetState.msg) messages out to the `fleet_states` topic.
 
 Inside the `FleetState` message is the `name` field. Be sure to fill in the correct name for your fleet state. There is also a collection of [`rmf_fleet_msgs/RobotState`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/RobotState.msg) messages. For integrating a read-only fleet with RMF, the most crucial fields of the `RobotState` message are:
 
@@ -21,7 +21,7 @@ Inside the [`rmf_fleet_msgs/Location`](https://github.com/osrf/rmf_core/blob/mas
 For the prototype read-only integration, there are two applications that need to be launched:
 
 1. The Fleet Driver mentioned above which you write specifically for your fleet's custom API
-2. The `read_only` fleet adapter which must be launched through ROS2
+2. The `read_only` fleet adapter which must be launched through ROS 2
 
 To launch the fleet adapter, you will need to use `ros2 launch` and include `rmf_fleet_adapter/fleet_adapter.launch.xml` file with the required parameters filled in. An example of this using the XML front-end of ros2 launch [can be found in `rmf_demos`](https://github.com/osrf/rmf_demos/blob/master/demos/launch/include/adapters/caddy_adapter.launch.xml), copied below:
 
