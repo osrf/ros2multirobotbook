@@ -2,7 +2,7 @@
 
 As we said, learning about ROS is similar to learning about an
 automobile. In fact, a car is a lot like a robot (and sometimes it
-really is a robot; cf. the large and active self-driving vehicle
+really is a robot; see the large and active self-driving vehicle
 industry). A modern automobile comprises many parts that are
 connected to each other. The steering wheel is connected to the front
 axle, the brake pedal is connected to the brake calipers, the oxygen
@@ -24,7 +24,7 @@ we call those parts *nodes* and we call the interactions between them
 Imagine we are building a wheeled robot that chases a red ball. This
 robot needs a camera with which to see the ball, a vision system to
 process the camera images to figure out where the ball is, a control
-system to decide what direction to move, and some motors to move motors
+system to decide what direction to move, and some motors
 to move the wheels to allow it to move toward the ball. Using ROS we
 might construct the system like so:
 
@@ -52,7 +52,7 @@ a standard format. Finally, the motor driver node's responsibility is to
 convert the desired steering direction into the specific instructions
 necessary to command the robot's wheel motors accordingly.
 
-## Publish-subscribe messaging: topics and types
+## Publish-Subscribe Messaging: Topics and Types
 
 With the example of the ball-chasing robot in mind, we can add some terminology
 to describe what is happening as the system operates. First, the ROS
@@ -68,8 +68,8 @@ topic. For example, the camera driver node may advertise a topic named `/image`
 with type `sensor_msgs/Image`. If the blob finder node subscribes to a topic
 with the same name and type, then the two nodes find each other and establish a
 connection over which image messages can get from the camera driver to the blob
-finder (the nodes find each other and establish those connection in a process
-called *discovery*, which will be treated in detail later in this book). Each
+finder (the nodes find each other and establish those connections in a process
+called *discovery*, which will be covered in detail later in this book). Each
 message that flows across the `/image` topic will be of type
 `sensor_msgs/Image`.
 
@@ -81,9 +81,9 @@ messages and publishes steering direction messages.
 A topic's type is very important. In fact, taken together, the ROS types are
 among the most valuable aspects of the entire platform. First, a type tells you
 the syntax: which fields, of which types, does the message contain? Second, it
-tells you the semantics: what do those fields mean and how they should be
+tells you the semantics: what do those fields mean and how should they be
 interpreted? For example, a thermometer and a pressure sensor might produce what
-appear to be the same data: a floating-point value. But in ROS a well-designed
+appear to be the same data: a floating-point value. But in ROS, a well-designed
 thermometer driver node would publish one clearly defined type (say,
 `sensor_msgs/Temperature`), while a pressure sensor driver node would publish
 another (say, `sensor_msgs/FluidPressure`).
@@ -96,7 +96,7 @@ build a real system, even if something like `std_msgs/Float64` could get the job
 done on syntax, you should instead find or define a message that also matches
 the semantics of your application.
 
-## Why publish-subscribe?
+## Why Publish-Subscribe?
 
 Given that it comes with additional complexity (nodes, topics, types, etc.), it
 is reasonable to ask why ROS follows the pub-sub pattern. After more than a
@@ -110,10 +110,10 @@ better blob finder node, then we can just swap it in for the old one and
 nothing else changes.
 - **Reuse**: A well-designed blob finder node can be used today on this
  robot to chase the red ball, then reused tomorrow on a different robot
-to orange cat, and so on. Each new use of a node should require only
+to chase an orange cat, and so on. Each new use of a node should require only
 configuration (no code) changes.
 - **Collaboration**: By cleanly separating concerns between nodes, we
- let our blob finder expert do her work independently of the target
+ let our blob finder expert do their work independently of the target
 follower expert, with neither of them bothering the device driver
 expert. It is often the case that a robot application requires the
 combined expertise of many people, and it would be difficult to
@@ -122,7 +122,7 @@ confidently and efficiently.
 - **Introspection**: Because the nodes are explicitly communicating with
  each other via topics, we can listen in. So when the robot fails to
 chase the red ball, and we think that the problem is in the blob finder,
-we can use developer tools to visualize, log, and play back that nodes
+we can use developer tools to visualize, log, and play back that node's
 inputs and outputs. The ability to introspect a running system in this
 way is instrumental to being able to debug it.
 - **Fault tolerance**: Say that the target follower node crashes because
@@ -134,15 +134,15 @@ such fault tolerance, or run them together in a single process, which
 can provide higher performance (and of course we can mix and match the
 two approaches).
 - **Language independence**: It can happen that our blob finder expert
- writes her computer vision code in C++, while our target follower
+ writes their computer vision code in C++, while our target follower
 expert is dedicated to Python. We can accommodate those preferences
 easily by just running those nodes in separate processes. In ROS, it is
 perfectly reasonable, and in fact quite common, to mix and match the use
 of languages in this way.
 
-## Beyond topics: services, actions, and parameters
+## Beyond Topics: Services, Actions, and Parameters
 
-Most ROS data flow over topics, which we introduced in the previous
+Most ROS data flows over topics, which we introduced in the previous
 sections. Topics are best for streaming data, which includes a lot of
 the common use cases in robotics. For example, going back to our
 ball-chasing robot, most cameras will naturally produces a stream of
@@ -155,7 +155,7 @@ We might say that such a systems is *clocked from the camera*: the data
 rate of the primary sensor, the camera in this case, drives the rate of
 computation of the system, with each node reacting in to receipt of
 messages published via topics by other nodes. This approach is fairly
-common and is appropriate for system like our ball-chasing robot. There
+common and is appropriate for systems like our ball-chasing robot. There
 is no reason to do any work until you have a new camera image, and once
 you have one you want to process it as quickly as possible and then
 command an appropriate steering direction in response.
@@ -169,14 +169,14 @@ can be commanded at the same rate the camera produces images.)
 ### Services
 
 So topics get the job done for the basic ball-chasing robot. But now say
-that we we want to add the ability to periodically capture an
+that we want to add the ability to periodically capture an
 ultra-high-resolution image. The camera can do it, but it requires
 interrupting the usual image stream that we rely on for the application,
 so we only want it to happen on demand. This kind of interaction is a
 poor fit for the publish-subscribe pattern of a topic. Fortunately, ROS
 also offers a request-reply pattern in a second concept: *services*.
 
-A ROS service is form of remote procedure call (RPC), a common concept
+A ROS service is a form of remote procedure call (RPC), a common concept
 in distributed systems. Calling a ROS service is similar to calling a
 normal function in a library via a code API. But because the call may be
 dispatched to another process or even another machine on the network,
@@ -217,7 +217,7 @@ part of a larger system that makes the robot play football. In this
 case, the higher level football controller will periodically want to
 say, "please chase the red ball until you have it right in front of
 you." Once the ball is in front of the robot, the football controller
-wants to stop the ball-chasing controller and invoke the ball-dribbling
+wants to stop the ball-chasing controller and invoke the ball-catching
 controller.
 
 We *could* achieve this kind of interaction with a ROS service. We could
@@ -230,7 +230,7 @@ to the situation in which you call a long-running function in code. The
 football controller does not know how well (or poorly) the chase is
 going, and it cannot stop the chase.
 
-For such goal-oriented time-extended tasks, ROS offers a third concept
+For such goal-oriented, time-extended tasks, ROS offers a third concept
 that is similar to services but more capable: *actions*. A ROS action is
 defined by three ROS messages: a goal, a result, and feedback. The goal,
 sent once by the node calling the action to initiate the interaction,
@@ -243,10 +243,10 @@ implementing the action until it is complete, updates the caller on how
 things are going; for ball-chasing it might be the current distance to
 the ball during the chase. In addition, actions are cancelable, so the
 football controller can decide to give up and move onto another tactic
-if the case is taking too long or if the feedback messages are showing
+if the chase is taking too long or if the feedback messages are showing
 that there is little chance of success.
 
-In general, if you want to support on-demand long-running behaviors, ROS
+In general, if you want to support on-demand, long-running behaviors, ROS
 actions are a good choice.
 
 ### Parameters
@@ -282,7 +282,7 @@ manner override whatever previous values were set.
 For most nodes, parameter management is relatively simple: define a
 handful of parameters, each with a reasonable default; retrieve the
 parameters' values at startup, which accounts for changes made via
-command-line or launch file; then begin execution and disallow future
+command-line or launch file, then begin execution and disallow future
 changes. This pattern makes sense for the motor driver, which needs to
 know which `/dev/ttyUSB` device file to open at startup, and does not
 support changing that setting later. But there are cases that require
@@ -297,7 +297,7 @@ knowing that they may have been changed by another node.
 In general, when you want to store stable, but possibly changeable,
 configuration information in a node, ROS parameters are a good choice.
 
-## Asynchrony in code: callbacks
+## Asynchrony in Code: Callbacks
 
 Throughout ROS, you will see a common pattern in the code, which is the
 use of *callback functions*, or simply *callbacks*. For example, when
@@ -321,7 +321,7 @@ A common structure for a ROS node is the following:
   considering defaults and what may have been passed in from outside.
 - **Configure.** Do whatever is necessary to configure the node, like
   establish connections to hardware devices.
-- **Set up ROS interfaces.** Advertise topics, services, and/or actions;
+- **Set up ROS interfaces.** Advertise topics, services, and/or actions,
   and subscribe to services. Each of these steps supplies a callback
 function that is registered by ROS for later invocation.
 - **Spin.** Now that everything is configured and ready to go, hand
