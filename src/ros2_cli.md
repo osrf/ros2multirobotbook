@@ -364,7 +364,7 @@ If we only wanted to know the message type of a topic
 there is a sub command just for that called, `type`. Let's take a look at its
 help file and its result:
 
-```
+```{.sourceCode .bash}
 $ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
 
@@ -1267,7 +1267,7 @@ the terminal. If you get an error you might need to install ROS Bag as it is
 often in a separate package. On Linux you can run `sudo apt install
 ros-eloquent-ros2bag` and it should automatically install the package for you.
 
-``` {.sourceCode .bash}
+```{.sourceCode .bash}
 $ ros2 bag -h
 usage: ros2 bag [-h] Call `ros2 bag <command> -h` for more detailed usage. ...
 
@@ -1279,12 +1279,11 @@ Commands:
   record  ros2 bag record
 ```
 
-As you can see there are three sub commands, record, play, and info. In this
-command you can record a bag file, find information about a bag file, and then
-play/replay the file you just recorded.
+As you can see there are three sub commands, `record`, `play`, and `info`. With these
+commands you can record a bag file, play/replay a file you've recorded, and find information about a bag file.
 
 
-Let's try recording our first bag file to do this we'll need three terminals all
+Let's try recording our first bag file. To do this we'll need three terminals all
 running ROS. The first terminal should already have our turtlesim running. If it
 isn't running you can restart it with `ros2 run turtlesim turtlesim_node`. Next
 you'll need to start the `draw_square` demo again to get the default turtle
@@ -1293,8 +1292,8 @@ terminal we can bag some data by running the bag command. Let's first look at
 the record sub command by running `ros2 bag record -h`
 
 
-``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 bag record -h
+```{.sourceCode .bash}
+$ ros2 bag record -h
 usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
                        [-f SERIALIZATION_FORMAT] [--no-discovery]
                        [-p POLLING_INTERVAL] [-b MAX_BAG_SIZE]
@@ -1337,14 +1336,12 @@ can also specify the output bag file with the `-o, --output command`.
 
 Let's go ahead and run our bag command, and let's bag the pose data on the
 `/turtle1/pose` topic and save it to the file `turtle1.bag` using the `-o`
-flag. Be aware that the program will continue bagging data  until you hit
-`CTRL+C`, so give the command a good 30 seconds to collect data before you kill
+flag. Be aware that the program will continue bagging data until you hit
+`CTRL-C`, so give the command a good 30 seconds to collect data before you kill
 it.
 
-Here's my example.
-
-``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 bag record /turtle1/pose -o turtle1
+```{.sourceCode .bash}
+$ ros2 bag record /turtle1/pose -o turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 [INFO] [rosbag2_transport]: Listening for topics...
 [INFO] [rosbag2_transport]: Subscribed to topic '/turtle1/pose'
@@ -1356,8 +1353,8 @@ Now that we collected our data let's inspect our bag file. You can introspect
 any bag file using the `ros2 bag info` command. This command will list the
 messages in the bag, the duration of file, and the number of messages.
 
-``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 bag info turtle1
+```{.sourceCode .bash}
+$ ros2 bag info turtle1
 Files:             turtle1.db3
 Bag size:          268.4 KiB
 Storage id:        sqlite3
@@ -1367,31 +1364,32 @@ End                May  4 2020 16:11:35.262 (1588633895.262)
 Messages:          4249
 Topic information: Topic: /turtle1/pose | Type: turtlesim/msg/Pose | Count: 4249 | Serialization Format: cdr
 ```
+
 Once you have collected a bag file you can replay the file just like a running
-system.  Bags are a great tool for debugging and testing. You can treat a ROS bag
+system. Bags are a great tool for debugging and testing. You can treat a ROS bag
 like a recording of a running ROS system. When you play a bag file you
 can use most of the ros2 CLI tools to inspect the recorded topics.
 
-To replay the bag, first use `CTRL+C` to turn off the main
-turtle node and the `draw_square` node. Now in a new terminal replay the bag
+To replay the bag, first use `CTRL-C` to turn off the
+`turtlesim_node` and the `draw_square` node. Now in a new terminal replay the bag
 file using the following command:
 
-``` {.sourceCode .bash}
-kscottz@ade:~$ ros2 bag play turtle1
+```{.sourceCode .bash}
+$ ros2 bag play turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 ```
 
 Nothing should happen visibly, but a lot is happening under the hood.
 To see what is happening go to a second terminal. Just like a running robot,
-you should be able to `list` and `echo` topics. See my example below.
+you should be able to `list` and `echo` topics:
 
-``` {.sourceCode .bash}
-kscottz@ade:~ros2 topic list
+```{.sourceCode .bash}
+$ ros2 topic list
 /parameter_events
 /rosout
 /turtle1/pose
 
-kscottz@ade:~$ ros2 bag info turtle1
+$ ros2 bag info turtle1
 x: 3.8595714569091797
 y: 3.6481313705444336
 theta: -1.2895503044128418
@@ -1416,12 +1414,12 @@ system and what is happening can do a lot to help others help you fix your
 problem. ROS 2 has a `doctor` command that you can use to print a variety of
 reports that you can use to help communicate the state of your system to others
 trying to provide help. Whether it is one of your co-workers, a vendor, or an
-on-line forum providing detailed and complete information about your ROS system
+on-line forum, providing detailed and complete information about your ROS system
 can go a long way to solving your problem. Let's call `--help` on the ROS 2
-doctor command.
+doctor command:
 
-``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 doctor --help
+```{.sourceCode .bash}
+$ ros2 doctor --help
 usage: ros2 doctor [-h] [--report | --report-failed] [--include-warnings]
 
 Check ROS setup and other potential issues
@@ -1436,29 +1434,29 @@ optional arguments:
 ```
 
 As we can see from the help file we have a couple of report options. One option
-is to print the full report (`-r`), or we just what failed, with `-rf`. If your
-run `ros2 doctor -r` you should see a fairly lengthy report generated giving
+is to print the full report with `-r`, or just what failed with `-rf`. If you're
+running `ros2 doctor -r` you should see a fairly lengthy report generated giving
 information about your computer's operating system, your networking
-configuration, and your running ROS system. If you every run into an issue you
+configuration, and your running ROS system. If you ever run into an issue you
 should always include this full report.
 
 ## ROS 2 Interface
 
-As you've already seen ROS uses standard messages so that different packages and
+As you've already seen, ROS uses standard messages so that different packages and
 programs, potentially written in different programming languages, can all talk
-to one another. To make this all work ROS uses standard messages, and
+to one another. To make this all work, ROS uses standard messages, and
 communication protocols built on top of those standard messages. This can make
 finding type information about a particular message, service, or action
-difficult. To help developers write both CLI command calls, and develop client
-code the ROS CLI has the interface command. We've touched on this command
-briefly in other sections, as it is your go to tool for message type
+difficult. To help developers write both CLI command calls and develop client
+code, the ROS CLI has the interface command. We've touched on this command
+briefly in other sections, as it is the go to tool for message type
 information.
 
-To better understand the interface command let's start by looking at its high
-level help command to see what sub commands are available.
+To better understand the `interface` command let's start by looking at its high
+level help command to see what sub commands are available:
 
-``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface --help
+```{.sourceCode .bash}
+$ ros2 interface --help
 usage: ros2 interface [-h]
                       Call `ros2 interface <command> -h` for more detailed
                       usage. ...
@@ -1478,27 +1476,26 @@ Commands:
   Call `ros2 interface <command> -h` for more detailed usage.
 ```
 
-As we can see above the interface command above there are quite a few sub
-commands in interface. All of them are geared towards helping you understand
-available message types. Let's examine the list sub command in depth. The list
-command will list all of the available messages, services, and actions on your
+The interface command are all geared towards helping you understand
+available message types. Let's examine the `list` sub command in depth. `list`
+will list all of the available messages, services, and actions on your
 system. This command has flags that can help you narrow down the scope of your
 search. Even a basic ROS installation has a lot of messages, so a tool you
-should get familiar with is `grep`, grep lets you search through some text to
+should get familiar with is `grep`. `grep` lets you search through some text to
 find what you are looking for quickly and easily. You can grep in a case
 insensitive manner using the `-i` flag followed by the text you want to search
 for. We can tie this CLI tool to our interface tool by using the UNIX pipe operator `|`. The example below
-shows you how to use the list operation and then how to use it to do a search.
+shows you how to use the list operation and then how to use it to search:
 
-``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --only-msgs
+```{.sourceCode .bash}
+$ ros2 interface list --only-msgs
 Messages:
     action_msgs/msg/GoalInfo
     action_msgs/msg/GoalStatus
 	... <DOZENS OF DIFFERENT TYPES> ...
 	visualization_msgs/msg/MarkerArray
     visualization_msgs/msg/MenuEntry
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --only-msgs | grep -i point
+$ ros2 interface list --only-msgs | grep -i point
     geometry_msgs/msg/Point
     geometry_msgs/msg/Point32
     geometry_msgs/msg/PointStamped
@@ -1511,18 +1508,17 @@ kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface list --onl
     trajectory_msgs/msg/JointTrajectoryPoint
 ```
 
-Using grep to search through CLI output is common tactic used by developers to
+Using grep to search through CLI output is a common tactic used by developers to
 find just the specific information they need. The next two sub commands
 `package` and `packages` can be used to first determine what ROS packages are on
 your system, and then to drill down into an individual package to determine what
-messages are in that package. This tooling makes very easy to determine what
-packages your workspace can see, and what messages are available. Be aware that
+messages are in that package. Note that
 you can use `grep` just like before to search for your specific interest. The
 example below shows you how to first determine if `std_msgs` is installed and
-then to find out what sort of array types it contains.
+then to find out what sort of array types it contains:
 
-``` {.sourceCode .bash}
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface packages
+```{.sourceCode .bash}
+$ ros2 interface packages
 action_msgs
 action_tutorials_interfaces
 actionlib_msgs
@@ -1567,36 +1563,37 @@ std_msgs/msg/MultiArrayDimension
 
 ```
 
-The next two commands in the pantheon of interface commands are particularly
+The next two commands are particularly
 helpful and you should remember them as they will make your life much easier. As
 we have discussed previously all message publication, service calls, and action
 calls in the CLI take in both the message type and data you want to transmit in
-YAML format. But what if you don't the message format, and you know a lot about
+YAML format. But what if you don't know the message format, and you don't know a lot about
 YAML? The `interface show` and `interface proto` commands make this process
 easier by respectively telling you first the message type and then the message
 format. Recall earlier in the chapter when we called the `spawn` service on
 our turtle simulation. We can use `interface show` to tell us broadly about the
 service and what each of the values mean. We can then use `interface proto`,
-short for prototype to, then generate an empty message that we can then fill
+short for prototype, to then generate an empty message that we can fill
 out. See the example below:
 
-```
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface show turtlesim/srv/Spawn
+```{.sourceCode .bash}
+$ ros2 interface show turtlesim/srv/Spawn
 float32 x
 float32 y
 float32 theta
 string name # Optional.  A unique name will be created and returned if this is empty
 ---
 string name
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 interface proto turtlesim/srv/Spawn
+$ ros2 interface proto turtlesim/srv/Spawn
 "x: 0.0
 y: 0.0
 theta: 0.0
 name: ''
 "
-kscottz@kscottz-ratnest:~/Code/ros2multirobotbook/src$ ros2 service call /spawn turtlesim/srv/Spawn "{<copy and paste proto here>}"
+$ ros2 service call /spawn turtlesim/srv/Spawn "{<copy and paste proto here>}"
 
 ```
+
 You can see from the example above how handy these tools can be. It is worth
 noting that you need to paste the prototype into a set of quotes and curly
 braces for the call to work `"{<prototype>}"`.
@@ -1608,15 +1605,14 @@ braces for the call to work `"{<prototype>}"`.
 The `launch` command is used to run ROS launch files. Up until this point we've
 been running single ROS programs by hand using the `run` command, however this
 is not how larger ROS systems are generally operated and many robots command
-tens if not hundreds of small program. The ROS launch command is different from
+tens if not hundreds of small programs. The ROS launch command is different from
 most of the other ROS commands in that it has no sub commands and has a single
-function, to start a ROS launch file that executes multiple of programs. These
-launch files are fairly simple as the are simply instructions to start multiple
-programs like a shell script. To illustrate this command let's take a look at
+function, to start a ROS launch file that executes multiple of programs.
+To illustrate this command let's take a look at
 its help file.
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 launch -h
+$ ros2 launch -h
 usage: ros2 launch [-h] [-d] [-p | -s] [-a]
                    package_name [launch_file_name]
                    [launch_arguments [launch_arguments ...]]
@@ -1645,30 +1641,30 @@ optional arguments:
 ```
 
 Launch files are usually included with a ROS package and are commonly stored in a
-`launch` sub directory. Modern launch files are usually written in python and end
+`launch` sub directory. Modern launch files are usually written in Python and end
 with the `*.launch.py` file extension. The `launch` command has two arguments,
-the first one is the package name and then launch file name. If you are unaware
+the first one is the package name and then the launch file name. If you are unaware
 of the launch files in your package you can use tab completion to list all the
-available launch file. Finally, some launch files have arguments, that can be
+available launch files. Finally, some launch files have arguments that can be
 appended to the command. If you are unsure about what a launch file does, or
-what arguments it needs the `--print` and `--show-args` commands will tell you
+what arguments it needs, the `--print` and `--show-args` commands will tell you
 this information. Let's read up on the `multisym.launch.py` launch file and then
 run it following the example below (end the simulation with `CTRL-C`):
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --show-args
+$ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '<name>:=<value>'):
 
   No arguments.
-kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --print
+$ ros2 launch turtlesim multisim.launch.py --print
 <launch.launch_description.LaunchDescription object at 0x7f75aab63828>
 ├── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
 └── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
-kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py --show-args
+$ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '<name>:=<value>'):
 
   No arguments.
-kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py
+$ ros2 launch turtlesim multisim.launch.py
 [INFO] [launch]: All log files can be found below /home/kscottz/.ros/log/2020-06-24-14-39-03-312667-kscottz-ratnest-20933
 [INFO] [launch]: Default logging verbosity is set to INFO
 [INFO] [turtlesim_node-1]: process started with pid [20944]
@@ -1680,15 +1676,16 @@ kscottz@kscottz-ratnest:~$ ros2 launch turtlesim multisim.launch.py
 
 ROS 2 has a new feature called `lifecycle` which allows for greater control over
 the state of a ROS node. Roughly, this feature allows nodes to have complex
-start-up and shut down procedures that are correctly handed. An example of such
-a node would be one that controls a sensor or actuator that needs to perform
-power on self test or calibration procedure prior to running. [The ROS design
-docs give a great primer on the states and transitions in a lifecycle
-node.](http://design.ros2.org/articles/node_lifecycle.html). Let's look at the
-`lifecycle` command to determine what sub commands are available.
+start-up and shut-down procedures that are correctly handed. An example of such
+a node would be one that controls a sensor or actuator that needs to perform a
+power-on self-test or calibration procedure prior to running. [The ROS design
+docs](http://design.ros2.org/articles/node_lifecycle.html)
+give a great primer on the states and transitions in a lifecycle
+node. Let's look at the
+`lifecycle` command to determine what sub commands are available:
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 lifecycle -h
+$ ros2 lifecycle -h
 usage: ros2 lifecycle [-h]
                       Call `ros2 lifecycle <command> -h` for more detailed
                       usage. ...
@@ -1705,40 +1702,37 @@ Commands:
   set    Trigger lifecycle state transition
 
   Call `ros2 lifecycle <command> -h` for more detailed usage.
-kscottz@kscottz-ratnest:~$
-
 ```
 
-The `nodes` sub command will list all the lifecycle nodes on a given system, and
-unfortunately our current demo code does not include a working example to
-list. Once you have listed the nodes you can this list each node's available
+The `nodes` sub command will list all the lifecycle nodes on a given system.
+Once you have listed the nodes, you can list each node's available
 transitions using `ros2 lifecycle list <nodename>`. These transitions are
 dictated by the node's current state with some states having more transitions
 available than others. If instead of available transitions you wish to query the
-current state you can use the `lifecycle get` to return the current state of
+current state you can use `lifecycle get` to return the current state of
 your target node. Once you have satisfactorily determined the state of the node
-and the available transitions the `lifecycle set` command can be used to trigger
+and the available transitions, the `lifecycle set` command can be used to trigger
 the node to transition to a new state. Generally, these CLI commands are used to
-diagnose failure modes of system, or to manually transition a particular
+diagnose failure modes of systems, or to manually transition a particular
 component.
 
 
 ## ROS 2 msg (Message)
 
-ROS 2 Eloquent is the last version of ROS to use the message command. All of the
+ROS 2 Eloquent is the last version of ROS to use the `msg` command. All of the
 commands in `msg` are mirrored in the `interface` command. These features are
 currently deprecated and will be removed in Foxy.  
 
 ## ROS 2 pkg (Package)
 
 The ROS 2 package command is a very useful command to understand what ROS
-packages are installed on your system, where the are installed, and the
+packages are installed on your system, where they are installed, and the
 executables contained within each package. These tools are particularly useful
 for understanding an existing robot configuration and finding tools that are
-only used on occasion. Let's start by taking a look at the top level help file for the `pkg` command.
+only used on occasion. Let's start by taking a look at the help file for the `pkg` command:
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 pkg -h
+$ ros2 pkg -h
 usage: ros2 pkg [-h] Call `ros2 pkg <command> -h` for more detailed usage. ...
 
 Various package related sub-commands
@@ -1755,56 +1749,56 @@ Commands:
 
   Call `ros2 pkg <command> -h` for more detailed usage.
 ```
+
 This command has a variety of sub commands, many of which should look fairly
-familiar at this point. The list sub command acts in a manner very similar to
-list sub commands we have discussed previously but this one only lists the
-installed system packages. This sub command is often used with grep to help you
+familiar at this point. The `list` sub command acts in a manner very similar to
+`list` sub commands we have discussed previously, but this one only lists the
+installed system packages. This sub command is often used with `grep` to help you
 find out if a particular package is installed.
 
 Once you have located an installed package you can then have it list the
 executables contained by the package using the `executables` command. This is
 much more practical than finding the executables manually. The sub command takes
 in a single argument which is the package name. The executables command has a
-single optional argument `--full-path` which will output the full path to all
-the executable programs. The example below shows an example of how to use these
-commands to check the path for all of the turtlesim executables.
+single optional argument, `--full-path`, which will output the full path to all
+the executable programs. The example below shows how to use these
+commands to check the path for all of the turtlesim executables:
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
+$ ros2 pkg list | grep turtle
 turtlesim
-kscottz@kscottz-ratnest:~$ ros2 pkg list | grep turtle
+$ ros2 pkg list | grep turtle
 turtlesim
-kscottz@kscottz-ratnest:~$ ros2 pkg executables turtlesim --full-path
+$ ros2 pkg executables turtlesim --full-path
 /opt/ros/eloquent/lib/turtlesim/draw_square
 /opt/ros/eloquent/lib/turtlesim/mimic
 /opt/ros/eloquent/lib/turtlesim/turtle_teleop_key
 /opt/ros/eloquent/lib/turtlesim/turtlesim_node
-kscottz@kscottz-ratnest:~$
 ```
+
 If you just wanted to know the path to the turtlesim executables you could use
-the `prefix` sub command, which returns the path for given packages
+the `prefix` sub command, which returns the path for a given package's
 executables.
 
 Each ROS package contains an XML file that contains metadata for the package,
 including information such as the license, maintainer, and its dependencies. ROS
 pkg has a handy `xml` sub command to print these files to the screen, saving you
-the hassle of locating and opening the file. You can use grep on the output of
-this command to get just the info you need. The example below shows and
-example. The example below shows an example of `xml` and `prefix` used to find
-the directory of turtlesim, its maintainer, and its license.
+the hassle of locating and opening the file. You can use `grep` on the output of
+this command to get just the info you need. Below is an example of `xml` and `prefix` used to find
+the directory of turtlesim, its maintainer, and its license:
 
 ```{.sourceCode .bash}
-kscottz@kscottz-ratnest:~$ ros2 pkg prefix turtlesim
+$ ros2 pkg prefix turtlesim
 /opt/ros/eloquent
-kscottz@kscottz-ratnest:~$ ros2 pkg xml turtlesim | grep maintainer
+$ ros2 pkg xml turtlesim | grep maintainer
   <maintainer email="dthomas@osrfoundation.org">Dirk Thomas</maintainer>
-kscottz@kscottz-ratnest:~$ ros2 pkg xml turtlesim | grep license
+$ ros2 pkg xml turtlesim | grep license
   <license>BSD</license>
 kscottz@kscottz-ratnest:~$
 
 ```
 
-The last sub command in the `pkg` command is `create`. `Create` is a tool to help
+The last sub command in the `pkg` command is `create`. `create` is a tool to help
 you create a ROS package. We'll use this sub command later in the chapter to
 create a new ROS package. The short of it is that you feed the command your
 package name and all of the relevant information for your package as optional
