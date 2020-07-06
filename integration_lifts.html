@@ -155,12 +155,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#lifts-aka-elevators" id="lifts-aka-elevators">Lifts (a.k.a. Elevators)</a></h1>
+                        <h1><a class="header" href="#lifts-ie-elevators" id="lifts-ie-elevators">Lifts (i.e. Elevators)</a></h1>
 <h2><a class="header" href="#map-requirements" id="map-requirements">Map requirements</a></h2>
-<p>Before a lift can be properly integrated, be sure to draw up the lift locations with the correct lift names and levels on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in Chapter 3. Traffic Editor.</p>
+<p>Before a lift can be properly integrated, be sure to draw up the lift locations with the correct lift names and levels on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in <a href="./traffic-editor.html">Traffic Editor</a> chapter.</p>
 <h2><a class="header" href="#integration" id="integration">Integration</a></h2>
 <p>Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the basic requirement is that the lift controller accepts commands using a prescribed protocol, <code>OPC</code> is one such example.</p>
-<p>The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other.</p>
+<p>The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other:</p>
 <img src="images/lifts_block_diagram.png">
 <p>The lift node will act as a driver to work with the lift controller. An example of a lift node can be found in this <a href="https://github.com/sharp-rmf/kone_lift_controller">repository</a>. The node will publish its state and receive lift requests over ROS 2, using the messages and topics listed below.</p>
 <table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>

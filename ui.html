@@ -157,7 +157,7 @@
                     <main>
                         <h1><a class="header" href="#ui" id="ui">UI</a></h1>
 <h2><a class="header" href="#introduction" id="introduction">Introduction</a></h2>
-<p>We have looked at how we can integrate new hardware into RMF, now we will look at how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.</p>
+<p>This chapter describes how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.</p>
 <h2><a class="header" href="#overview" id="overview">Overview</a></h2>
 <p>The most common way to write a UI application is to make use of a UI framework. There are many available UI frameworks, the following are some of the popular frameworks for reference:</p>
 <ul>
@@ -185,7 +185,7 @@
 </li>
 </ul>
 <p>Each framework has pros and cons and we do not feel there is a &quot;best&quot; framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
-<h2><a class="header" href="#how-does-an-rmf-ui-application-work" id="how-does-an-rmf-ui-application-work">How does an RMF UI Application Work?</a></h2>
+<h2><a class="header" href="#how-does-an-rmf-ui-application-work" id="how-does-an-rmf-ui-application-work">How Does an RMF UI Application Work?</a></h2>
 <p>Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publish door states and subscribe to door requests. Here we are doing the reverse; subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and we will also be sending door requests when the user clicks the open or close button.</p>
 <p>We need to use a libray to help us do that. In the hardware adapter examples we are using the <code>rclcpp</code> library, but <code>rclcpp</code> isn't the only way to use ROS 2. Here are some libraries that also work well</p>
 <ul>
@@ -199,49 +199,48 @@
 </li>
 <li>Indirect
 <ul>
-<li>soss (websocket)</li>
+<li>SOSS (websocket)</li>
 <li>rosbridge (websocket)</li>
 </ul>
 </li>
 </ul>
-<p>A &quot;direct&quot; library is able to send and receive ROS2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS2 messages. In general, the &quot;direct&quot; approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
+<p>A &quot;direct&quot; library is able to send and receive ROS 2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS 2 messages. In general, the &quot;direct&quot; approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
 <div style="border: 1px; border-style: solid; padding: 1em">
-<b>Note</b>: This is not an exhaustive list, you can find many third-party projects that aims to bring the ROS2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS2. You can also write your own bindings and middlewares!
+<b>Note</b>: This is not an exhaustive list, you can find many third-party projects that aim to bring the ROS 2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS 2. You can also write your own bindings and middlewares!
 </div>
-<p>At the end of the day, writing a RMF UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS2 in response to user input and updating the state.</p>
+<p>Writing an RMF UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS 2 data in response to user input and updating the UI's state.</p>
 <h1><a class="header" href="#tutorial-react-webapp" id="tutorial-react-webapp">Tutorial: React WebApp</a></h1>
-<p>In this section, we will go through an example of creating a React-based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF, basic knowledge of React and TypeScript is needed.</p>
-<p>Note that this isn't the only way to create a RMF UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS2 messages.</p>
-<p>The code for this tutorial is available at <a href="https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial">https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial</a>.</p>
+<p>In this section, we will go through an example of creating a React-based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF; basic knowledge of React and TypeScript is needed.</p>
+<p>Note that this isn't the only way to create a RMF UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS 2 messages.</p>
+<p>The code for this tutorial is available <a href="https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial">here</a>.</p>
 <h2><a class="header" href="#requirements" id="requirements">Requirements</a></h2>
 <ul>
 <li>nodejs &gt;= 10</li>
-<li>rmf_core (<a href="https://github.com/osrf/rmf_core">https://github.com/osrf/rmf_core</a>)</li>
-<li>soss (<a href="https://github.com/osrf/soss">https://github.com/osrf/soss</a>)</li>
-<li>rmf-soss-ros2 (<a href="https://github.com/osrf/rmf-soss-ros2">https://github.com/osrf/rmf-soss-ros2</a>)</li>
-<li>rmf_demos (<a href="https://github.com/osrf/rmf_demos">https://github.com/osrf/rmf_demos</a>)</li>
+<li><a href="https://github.com/osrf/rmf_core">rmf_core</a></li>
+<li><a href="https://github.com/osrf/soss">soss</a></li>
+<li><a href="https://github.com/osrf/rmf-soss-ros2">rmf-soss-ros2</a></li>
+<li><a href="https://github.com/osrf/rmf_demos">rmf_demos</a></li>
 </ul>
 <p>We will not go through the process of setting up the dependencies, instructions to set them up can be easily found on the web or from their project homepages.</p>
 <h2><a class="header" href="#setting-up" id="setting-up">Setting Up</a></h2>
-<p>We will be using an example from rmf_demo as the RMF deployment that we will be interacting with. This is a good time to test if your installation of <code>rmf_demo</code> is working properly, start the demo with the following command</p>
+<p>We will be using an example from <code>rmf_demo</code> as the RMF deployment that we will be interacting with. This is a good time to test if your installation of <code>rmf_demo</code> is working properly, start the demo with the following command:</p>
 <pre><code>ros2 launch demos office.launch.xml
 </code></pre>
-<p>Next let's test if soss is working. In order to run soss, you need to provide it with a configuration file, you can use <a href="ui-resources/soss.yaml">this</a> template as a start. You would need a certificate for soss, refer to various tutorials online to generate one, if you are using a self-signed cert, also make sure your browser is set to accept it for websocket connections. Add the path of your cert and key to the soss config and try starting soss with</p>
+<p>Next let's test if SOSS is working. In order to run SOSS, you need to provide it with a configuration file; you can use <a href="ui-resources/soss.yaml">this</a> template as a start. You would need a certificate for SOSS; refer to various tutorials online to generate one. If you are using a self-signed cert, also make sure your browser is set to accept it for websocket connections. Add the path of your cert and key to the SOSS config and try starting SOSS with:</p>
 <pre><code>soss &lt;path_to_config&gt;
 </code></pre>
 <p>Once the environment is set up, we can then proceed to set up our actual app. First, create a React workspace with:</p>
 <pre><code>npx create-react-app react-app-tutorial --template typescript
 </code></pre>
-<p>Go inside the newly created <code>react-app-tutorial</code> directory and run the follow command to install all the javascript dependencies we will be using</p>
+<p>Go inside the newly created <code>react-app-tutorial</code> directory and run the following command to install all the JavaScript dependencies we will be using:</p>
 <pre><code>npm install @osrf/romi-js-core-interfaces @osrf/romi-js-soss-transport jsonwebtoken @types/jsonwebtoken
 </code></pre>
-<p>These libraries are not strictly required but they contain helpful functions to use <code>soss</code> and to communicate with RMF. If you are building a JavaScript-based RMF app, it is recommended to make use of them, we will see later how they simplify the communicaton to RMF.</p>
+<p>These libraries are not strictly required but they contain helpful functions to use <code>soss</code> and to communicate with RMF. If you are building a JavaScript-based RMF app, it is recommended to make use of them, we will see later how they simplify the communication to RMF.</p>
 <div style="border: 1px; border-style: solid; padding: 1em">
-<b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS2 messages directly, however it does not work on the browser. It is preferred if you are writing a nodejs based desktop application using something like electron, or you are writing a server based application like a REST API provider.
+<b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS 2 messages directly, however it does not work on the browser. It is preferred if you are writing a Node.js based desktop application using something like Electron, or you are writing a server based application like a REST API provider.
 </div>
 <h2><a class="header" href="#door-component" id="door-component">Door Component</a></h2>
 <p>First of all, let's start things simple by creating a component to show a door's state along with open and close buttons. Create a new file called <code>Door.tsx</code> in <code>react-app-tutorial/src</code> directory and copy the below snippet into it.</p>
-<p>Door.tsx:</p>
 <pre><code class="language-js">import React from 'react';
 
 export interface DoorProps {
@@ -269,8 +268,8 @@ export const Door = (props: DoorProps) =&gt; {
 
 export default Door;
 </code></pre>
-<p>Nothing much is happening here yet, we are simply rendering the door name, its state an open and a close button.</p>
-<p>Let's test things out by running it, replace <code>App.tsx</code> with this</p>
+<p>Nothing much is happening here yet. We are simply rendering the door name, its state and open and a close button.</p>
+<p>Let's test things out by running it. Replace <code>App.tsx</code> with this:</p>
 <pre><code class="language-js">import React from 'react';
 import Door from './Door';
 
@@ -280,16 +279,16 @@ function App() {
 
 export default App;
 </code></pre>
-<p>and start it with <code>npm start</code>, you should see something like this</p>
+<p>and start it with <code>npm start</code>. You should see something like this:</p>
 <p><img src="ui-resources/door.png" alt="Door" /></p>
-<p>Great! we now have a base to start implementing the rest of the app.</p>
+<p>Great! We now have a base to start implementing the rest of the app.</p>
 <h2><a class="header" href="#obtain-list-of-doors" id="obtain-list-of-doors">Obtain List of Doors</a></h2>
-<p>Previously we made a simple door component and tested rendering it with hardcoded values, obviusly this won't work in a proper app, here we will look at how we can obtain the list of actual doors from RMF.</p>
-<p>Start of by adding a React state to track the list of doors</p>
+<p>Previously we made a simple door component and tested rendering it with hard-coded values. Obviously this won't work in a proper app, so here we will look at how we can obtain the list of actual doors from RMF.</p>
+<p>Start of by adding a React state to track the list of doors:</p>
 <pre><code class="language-js">const [doors, setDoors] = React.useState&lt;RomiCore.Door[]&gt;([]);
 </code></pre>
-<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS2 service call, since there isn't ROS2 support on the browser, we will be using an &quot;indirect&quot; approach with <code>soss</code>. A websocket connection is made to soss which will then act as a middleman and pass our messages to the ROS2 network.</p>
-<p>An easy way to use soss is with the <code>@osrf/romi-js-soss-transport</code> package, so let's do it now. Add a react effect hook to your <code>App</code> component</p>
+<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS 2 service call, since there isn't ROS 2 support on the browser, we will be using an &quot;indirect&quot; approach with <code>soss</code>. A websocket connection is made to SOSS which will then act as a middleman and pass our messages to the ROS 2 network.</p>
+<p>An easy way to use SOSS is with the <code>@osrf/romi-js-soss-transport</code> package, so let's do it now. Add a react effect hook to your <code>App</code> component</p>
 <pre><code class="language-js">  React.useEffect(() =&gt; {
     (async () =&gt; {
       const token = jwt.sign({ user: 'example-user' }, 'rmf', { algorithm: 'HS256' });
@@ -297,21 +296,21 @@ export default App;
     })();
   }, []);
 </code></pre>
-<p>we will need to import <code>SossTransport</code> so add this to the top of the file</p>
+<p>We will need to import <code>SossTransport</code>, so add this to the top of the file:</p>
 <pre><code class="language-js">import { SossTransport } from '@osrf/romi-js-soss-transport';
 </code></pre>
-<p>This performs a websocket connection to the soss server, <code>example</code> is the ROS2 node name that we will be using and we are connecting to a soss server at <code>wss://localhost:50001</code>. The server uses a JWT token signed with a secret specified in the soss config, the example config is using <code>rmf</code>, if you changed the secret, be sure to change it here as well.</p>
+<p>This performs a websocket connection to the SOSS server. <code>example</code> is the ROS 2 node name that we will be using, and we are connecting to a SOSS server at <code>wss://localhost:50001</code>. The server uses a JWT token signed with a secret specified in the SOSS config. The example config is using <code>rmf</code>. If you changed the secret, be sure to change it here as well.</p>
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: This example is only for convenience, you should never reveal the secret to the client. Usually the client would connect to an authentication server which will verify that it is a valid request and return a signed token.
 </div>
-<p>Now that we have a connection to soss, we can call the <code>get_building_map</code> service, add this to the react effect</p>
+<p>Now that we have a connection to SOSS, we can call the <code>get_building_map</code> service. Add this to the React effect:</p>
 <pre><code class="language-js">const buildingMap = (await transport.call(RomiCore.getBuildingMap, {})).building_map;
 setDoors(buildingMap.levels.flatMap((level) =&gt; level.doors));
 </code></pre>
-<p>it uses <code>RomiCore</code> so add this to your imports</p>
+<p>It uses <code>RomiCore</code>, so add this to your imports:</p>
 <pre><code class="language-js">import * as RomiCore from '@osrf/romi-js-core-interfaces';
 </code></pre>
-<p>This downloads and parses the building map from RMF. <code>romi-js</code> simplifies a ROS2 service call with the async <code>call</code> method. If you are familiar with <code>rclnodejs</code>, this is roughly equivalent to</p>
+<p>This downloads and parses the building map from RMF. <code>romi-js</code> simplifies a ROS 2 service call with the async <code>call</code> method. If you are familiar with <code>rclnodejs</code>, this is roughly equivalent to:</p>
 <pre><code class="language-js">const client = node.createClient(
   'building_map_msgs/srv/GetBuildingMap',
   'get_building_map'
@@ -321,11 +320,11 @@ client.sendRequest({}, response =&gt; {
   setDoors(buildingMap.levels.flatMap((level) =&gt; level.doors));
 });
 </code></pre>
-<p>Notice that we need to provide it with type of the message (<code>building_map_msgs/srv/GetBuildingMap</code>) and the name of the service (<code>get_building_map</code>), but how do we find out what is the service name and type? We could read the RMF manual or query the ROS2 system while RMF is running, another way is with the help of <code>RomiCore</code>, it provides a list of known RMF services and messages so you don't have to go through the trouble of finding them yourself.</p>
-<p>In this statement here, we are using <code>RomiCore</code> to call the <code>get_building_map</code> service without needing to know the service name and types</p>
+<p>Notice that we need to provide it with type of the message (<code>building_map_msgs/srv/GetBuildingMap</code>) and the name of the service (<code>get_building_map</code>), but how do we find out what the service name and type are? We could read the RMF manual or query the ROS 2 system while RMF is running. Another way is with the help of <code>RomiCore</code>; it provides a list of known RMF services and messages so you don't have to go through the trouble of finding them yourself.</p>
+<p>In the below statement, we are using <code>RomiCore</code> to call the <code>get_building_map</code> service without needing to know the service name and types:</p>
 <pre><code class="language-js">transport.call(RomiCore.getBuildingMap, {})
 </code></pre>
-<p>Now that we have a list of <code>RomiCore.Door</code>, let's make things simpler by updating <code>Door.tsx</code> to take that in as a prop, while we are at it, let's also have it take in a <code>RomiCore.DoorState</code> as a prop since we will be using it later.</p>
+<p>Now that we have a list of <code>RomiCore.Door</code>, let's make things simpler by updating <code>Door.tsx</code> to take that in as a prop. While we're at it, let's also have it take in a <code>RomiCore.DoorState</code> as a prop since we will be using it later.</p>
 <p>Door.tsx:</p>
 <pre><code class="language-js">import * as RomiCore from '@osrf/romi-js-core-interfaces';
 import React from 'react';
@@ -355,8 +354,7 @@ export const Door = (props: DoorProps) =&gt; {
 
 export default Door;
 </code></pre>
-<p>Now we can test it by passing the doors as props, your <code>App</code> component should now look like this</p>
-<p>App.tsx:</p>
+<p>Now we can test it by passing the doors as props. Your <code>App.tsx</code> component should now look like this:</p>
 <pre><code class="language-js">import * as RomiCore from '@osrf/romi-js-core-interfaces';
 import { SossTransport } from '@osrf/romi-js-soss-transport';
 import * as jwt from 'jsonwebtoken';
@@ -386,22 +384,22 @@ function App() {
 
 export default App;
 </code></pre>
-<p>Don't worry about the door state for now. If everything goes well, you should see 3 doors that are in the building</p>
+<p>Don't worry about the door state for now. If everything goes well, you should see 3 doors that are in the building listed:</p>
 <p><img src="ui-resources/building-map-doors.png" alt="Doors" /></p>
 <h2><a class="header" href="#listening-for-door-states" id="listening-for-door-states">Listening for Door States</a></h2>
-<p>Previously we managed to render the list of doors in the RMF system but the building map doesn't tells us the door states so we will now fix it here. First, let's add a react state to track the door states</p>
+<p>Previously we managed to render the list of doors in the RMF system, but the building map doesn't tell us the doors' states, so let's fix that. First, let's add a React state to track the door states:</p>
 <pre><code class="language-js">const [doorStates, setDoorStates] = React.useState&lt;Record&lt;string, RomiCore.DoorState&gt;&gt;({});
 </code></pre>
-<p>The door states can be obtained by subscribing to the <code>door_states</code> topic, update your effect to add this</p>
+<p>The door states can be obtained by subscribing to the <code>door_states</code> topic. Add the following to your effect:</p>
 <pre><code class="language-js">transport.subscribe(RomiCore.doorStates, (doorState) =&gt;
   setDoorStates((prev) =&gt; ({ ...prev, [doorState.door_name]: doorState })),
 );
 </code></pre>
-<p>This performs a ROS2 subscription to the <code>RomiCore.doorStates</code> topic, similar to the service call we did earlier, <code>romi-js</code> abstracts away the ROS2 topic name and provides type information. The callback will be fired each time a new door state message comes in and in the callback, we simply update the <code>doorStates</code> state.</p>
+<p>This performs a ROS 2 subscription to the <code>RomiCore.doorStates</code> topic. Similar to the service call we did earlier, <code>romi-js</code> abstracts away the ROS 2 topic name and provides type information. The callback will be fired each time a new door state message comes in. In the callback, we simply update the <code>doorStates</code> state.</p>
 <p>Now just pass the door state to the door component:</p>
 <pre><code class="language-js">&lt;Door door={door} doorState={doorStates[door.name]} /&gt;
 </code></pre>
-<p>the end result of your <code>App.tsx</code> should look like this</p>
+<p>The end result of your <code>App.tsx</code> should look like this:</p>
 <pre><code class="language-js">import * as RomiCore from '@osrf/romi-js-core-interfaces';
 import { SossTransport } from '@osrf/romi-js-soss-transport';
 import * as jwt from 'jsonwebtoken';
@@ -437,8 +435,8 @@ function App() {
 export default App;
 </code></pre>
 <p>And just like that we now have the door states!</p>
-<p><img src="ui-resources/with-door-states-number.png" alt="with door states" /></p>
-<p>But wait... the door states are numbers like <code>1</code> and <code>2</code>, this is because RMF uses a constant to represent door states, we could run a simple function to convert these constants into string</p>
+<p><img src="ui-resources/with-door-states-number.png" alt="With door states" /></p>
+<p>The door states are numbers like <code>0</code>, <code>1</code> and <code>2</code>. This is because RMF uses a constant to represent door states. We could run a simple function to convert these constants into strings:</p>
 <pre><code class="language-js">function doorModeString(doorMode: RomiCore.DoorMode): string {
   switch (doorMode.value) {
     case 2:
@@ -452,7 +450,7 @@ export default App;
   }
 }
 </code></pre>
-<p>but how do we know <code>2</code> means &quot;Open&quot; etc? We can find out by reading the RMF manual or inspecting the ROS2 message definitions, but we can do better with <code>RomiCore</code>, it provides the list of constants in a more readable form</p>
+<p>But how do we know <code>2</code> means &quot;Open&quot; etc? We can find out by reading the RMF manual or inspecting the ROS 2 message definitions, but we can do better with <code>RomiCore</code>. It provides the list of constants in a more readable form:</p>
 <pre><code class="language-js">function doorModeString(doorMode: RomiCore.DoorMode): string {
   switch (doorMode.value) {
     case RomiCore.DoorMode.MODE_OPEN:
@@ -467,7 +465,7 @@ export default App;
 }
 </code></pre>
 <p>With this it's obvious what each constant represents so we don't have to refer to anything else to find its meaning.</p>
-<p>Go ahead and add this to your <code>Door.tsx</code>, it should look like this now</p>
+<p>Go ahead and add this to your <code>Door.tsx</code>. It should look like this now:</p>
 <pre><code class="language-js">import * as RomiCore from '@osrf/romi-js-core-interfaces';
 import React from 'react';
 
@@ -511,10 +509,10 @@ function doorModeString(doorMode: RomiCore.DoorMode): string {
 export default Door;
 </code></pre>
 <p>Great! Now we have readable door states instead of cryptic numbers.</p>
-<p><img src="ui-resources/with-door-states.png" alt="with door states" /></p>
+<p><img src="ui-resources/with-door-states.png" alt="With door states" /></p>
 <h2><a class="header" href="#sending-door-requests" id="sending-door-requests">Sending Door Requests</a></h2>
 <p>As you may have expected by now, all we have to do here is to send door requests to RMF.</p>
-<p>First, create a publisher, add this to the start of the render function.</p>
+<p>First, create a publisher. Add this to the start of the render function:</p>
 <pre><code class="language-js">const doorRequestPub = React.useRef&lt;RomiCore.Publisher&lt;RomiCore.DoorRequest&gt; | null&gt;(null);
 </code></pre>
 <p>Then add this helper function:</p>
@@ -530,7 +528,7 @@ export default Door;
   }
 };
 </code></pre>
-<p>It takes in a <code>RomiCore.Door</code> and a number, representing the desired mode, and crafts a <code>RomiCore.DoorRequest</code> message and sends it using the publisher. Normally you would have to consult the RMF manual or the ROS2 definitions to know exactly what you need to send. Again, <code>RomiCore</code> provides the typing information to make it easier to fill in the required fields.</p>
+<p>It takes in a <code>RomiCore.Door</code> and a number representing the desired mode, and crafts a <code>RomiCore.DoorRequest</code> message and sends it using the publisher. Normally you would have to consult the RMF manual or the ROS 2 definitions to know exactly what you need to send. Again, <code>RomiCore</code> provides the typing information to make it easier to fill in the required fields.</p>
 <p>Finally, add this to the props passed to the door component:</p>
 <pre><code class="language-js">onOpenClick={() =&gt; requestDoor(door, RomiCore.DoorMode.MODE_OPEN)}
 onCloseClick={() =&gt; requestDoor(door, RomiCore.DoorMode.MODE_CLOSED)}
@@ -590,15 +588,16 @@ function App() {
 
 export default App;
 </code></pre>
-<p>Try clicking on the open and close buttons now, you should see the door state being updated, you can also see the door opening/closing in gazebo. Congratulations! You have just written a simple RMF UI application! Obviously the design leaves much to be desired as we didn't do any CSS styling but that is outside the scope of this tutorial.</p>
-<p>Extending this to provide more features like lift control, fleet states etc follows the same principle. All the available topics and services exposed by RMF are available in <code>RomiCore</code> and you can find more detailed information by reading the rest of the manual. This also extends to writing UI applications for other platforms and frameworks; at the core you are really just publishing and subscribing to ROS2 messages so you can apply the same principles to other languages and frameworks.</p>
+<p>Try clicking on the open and close buttons now. You should see the door state being updated. You can also see the door opening/closing in Gazebo.
+Congratulations, you have just written a simple RMF UI application! Obviously the design leaves much to be desired as we didn't do any CSS styling but that is outside the scope of this tutorial.</p>
+<p>Extending this to provide more features like lift control, fleet states, etc. follows the same principle. All the available topics and services exposed by RMF are available in <code>RomiCore</code> and you can find more detailed information by reading the rest of the manual. This also extends to writing UI applications for other platforms and frameworks; at the core you are really just publishing and subscribing to ROS 2 messages so you can apply the same principles to other languages and frameworks.</p>
 <h2><a class="header" href="#conclusion" id="conclusion">Conclusion</a></h2>
-<p>We have just created a minimal RMF UI application that reports the door state and allows a user to control the door. For simplicity, there aren't many features included but this tutorial should provide the basic knowledge of how to create an RMF UI application not only in React but also in any framework that you like!</p>
+<p>We have just created a minimal RMF UI application that reports the door state and allows a user to control the door. For simplicity, there aren't many features included but this tutorial should provide the basic knowledge of how to create an RMF UI application not only in React but also in any framework that you like.</p>
 <p>If you would like more examples of a React RMF application, you can take a look at the official <a href="https://github.com/osrf/romi-dashboard">RoMi dashboard</a>.</p>
 <h2><a class="header" href="#extra-extending-romi-js" id="extra-extending-romi-js">Extra: Extending romi-js</a></h2>
-<p>Throughout the tutorial, we are using <code>romi-js</code> to simplify the communication to RMF. As you might have noticed <code>romi-js</code> is actually a collection of packages, this design makes it possible to easily extend it with new topics, services and even transports.</p>
+<p>Throughout the tutorial, we used <code>romi-js</code> to simplify the communication to RMF. As you might have noticed <code>romi-js</code> is actually a collection of packages. This design makes it possible to easily extend it with new topics, services and even transports.</p>
 <h3><a class="header" href="#adding-topics-and-services" id="adding-topics-and-services">Adding Topics and Services</a></h3>
-<p>Adding topics and services are very simple, a topic and service are defined by the interfaces:</p>
+<p>Topics and services are defined by the interfaces:</p>
 <pre><code class="language-js">export interface RomiTopic&lt;Message&gt; {
   readonly validate: (msg: any) =&gt; Message;
   readonly type: string;
@@ -614,9 +613,9 @@ export interface RomiService&lt;Request, Response&gt; {
   readonly options?: Options;
 }
 </code></pre>
-<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not only publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the &quot;default&quot; QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
-<p>The <code>validate*</code> methods are used by the transport to convert an abitary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.</p>
-<p>We can create custom topics or services by implementing these interfaces, they can then be passed to the transport's various methods.</p>
+<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the &quot;default&quot; QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
+<p>The <code>validate*</code> methods are used by the transport to convert an arbitrary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.</p>
+<p>We can create custom topics or services by implementing these interfaces. They can then be passed to the transport's various methods.</p>
 <pre><code class="language-js">export const myTopic: RomiTopic&lt;MyMessage&gt; = {
   validate: validateMyMessage(msg), // some function that valides MyMessage
   type: 'my_messages/msg/MyMessage',
@@ -665,7 +664,7 @@ export interface Transport extends TransportEvents {
 }
 </code></pre>
 <p>There isn't a general guide on how the interface should be implemented since the details would be different for each transport. One thing to note is that it might be tempting to return a type derived from <code>any</code> (e.g. <code>Publisher&lt;any&gt;</code>) to pass the typescript checks but doing so is not recommended. You should call the <code>validate*</code> methods in the topic or service to convert something into a type of <code>Message</code>.</p>
-<p>To ensure compatibilities with different topics and services, transports must deserialize the data to a plain old data object. It can use either number arrays or typed arrays, the <code>validate*</code> methods should support converting them to the expected types.</p>
+<p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
 
                     </main>
 

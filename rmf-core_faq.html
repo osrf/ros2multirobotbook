@@ -201,12 +201,11 @@ providing a navigation graph to the fleet adapter.</p>
 <code>traffic-editor</code> tool. The <code>rmf_demos</code> repos shows some examples of
 <code>traffic-editor</code> project files.</p>
 <p>However, it's entirely possible to construct your own navigation graphs. They
-use a very simple yaml format.</p>
+use YAML format.</p>
 <h3><a class="header" href="#are-lifts-supported" id="are-lifts-supported">Are lifts supported?</a></h3>
 <p>Proper lift support (meaning, specifying an actual lift that can move between
 floors, and exporting that information into the navigation graph) is not
-something that has been developed yet due to time constraints and the need to
-prioritize certain features over others.</p>
+something that has been developed yet.</p>
 <p>However, for testing and demonstration purposes, there are two special
 navigation graph edge properties that can allow a RMF fleet adapter to emulate
 lift usage. This is meant for demo scenarios where a &quot;mock lift&quot; has been
@@ -249,19 +248,20 @@ waypoint on L3, the robot needs to:</p>
 </ul>
 <p>A rough ASCII diagram would look like this (numbers are waypoints and letters
 are edges):</p>
-<p><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3</code></p>
+<pre><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3
+</code></pre>
 <ul>
 <li>Waypoint 1 is on floor L1</li>
 <li>Waypoint 2 is inside the &quot;lift&quot; named LIFT001</li>
 <li>Waypoint 3 is on floor L3</li>
-<li>The properties of edge a are:
+<li>The properties of edge <code>a </code>are:
 <ul>
 <li>bidirectional: true</li>
 <li>demo_mock_floor_name: L1</li>
 <li>demo_mock_lift_name: LIFT001</li>
 </ul>
 </li>
-<li>The properties of edge b are:
+<li>The properties of edge <code>b</code> are:
 <ul>
 <li>bidirectional: true</li>
 <li>demo_mock_floor_name: L3</li>
@@ -270,24 +270,23 @@ are edges):</p>
 </li>
 </ul>
 <h3><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen" id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h3>
-<p>It's not implemented yet, but there's a design worked out for a bidding system
+<p>Though not implemented yet, there is a design worked out for a bidding system
 where a task request will be converted to a bid request. The bid request will
 be sent to each fleet adapter, and each fleet adapter that can perform the task
 will report its best estimate for how soon it would be able to have the task
 finished. The fleet adapter that offers the lowest bid will be assigned the
 task.</p>
-<p>The API and implementation for this is on the backburner right now as we
-finalize some of the more critical components.</p>
+<p>The API and implementation are awaiting finalization of some critical components.</p>
 <h3><a class="header" href="#can-some-robots-have-priority-over-other-robots" id="can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h3>
 <p>The negotiation system concept does support prioritization for which robot will
 accommodate the other robot(s). Any arbitrary metric or weighting system can be
 used when resolving a negotiation. But in the current implementation that we
-are using, we are treating all vehicles as equal and choosing the resolution
+are using, we treat all vehicles as equal and choose the resolution
 that minimizes the net delay across all the robots, without any prioritization
 or weighting.</p>
 <p>Since this codebase is open source, you can easily fork the code and modify it
 to use any prioritization system that you'd like. Specifically, replace
-<code>rmf_traffic::schedule::QuickestFinishEvaluator()</code> your own
+<code>rmf_traffic::schedule::QuickestFinishEvaluator()</code> with your own
 <code>Negotiation::Evaluator</code> class that behaves in whatever way you would like.</p>
 <h3><a class="header" href="#what-distance-is-maintained-between-two-robots" id="what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h3>
 <p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and

@@ -157,7 +157,7 @@
                     <main>
                         <h1><a class="header" href="#the-ros-api" id="the-ros-api">The ROS API</a></h1>
 <p>ROS comprises many software libraries that provide a wide array of
-functionality that is useful when building robot applications. The libraries
+functionality useful when building robot applications. The libraries
 you need will depend on the details of your project. In this section we will
 introduce two core libraries that you are likely to interact with
 frequently when developing with ROS:</p>
@@ -171,10 +171,12 @@ programming language. Here we will cover just the Python and C++
 libraries because they're the most widely used. But you can find ROS
 client libraries for many other languages, from Ada to JavaScript to
 Rust, and beyond.</p>
-<p><strong>Note:</strong> In this section we aim for a gentle and efficient introduction
+<div style="border: 1px; border-style: solid; padding: 1em">
+<b>Note</b>: In this section we aim for a gentle and efficient introduction
 to the ROS API. In service of that goal, we will purposefully ignore
-and/or violate various conventions and patterns.</p>
-<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-python" id="publishing-and-subscribing-to-topics-in-python">Publishing and subscribing to topics in Python</a></h2>
+and/or violate various conventions and patterns.
+</div>
+<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-python" id="publishing-and-subscribing-to-topics-in-python">Publishing and Subscribing to Topics in Python</a></h2>
 <p>Publishing data with ROS is easy. Here is a complete Python program that
 publishes string messages:</p>
 <pre><code class="language-{.sourceCode.py}">from time import sleep
@@ -193,8 +195,8 @@ while rclpy.ok():
     pub.publish(msg)
     sleep(0.5)
 </code></pre>
-<p>Try it out yourself. (Make sure that in every shell used below you have
-sourced your ROS setup file as we discussed earlier; e.g., <code>source /opt/ros/foxy/setup.bash</code>.) Copy the code block above into a file, call
+<p>Try it out yourself. (Make sure that in every shell used you have
+sourced your ROS setup file as we discussed in the previous chapter; e.g., <code>source /opt/ros/foxy/setup.bash</code>.) Copy the code block above into a file, call
 it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
 <pre><code class="language-{.sourceCode.bash}">$ python3 talker.py
 </code></pre>
@@ -203,13 +205,13 @@ it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
 Publishing: &quot;Hello world: 1&quot;
 Publishing: &quot;Hello world: 2&quot;
 </code></pre>
-<p>So it prints to console. But is the data going anywhere? We can check
+<p>It prints to console, but is the data going anywhere? We can check
 our work using the <code>ros2 topic</code> tool that was introduced earlier. In
-another shell (leave your talker running):</p>
+another shell (leave your talker running), run:</p>
 <pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
 </code></pre>
-<p>You should see (numbers will vary depending on timing between the two
-commands):</p>
+<p>You should see the following, though the numbers will vary depending on timing between the two
+commands:</p>
 <pre><code>data: 'Hello world: 13'
 ---
 data: 'Hello world: 14'
@@ -240,19 +242,19 @@ listener in another shell:</p>
 I heard: &quot;Hello world: 36&quot;
 I heard: &quot;Hello world: 37&quot;
 </code></pre>
-<h3><a class="header" href="#digging-into-the-python-code" id="digging-into-the-python-code">Digging into the Python code</a></h3>
+<h3><a class="header" href="#digging-into-the-python-code" id="digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
 <pre><code class="language-{sourceCode.py}">import rclpy
 from std_msgs.msg import String
 </code></pre>
-<p>We obviously need to import the <code>rclpy</code> client library, which gives us
-much of what we need write ROS applications in Python. But we also need
+<p>We need to import the <code>rclpy</code> client library, which gives us
+much of what we need to write ROS applications in Python. But we also need
 to specifically import the ROS message type(s) that we will use. In this
 case we are using the simple <code>std_msgs/String</code> message, which contains a
 single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
-would <code>from sensor_msgs.msg import Image</code>.</p>
+would write <code>from sensor_msgs.msg import Image</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
 <pre><code class="language-{sourceCode.py}">rclpy.init()
 node = rclpy.create_node('my_node_name')
@@ -273,7 +275,7 @@ object:</p>
 <pre><code class="language-{sourceCode.py}">sub = node.create_subscription(String, 'chatter', cb, 10)
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
-as for the <code>create_publisher()</code> call, and the final argument (10) is
+as the <code>create_publisher()</code> call, and the final argument (10) is
 setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
@@ -302,7 +304,7 @@ while rclpy.ok():
 <p>These steps are clear enough: we create a message object and then on
 each iteration of the loop, we update the message content and publish
 it, sleeping briefly between iterations.</p>
-<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-c" id="publishing-and-subscribing-to-topics-in-c">Publishing and subscribing to topics in C++</a></h2>
+<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-c" id="publishing-and-subscribing-to-topics-in-c">Publishing and Subscribing to Topics in C++</a></h2>
 <p>Now we will write the same talker and listener pair, this time in C++.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
 <pre><code class="language-{sourceCode.cpp}">#include &lt;unistd.h&gt;
@@ -328,7 +330,7 @@ int main(int argc, char * argv[])
 </code></pre>
 <p>Of course, as for all C++, we need to compile this program. Managing the
 compilation arguments for C++ is cumbersome, so we use CMake to help.
-Here is a complete CMake code that allows us to build the talker
+Here is the complete CMake code that allows us to build the talker
 example:</p>
 <pre><code>cmake_minimum_required(VERSION 3.5)
 project(talker_listener)
@@ -406,14 +408,14 @@ still running in one shell, start up your listener in another shell:</p>
 I heard: &quot;Hello world: 36&quot;
 I heard: &quot;Hello world: 37&quot;
 </code></pre>
-<h3><a class="header" href="#digging-into-the-c-code" id="digging-into-the-c-code">Digging into the C++ code</a></h3>
+<h3><a class="header" href="#digging-into-the-c-code" id="digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
 <pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
 </code></pre>
-<p>We obviously need to include the <code>rclcpp</code> client library, which gives us
-much of what we need write ROS applications in C++. But we also need to
+<p>We always need to include the <code>rclcpp</code> client library, which gives us
+much of what we need to write ROS applications in C++. But we also need to
 specifically import the ROS message type(s) that we will use. In this
 case we are using the simple <code>std_msgs/String</code> message, which contains a
 single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
@@ -467,10 +469,10 @@ arrive (and more generally for events to occur) and invoke our callback.</p>
     usleep(500000);
   }
 </code></pre>
-<p>These steps are clear enough: we create a message object and then on
-each iteration of the loop, we update the message content and publish
+<p>In these steps we create a message object, and then on
+each iteration of the loop we update the message content and publish
 it, sleeping briefly between iterations.</p>
-<h2><a class="header" href="#where-to-go-from-here" id="where-to-go-from-here">Where to go from here</a></h2>
+<h2><a class="header" href="#where-to-go-from-here" id="where-to-go-from-here">Where to Go From Here</a></h2>
 <p>That was a very brief introduction and we only covered topics, not
 services, actions, parameters, or the many other facets of ROS. Luckily,
 the online <a href="https://index.ros.org/doc/ros2/Tutorials">ROS tutorials</a> are
@@ -478,7 +480,7 @@ an excellent resource for learning about the rest of ROS. We
 specifically recommend the <a href="https://index.ros.org/doc/ros2/Tutorials/#beginner-client-libraries">Beginner: Client
 Libraries</a>
 collection as a natural next step after reading this chapter.</p>
-<h2><a class="header" href="#regarding-the-shortcuts-we-took" id="regarding-the-shortcuts-we-took">Regarding the shortcuts we took</a></h2>
+<h2><a class="header" href="#regarding-the-shortcuts" id="regarding-the-shortcuts">Regarding the Shortcuts</a></h2>
 <p>In this section we have presented the simplest, shortest example ROS
 programs that we could come up with. Such programs are easy to
 understand and learn from, as they do not have unnecessary structure or
@@ -492,13 +494,13 @@ tutorials</a> and start reading
 existing ROS code, you will learn about a number of concepts, patterns,
 and conventions, such as:</p>
 <ul>
-<li>organizing your code into <em>packages</em>;</li>
-<li>organizing your packages into a <em>workspace</em>;</li>
-<li>managing <em>dependencies</em> among packages;</li>
-<li>using the <code>colcon</code> tool to build code in multiple packages in dependency order;</li>
-<li>using the <code>ament</code> module in your <code>CMakeLists.txt</code> files;</li>
-<li>structuring your code to allow run-time control of how nodes maps to processes; and</li>
-<li>using the client libraries' console-logging routines for output to screen and elsewhere.</li>
+<li>organizing your code into <em>packages</em></li>
+<li>organizing your packages into a <em>workspace</em></li>
+<li>managing <em>dependencies</em> among packages</li>
+<li>using the <code>colcon</code> tool to build code in multiple packages in dependency order</li>
+<li>using the <code>ament</code> module in your <code>CMakeLists.txt</code> files</li>
+<li>structuring your code to allow run-time control of how nodes maps to processes</li>
+<li>using the client libraries' console-logging routines for output to screen and elsewhere</li>
 </ul>
 <p>These techniques will serve you well when you start building your own ROS
 applications, especially when you want to share your code with others, whether

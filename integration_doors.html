@@ -156,13 +156,13 @@
                 <div id="content" class="content">
                     <main>
                         <h2><a class="header" href="#doors" id="doors">Doors</a></h2>
-<h3><a class="header" href="#map-requirements" id="map-requirements">Map requirements</a></h3>
-<p>Before a door can be properly integrated, be sure to draw up the door locations with the correct door names on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in Chapter 3. Traffic Editor.</p>
+<h3><a class="header" href="#map-requirements" id="map-requirements">Map Requirements</a></h3>
+<p>Before a door can be properly integrated, be sure to draw up the door locations with the correct door names on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in the <a href="./traffic-editor.html">Traffic Editor</a> chapter.</p>
 <h3><a class="header" href="#integration" id="integration">Integration</a></h3>
 <p>Door integration is required when integrating RMF into a new environment. For hopefully obvious reasons, only automated doors can be integrated with RMF though it may be possible to trigger an alert to a designated human to open a manual door but this is not recommended. An automated door can be defined as an electronically powered door that is remotely controllable, either using a remote trigger or has been outfitted with a computing unit capable of commanding the door to open and close when needed, using certain interfaces.</p>
-<p>Doors can be integrated with RMF using a ROS 2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component.</p>
+<p>Doors can be integrated with RMF using a ROS 2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component:</p>
 <img src="images/doors_block_diagram.png">
-<p>The door node will have to be implemented based on the make and model of the door that is being integrated in order to address the specific API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of <code>REST</code>, <code>RPCXML</code>, etc. The door node is in charge of publishing its state and receiving commands over ROS 2, using the messages and topics listed below.</p>
+<p>The door node will have to be implemented based on the make and model of the door that is being integrated in order to address the specific API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of <code>REST</code>, <code>RPCXML</code>, etc. The door node is in charge of publishing its state and receiving commands over ROS 2, using the messages and topics listed below:</p>
 <table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>rmf_door_msgs/DoorState</code></td><td><code>/door_states</code></td><td>State of the door published by the door node</td></tr>
 <tr><td><code>rmf_door_msgs/DoorRequest</code></td><td><code>/door_requests</code></td><td>Direct requests subscribed by the door node and published by the door adapter</td></tr>

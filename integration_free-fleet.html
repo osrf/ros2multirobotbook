@@ -163,7 +163,7 @@
 <p>In this section, we will address 4 different approaches of using <code>free_fleet</code> to integrate with RMF, specifically the navigation stack used by the robot. Each approach maintains a similar systems architecture, which is illustrated in the simple block diagram below, but there are specific examples depending on the software choice for the navigation stack used by the robot developer.</p>
 <img src="images/free_fleet_block_diagram.png">
 <h2><a class="header" href="#ros-1-navigation-stack" id="ros-1-navigation-stack">ROS 1 Navigation Stack</a></h2>
-<p>An implementation of a <code>free_fleet</code> client that works with a ROS 1 navigation stack can be found in the <a href="https://github.com/osrf/free_fleet">repository</a>. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the <code>move_base</code> action library, as well as publishing its battery status published using the <code>sensor_msgs/BatteryState</code> message.</p>
+<p>An implementation of a <code>free_fleet</code> client that works with a ROS 1 navigation stack can be found in the <a href="https://github.com/osrf/free_fleet">free_fleet repository</a>. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the <code>move_base</code> action library, as well as publishing its battery status published using the <code>sensor_msgs/BatteryState</code> message.</p>
 <p>After following the build instructions on the README on the mobile robot, the user can launch the client as part of their launch script while at the same time define the necessary parameters using <code>rosparam</code>. Below is a small snippet example of how a client can be launched, with its paramters defined,</p>
 <pre><code class="language-xml">&lt;node name=&quot;free_fleet_client_node&quot;
     pkg=&quot;free_fleet_client_ros1&quot;
@@ -206,8 +206,8 @@
 
 &lt;/node&gt;
 </code></pre>
-<p>The running <code>free_fleet</code> client will communicate with the nodes running on the robot via ROS 1, while publishing its state and subscribing to requests over DDS with the <code>free_fleet</code> Server.</p>
-<p>The current implementation of the <code>free_fleet</code> server is implemented with ROS 2 and communicates with RMF using the aforementioned ROS 2 message and topic interfaces of an RMF fleet adapter. The ROS 2 build instructions can also be found on the same repository. Similar to the client, a simple ROS2 wrapper has been implemented, and it can be started using a <code>.launch.xml</code> file like so,</p>
+<p>The running <code>free_fleet</code> client will communicate with the nodes running on the robot via ROS 1, while publishing its state and subscribing to requests over DDS with the <code>free_fleet</code> server.</p>
+<p>The current implementation of the <code>free_fleet</code> server is implemented with ROS 2 and communicates with RMF using the aforementioned ROS 2 message and topic interfaces of an RMF fleet adapter. The ROS 2 build instructions can also be found on the same repository. Similar to the client, a simple ROS 2 wrapper has been implemented, and it can be started using a <code>.launch.xml</code> file like so:</p>
 <pre><code class="language-xml">&lt;node pkg=&quot;free_fleet_server_ros2&quot;
     exec=&quot;free_fleet_server_ros2&quot;
     name=&quot;free_fleet_server_node&quot;
@@ -246,14 +246,14 @@
 
 &lt;/node&gt;
 </code></pre>
-<p>Furthermore, an example of this configuration can be found in the repository as well, under the packages <code>ff_examples_ros1</code> and <code>ff_exmaples_ros2</code>. This example launches the example simulation from <code>ROBOTIS</code>, shown <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#ros-1-simulation">here</a>, which has a small simulated world with 3 Turtlebot3 mobile robots, each running its own ROS 1 navigation stack.</p>
+<p>Furthermore, an example of this configuration can be found in the repository as well, under the packages <code>ff_examples_ros1</code> and <code>ff_exmaples_ros2</code>. This example launches the example simulation <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#ros-1-simulation">from <code>ROBOTIS</code></a>, which has a small simulated world with 3 Turtlebot3 mobile robots, each running its own ROS 1 navigation stack.</p>
 <p>After successful builds for both ROS 1 and ROS 2 workspaces, the simulation can be launched following <a href="https://github.com/osrf/free_fleet#turtlebot3-simulation">these instructions</a>, which also includes a ROS 2 <code>free_fleet</code> server, publishing fleet state messages and accepting mode and navigation requests over ROS 2 messages and topics.</p>
 <h2><a class="header" href="#ros-2-navigation-stack" id="ros-2-navigation-stack">ROS 2 Navigation Stack</a></h2>
 <p>An implementation for a robot using ROS 2 would be similar to a ROS 1 navigation stack described earlier. At this time, the ROS 2 <code>free_fleet</code> client is still under development. This section will be updated once the refactoring, implementation and testing has been completed.</p>
 <p>The same ready <code>free_fleet</code> server implementation in the repository will work in this scenario, as the interfaces provided by the fleet adapters are still the same ROS 2 messages and topics.</p>
-<p>If required in the meantime, users can implement their own <code>free_fleet</code> client, by working with the <code>free_fleet</code> library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section <a href="#custom-navigation-stack">Custom Navigation Stack</a>.</p>
+<p>If required in the meantime, users can implement their own <code>free_fleet</code> client, by working with the <code>free_fleet</code> library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section, <a href="#custom-navigation-stack">Custom Navigation Stack</a>.</p>
 <h2><a class="header" href="#developer-navigation-stack" id="developer-navigation-stack">Developer Navigation Stack</a></h2>
-<p>In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own <code>free_fleet</code> client wrapper. The block diagram below illustrate this configuration.</p>
+<p>In this implementation, it is assumed that the software running on the mobile robot was written by the robot developers themselves (or their immediate subcontractors) and the developers fully understand and have access to their robot's internal control software, API's and interfaces. This level of understanding and access will be necessary for implementing your own <code>free_fleet</code> client wrapper. The block diagram below illustrates this configuration:</p>
 <img src="images/free_fleet_custom_config.png">
 <p>Once the developer's <code>free_fleet</code> client is fully functional, it will be a simple task of launching the same ROS 2 <code>free_fleet</code> server as mentioned earlier in this section to work with the fleet adapters through ROS 2 messages and topics.</p>
 
