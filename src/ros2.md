@@ -32,7 +32,7 @@ applications. The four parts of this chapter are as follows.
 * Meta-discussion of the tools and resources available to help you in the
   learning process.
 
-* A high level discussion to the design patterns use in ROS. These patterns are
+* A high level discussion to the design patterns used in ROS. These patterns are
   roughly analogous to the subsystems you would find in a vehicle (engine,
   brakes, safety, climate control, etc).
 
@@ -45,9 +45,9 @@ applications. The four parts of this chapter are as follows.
   will show you how to create your own applications and modify existing software
   for your specific application.
 
-While this books aims to cover the basics it should be made clear that ROS, like
-almost all software is a moving target. Technology moves quickly, and while
-print media is helpful and delivering high fidelity instruction, that
+While this book aims to cover the basics it should be made clear that ROS, like
+almost all software, is a moving target. Technology moves quickly, and while
+print media is helpful at delivering high fidelity instruction, that
 instruction can become rapidly outdated. For this reason we start this chapter
 with a meta-discussion of ROS resources that can be used to help you in your
 learning process.
