@@ -126,7 +126,9 @@ So now you have an idea of what RMF is all about, it's time to jump in. We would
 
 ### Installation of the RMF Essentials
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before proceeding with the installation.
+Current version of RMF is 1.0.0-rc (release candidate) and it targets ROS eloquent with Debian binary packages released for Ubuntu bionic 18.04 LTS. Therefore make sure the correspondent OS is properly installed in your system before proceeding with the following instructions.
+
+RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before  the installation.
 
 #### Setup Locale
 
