@@ -239,7 +239,8 @@ The dashboard is by design more &quot;operator-friendly&quot; compared to the pr
 <h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
 <p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
 <h3><a class="header" href="#installation-of-the-rmf-essentials" id="installation-of-the-rmf-essentials">Installation of the RMF Essentials</a></h3>
-<p>RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before proceeding with the installation.</p>
+<p>The current version of RMF is 1.0.0-rc (release candidate) and it targets ROS eloquent with Debian binary packages released for Ubuntu bionic 18.04 LTS. Therefore make sure the correspondent OS is properly installed in your system before proceeding with the following instructions.</p>
+<p>RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before  the installation.</p>
 <h4><a class="header" href="#setup-locale" id="setup-locale">Setup Locale</a></h4>
 <p>Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale.</p>
 <pre><code>sudo locale-gen en_US en_US.UTF-8
@@ -273,6 +274,25 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 </code></pre>
 <p>Finally this installs a basic set of packages that should get you going with RMF:</p>
 <pre><code>sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
+</code></pre>
+<h3><a class="header" href="#install-and-run-rmf-demos" id="install-and-run-rmf-demos">Install and run RMF demos</a></h3>
+<p>You can install the provided RMF demos from their debian package:</p>
+<pre><code>sudo apt-get install ros-eloquent-demos
+</code></pre>
+<p>In order to run ROS 2 commands we source the setup.bash file:</p>
+<pre><code>source /opt/ros/eloquent/setup.bash
+</code></pre>
+<p>Once installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example for the airport terminal models:</p>
+<pre><code>ros2 run building_map_tools model_downloader rmf_demo_maps -s airport_terminal
+</code></pre>
+<p>You can learn more about the model downloader tool running:</p>
+<pre><code>ros2 run building_map_tools model_downloader -h
+</code></pre>
+<p>Finally run your desired demo. In this case we will run the airport terminal:</p>
+<pre><code>ros2 launch demos airport_terminal.launch.xml
+</code></pre>
+<p>Now you can send up requests to the magni and mir fleets using the RMF Schedule Visualizer or directly using ROS 2 messages like this:</p>
+<pre><code>ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
 </code></pre>
 <p>We encourage you to keep exploring the documentation to learn about the features of these and the rest of the packages!</p>
 
