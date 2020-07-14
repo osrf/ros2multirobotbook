@@ -126,7 +126,9 @@ So now you have an idea of what RMF is all about, it's time to jump in. We would
 
 ### Installation of the RMF Essentials
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before proceeding with the installation.
+The current version of RMF is 1.0.0-rc (release candidate) and it targets ROS eloquent with Debian binary packages released for Ubuntu bionic 18.04 LTS. Therefore make sure the correspondent OS is properly installed in your system before proceeding with the following instructions.
+
+RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before  the installation.
 
 #### Setup Locale
 
@@ -191,6 +193,43 @@ Finally this installs a basic set of packages that should get you going with RMF
 
 ```
 sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
+```
+
+### Install and run RMF demos
+
+You can install the provided RMF demos from their debian package:
+
+```
+sudo apt-get install ros-eloquent-demos
+```
+
+In order to run ROS 2 commands we source the setup.bash file:
+
+```
+source /opt/ros/eloquent/setup.bash
+```
+
+Once installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example for the airport terminal models:
+
+```
+ros2 run building_map_tools model_downloader rmf_demo_maps -s airport_terminal
+```
+
+You can learn more about the model downloader tool running:
+
+```
+ros2 run building_map_tools model_downloader -h
+```
+
+Finally run your desired demo. In this case we will run the airport terminal:
+
+```
+ros2 launch demos airport_terminal.launch.xml
+```
+
+Now you can send up requests to the magni and mir fleets using the RMF Schedule Visualizer or directly using ROS 2 messages like this:
+```
+ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
 ```
 
 We encourage you to keep exploring the documentation to learn about the features of these and the rest of the packages!
