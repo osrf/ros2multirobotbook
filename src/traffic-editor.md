@@ -551,7 +551,7 @@ lifts:
 Levels may be annotated with thumbnails of models available for simulation using the _Add model_ tool in _Building_ edit mode.
 Selecting this tool opens a dialog box with a list of model names and matching thumbnails which can be imported to the map.
 Once on the map, their positions and orientations can be adjusted using the _Move_ and _Rotate_ tools.
-The [thumbnail_generator documentation](https://github.com/osrf/traffic_editor/tree/master/traffic_editor/thumbnail_generator) contains instructions on expanding the list of thumbnails for other models.
+The [thumbnail_generator documentation](https://github.com/osrf/traffic_editor/tree/master/traffic_editor#generating-custom-thumbnails) contains instructions on expanding the list of thumbnails for other models.
 
 ![Model name and thumbnails dialog](images/traffic_editor/add_model.png)
 ### Adding a scenario
