@@ -120,19 +120,17 @@ The dashboard is by design more "operator-friendly" compared to the previously m
 
 The open-source and freely distributable [simulation assets](https://app.ignitionrobotics.org/fuel) are created and shared to accelerate simulation efforts.
 
-## Jump in, the water is fine!
+## Installation of the RMF Essentials
 
-So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the [RMF Demos](https://github.com/osrf/rmf_demos) repository and if you want a really quick overview of RMF then take a look at this [Mock Airport Terminal video demo](https://vimeo.com/405803151) (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!
+The current version of RMF is 1.0.2 and it targets ROS Eloquent with Debian binary packages released for Ubuntu Bionic 18.04 LTS.
 
-### Installation of the RMF Essentials
+RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Bionic please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
 
-The current version of RMF is 1.0.0-rc (release candidate) and it targets ROS eloquent with Debian binary packages released for Ubuntu bionic 18.04 LTS. Therefore make sure the correspondent OS is properly installed in your system before proceeding with the following instructions.
+### Setup Locale
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before  the installation.
+Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. You can check your locale by running `locale` directly in your terminal.
 
-#### Setup Locale
-
-Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale.
+We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale. In case you need it, here is an example on how to switch to the US English UTF-8 locale:
 
 ```
 sudo locale-gen en_US en_US.UTF-8
@@ -140,7 +138,7 @@ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 ```
 
-#### Setup ROS Sources
+### Setup ROS Sources
 
 You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:
 
@@ -155,7 +153,7 @@ And then add the repository to your sources list:
 sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
 ```
 
-#### Setup Ignition-Gazebo Sources
+### Setup Ignition-Gazebo Sources
 
 You will also need to add the Ignition-Gazebo apt repositories similar to the ROS 2 setup. Let's authorize the key:
 
@@ -169,7 +167,7 @@ You will also need to add the repository to your sources list:
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 ```
 
-#### Setup Sources and Installation of RMF
+### Setup Sources and Installation of RMF
 
 Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:
 
@@ -189,27 +187,33 @@ And now we are ready to install. Let's update our packages:
 sudo apt-get update
 ```
 
-Finally this installs a basic set of packages that should get you going with RMF:
+Finally, the following installs a basic set of packages that should get you going with RMF:
 
 ```
 sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
 ```
 
-### Install and run RMF demos
+## Install and run RMF demos
 
-You can install the provided RMF demos from their debian package:
+You can install the provided RMF demos from their Debian package:
 
 ```
 sudo apt-get install ros-eloquent-demos
 ```
 
-In order to run ROS 2 commands we source the setup.bash file:
+If ROS 2 is not installed using at least `ros-eloquent-ros-base` you will also need the following packages:
+
+```
+sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
+```
+
+In order to run ROS 2 commands we need to source the `setup.bash` file:
 
 ```
 source /opt/ros/eloquent/setup.bash
 ```
 
-Once installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example for the airport terminal models:
+Once everything is installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example on how to do it for the airport terminal models:
 
 ```
 ros2 run building_map_tools model_downloader rmf_demo_maps -s airport_terminal
@@ -227,9 +231,34 @@ Finally run your desired demo. In this case we will run the airport terminal:
 ros2 launch demos airport_terminal.launch.xml
 ```
 
-Now you can send up requests to the magni and mir fleets using the RMF Schedule Visualizer or directly using ROS 2 messages like this:
+The airport world was created to not spawn the robots when launched. Instead there are "RobotPlaceholder" models where they get dynamically spawned when you run:
+
+```
+ros2 run demos airport_terminal_spawn_robots.sh
+```
+
+Now you should be able to see the airport terminal with the robots in Gazebo:
+
+![Airport Terminal Gazebo](images/intro/install_run_RMF/airport_gazebo.png)
+
+The RMF Schedule Visualizer should have loaded in an rviz window. The `RMF Panel` and `SchedulePanel` might appear hidden by default, so you might have to click in the left middle arrow to make them visible:
+
+![Airport Terminal Rviz](images/intro/install_run_RMF/airport_rviz.png)
+
+Now you should be able to see the `SchedulePanel`, click on the lower tab for the `RMF Panel`:
+
+![Airport Terminal SchedulePanel](images/intro/install_run_RMF/airport_schedulepanel.png)
+
+You can send up requests to the `magni` and `mir` fleets using this panel:
+
+![Airport Terminal RMF Panel](images/intro/install_run_RMF/airport_RMFPanel.png)
+
+You can also send them directly using ROS 2 messages. Here we request a robot from the `magni` fleet to go from the waypoint `magni_n09` to `magni_s07` only once:
+
 ```
 ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
 ```
 
-We encourage you to keep exploring the documentation to learn about the features of these and the rest of the packages!
+## Jump in, the water is fine!
+
+So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the [RMF Demos](https://github.com/osrf/rmf_demos) repository and if you want a really quick overview of RMF then take a look at this [Mock Airport Terminal video demo](https://vimeo.com/405803151) (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!
