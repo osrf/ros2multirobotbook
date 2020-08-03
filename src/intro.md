@@ -124,7 +124,7 @@ The open-source and freely distributable [simulation assets](https://app.ignitio
 
 The current version of RMF is 1.0.2. It targets ROS Eloquent, and Debian binary packages are released for Ubuntu Bionic 18.04 LTS.
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Bionic please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
+RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Bionic please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
 
 ### Setup Locale
 
