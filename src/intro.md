@@ -231,7 +231,7 @@ Finally run your desired demo. In this case we will run the airport terminal:
 ros2 launch demos airport_terminal.launch.xml
 ```
 
-The airport world was created to not spawn the robots when launched. Instead there are "RobotPlaceholder" models where they get dynamically spawned when you run:
+The airport world was created to not spawn the robots when launched. Instead there are "RobotPlaceholder" models where they get dynamically spawned. To spawn the robots, run this command:
 
 ```
 ros2 run demos airport_terminal_spawn_robots.sh
