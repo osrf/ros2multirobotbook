@@ -138,7 +138,7 @@ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 ```
 
-### Setup ROS Sources
+### Setup and Install ROS 2
 
 You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:
 
@@ -151,6 +151,18 @@ And then add the repository to your sources list:
 
 ```
 sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+```
+
+If ROS 2 is not installed using at least `ros-eloquent-ros-base` you will need the following packages to run the RMF demos:
+
+```
+sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
+```
+
+In order to run ROS 2 commands we need to source the `setup.bash` file:
+
+```
+source /opt/ros/eloquent/setup.bash
 ```
 
 ### Setup Ignition-Gazebo Sources
@@ -199,18 +211,6 @@ You can install the provided RMF demos from their Debian package:
 
 ```
 sudo apt-get install ros-eloquent-demos
-```
-
-If ROS 2 is not installed using at least `ros-eloquent-ros-base` you will also need the following packages:
-
-```
-sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
-```
-
-In order to run ROS 2 commands we need to source the `setup.bash` file:
-
-```
-source /opt/ros/eloquent/setup.bash
 ```
 
 Once everything is installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example on how to do it for the airport terminal models:
