@@ -238,18 +238,17 @@ This <a href="http://github.com/osrf/romi-dashboard">dashboard</a> is a web appl
 The dashboard is by design more &quot;operator-friendly&quot; compared to the previously mentioned schedule visualizer.</p>
 <h3><a class="header" href="#simulation-assets" id="simulation-assets">Simulation Assets</a></h3>
 <p>The open-source and freely distributable <a href="https://app.ignitionrobotics.org/fuel">simulation assets</a> are created and shared to accelerate simulation efforts.</p>
-<h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
-<p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
-<h3><a class="header" href="#installation-of-the-rmf-essentials" id="installation-of-the-rmf-essentials">Installation of the RMF Essentials</a></h3>
-<p>The current version of RMF is 1.0.0-rc (release candidate) and it targets ROS eloquent with Debian binary packages released for Ubuntu bionic 18.04 LTS. Therefore make sure the correspondent OS is properly installed in your system before proceeding with the following instructions.</p>
-<p>RMF leverages the ROS and Gazebo-Ignition ecosystem so we will have to setup their repositories as the first steps of the RMF installation process. The current binary release targets Ubuntu Bionic; therefore please ensure you match the system and version before  the installation.</p>
-<h4><a class="header" href="#setup-locale" id="setup-locale">Setup Locale</a></h4>
-<p>Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale.</p>
+<h2><a class="header" href="#installation-of-the-rmf-essentials" id="installation-of-the-rmf-essentials">Installation of the RMF Essentials</a></h2>
+<p>The current version of RMF is 1.0.2. It targets ROS Eloquent, and Debian binary packages are released for Ubuntu Bionic 18.04 LTS.</p>
+<p>RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Bionic please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the <a href="intro.html#setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a> section.</p>
+<h3><a class="header" href="#setup-locale" id="setup-locale">Setup Locale</a></h3>
+<p>Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. You can check your locale by running <code>locale</code> directly in your terminal.</p>
+<p>We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale. In case you need it, here is an example on how to switch to the US English UTF-8 locale:</p>
 <pre><code>sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 </code></pre>
-<h4><a class="header" href="#setup-ros-sources" id="setup-ros-sources">Setup ROS Sources</a></h4>
+<h3><a class="header" href="#setup-and-install-ros-2" id="setup-and-install-ros-2">Setup and Install ROS 2</a></h3>
 <p>You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:</p>
 <pre><code>sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
@@ -257,14 +256,20 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 <p>And then add the repository to your sources list:</p>
 <pre><code>sudo sh -c 'echo &quot;deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main&quot; &gt; /etc/apt/sources.list.d/ros2-latest.list'
 </code></pre>
-<h4><a class="header" href="#setup-ignition-gazebo-sources" id="setup-ignition-gazebo-sources">Setup Ignition-Gazebo Sources</a></h4>
+<p>If ROS 2 is not installed using at least <code>ros-eloquent-ros-base</code> you will need the following packages to run the RMF demos:</p>
+<pre><code>sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
+</code></pre>
+<p>In order to run ROS 2 commands we need to source the <code>setup.bash</code> file:</p>
+<pre><code>source /opt/ros/eloquent/setup.bash
+</code></pre>
+<h3><a class="header" href="#setup-ignition-gazebo-sources" id="setup-ignition-gazebo-sources">Setup Ignition-Gazebo Sources</a></h3>
 <p>You will also need to add the Ignition-Gazebo apt repositories similar to the ROS 2 setup. Let's authorize the key:</p>
 <pre><code>curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
 </code></pre>
 <p>You will also need to add the repository to your sources list:</p>
 <pre><code>sudo sh -c 'echo &quot;deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main&quot; &gt; /etc/apt/sources.list.d/gazebo-stable.list'
 </code></pre>
-<h4><a class="header" href="#setup-sources-and-installation-of-rmf" id="setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a></h4>
+<h3><a class="header" href="#setup-sources-and-installation-of-rmf" id="setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a></h3>
 <p>Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:</p>
 <pre><code>curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
 </code></pre>
@@ -274,17 +279,14 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 <p>And now we are ready to install. Let's update our packages:</p>
 <pre><code>sudo apt-get update
 </code></pre>
-<p>Finally this installs a basic set of packages that should get you going with RMF:</p>
+<p>Finally, the following installs a basic set of packages that should get you going with RMF:</p>
 <pre><code>sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
 </code></pre>
-<h3><a class="header" href="#install-and-run-rmf-demos" id="install-and-run-rmf-demos">Install and run RMF demos</a></h3>
-<p>You can install the provided RMF demos from their debian package:</p>
+<h2><a class="header" href="#install-and-run-rmf-demos" id="install-and-run-rmf-demos">Install and run RMF demos</a></h2>
+<p>You can install the provided RMF demos from their Debian package:</p>
 <pre><code>sudo apt-get install ros-eloquent-demos
 </code></pre>
-<p>In order to run ROS 2 commands we source the setup.bash file:</p>
-<pre><code>source /opt/ros/eloquent/setup.bash
-</code></pre>
-<p>Once installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example for the airport terminal models:</p>
+<p>Once everything is installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example on how to do it for the airport terminal models:</p>
 <pre><code>ros2 run building_map_tools model_downloader rmf_demo_maps -s airport_terminal
 </code></pre>
 <p>You can learn more about the model downloader tool running:</p>
@@ -293,10 +295,22 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 <p>Finally run your desired demo. In this case we will run the airport terminal:</p>
 <pre><code>ros2 launch demos airport_terminal.launch.xml
 </code></pre>
-<p>Now you can send up requests to the magni and mir fleets using the RMF Schedule Visualizer or directly using ROS 2 messages like this:</p>
+<p>The airport world was created to not spawn the robots when launched. Instead there are &quot;RobotPlaceholder&quot; models where they get dynamically spawned. To spawn the robots, run this command:</p>
+<pre><code>ros2 run demos airport_terminal_spawn_robots.sh
+</code></pre>
+<p>Now you should be able to see the airport terminal with the robots in Gazebo:</p>
+<p><img src="images/intro/install_run_RMF/airport_gazebo.png" alt="Airport Terminal Gazebo" /></p>
+<p>The RMF Schedule Visualizer should have loaded in an rviz window. The <code>RMF Panel</code> and <code>SchedulePanel</code> might appear hidden by default, so you might have to click in the left middle arrow to make them visible:</p>
+<p><img src="images/intro/install_run_RMF/airport_rviz.png" alt="Airport Terminal Rviz" /></p>
+<p>Now you should be able to see the <code>SchedulePanel</code>, click on the lower tab for the <code>RMF Panel</code>:</p>
+<p><img src="images/intro/install_run_RMF/airport_schedulepanel.png" alt="Airport Terminal SchedulePanel" /></p>
+<p>You can send up requests to the <code>magni</code> and <code>mir</code> fleets using this panel:</p>
+<p><img src="images/intro/install_run_RMF/airport_RMFPanel.png" alt="Airport Terminal RMF Panel" /></p>
+<p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>magni</code> fleet to go from the waypoint <code>magni_n09</code> to <code>magni_s07</code> only once:</p>
 <pre><code>ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
 </code></pre>
-<p>We encourage you to keep exploring the documentation to learn about the features of these and the rest of the packages!</p>
+<h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
+<p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
 <h1><a class="header" href="#an-introduction-to-ros-2" id="an-introduction-to-ros-2">An Introduction to ROS 2</a></h1>
 <p>In this chapter we will cover the basics of Robot Operating System (ROS) and
 give you all the tools you need to build, debug, and understand robotic
