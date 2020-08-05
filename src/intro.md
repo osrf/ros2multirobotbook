@@ -60,7 +60,7 @@ RMF is designed to operate at a higher abstraction layer to create networked fle
 
 Unlock your options, your facility and your future with RMF.
 
-(insert re: funders and collaborators)
+We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development. The project is supported by MOH and NR2PO/ A*STAR under its project "Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling,"
 
 ## So what is RMF?
 
