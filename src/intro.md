@@ -153,6 +153,7 @@ And then add the repository to your sources list:
 
 ```
 sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+sudo apt update
 ```
 
 If ROS 2 is not installed using at least `ros-eloquent-ros-base` you will need the following packages to run the RMF demos:
