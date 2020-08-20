@@ -17,8 +17,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
         <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
@@ -254,6 +258,7 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 </code></pre>
 <p>And then add the repository to your sources list:</p>
 <pre><code>sudo sh -c 'echo &quot;deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main&quot; &gt; /etc/apt/sources.list.d/ros2-latest.list'
+sudo apt update
 </code></pre>
 <p>If ROS 2 is not installed using at least <code>ros-eloquent-ros-base</code> you will need the following packages to run the RMF demos:</p>
 <pre><code>sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
