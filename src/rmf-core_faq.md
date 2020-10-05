@@ -159,3 +159,64 @@ conflict" is defined as an instance where one vehicle's "footprint" is
 scheduled to enter another vehicle's "vicinity". The job of the negotiation
 system is to come up with a fix to the schedule that keeps all vehicles'
 "footprints" out of all other vehicles' "vicinities".
+
+### How is job dispatching accomplished?
+
+The Dispatch Planner module is currently a work-in-progress.
+So far, the demo platforms that have been developed for RMF did not require a planner to dispatch tasks to different fleets, because in all demo platforms done thus far (late 2020), each task type could only be performed by one (and only one) robot fleet.
+So the task dispatching has been trivial: the task gets assigned to whatever fleet is capable of performing the task, while the rest of the fleets just ignore the task request.
+We are currently working on a true dispatch planner and formal task bidding system which we're aiming to include in release 1.2.0, slated for end of December 2020.
+The idea is that every fleet that can perform a task request will offer a bid for how much it would "cost" them to perform a task, and the bid with the lowest "cost" will be the winner.
+The "cost" will be determined by two factors:
+ * How quickly the task is finished
+ * How much other tasks get delayed if the new task needs to preempt them
+
+### What is `rmf_traffic` ?
+
+`rmf_traffic` provides a middleware-neutral implementation of the core traffic scheduling algorithms and utilities. It does not use or depend on ROS 2.
+
+### What is `rmf_traffic_ros2` ?
+
+`rmf_traffic_ros2` provides convenient wrappers for using the `rmf_traffic` as part of a distributed ROS 2 system.
+
+### Where is the costmap?
+
+There is no costmap representation in `rmf_core`.
+Costmaps are one method that is typically used for representing volume occupancy for autonomous navigation planning.
+While it's true that the traffic utilities deal with navigation planning, they are principally concerned about identifying conflicts between the intended routes of autonomous vehicles.
+The traffic utilities are not responsible for the "local" navigation of vehicles around static obstacles in their environment.
+
+Different robot platforms often have different representations of costmaps or other navigation algorithms, many of which may be proprietary.
+On top of that, different robot platforms with the same costmap representations may still require different costmap values because of differences in robot footprints.
+Because of these factors, we leave it to the robot platforms themselves to determine how they represent their costmaps. If it's important for a system integrator to take a robot's costmap into account when performing traffic planning, they can implement a custom `rmf_traffic::agv::RouteValidator` that uses the robot's custom costmap when determining whether a candidate route is valid.
+
+### What is the core algorithm behind `rmf_traffic` ?
+
+Conflict avoidance for AGV's in `rmf_traffic` is implemented with time-dependent extension to [A\* search](https://en.wikipedia.org/wiki/A*_search_algorithm)
+This search takes time into account so that it can find paths through space and time that account for the motions of other agents that are in the traffic schedule.
+
+### During negotiation, how do fleets compute their proposals?
+
+Because the system is designed to be extensible and adaptable to a wide variety of scenarios and robot vendor combinations, including many that do not currently exist, it has many pieces and hooks for expansion. The sequence of computing a traffic proposal is as follows:
+ * First, the fleet adapter node will receive a conflict notification which tells it that it needs to participate in a negotiation to resolve a space-time conflict. This notification is received by the `rmf_traffic_ros2::schedule::Negotiation` class.
+ * For this to happen, the fleet adapter creates a negotiation-notification subscription, so that it will be told whenever a particular robot under its control needs to respond to a negotiation notification.
+ * When a robot needs to repond to a negotiation, its implementation gets triggered.
+ * This implementation will launch a multi-threaded `Negotiate` service, whose main implementation can be found [here](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/rmf_fleet_adapter/services/detail/impl_Negotiate.hpp)
+
+Every step in the multi-party negotiation is using the `Negotiate` service the exact same way.
+The only difference between the various steps is what constraints they need to deal with.
+Those constraints are described by the `rmf_traffic::schedule::Negotiation::Table::Viewer` object that gets passed to the `respond(~)` function.
+Because the same object can be used to describe the constraints of all the different blocks in the diagram, we can use the same code to solve every block.
+
+There are also `reject` and `forfeit` code paths that may be invoked as necessary:
+
+ * The "rejection" mechanism is used when it's impossible for one of the fleets to accommodate a proposal that came from another.
+When a rejection is performed, the rejecting fleet will provide a set of feasible trajectories (usually anywhere from 10-200 trajectories) and the fleet that receives the rejection should try once again to find an ideal proposal for itself, but that ideal proposal must accommodate at least one of the trajectory alternatives that were provided with the rejection.
+ * The "forfeit" mechanism is used when the planner is having an inordinately difficult time finding any kind of solution.
+This can happen when the negotiation has numerous participants that are all actively on the move, which can lead to situations that are seemingly impossible to resolve due to inconsistencies across time.
+Typically, when a forfeit is used, there will be another feasible combination of accommodations that gets found by the negotiation.
+In the worst case scenario, if negotiations keep failing, the robots may experience a real-life deadlock.
+When a deadlock happens, the participants will be sitting still so the negotiation will reach a steady state and will not be negatively affected by async inconsistencies.
+When that happens, a successful resolution is practically assured.
+
+The preceeding explanation describes the "Full Control" style of fleet adapter. The implementation for the "Read Only" and "Traffic Light" APIs are a bit different.
