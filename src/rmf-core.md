@@ -60,6 +60,8 @@ the intentions of the different robot fleets and notify the fleets when a
 conflict is identified. Upon receiving the notification, the fleets will begin
 a traffic negotiation, as described above.
 
+![Schedule and Fleet Adapters](images/rmf_core/schedule_and_fleet_adapters.png)
+
 ## Fleet Adapters
 
 Each robot fleet that participates in an RMF deployment is expected to have a
