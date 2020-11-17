@@ -329,11 +329,13 @@ Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.co
 A common use case is robots performing deliveries within facilities, so a `Delivery` task is configured into the `rmf_fleet_adapters`.
 In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
 The loading and unloading of the payload may be automated by a robot/workcell in the facility.
-To integrate these systems with RMF core systems, a set of [dispenser messages](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg) are defined.
-Despite their names, the messages are generalized for use by systems other than dispensers as well.
+To integrate these systems with RMF core systems, a set of [dispenser](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg) and [ingestor](https://github.com/osrf/rmf_core/tree/master/rmf_ingestor_msgs) messages are defined.
+Despite their names, these messages are sufficiently general enough to be used by any system that requires similar information, in addition to dispensers and ingestors.
 When a robot reaches the pickup waypoint where the loading workcell is located, its `rmf_fleet_adapter` publishes a `DispenserRequest` message which the workcell receives and begins processing.
 When the loading is successful, the workcell publishes a `DispenserResult` message with `SUCCESS` status.
-The `rmf_fleet_adapter` then instructs the robot to proceed to the dropoff waypoint where the unloading workcell retrieves the payload while exchanging a similar set of messages.
+The `rmf_fleet_adapter` then instructs the robot to proceed to the dropoff waypoint where the unloading workcell is located. 
+Here, in an exchange that parallels the dispenser workflow, the `rmf_fleet_adapter` first publishes an `IngestorRequest` message.
+Upon receipt of the message, the unloading workcell begins to retrieve the payload. Upon completion, it publishes an `IngestorResult` message with a `SUCCESS` status.
 
 To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) have been designed.
 These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models), respectively.
@@ -348,12 +350,12 @@ To setup a payload unloading station in simulation:
 
 When a `DispenserRequest` message is published with `target_guid` matching the
 name of the `TeleportDispenser` model, the plugin will teleport the payload onto
-the nearest robot model. Conversely, when the `target_guid` matches the name of
-the `TeleportIngestor` model, the `TeleportIngestor` plugin will teleport the
-payload on the robot to its location in the world. The combinations of these
-plugins allow delivery requests to be simulated. In the future, these mechanisms
-will be replaced by actual workcells or robot arms but the underlying message
-exchanges will remain the same.
+the nearest robot model. Conversely, when an `IngestorRequest` message is published 
+with the `target_guid` matching the name of the `TeleportIngestor` model, the
+`TeleportIngestor` plugin will teleport the payload from the robot to its location in 
+the world. The combinations of these plugins allow delivery requests to be simulated. 
+In the future, these mechanisms will be replaced by actual workcells or robot arms 
+but the underlying message exchanges will remain the same.
 
 ![TeleportDispenser and TeleportIngestor models](images/dispensers.png)
 
