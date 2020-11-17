@@ -26,7 +26,9 @@
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
+        
         <link rel="stylesheet" href="css/print.css" media="print">
+        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
@@ -128,9 +130,11 @@
                     <h1 class="menu-title">Programming Multiple Robots with ROS 2</h1>
 
                     <div class="right-buttons">
+                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+                        
                         
                     </div>
                 </div>
@@ -451,11 +455,13 @@ Analogous to the <code>door_supervisor</code>, a <code>lift_supervisor</code> <a
 <p>A common use case is robots performing deliveries within facilities, so a <code>Delivery</code> task is configured into the <code>rmf_fleet_adapters</code>.
 In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
 The loading and unloading of the payload may be automated by a robot/workcell in the facility.
-To integrate these systems with RMF core systems, a set of <a href="https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg">dispenser messages</a> are defined.
-Despite their names, the messages are generalized for use by systems other than dispensers as well.
+To integrate these systems with RMF core systems, a set of <a href="https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg">dispenser</a> and <a href="https://github.com/osrf/rmf_core/tree/master/rmf_ingestor_msgs">ingestor</a> messages are defined.
+Despite their names, these messages are sufficiently general enough to be used by any system that requires similar information, in addition to dispensers and ingestors.
 When a robot reaches the pickup waypoint where the loading workcell is located, its <code>rmf_fleet_adapter</code> publishes a <code>DispenserRequest</code> message which the workcell receives and begins processing.
 When the loading is successful, the workcell publishes a <code>DispenserResult</code> message with <code>SUCCESS</code> status.
-The <code>rmf_fleet_adapter</code> then instructs the robot to proceed to the dropoff waypoint where the unloading workcell retrieves the payload while exchanging a similar set of messages.</p>
+The <code>rmf_fleet_adapter</code> then instructs the robot to proceed to the dropoff waypoint where the unloading workcell is located. 
+Here, in an exchange that parallels the dispenser workflow, the <code>rmf_fleet_adapter</code> first publishes an <code>IngestorRequest</code> message.
+Upon receipt of the message, the unloading workcell begins to retrieve the payload. Upon completion, it publishes an <code>IngestorResult</code> message with a <code>SUCCESS</code> status.</p>
 <p>To replicate the loading and unloading processes in simulation, the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src">plugins</a> have been designed.
 These plugins are attached to the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models">3D models</a>, respectively.
 To setup a payload loading station in simulation:</p>
@@ -471,12 +477,12 @@ unique <code>name</code></li>
 </ul>
 <p>When a <code>DispenserRequest</code> message is published with <code>target_guid</code> matching the
 name of the <code>TeleportDispenser</code> model, the plugin will teleport the payload onto
-the nearest robot model. Conversely, when the <code>target_guid</code> matches the name of
-the <code>TeleportIngestor</code> model, the <code>TeleportIngestor</code> plugin will teleport the
-payload on the robot to its location in the world. The combinations of these
-plugins allow delivery requests to be simulated. In the future, these mechanisms
-will be replaced by actual workcells or robot arms but the underlying message
-exchanges will remain the same.</p>
+the nearest robot model. Conversely, when an <code>IngestorRequest</code> message is published 
+with the <code>target_guid</code> matching the name of the <code>TeleportIngestor</code> model, the
+<code>TeleportIngestor</code> plugin will teleport the payload from the robot to its location in 
+the world. The combinations of these plugins allow delivery requests to be simulated. 
+In the future, these mechanisms will be replaced by actual workcells or robot arms 
+but the underlying message exchanges will remain the same.</p>
 <p><img src="images/dispensers.png" alt="TeleportDispenser and TeleportIngestor models" /></p>
 <h2><a class="header" href="#creating-simulations-and-running-scenarios" id="creating-simulations-and-running-scenarios">Creating Simulations and Running Scenarios</a></h2>
 <p>The section aims to provide an overview of the various components in the <code>rmf_demos</code> <a href="https://github.com/osrf/rmf_demos">repository</a> which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the <code>office</code> world.</p>
