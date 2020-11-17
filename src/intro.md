@@ -124,9 +124,9 @@ The open-source and freely distributable [simulation assets](https://app.ignitio
 
 ## Installation of the RMF Essentials
 
-The current version of RMF is 1.0.2. It targets ROS Eloquent, and Debian binary packages are released for Ubuntu Bionic 18.04 LTS.
+The current version of RMF is 1.1.0. It targets ROS Foxy, and Debian binary packages are released for Ubuntu Focal Fossa 20.04 LTS.
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Bionic please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
+RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Focal please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
 
 ### Setup Locale
 
@@ -156,16 +156,16 @@ sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.or
 sudo apt update
 ```
 
-If ROS 2 is not installed using at least `ros-eloquent-ros-base` you will need the following packages to run the RMF demos:
+If ROS 2 is not installed using at least `ros-foxy-ros-base` you will need the following packages to run the RMF demos:
 
 ```
-sudo apt-get install ros-eloquent-ros2cli ros-eloquent-ros2run ros-eloquent-ros2launch
+sudo apt-get install ros-foxy-ros2cli ros-foxy-ros2run ros-foxy-ros2launch
 ```
 
 In order to run ROS 2 commands we need to source the `setup.bash` file:
 
 ```
-source /opt/ros/eloquent/setup.bash
+source /opt/ros/foxy/setup.bash
 ```
 
 ### Setup Ignition-Gazebo Sources
@@ -193,7 +193,7 @@ curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
 Secondly adding the repository to the apt sources:
 
 ```
-sudo sh -c 'echo "deb http://rmf.servehttp.com/ubuntu/main/ bionic main" > /etc/apt/sources.list.d/rmf.list'
+sudo sh -c 'echo "deb http://rmf.servehttp.com/ubuntu/main/ `lsb_release -cs` main" > /etc/apt/sources.list.d/rmf.list'
 ```
 
 And now we are ready to install. Let's update our packages:
@@ -205,7 +205,7 @@ sudo apt-get update
 Finally, the following installs a basic set of packages that should get you going with RMF:
 
 ```
-sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazebo-plugins ros-eloquent-building-map-msgs ros-eloquent-building-map-tools ros-eloquent-rmf-cmake-uncrustify ros-eloquent-rmf-dispenser-msgs ros-eloquent-rmf-door-msgs ros-eloquent-rmf-fleet-adapter ros-eloquent-rmf-fleet-msgs ros-eloquent-rmf-lift-msgs ros-eloquent-rmf-task-msgs ros-eloquent-rmf-traffic-msgs ros-eloquent-rmf-traffic-ros2 ros-eloquent-rmf-traffic ros-eloquent-rmf-utils ros-eloquent-traffic-editor
+sudo apt-get install ros-foxy-ament-cmake-catch2 ros-foxy-building-gazebo-plugins ros-foxy-building-map-msgs ros-foxy-building-map-tools ros-foxy-rmf-cmake-uncrustify ros-foxy-rmf-dispenser-msgs ros-foxy-rmf-door-msgs ros-foxy-rmf-fleet-adapter ros-foxy-rmf-fleet-msgs ros-foxy-rmf-lift-msgs ros-foxy-rmf-task-msgs ros-foxy-rmf-traffic-msgs ros-foxy-rmf-traffic-ros2 ros-foxy-rmf-traffic ros-foxy-rmf-utils ros-foxy-traffic-editor
 ```
 
 ## Install and run RMF demos
@@ -213,7 +213,7 @@ sudo apt-get install ros-eloquent-ament-cmake-catch2 ros-eloquent-building-gazeb
 You can install the provided RMF demos from their Debian package:
 
 ```
-sudo apt-get install ros-eloquent-demos
+sudo apt-get install ros-foxy-demos
 ```
 
 Once everything is installed you can optionally download the 3D models so your simulation visuals are complete. You can do this for any of the available demos. Here is an example on how to do it for the airport terminal models:
