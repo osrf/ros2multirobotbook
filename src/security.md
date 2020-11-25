@@ -8,7 +8,7 @@ its ROS 2 elements and the dashboard. The security of the ROS 2
 elements is provided by the DDS security tools which help ensure authentication, 
 encryption and access control. The dashboard provides the user with an 
 instruments panel while ensuring encryption, integrity and authentication of 
-the server side through TLS. The user authentication and access control 
+the connection to the server through TLS. User authentication and access control 
 is made by user/password checking against a database and then 
 providing that user with an access level to the secured ROS 2 network that
 corresponds to the role of that user.
