@@ -132,9 +132,8 @@ The `private` directory contains anything permissible as private, such as privat
 aforementioned certificate authorities. This directory should be redacted before deploying the 
 keystore onto the target device/robot.
 
-The `enclaves` directory contains the security artifacts associated with individual enclaves. 
-This is a concept that was introduced with the `ROS 2 Foxy Fitzroy` release, as domain participants 
-are no longer mapped directly to ROS nodes. `Foxy` introduces the concept of a security “enclave”, 
+The `enclaves` directory contains the security artifacts associated with individual security enclaves. 
+SROS 2 introduces the concept of a security “enclave”, 
 where an “enclave” is a process or group of processes that will share the same identity and access 
 control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. 
 
