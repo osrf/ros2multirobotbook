@@ -136,7 +136,7 @@ The `enclaves` directory contains the security artifacts associated with individ
 This is a concept that was introduced with the `ROS 2 Foxy Fitzroy` release, as domain participants 
 are no longer mapped directly to ROS nodes. `Foxy` introduces the concept of a security “enclave”, 
 where an “enclave” is a process or group of processes that will share the same identity and access 
-control rules. The enclaves folder may still recursively nest sub-paths for organizing separate enclaves. 
+control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. 
 
 #### SROS 2 enclave keys
 
