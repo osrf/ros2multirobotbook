@@ -129,7 +129,7 @@ executables. Note that in the default case, both `identity_ca` and `permissions_
 same CA certificate.
 
 The `private` directory contains anything permissible as private, such as private key material for 
-aforementioned certificate authorities. This directory should be redacted before deploying the 
+aforementioned certificate authorities. This directory should be removed before deploying the 
 keystore onto the target device/robot.
 
 The `enclaves` directory contains the security artifacts associated with individual security enclaves. 
