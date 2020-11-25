@@ -10,7 +10,7 @@ encryption and access control. The dashboard provides the user with an
 instruments panel while ensuring encryption, integrity and authentication of 
 the connection to the server through TLS. User authentication and access control 
 is made by user/password checking against a database and then 
-providing that user with an access level to the secured ROS 2 network that
+ providing that user with access to the secured ROS 2 network at a level that
 corresponds to the role of that user.
  
 ![Security System Infrastructure](images/security/system_infrastructure.png)
