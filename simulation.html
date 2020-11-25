@@ -454,9 +454,9 @@ Analogous to the <code>door_supervisor</code>, a <code>lift_supervisor</code> <a
 <h3><a class="header" href="#workcells" id="workcells">Workcells</a></h3>
 <p>A common use case is robots performing deliveries within facilities, so a <code>Delivery</code> task is configured into the <code>rmf_fleet_adapters</code>.
 In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
-The loading and unloading of the payload may be automated by a robot/workcell in the facility.
+The loading and unloading of the payload onto and from a robot may be automated by robots/workcells in the facility. These devices are henceforth referred to as dispensers and ingestors respectively.
 To integrate these systems with RMF core systems, a set of <a href="https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg">dispenser</a> and <a href="https://github.com/osrf/rmf_core/tree/master/rmf_ingestor_msgs">ingestor</a> messages are defined.
-Despite their names, these messages are sufficiently general enough to be used by any system that requires similar information, in addition to dispensers and ingestors.
+Despite their names, these messages are sufficiently general enough to be used by any other system that requires similar information.
 When a robot reaches the pickup waypoint where the loading workcell is located, its <code>rmf_fleet_adapter</code> publishes a <code>DispenserRequest</code> message which the workcell receives and begins processing.
 When the loading is successful, the workcell publishes a <code>DispenserResult</code> message with <code>SUCCESS</code> status.
 The <code>rmf_fleet_adapter</code> then instructs the robot to proceed to the dropoff waypoint where the unloading workcell is located. 
