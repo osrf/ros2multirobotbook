@@ -125,7 +125,7 @@ After creating the keystore, its initial structure would look like this:
 
 The `public` directory contains anything permissible as public, such as public certificates for 
 the identity or permissions Certificate Authorities (CA). As such, this can be given read access to all 
-executables. Note that in the default case, both the `identity_ca` and `permissions_ca` points to the 
+executables. Note that in the default case, both `identity_ca` and `permissions_ca` point to the 
 same CA certificate.
 
 The `private` directory contains anything permissible as private, such as private key material for 
