@@ -15,7 +15,7 @@ corresponds to the role of that user.
  
 ![Security System Infrastructure](images/security/system_infrastructure.png)
 
-As a guidance, the [RMF demos][rmf_demos] repository contains an example of a 
+The [RMF demos][rmf_demos] repository contains an example of a 
 full RMF run of the office demo using secured ROS 2 communications along with
 step by step explanations. 
 
