@@ -255,7 +255,7 @@ $ ros2 security list_keys keystore_storage
 The RoMi-H Dashboard is a web application that provides overall visualization and control over the 
 RoMi-H system. It is serverd over TLS to ensure encryption, integrity and authentication of the 
 communication with the final user. The server uses [openid-connect (OIDC)][openid_connect] for 
-authentication, it is a open standard based on [oauth 2.0][oauth2] and [JOSE][jose]. Currently the 
+authentication, an open standard based on [oauth 2.0][oauth2] and [JOSE][jose]. Currently the 
 dashboard makes use of [Keycloack][keycloack], an open source implementation of OIDC. It provides 
 an user management system, which is used to create/delete users. Each user gets assigned a role 
 which is reflected on an id token generated on the user. This id token is signed securely 
