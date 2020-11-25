@@ -98,7 +98,7 @@ find the location of the security artifacts to initialize the ROS 2 security env
 The keystore is the root directory where the DDS security artifacts are stored. `RCL` will use the 
 contents of this directory to provide the DDS security to the ROS 2 network. The 
 `ROS_SECURITY_KEYSTORE` environment variable should by convention point to this directory. In order 
-to initalize and populate a `keystore_storage` directory files the following command can be used:
+to initalize and populate `keystore_storage` directory files the following command can be used:
 
 ``` {.sourceCode .bash}
 $ ros2 security create_keystore keystore_storage
