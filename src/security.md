@@ -139,7 +139,7 @@ control rules. The enclaves folder may recursively nest sub-paths for organizing
 
 #### SROS 2 enclave keys
 
-Once the `keystore` has been initialized you might wanna create the security keys for your 
+Once the `keystore` has been initialized you may wish to create the security keys for your 
 enclaves. This will populate the `enclaves` directory with the necessary keys and governance
 files. As an example, in order to create the security files for our`/hospital/rviz` enclave the
 following command would be issued:
