@@ -25,7 +25,7 @@ ROS 2 contains tools that help create and load the needed security artifacts
 to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
 security on its ROS 2 elements. A brief introduction to these tools and its 
 usage is provided here. For a deeper understanding of the whole system, 
-please refer to the documenation of the [ROS 2 DDS-Security integration][SROS].
+please refer to the [ROS 2 DDS-Security integration][SROS] documentation.
 
 ### DDS-Security overview
 
