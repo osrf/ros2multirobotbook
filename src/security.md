@@ -8,15 +8,15 @@ its ROS 2 elements and the dashboard. The security of the ROS 2
 elements is provided by the DDS security tools which help ensure authentication, 
 encryption and access control. The dashboard provides the user with an 
 instruments panel while ensuring encryption, integrity and authentication of 
-the server side through TLS. The user authentication and access control 
+the connection to the server through TLS. User authentication and access control 
 is made by user/password checking against a database and then 
-providing that user with an access level to the secured ROS 2 network that
+providing that user with access to the secured ROS 2 network at a level that
 corresponds to the role of that user.
  
 ![Security System Infrastructure](images/security/system_infrastructure.png)
 
-As a guidance, the [RMF demos][rmf_demos] repository contains an example of a 
-full RMF run of the office demo using secured ROS 2 communications along with
+The [RMF demos][rmf_demos] repository contains an example of a 
+full RMF application using secured ROS 2 communications along with
 step by step explanations. 
 
 ## ROS 2 Security
@@ -24,8 +24,8 @@ step by step explanations.
 ROS 2 contains tools that help create and load the needed security artifacts 
 to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
 security on its ROS 2 elements. A brief introduction to these tools and its 
-usage is provided here, however, for a deeper understanding of the whole system, 
-please refer to the documenation of the [ROS 2 DDS-Security integration][SROS].
+usage is provided here. For a deeper understanding of the whole system, 
+please refer to the [ROS 2 DDS-Security integration][SROS] documentation.
 
 ### DDS-Security overview
 
@@ -98,7 +98,7 @@ find the location of the security artifacts to initialize the ROS 2 security env
 The keystore is the root directory where the DDS security artifacts are stored. `RCL` will use the 
 contents of this directory to provide the DDS security to the ROS 2 network. The 
 `ROS_SECURITY_KEYSTORE` environment variable should by convention point to this directory. In order 
-to initalize and populate a `keystore_storage` directory files the following command can be used:
+to initalize and populate `keystore_storage` directory files the following command can be used:
 
 ``` {.sourceCode .bash}
 $ ros2 security create_keystore keystore_storage
@@ -125,22 +125,21 @@ After creating the keystore, its initial structure would look like this:
 
 The `public` directory contains anything permissible as public, such as public certificates for 
 the identity or permissions Certificate Authorities (CA). As such, this can be given read access to all 
-executables. Note that in the default case, both the `identity_ca` and `permissions_ca` points to the 
+executables. Note that in the default case, both `identity_ca` and `permissions_ca` point to the 
 same CA certificate.
 
 The `private` directory contains anything permissible as private, such as private key material for 
-aforementioned certificate authorities. This directory should be redacted before deploying the 
+aforementioned certificate authorities. This directory should be removed before deploying the 
 keystore onto the target device/robot.
 
-The `enclaves` directory contains the security artifacts associated with individual enclaves. 
-This is a concept that was introduced with the `ROS 2 Foxy Fitzroy` release, as domain participants 
-are no longer mapped directly to ROS nodes. `Foxy` introduces the concept of a security “enclave”, 
+The `enclaves` directory contains the security artifacts associated with individual security enclaves. 
+SROS 2 includes the concept of a security “enclave”, 
 where an “enclave” is a process or group of processes that will share the same identity and access 
-control rules. The enclaves folder may still recursively nest sub-paths for organizing separate enclaves. 
+control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. 
 
 #### SROS 2 enclave keys
 
-Once the `keystore` has been initialized you might wanna create the security keys for your 
+Once the `keystore` has been initialized you may wish to create the security keys for your 
 enclaves. This will populate the `enclaves` directory with the necessary keys and governance
 files. As an example, in order to create the security files for our`/hospital/rviz` enclave the
 following command would be issued:
@@ -254,9 +253,9 @@ $ ros2 security list_keys keystore_storage
 ## RoMi-H Dashboard Security
 
 The RoMi-H Dashboard is a web application that provides overall visualization and control over the 
-RoMi-H system. It is serverd over TLS to ensure encryption, integrity and authentication of the 
+RoMi-H system. It is served over TLS to ensure encryption, integrity and authentication of the 
 communication with the final user. The server uses [openid-connect (OIDC)][openid_connect] for 
-authentication, it is a open standard based on [oauth 2.0][oauth2] and [JOSE][jose]. Currently the 
+authentication, an open standard based on [oauth 2.0][oauth2] and [JOSE][jose]. Currently the 
 dashboard makes use of [Keycloack][keycloack], an open source implementation of OIDC. It provides 
 an user management system, which is used to create/delete users. Each user gets assigned a role 
 which is reflected on an id token generated on the user. This id token is signed securely 
