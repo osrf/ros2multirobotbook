@@ -4750,7 +4750,220 @@ export interface Transport extends TransportEvents {
 <p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
 <h1><a class="header" href="#security" id="security">Security</a></h1>
 <p>This chapter describes how to use DDS Security tools to provide authentication,
-encryption, and access control to a RoMi-H system.</p>
+encryption, and access control to a RoMi-H system. </p>
+<p>The security of the RoMi-H system can be divided into two main parts: 
+its ROS 2 elements and the dashboard. The security of the ROS 2 
+elements is provided by the DDS security tools which help ensure authentication, 
+encryption and access control. The dashboard provides the user with an 
+instruments panel while ensuring encryption, integrity and authentication of 
+the connection to the server through TLS. User authentication and access control 
+is made by user/password checking against a database and then 
+providing that user with access to the secured ROS 2 network at a level that
+corresponds to the role of that user.</p>
+<p><img src="images/security/system_infrastructure.png" alt="Security System Infrastructure" /></p>
+<p>The <a href="https://github.com/osrf/rmf_demos">RMF demos</a> repository contains an example of a 
+full RMF application using secured ROS 2 communications along with
+step by step explanations. </p>
+<h2><a class="header" href="#ros-2-security-1" id="ros-2-security-1">ROS 2 Security</a></h2>
+<p>ROS 2 contains tools that help create and load the needed security artifacts 
+to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
+security on its ROS 2 elements. A brief introduction to these tools and its 
+usage is provided here. For a deeper understanding of the whole system, 
+please refer to the <a href="https://design.ros2.org/articles/ros2_dds_security.html">ROS 2 DDS-Security integration</a> documentation.</p>
+<h3><a class="header" href="#dds-security-overview" id="dds-security-overview">DDS-Security overview</a></h3>
+<p>The <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security specification</a> expands upon the <a href="https://www.omg.org/spec/DDS/1.4/PDF">DDS specification</a>, 
+adding security enhancements by defining a Service Plugin Interface (SPI) 
+architecture, a set of builtin implementations of the SPIs, and the security model enforced by the SPIs.
+Specifically, there are five SPIs defined:</p>
+<ul>
+<li><strong>Authentication</strong>: Verify the identity of a given domain participant.</li>
+<li><strong>Access control</strong>: Enforce restrictions on the DDS-related operations that can be 
+performed by an authenticated domain participant.</li>
+<li><strong>Cryptographic</strong>: Handle all required encryption, signing, and hashing operations.</li>
+<li><strong>Logging</strong>: Provide the ability to audit DDS-Security-related events.</li>
+<li><strong>Data tagging</strong>: Provide the ability to add tags to data samples.</li>
+</ul>
+<p>ROS 2's security features currently utilize only the first three.
+This is due to the fact that neither <strong>Logging</strong> nor <strong>Data Tagging</strong> 
+are required in order to be compliant with the <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security spec</a> 
+(see section 2.3), and thus not all DDS implementations support them.</p>
+<h3><a class="header" href="#sros-2-tools" id="sros-2-tools">SROS 2 tools</a></h3>
+<p>Since the DDS-Security plugins require a set of security files per domain participant, these 
+need to be created beforehand in order to provide authentication, access control and encryption
+to the ROS 2 elements of RoMi-H. Domain participants usually map to a context within the 
+process in ROS 2, therefore each process will require a set of these files.</p>
+<p>Since SROS 2 has no support for launch files yet, each binary needs to be launched separately
+on its own terminal. Alternatively we recommend the creation of scripts to automate this process. 
+An example of this is the <code>tmux</code> script used in the <a href="https://github.com/osrf/rmf_demos/blob/master/demos/sros2/office_deploy.bash">Office SROS 2 demo</a>.</p>
+<p>The <code>ros2 security</code> command is the way to access the SROS 2 set of tools to create and manage
+your DDS-security artifacts. You can get a glimpse at its features by accessing the documentation
+through the <code>-h</code> flag:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security -h
+usage: ros2 security [-h] Call `ros2 security &lt;command&gt; -h` for more detailed usage. ...
+
+Various security related sub-commands
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+Commands:
+  create_key          Create key
+  create_keystore     Create keystore
+  create_permission   Create permission
+  generate_artifacts  Generate keys and permission files from a list of identities and policy files
+  generate_policy     Generate XML policy file from ROS graph data
+  list_keys           List keys
+
+  Call \`ros2 security &lt;command&gt; -h\` for more detailed usage.
+</code></pre>
+<h4><a class="header" href="#sros-2-environment-variables" id="sros-2-environment-variables">SROS 2 environment variables</a></h4>
+<p>There are a few environment variables you should be aware of when using SROS 2: </p>
+<ul>
+<li><strong>ROS_SECURITY_ENABLE</strong> is the SROS 2 enabler variable, it takes a boolean value 
+(true or false) and indicates if the security is enabled or not. </li>
+<li><strong>ROS_SECURITY_STRATEGY</strong> can be set to <code>Enforce</code> or <code>Permissive</code>, with the first one it 
+will fail to run a participant if the security files are not found, whereas with the second one will 
+just run the participant in non secure mode if those files are not found. </li>
+<li><strong>ROS_SECURITY_KEYSTORE</strong> should point to the root of the keystore directory tree. This will help <code>RCL</code>
+find the location of the security artifacts to initialize the ROS 2 security environment.</li>
+</ul>
+<h4><a class="header" href="#sros-2-security-keystore" id="sros-2-security-keystore">SROS 2 security keystore</a></h4>
+<p>The keystore is the root directory where the DDS security artifacts are stored. <code>RCL</code> will use the 
+contents of this directory to provide the DDS security to the ROS 2 network. The 
+<code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
+to initalize and populate <code>keystore_storage</code> directory files the following command can be used:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_keystore keystore_storage
+creating keystore: keystore_test
+creating new CA key/cert pair
+creating governance file: keystore_test/enclaves/governance.xml
+creating signed governance file: keystore_test/enclaves/governance.p7s
+</code></pre>
+<p>After creating the keystore, its initial structure would look like this:</p>
+<pre><code>keystore_storage
+├── enclaves
+|   ├── governance.p7s
+|   └── governance.xml
+├── private
+|   ├── ca.key.pem
+|   ├── identity_ca.key.pem
+|   └── permissions_ca.key.pem
+└── public
+    ├── ca.key.pem
+    ├── identity_ca.key.pem
+    └── permissions_ca.key.pem
+</code></pre>
+<p>The <code>public</code> directory contains anything permissible as public, such as public certificates for 
+the identity or permissions Certificate Authorities (CA). As such, this can be given read access to all 
+executables. Note that in the default case, both <code>identity_ca</code> and <code>permissions_ca</code> point to the 
+same CA certificate.</p>
+<p>The <code>private</code> directory contains anything permissible as private, such as private key material for 
+aforementioned certificate authorities. This directory should be removed before deploying the 
+keystore onto the target device/robot.</p>
+<p>The <code>enclaves</code> directory contains the security artifacts associated with individual security enclaves. 
+SROS 2 introduces the concept of a security “enclave”, 
+where an “enclave” is a process or group of processes that will share the same identity and access 
+control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. </p>
+<h4><a class="header" href="#sros-2-enclave-keys" id="sros-2-enclave-keys">SROS 2 enclave keys</a></h4>
+<p>Once the <code>keystore</code> has been initialized you may wish to create the security keys for your 
+enclaves. This will populate the <code>enclaves</code> directory with the necessary keys and governance
+files. As an example, in order to create the security files for our<code>/hospital/rviz</code> enclave the
+following command would be issued:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_key keystore_storage /hospital/rviz
+creating key for identity: '/hospital/rviz'
+creating cert and key
+creating permission
+</code></pre>
+<p>After this, they <code>keystore_storage</code> directory should contain the rviz enclave:</p>
+<pre><code>keystore_storage
+├── enclaves
+|   ├── governance.p7s
+|   ├── governance.xml
+│   └── hospital
+|       ├── rviz
+│       |   ├── cert.pem
+│       |   ├── key.pem
+│       |   ├── governance.p7s
+|       |   ├── identity_ca_cert.pem
+|       |   ├── permissions_ca.cert.pem
+|       |   ├── permissions.p7s
+|       |   └── permissions.xml
+...     ... 
+</code></pre>
+<p>Now there is an enclave containing the following files:</p>
+<ul>
+<li><strong>identity_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Authentication</strong> plugin 
+(the &quot;Identity&quot; CA).</li>
+<li><strong>cert.pem</strong>: The x.509 certificate of this enclave instance (signed by the Identity CA).</li>
+<li><strong>key.pem</strong>: The private key of this enclave instance.</li>
+<li><strong>permissions_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Access control</strong> plugin 
+(the &quot;Permissions&quot; CA).</li>
+<li><strong>governance.p7s</strong>: The XML document that specifies to the <strong>Access control</strong> plugin how the domain 
+should be secured  (signed by the Permissions CA).</li>
+<li><strong>permissions.p7s</strong>: The XML document that specifies the permissions of this particular enclave 
+instance to the <strong>Access control</strong> plugin (also signed by the Permissions CA).</li>
+</ul>
+<h4><a class="header" href="#sros-2-access-control" id="sros-2-access-control">SROS 2 access control</a></h4>
+<p>In order to provide access control the security permissions need to be added to the permissions files
+of the enclave and signed by the CA. In order to do this a policy file following the
+<a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed. 
+This file specifies the permissions awarded to the enclave within the ROS 2 network.
+To create and sign the permissions the <code>create_permission</code> option can be used:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
+creating permission file for identity: '/hospital/rviz'
+creating permission
+</code></pre>
+<p>After running this command, the <code>permissions.p7s</code> and <code>permissions.xml</code> files for the 
+<code>enclave</code> /hospital/rviz will contain the signed permissions specified in policy.xml. 
+We will have to specify this enclave through rosargs when starting our process:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
+</code></pre>
+<h1><a class="header" href="#sros-2-automated-generation" id="sros-2-automated-generation">SROS 2 automated generation</a></h1>
+<p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools 
+to automate this process. An automated way to generate the policy is provided, it can be
+triggered by running the following command:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_policy policy.xml
+</code></pre>
+<p>This command will take the ROS graph at the point of running and generate the policy.xml file 
+that corresponds to it. Note that this, as it only uses the current ROS graph as a source of 
+information, might still miss policies for future publishers, subscribers, services or others.</p>
+<p>The process and key and permissions generation can also be troublesome, SROS 2 provides a 
+command that you can use to generate all of them at once:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
+keystore_storage is not a valid keystore, creating new keystore
+creating keystore: keystore_storage
+creating new CA key/cert pair
+creating governance file: keystore_storage/enclaves/governance.xml
+creating signed governance file: keystore_storage/enclaves/governance.p7s
+all done! enjoy your keystore in keystore_storage
+cheers!
+creating key for identity: '/hosptial/rviz'
+creating cert and key
+creating permission
+creating permission file for identity: '/hosptical/rviz'
+creating permission
+...
+</code></pre>
+<p>Finally SROS 2 also provides a way to easily list the keys of a certain keystorage:</p>
+<pre><code class="language-{.sourceCode.bash}">$ ros2 security list_keys keystore_storage
+/hospital/building_map_server
+/hopsital/building_systems_visualizer
+/hospital/door_supervisor
+/hospital/fleet_state_visualizer
+/hosptial/loop_request_publisher
+/hosptial/rviz2
+...
+</code></pre>
+<h2><a class="header" href="#romi-h-dashboard-security" id="romi-h-dashboard-security">RoMi-H Dashboard Security</a></h2>
+<p>The RoMi-H Dashboard is a web application that provides overall visualization and control over the 
+RoMi-H system. It is served over TLS to ensure encryption, integrity and authentication of the 
+communication with the final user. The server uses <a href="https://openid.net/connect/">openid-connect (OIDC)</a> for 
+authentication, an open standard based on <a href="https://oauth.net/2/">oauth 2.0</a> and <a href="https://jose.readthedocs.io/en/latest/">JOSE</a>. Currently the 
+dashboard makes use of <a href="https://www.keycloak.org">Keycloack</a>, an open source implementation of OIDC. It provides 
+an user management system, which is used to create/delete users. Each user gets assigned a role 
+which is reflected on an id token generated on the user. This id token is signed securely 
+and sent to the api server which it can then look at the role of the user and act accordingly.
+The api server runs a secured ROS 2 node per each role and provides access to them based on 
+the id token of each user.</p>
 
                     </main>
 
