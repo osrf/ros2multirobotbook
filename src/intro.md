@@ -1,6 +1,14 @@
 # Introduction
 
-This section describes the motivation for ROS 2 and the RMF system for integrating multiple robots, as well as a high-level introduction to RMF and its utilities.
+Welcome!
+This is a book about multi-robot systems.
+Why?
+Because it's the future!
+
+Robots are becoming more affordable, more capable, and more useful in many "real life" scenarios.
+As a result, we are seeing more and more robots that need to share spaces and work together to accomplish tasks. In this book, we will introduce the Robot Operating System 2 (ROS 2) as well as the Robot Middleware Framework (RMF), which is built on ROS 2 and tries to simplify the creation and operation of complex multi-robot systems.
+
+This chapter describes the motivation and goals for ROS 2 and the RMF system for integrating multiple robots.
 
 # ROS 2
 
@@ -9,8 +17,8 @@ From drivers to state-of-the-art algorithms, and with powerful developer tools, 
 And it’s all open source.
 
 Since ROS was started in 2007, a lot has changed in the robotics and ROS community.
-ROS 1, originally just "ROS", began life as the development environment for the Willow Garage PR2 robot.
-The primary goal was to provide the software tools users would need to undertake novel research and development projects with the PR2.
+ROS 1, originally just "ROS", began life as the development environment for the Willow Garage PR2 robot, a high-performance mobile manipulation platform intended for advanced research and development.
+The original goal of ROS was to provide the software tools users would need to undertake novel research and development projects with this robot.
 At the same time, the ROS 1 development team knew the PR2 would not be the only robot in the world, nor the most important, so they wanted ROS 1 to be useful on other robots, too.
 The original focus was on defining levels of abstraction (usually through message interfaces) that would allow much of the software to be reused elsewhere.
 
@@ -32,35 +40,48 @@ At the time of writing, we have reached the 13th and last official ROS 1 release
 
 A large and growing amount of ROS 2 resources can be found on the web.
 A great place to start is on the ROS Index page for [ROS 2](https://index.ros.org/doc/ros2/) and further along in this book in the ROS 2 chapter.
+
 Enjoy your journey!
 
 # Robotics Middleware Framework (RMF)
 
-## Motivation for RMF
+For a moment, think of any large building.
+It could be a shopping mall, housing complex, university building, workplace, airport, hospital, hotel, and so on.
+Are items delivered within the building?
+Is the building floor cleaned regularly?
+For most buildings, the answer to both questions is "yes."
 
-Imagine a world where robots available from diverse companies and manufacturers are able to co-exist in the same facility; gracefully sharing critical resources such as corridors, lifts (elevators), doors and other infrastructure to enable a more efficient overall system.
-Imagine integrating a lift only once in a way that allows any robot to use the shared resource in a controlled and safe manner.
-Imagine a world free of robot deadlocks in a shared corridor.
-These ideas are achievable today using an amazing system called RMF.
+Now, let's think of what happens when robots start to perform those tasks.
+In today's robot marketplace, you can purchase excellent delivery robots, as well as excellent floor-cleaning robots.
+However, what if the floor is being cleaned at the same time that items are being delivered in the building?
+This situation is trivial when humans are performing the cleaning and delivery tasks: a quick glance between a delivery person pushing a cart and a custodian cleaning the floor is all it takes to quickly reach a compromise.
+One or both people will find a way to slightly alter the timing of their task to allow both tasks to be completed.
 
-The current generation of robots in production environments today are able to provide services including both bulk and single piece flow delivery, cleaning, disinfecting, security, monitoring, and much more.
-These diverse use cases most likely mean the best-in-class robots for each task will come from different robot providers or system integrators.
-This modern reality makes it critical for a common software framework in place to manage these heterogeneous resources and to ensure  information is being used effectively from different platforms to promote overall system efficiency.
+Unfortunately, robots are nowhere near as capable as humans at abstract reasoning, planning, and informal communication!
+This type of scenario is what the Robotics Middleware Framework (RMF) tries to help avoid.
+In today's marketplace, if all robots are purchased from the same manufacturer, the robots in such a single-vendor system will know of each other's existence and will avoid conflicting with each other.
+However, multi-vendor, multi-robot systems remain an open problem, and we expect that multi-vendor robot deployments will be the norm in all large buildings in the future.
+To address this situation, RMF provides a set of conventions, tools, and software implementations to allow multiple fleets of robots to interoperate with each other and with shared building infrastructure, such as lifts, doors, corridors, and other natural "bottlenecks" to traffic flows and tasks.
 
-Without a plan for a holistically efficient robotics system in place, there can be significant but hidden risks for end users when committing to a single system or platform provider.
-Hidden risks are likely to force an end user to limit their selection of future solutions from that particular provider to minimize operational risk and avoid redundant integration costs.
-As the scope and scale of robotic deployments increase, this problem is exacerbated, leaving the customer with the perception that there are no good options except to stay with their current provider.
+Without a framework for multi-vendor robotics in place, there can be significant but hidden risks for building operators and end users when they are forced to commit to a single system or platform provider.
+Hidden risks are likely to force an end user to limit their selection of future solutions from that a single provider to minimize operational risk and avoid redundant integration costs.
+As the scope and scale of robotic deployments increase, this problem is exacerbated, leaving the customer with the perception that there are no good options except to stay with their current provider, and preventing the use of robots from newer entrants to the marketplace.
 
 Beyond the increased cost risk of scaling deployment with different providers, there is also the inherent conflict over shared resources such as lifts, doorways, corridors, network bandwidth, chargers, operations-center screen “real estate,” and human resources such as IT personnel and maintenance technicians.
 As robotic scale increases, it becomes more cumbersome for an operations team to consider managing a large, heterogeneous, multi-vendor robot environment.
 
 These problem statements were the foundational motivations for the development of RMF.
-Historically, ROS development focused heavily on the software running on or near individual robots.
-RMF is designed to operate at a higher abstraction layer to create networked fleets of robots that interoperate with building infrastructure systems, enterprise services, IOT devices, and human interfaces.
 
-Unlock your options, your facility and your future with RMF.
+In the previous "cleaning and delivery" scenario, RMF can act as a traffic controller to help the delivery robot and cleaning robot negotiate a way for both tasks to be accomplished, depending on the relative priority and importance of each task.
+If the cleaning task is urgent (perhaps a spill occurred in a busy corridor), RMF could route the delivery task through a different set of corridors.
+If the delivery task is time-critical, RMF could direct the cleaning robot to pause its work and move out of the way until the delivery robot clears the corridor.
+Of course, these solutions are obvious and could be easily hand-written for this particular "cleaning and delivery" corridor-sharing scenario. The challenge comes from trying to be generic across many scenarios, while also trying to be "future proof" to allow expansion to currently-unknown robots, applications, and task domains.
 
-We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, "*Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling*". The project is supported by MOH and NRP
+The rest of the book will dive into these details to show how RMF tries to foresee and prevent resource conflicts and improve the efficiency of multi-vendor, multi-robot systems.
+There is no magic here!
+All of the implementations are open-source and available for inspection and customization.
+
+We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, "*Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling*". The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).
 
 Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of the NR2PO and MOH.
 
