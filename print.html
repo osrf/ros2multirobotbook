@@ -99,7 +99,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">7.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">7.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">7.2.</strong> Mobile Robot Fleets</a></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">7.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">7.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">7.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">7.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">7.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li></ol>
+                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">6.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">7.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">7.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">7.2.</strong> Mobile Robot Fleets</a></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">7.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">7.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">7.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">7.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">7.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">8.</strong> User Interfaces</a></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">9.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">10.</strong> Roadmap</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -4987,7 +4987,100 @@ which is reflected on an id token generated on the user. This id token is signed
 and sent to the api server which it can then look at the role of the user and act accordingly.
 The api server runs a secured ROS 2 node per each role and provides access to them based on 
 the id token of each user.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/security.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/security.md">Edit this file on GitHub.</a></footer><h1><a class="header" href="#roadmap" id="roadmap">Roadmap</a></h1>
+<p>This list describes topics, in no particular order, that we are currently working on and expect to advance in the next 12 months.
+We can’t commit to specific development timelines, but community feedback on which topics are of highest interest is one factor that can help influence the prioritization of our work queue.
+As in any R&amp;D project, we will react to how things evolve in many dimensions.</p>
+<p>RMF is an open-source project.
+We will keep developing in the open so that community members can see real-time what is happening.
+Let's work on it together!
+We encourage (and really love to see!) contributions from the community in addition to our own efforts, so if you see something that interests you, please collaborate with us through GitHub!</p>
+<h2><a class="header" href="#topics-under-active-or-near-future-development" id="topics-under-active-or-near-future-development">Topics under active or near-future development:</a></h2>
+<ul>
+<li>Deployment Environment
+<ul>
+<li>add <a href="https://www.redhat.com/en/enterprise-linux-8">Red Hat Enterprise Linux 8 (RHEL 8)</a> support, including binary packaging</li>
+<li>Add examples and tooling to simplify instantiating and interacting with RMF running in AWS using WireGuard tunnels to local robots and doors/lifts/chargers</li>
+</ul>
+</li>
+<li><code>rmf_core</code>
+<ul>
+<li>A turnkey free space planning library that's compatible with the traffic management utilities using <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp"><code>RobotFleetAdapterHandle</code></a> (not restricting to <a href="https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs/msg"><code>rmf_fleet_msgs</code></a> anymore) which incorporates all predicted future motions of other robots</li>
+<li>&quot;Valet&quot;: dynamic allocation of &quot;parking spaces&quot; for idle robots
+A reusable library for distributed (multi-fleet) task dispatching based on customizable evaluation criteria</li>
+<li>Live task management: support cancellation of running tasks</li>
+<li>Many improvements to runtime efficiency, latency, memory usage, etc.</li>
+</ul>
+</li>
+<li>User Interface Toolkit: <a href="https://github.com/osrf/rmf-web"><code>rmf-web</code></a>
+<ul>
+<li>a browser-based <a href="https://github.com/nomcopter/react-mosaic">tiling/mosaic</a> type user interface framework and a mechanism to create pre-arranged and user-customized panel collections, much like <a href="http://wiki.ros.org/rviz"><code>rviz</code></a> and similar configurable visualization-engine systems</li>
+<li>a collection of <a href="https://reactjs.org/">React</a> components for this tiling/mosaic framework:
+<ul>
+<li>2D map views of current and scheduled robot motions</li>
+<li>tables showing statuses of robots / lifts / doors / chargers</li>
+<li>task creation, monitoring, and cancellation</li>
+<li>emergency alarm monitoring and (for testing) simulated activation</li>
+<li>and many more!</li>
+</ul>
+</li>
+<li>a backend in <a href="https://fastapi.tiangolo.com/">FastAPI</a> to feed the frontend and bridge it to the ROS 2 nodes</li>
+<li>a user management system with roles, based on <a href="https://www.keycloak.org/">Keycloak</a></li>
+<li>examples of how to deploy this UI toolkit to build end-to-end applications</li>
+<li>log management frontend and backend</li>
+<li>Infrastructure adapters
+<ul>
+<li>an intelligent lift (elevator) adapter that can optimally coordinate how robots share lifts (with each other and with humans)</li>
+<li>documented examples of using OPC-UA <a href="https://en.wikipedia.org/wiki/Programmable_logic_controller">PLC's</a> to control infrastructure such as doors and lifts.</li>
+</ul>
+</li>
+<li>Chargers
+<ul>
+<li>integration with multi-robot charger hardware</li>
+<li>iteration of <code>rmf_charger_msgs</code> as needed</li>
+<li>a negotiation system to dynamically allocate multi-robot chargers on demand</li>
+</ul>
+</li>
+<li>Robot fleet adapters
+<ul>
+<li>adding new types of robots as relevant to our sponsors</li>
+<li>customized fleet adapters and map ingestion scripts as needed</li>
+<li>continual improvement to the open-source <a href="https://github.com/osrf/fleet_adapter_mir">MiR fleet adapter</a></li>
+<li>improving existing robot fleet adapters and generalizing/refactoring those improvements as possible into the open-source libraries</li>
+</ul>
+</li>
+<li>Documentation
+<ul>
+<li>Improve package-level documentation</li>
+<li>Improve the long-form narrative documentation in The Book</li>
+</ul>
+</li>
+<li>Testing
+<ul>
+<li>Continue to improve unit and end-to-end tests of all components (this task never ends)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#wish-list" id="wish-list">Wish list</a></h2>
+<p>Beyond that list of topics, we have a giant and ever growing &quot;wish list&quot; of things to work on, pending time and resource availability!
+These include (in no particular order):</p>
+<ul>
+<li>browser-based traffic editor and backend extensions as needed</li>
+<li>improvements in how maps are ingested and aligned from existing robot systems</li>
+<li>dynamic traffic lane availability (add/remove lane segments from the planning graphs)</li>
+<li>dynamic temporary traffic blockout zones/areas for parallel activities (i.e. zone-based cleaning robot activities, temporary construction, etc.)</li>
+<li>many more web UI panels</li>
+<li><a href="https://github.com/osrf/free_fleet">FreeFleet</a> demonstrations</li>
+<li>FreeFleet clients in as many other robotics frameworks as possible</li>
+<li>drastic simulation appearance improvement
+<ul>
+<li>improve world-creation tools (either inside traffic editor or outside of it) using new features in Ignition Gazebo for physically-based rendering (PBR) texture support, lighting models, and so on.</li>
+</ul>
+</li>
+</ul>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/roadmap.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
