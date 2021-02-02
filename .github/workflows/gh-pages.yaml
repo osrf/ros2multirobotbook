@@ -16,6 +16,7 @@ jobs:
         with:
           mdbook-version: 'latest'
 
+      - run: cargo install mdbook-open-on-gh
       - run: mdbook build
 
       - name: Deploy
