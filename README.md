@@ -31,6 +31,7 @@ Now use `cargo` to install `mdbook`:
 ```
 . ~/.bashrc
 cargo install mdbook
+cargo install mdbook-open-on-gh
 cargo install mdbook-latex
 cargo install tectonic
 cargo install mdbook-epub

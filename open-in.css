@@ -1,0 +1,7 @@
+/* based on https://github.com/badboy/mdbook-open-on-gh/ */
+footer {
+  font-size: 0.8em;
+  text-align: center;
+  border-top: 1px solid black;
+  padding: 5px 0;
+}
