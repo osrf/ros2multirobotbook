@@ -21,3 +21,4 @@
     - [Workcells](./integration_workcells.md)
 - [User Interfaces](./ui.md)
 - [Security](./security.md)
+- [Roadmap](./roadmap.md)
