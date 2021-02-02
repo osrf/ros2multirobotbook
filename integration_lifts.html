@@ -183,7 +183,7 @@
 <tr><td><code>rmf_lift_msgs/LiftRequest</code></td><td><code>/adapter_lift_requests</code></td><td>Requests to be sent to the lift adapter/supervisor to request safe operation of lifts</td></tr>
 </tbody></table>
 <p>A lift adapter subscribes to <code>lift_states</code> while keeping track of the internal and desired state of the lift in order to prevent it from performing any actions that might interrupt mobile robot or normal operations. The lift adapter performs this task by receiving lift requests from the fleet adapters and the RMF core systems and only relaying the instructions to the lift node if it is deemed appropriate. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.</p>
-
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_lifts.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
