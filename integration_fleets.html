@@ -182,6 +182,7 @@ Furthermore, each robot's position will be updated live as the robots are moving
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp"><code>FleetUpdateHandle</code></a> - Allows you to configure a fleet by adding robots and specifying settings for the fleet (e.g. specifying what types of deliveries the fleet can perform). New robots can be added to the fleet at any time.</li>
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp"><code>RobotUpdateHandle</code></a> - Use this to update the position of a robot and to notify the adapter if the robot's progress gets interrupted.</li>
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotCommandHandle.hpp"><code>RobotCommandHandle</code></a> - This is a pure abstract interface class. The functions of this class must be implemented to call upon the API of the specific fleet manager that is being adapted.</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyTrafficLight.hpp"><code>EasyTrafficLight</code></a> -  This is a simplified API of <code>TrafficLight.hpp</code>. It enables the traffic light fleet adapter to receive moving and waiting instructions from RMF. Also, use this to update the current position and path of a robot.</li>
 </ul>
 <p>The basic workflow of developing a fleet adapter is the following:</p>
 <ol>

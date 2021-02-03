@@ -335,11 +335,33 @@ sudo apt update
 <p><img src="images/intro/install_run_RMF/airport_rviz.png" alt="Airport Terminal Rviz" /></p>
 <p>Now you should be able to see the <code>SchedulePanel</code>, click on the lower tab for the <code>RMF Panel</code>:</p>
 <p><img src="images/intro/install_run_RMF/airport_schedulepanel.png" alt="Airport Terminal SchedulePanel" /></p>
-<p>You can send up requests to the <code>magni</code> and <code>mir</code> fleets using this panel:</p>
+<p>You can send up requests to the <code>tinyRobot</code> and <code>deliveryRobot</code> fleets using this panel:</p>
 <p><img src="images/intro/install_run_RMF/airport_RMFPanel.png" alt="Airport Terminal RMF Panel" /></p>
-<p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>magni</code> fleet to go from the waypoint <code>magni_n09</code> to <code>magni_s07</code> only once:</p>
-<pre><code>ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
+<p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>tinyRobot</code> fleet to go from the waypoint <code>tinyRobot_n09</code> to <code>tinyRobot_s07</code> only once:</p>
+<pre><code>ros2 run rmf_demo_tasks request_loop -s tinyRobot_n09 -f tinyRobot_s07 -r tinyRobot -n 1
 </code></pre>
+<h3><a class="header" href="#task-dispatcher-only-in-rolling-release" id="task-dispatcher-only-in-rolling-release">Task Dispatcher (only in Rolling Release)</a></h3>
+<p>In the rolling release, we have introduced a new dispatching system. During a task request, instead of requiring the
+user to specify the robot name to complete a task, RMF will assign the task to the best robot.</p>
+<p>With the same airport world, run these lines on a seperate terminal:</p>
+<pre><code class="language-bash">ros2 run rmf_demo_tasks dispatch_loop -s s07 -f n12 -n 3 --use_sim_time
+ros2 run rmf_demo_tasks dispatch_delivery -p mopcart_pickup -pd mopcart_dispenser -d spill -di mopcart_collector --use_sim_time
+</code></pre>
+<p>Now you can observe robots roaming around the airport space!</p>
+<p>On the other hand, you can use <code>rmf_demo_panel</code> a web-based dashboard to submit tasks. The installation instructions
+can be found here: <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_demo_panel">rmf_demo_panel</a>.</p>
+<p>Open the webpage: <code>firefox localhost:5000</code>
+<img src="images/intro/install_run_RMF/airport_web_RMFPanel.png" alt="Web rmf panel" /></p>
+<p>You can view the status of all the robots under RMF. To request a list of tasks, first select the <code>Airport</code> tab. User can choose to submit a (1) Adhoc task or (2) Task List.</p>
+<p>Copy paste this to the Task List Box. (or open a file)</p>
+<pre><code class="language-json">[{&quot;task_type&quot;:&quot;Delivery&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;option&quot;: &quot;mop&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;junction_north_west&quot;, &quot;finish_name&quot;:&quot;n14&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;tinyRobot_n09&quot;, &quot;finish_name&quot;:&quot;s07&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;tinyRobot_s07&quot;, &quot;finish_name&quot;:&quot;n12&quot;}}]
+</code></pre>
+<p>Then Click Submit to submit the list of tasks:</p>
+<p><img src="images/intro/install_run_RMF/airport_web_RMFPanel_tasks.png" alt="Airport Terminal RMF Panel" /></p>
+<p>Now, sit back and enjoy.</p>
 <h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
 <p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/intro.md">Edit this file on GitHub.</a></footer>

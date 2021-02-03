@@ -221,6 +221,19 @@ the intentions of the different robot fleets and notify the fleets when a
 conflict is identified. Upon receiving the notification, the fleets will begin
 a traffic negotiation, as described above.</p>
 <p><img src="images/rmf_core/schedule_and_fleet_adapters.png" alt="Schedule and Fleet Adapters" /></p>
+<h2><a class="header" href="#task-dispatcher" id="task-dispatcher">Task Dispatcher</a></h2>
+<p>In RMF version 21.04 and above, tasks are awarded to robot fleets based on the outcome
+of a bidding process that is orchestrated by a Dispatcher node, <code>rmf_dispatcher_node</code>.
+When the Dispatcher receives a new task request from an external application, the dispatcher
+will initiate the bidding process with a series of messages (<code>BidNotice</code>, <code>BidProposal</code>, <code>DispatchRequest</code>...).
+If a fleet adapter is able to process that request, propose a cost to accommodate the task
+to the <code>rmf_dispatcher_node</code>. An instance of rmf_task::agv::TaskPlanner is used by the fleet
+adapters to determine how best to accommodate the new request.</p>
+<p>Battery recharging is tightly integrated with the new task planner. <code>ChargeBattery</code> tasks
+are optimally injected into a robot's schedule when the robot has insufficient charge to
+fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging
+location as annotated with the <code>is_charger</code> option in the traffic editor map.</p>
+<p><img src="images/rmf_core/rmf_bidding.png" alt="RMF Bidding Diagram" /></p>
 <h2><a class="header" href="#fleet-adapters" id="fleet-adapters">Fleet Adapters</a></h2>
 <p>Each robot fleet that participates in an RMF deployment is expected to have a
 fleet adapter that connects its fleet-specific API to the interfaces
@@ -251,7 +264,8 @@ real-world fleet managers.</p>
 <p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together.
 Note again that there can only ever be one &quot;Read Only&quot; fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
 <p>Currently we provide a reusable C++ API (as well as Python bindings) for integrating the <strong>Full Control</strong> category of fleet management.
-A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API (with Python bindings available) in a future release.
+A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API 
+(with <a href="https://github.com/osrf/rmf_fleet_adapter_python/">Python bindings</a> available) in a future release.
 The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
 <p>The API for the <strong>Full Control</strong> category is described in the <a href="./integration_fleets.html">Mobile Robot Fleets</a> section of the Integration chapter, and the <strong>Read Only</strong> category is described in the <a href="./integration_read-only.html">Read Only Fleets</a> section of the Integration chapter.</p>

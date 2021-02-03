@@ -337,11 +337,33 @@ sudo apt update
 <p><img src="images/intro/install_run_RMF/airport_rviz.png" alt="Airport Terminal Rviz" /></p>
 <p>Now you should be able to see the <code>SchedulePanel</code>, click on the lower tab for the <code>RMF Panel</code>:</p>
 <p><img src="images/intro/install_run_RMF/airport_schedulepanel.png" alt="Airport Terminal SchedulePanel" /></p>
-<p>You can send up requests to the <code>magni</code> and <code>mir</code> fleets using this panel:</p>
+<p>You can send up requests to the <code>tinyRobot</code> and <code>deliveryRobot</code> fleets using this panel:</p>
 <p><img src="images/intro/install_run_RMF/airport_RMFPanel.png" alt="Airport Terminal RMF Panel" /></p>
-<p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>magni</code> fleet to go from the waypoint <code>magni_n09</code> to <code>magni_s07</code> only once:</p>
-<pre><code>ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
+<p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>tinyRobot</code> fleet to go from the waypoint <code>tinyRobot_n09</code> to <code>tinyRobot_s07</code> only once:</p>
+<pre><code>ros2 run rmf_demo_tasks request_loop -s tinyRobot_n09 -f tinyRobot_s07 -r tinyRobot -n 1
 </code></pre>
+<h3><a class="header" href="#task-dispatcher-only-in-rolling-release" id="task-dispatcher-only-in-rolling-release">Task Dispatcher (only in Rolling Release)</a></h3>
+<p>In the rolling release, we have introduced a new dispatching system. During a task request, instead of requiring the
+user to specify the robot name to complete a task, RMF will assign the task to the best robot.</p>
+<p>With the same airport world, run these lines on a seperate terminal:</p>
+<pre><code class="language-bash">ros2 run rmf_demo_tasks dispatch_loop -s s07 -f n12 -n 3 --use_sim_time
+ros2 run rmf_demo_tasks dispatch_delivery -p mopcart_pickup -pd mopcart_dispenser -d spill -di mopcart_collector --use_sim_time
+</code></pre>
+<p>Now you can observe robots roaming around the airport space!</p>
+<p>On the other hand, you can use <code>rmf_demo_panel</code> a web-based dashboard to submit tasks. The installation instructions
+can be found here: <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_demo_panel">rmf_demo_panel</a>.</p>
+<p>Open the webpage: <code>firefox localhost:5000</code>
+<img src="images/intro/install_run_RMF/airport_web_RMFPanel.png" alt="Web rmf panel" /></p>
+<p>You can view the status of all the robots under RMF. To request a list of tasks, first select the <code>Airport</code> tab. User can choose to submit a (1) Adhoc task or (2) Task List.</p>
+<p>Copy paste this to the Task List Box. (or open a file)</p>
+<pre><code class="language-json">[{&quot;task_type&quot;:&quot;Delivery&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;option&quot;: &quot;mop&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;junction_north_west&quot;, &quot;finish_name&quot;:&quot;n14&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;tinyRobot_n09&quot;, &quot;finish_name&quot;:&quot;s07&quot;}},
+ {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;tinyRobot_s07&quot;, &quot;finish_name&quot;:&quot;n12&quot;}}]
+</code></pre>
+<p>Then Click Submit to submit the list of tasks:</p>
+<p><img src="images/intro/install_run_RMF/airport_web_RMFPanel_tasks.png" alt="Airport Terminal RMF Panel" /></p>
+<p>Now, sit back and enjoy.</p>
 <h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
 <p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/intro.md">Edit this file on GitHub.</a></footer><h1><a class="header" href="#an-introduction-to-ros-2" id="an-introduction-to-ros-2">An Introduction to ROS 2</a></h1>
@@ -3726,6 +3748,19 @@ the intentions of the different robot fleets and notify the fleets when a
 conflict is identified. Upon receiving the notification, the fleets will begin
 a traffic negotiation, as described above.</p>
 <p><img src="images/rmf_core/schedule_and_fleet_adapters.png" alt="Schedule and Fleet Adapters" /></p>
+<h2><a class="header" href="#task-dispatcher" id="task-dispatcher">Task Dispatcher</a></h2>
+<p>In RMF version 21.04 and above, tasks are awarded to robot fleets based on the outcome
+of a bidding process that is orchestrated by a Dispatcher node, <code>rmf_dispatcher_node</code>.
+When the Dispatcher receives a new task request from an external application, the dispatcher
+will initiate the bidding process with a series of messages (<code>BidNotice</code>, <code>BidProposal</code>, <code>DispatchRequest</code>...).
+If a fleet adapter is able to process that request, propose a cost to accommodate the task
+to the <code>rmf_dispatcher_node</code>. An instance of rmf_task::agv::TaskPlanner is used by the fleet
+adapters to determine how best to accommodate the new request.</p>
+<p>Battery recharging is tightly integrated with the new task planner. <code>ChargeBattery</code> tasks
+are optimally injected into a robot's schedule when the robot has insufficient charge to
+fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging
+location as annotated with the <code>is_charger</code> option in the traffic editor map.</p>
+<p><img src="images/rmf_core/rmf_bidding.png" alt="RMF Bidding Diagram" /></p>
 <h2><a class="header" href="#fleet-adapters" id="fleet-adapters">Fleet Adapters</a></h2>
 <p>Each robot fleet that participates in an RMF deployment is expected to have a
 fleet adapter that connects its fleet-specific API to the interfaces
@@ -3756,7 +3791,8 @@ real-world fleet managers.</p>
 <p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together.
 Note again that there can only ever be one &quot;Read Only&quot; fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
 <p>Currently we provide a reusable C++ API (as well as Python bindings) for integrating the <strong>Full Control</strong> category of fleet management.
-A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API (with Python bindings available) in a future release.
+A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API 
+(with <a href="https://github.com/osrf/rmf_fleet_adapter_python/">Python bindings</a> available) in a future release.
 The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
 <p>The API for the <strong>Full Control</strong> category is described in the <a href="./integration_fleets.html">Mobile Robot Fleets</a> section of the Integration chapter, and the <strong>Read Only</strong> category is described in the <a href="./integration_read-only.html">Read Only Fleets</a> section of the Integration chapter.</p>
@@ -4051,6 +4087,7 @@ Furthermore, each robot's position will be updated live as the robots are moving
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp"><code>FleetUpdateHandle</code></a> - Allows you to configure a fleet by adding robots and specifying settings for the fleet (e.g. specifying what types of deliveries the fleet can perform). New robots can be added to the fleet at any time.</li>
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp"><code>RobotUpdateHandle</code></a> - Use this to update the position of a robot and to notify the adapter if the robot's progress gets interrupted.</li>
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotCommandHandle.hpp"><code>RobotCommandHandle</code></a> - This is a pure abstract interface class. The functions of this class must be implemented to call upon the API of the specific fleet manager that is being adapted.</li>
+<li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyTrafficLight.hpp"><code>EasyTrafficLight</code></a> -  This is a simplified API of <code>TrafficLight.hpp</code>. It enables the traffic light fleet adapter to receive moving and waiting instructions from RMF. Also, use this to update the current position and path of a robot.</li>
 </ul>
 <p>The basic workflow of developing a fleet adapter is the following:</p>
 <ol>
@@ -4260,7 +4297,26 @@ Furthermore, each robot's position will be updated live as the robots are moving
 </tbody></table>
 <p>A lift adapter subscribes to <code>lift_states</code> while keeping track of the internal and desired state of the lift in order to prevent it from performing any actions that might interrupt mobile robot or normal operations. The lift adapter performs this task by receiving lift requests from the fleet adapters and the RMF core systems and only relaying the instructions to the lift node if it is deemed appropriate. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_lifts.md">Edit this file on GitHub.</a></footer><h2><a class="header" href="#workcells-1" id="workcells-1">Workcells</a></h2>
-<p>Work in progress.</p>
+<p>Currently RMF has 2 types of sample workcells, namely: <code>Dispenser</code> and <code>Ingestor</code>.</p>
+<table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>rmf_dispenser_msgs/DispenserRequest</code></td><td><code>/dispenser_reqeusts</code></td><td>Direct requests subscribed by the dispenser node</td></tr>
+<tr><td><code>rmf_dispenser_msgs/DispenserResult</code></td><td><code>/dispenser_results</code></td><td>Result of a dispenser request, published by the dispenser</td></tr>
+<tr><td><code>rmf_dispenser_msgs/DispenserState</code></td><td><code>/dispenser_states</code></td><td>State of the dispenser published by the dispenser periodically</td></tr>
+<tr><td><code>rmf_ingestor_msgs/IngestorRequest</code></td><td><code>/ingestor_requests</code></td><td>Direct requests subscribed by the dispenser node</td></tr>
+<tr><td><code>rmf_ingestor_msgs/IngestorResult</code></td><td><code>/ingestor_results</code></td><td>Result of a ingestor request, published by the ingestor</td></tr>
+<tr><td><code>rmf_ingestor_msgs/IngestorState</code></td><td><code>/ingestor_states</code></td><td>State of the dispenser published by the ingestor periodically</td></tr>
+</tbody></table>
+<p>In <code>rmf_demos</code> world, both <code>TeleportDispenser</code> and <code>TeleportIngestor</code> 
+<a href="https://github.com/osrf/rmf_demos/tree/master/rmf_demo_plugins">plugins</a> act as workcell adapter nodes.</p>
+<p>Workcells currently work alongside with Delivery Task. In <code>fleet_adapter.lauch.xml</code>,
+<code>perform_deliveries</code> needs to be <code>true</code> for the robot to accept a delivery task. </p>
+<p>A Full Delivery:</p>
+<ol>
+<li>The robot will first move to the <code>pickup_waypoint</code></li>
+<li>Requests a <code>DispenserRequest</code> till receives a <code>DispenserResult</code>. (Done Dispensing)</li>
+<li>Continue delivery and moves to <code>dropoff_waypoint</code></li>
+<li>Requests a <code>IngestorRequest</code> till receives a <code>IngestorResult</code>. (Done Ingesting)</li>
+</ol>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_workcells.md">Edit this file on GitHub.</a></footer><h1><a class="header" href="#ui" id="ui">UI</a></h1>
 <h2><a class="header" href="#introduction-1" id="introduction-1">Introduction</a></h2>
 <p>This chapter describes how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.</p>
