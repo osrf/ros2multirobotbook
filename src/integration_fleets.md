@@ -16,6 +16,7 @@ The C++ API for **Full Control** automated guided vehicle (AGV) fleets can be fo
 * [`FleetUpdateHandle`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp) - Allows you to configure a fleet by adding robots and specifying settings for the fleet (e.g. specifying what types of deliveries the fleet can perform). New robots can be added to the fleet at any time.
 * [`RobotUpdateHandle`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp) - Use this to update the position of a robot and to notify the adapter if the robot's progress gets interrupted.
 * [`RobotCommandHandle`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotCommandHandle.hpp) - This is a pure abstract interface class. The functions of this class must be implemented to call upon the API of the specific fleet manager that is being adapted.
+* [`EasyTrafficLight`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyTrafficLight.hpp) -  This is a simplified API of `TrafficLight.hpp`. It enables the traffic light fleet adapter to receive moving and waiting instructions from RMF. Also, use this to update the current position and path of a robot.
 
 The basic workflow of developing a fleet adapter is the following:
 
