@@ -62,6 +62,23 @@ a traffic negotiation, as described above.
 
 ![Schedule and Fleet Adapters](images/rmf_core/schedule_and_fleet_adapters.png)
 
+## Task Dispatcher
+
+In RMF version 21.04 and above, tasks are awarded to robot fleets based on the outcome
+of a bidding process that is orchestrated by a Dispatcher node, `rmf_dispatcher_node`.
+When the Dispatcher receives a new task request from an external application, the dispatcher
+will initiate the bidding process with a series of messages (`BidNotice`, `BidProposal`, `DispatchRequest`...).
+If a fleet adapter is able to process that request, propose a cost to accommodate the task
+to the `rmf_dispatcher_node`. An instance of rmf_task::agv::TaskPlanner is used by the fleet
+adapters to determine how best to accommodate the new request.
+
+Battery recharging is tightly integrated with the new task planner. `ChargeBattery` tasks
+are optimally injected into a robot's schedule when the robot has insufficient charge to
+fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging
+location as annotated with the `is_charger` option in the traffic editor map.
+
+![RMF Bidding Diagram](images/rmf_core/rmf_bidding.png)
+
 ## Fleet Adapters
 
 Each robot fleet that participates in an RMF deployment is expected to have a
@@ -90,7 +107,8 @@ In short, the more collaborative a fleet is with RMF, the more harmoniously all 
 Note again that there can only ever be one "Read Only" fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.
 
 Currently we provide a reusable C++ API (as well as Python bindings) for integrating the **Full Control** category of fleet management.
-A preliminary ROS 2 message API is available for the **Read Only** category, but that API will be deprecated in favor of a C++ API (with Python bindings available) in a future release.
+A preliminary ROS 2 message API is available for the **Read Only** category, but that API will be deprecated in favor of a C++ API 
+(with [Python bindings](https://github.com/osrf/rmf_fleet_adapter_python/) available) in a future release.
 The **Traffic Light** control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a **Traffic Light** fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).
 

@@ -273,15 +273,50 @@ Now you should be able to see the `SchedulePanel`, click on the lower tab for th
 
 ![Airport Terminal SchedulePanel](images/intro/install_run_RMF/airport_schedulepanel.png)
 
-You can send up requests to the `magni` and `mir` fleets using this panel:
+You can send up requests to the `tinyRobot` and `deliveryRobot` fleets using this panel:
 
 ![Airport Terminal RMF Panel](images/intro/install_run_RMF/airport_RMFPanel.png)
 
-You can also send them directly using ROS 2 messages. Here we request a robot from the `magni` fleet to go from the waypoint `magni_n09` to `magni_s07` only once:
+You can also send them directly using ROS 2 messages. Here we request a robot from the `tinyRobot` fleet to go from the waypoint `tinyRobot_n09` to `tinyRobot_s07` only once:
 
 ```
-ros2 run rmf_demo_tasks request_loop -s magni_n09 -f magni_s07 -r magni -n 1
+ros2 run rmf_demo_tasks request_loop -s tinyRobot_n09 -f tinyRobot_s07 -r tinyRobot -n 1
 ```
+
+### Task Dispatcher (only in Rolling Release)
+
+In the rolling release, we have introduced a new dispatching system. During a task request, instead of requiring the
+user to specify the robot name to complete a task, RMF will assign the task to the best robot.
+
+With the same airport world, run these lines on a seperate terminal:
+```bash
+ros2 run rmf_demo_tasks dispatch_loop -s s07 -f n12 -n 3 --use_sim_time
+ros2 run rmf_demo_tasks dispatch_delivery -p mopcart_pickup -pd mopcart_dispenser -d spill -di mopcart_collector --use_sim_time
+```
+
+Now you can observe robots roaming around the airport space!
+
+On the other hand, you can use `rmf_demo_panel` a web-based dashboard to submit tasks. The installation instructions
+can be found here: [rmf_demo_panel](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_panel).
+
+Open the webpage: `firefox localhost:5000`
+![Web rmf panel](images/intro/install_run_RMF/airport_web_RMFPanel.png)
+
+You can view the status of all the robots under RMF. To request a list of tasks, first select the `Airport` tab. User can choose to submit a (1) Adhoc task or (2) Task List.
+
+Copy paste this to the Task List Box. (or open a file)
+```json
+[{"task_type":"Delivery", "start_time":0, "description": {"option": "mop"}},
+ {"task_type":"Loop", "start_time":0, "description": {"num_loops":10, "start_name":"junction_north_west", "finish_name":"n14"}},
+ {"task_type":"Loop", "start_time":0, "description": {"num_loops":10, "start_name":"tinyRobot_n09", "finish_name":"s07"}},
+ {"task_type":"Loop", "start_time":0, "description": {"num_loops":10, "start_name":"tinyRobot_s07", "finish_name":"n12"}}]
+```
+
+Then Click Submit to submit the list of tasks:
+
+![Airport Terminal RMF Panel](images/intro/install_run_RMF/airport_web_RMFPanel_tasks.png)
+
+Now, sit back and enjoy.
 
 ## Jump in, the water is fine!
 
