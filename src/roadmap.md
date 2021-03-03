@@ -32,23 +32,23 @@ A reusable library for distributed (multi-fleet) task dispatching based on custo
     * a user management system with roles, based on [Keycloak](https://www.keycloak.org/)
     * examples of how to deploy this UI toolkit to build end-to-end applications
     * log management frontend and backend
-    * Infrastructure adapters
-        * an intelligent lift (elevator) adapter that can optimally coordinate how robots share lifts (with each other and with humans)
-        * documented examples of using OPC-UA [PLC's](https://en.wikipedia.org/wiki/Programmable_logic_controller) to control infrastructure such as doors and lifts.
-    * Chargers
-        * integration with multi-robot charger hardware
-        * iteration of `rmf_charger_msgs` as needed
-        * a negotiation system to dynamically allocate multi-robot chargers on demand
-    * Robot fleet adapters
-        * adding new types of robots as relevant to our sponsors
-        * customized fleet adapters and map ingestion scripts as needed
-        * continual improvement to the open-source [MiR fleet adapter](https://github.com/osrf/fleet_adapter_mir)
-        * improving existing robot fleet adapters and generalizing/refactoring those improvements as possible into the open-source libraries
-    * Documentation
-        * Improve package-level documentation
-        * Improve the long-form narrative documentation in The Book
-    * Testing
-        * Continue to improve unit and end-to-end tests of all components (this task never ends)
+* Infrastructure adapters
+    * an intelligent lift (elevator) adapter that can optimally coordinate how robots share lifts (with each other and with humans)
+    * documented examples of using OPC-UA [PLC's](https://en.wikipedia.org/wiki/Programmable_logic_controller) to control infrastructure such as doors and lifts.
+* Chargers
+    * integration with multi-robot charger hardware
+    * iteration of `rmf_charger_msgs` as needed
+    * a negotiation system to dynamically allocate multi-robot chargers on demand
+* Robot fleet adapters
+    * adding new types of robots as relevant to our sponsors
+    * customized fleet adapters and map ingestion scripts as needed
+    * continual improvement to the open-source [MiR fleet adapter](https://github.com/osrf/fleet_adapter_mir)
+    * improving existing robot fleet adapters and generalizing/refactoring those improvements as possible into the open-source libraries
+* Documentation
+    * Improve package-level documentation
+    * Improve the long-form narrative documentation in The Book
+* Testing
+    * Continue to improve unit and end-to-end tests of all components (this task never ends)
 
 ## Wish list
 
