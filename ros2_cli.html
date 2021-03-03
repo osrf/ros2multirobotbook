@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#the-ros-command-line-interface" id="the-ros-command-line-interface">The ROS Command Line Interface</a></h1>
+                        <h1 id="the-ros-command-line-interface"><a class="header" href="#the-ros-command-line-interface">The ROS Command Line Interface</a></h1>
 <p>The ROS command line interface, or CLI for short, is a set of programs for
 starting, inspecting, controlling, and monitoring a ROS robot. The best way to
 think of the CLI is a collection of small and simple programs that allow you
@@ -252,7 +252,7 @@ first one or two letters. Another tool is the up arrow key. When you use the
 command line sometimes you mistype a command, or need to rerun a
 command. Pressing the up key will cycle through the previous commands which you
 can modify and rerun as needed.</p>
-<h2><a class="header" href="#running-your-first-ros-program" id="running-your-first-ros-program">Running Your First ROS Program</a></h2>
+<h2 id="running-your-first-ros-program"><a class="header" href="#running-your-first-ros-program">Running Your First ROS Program</a></h2>
 <p>Let's get started with our first ROS CLI command. The first command we'll visit
 is <code>run</code>. Let's start by looking at the documentation for the <code>run</code> command:</p>
 <pre><code class="language-{.sourceCode.bash}">$ ros2 run
@@ -336,7 +336,7 @@ $ ros2 run turtlesim draw_square
 <code>CTRL-SHIFT-C</code> and <code>CTRL-SHIFT-V</code> are responsible for copy and paste in a Linux terminal).
 Feel free to try it out. Start and stop the programs, and then
 restart them before moving on.</p>
-<h2><a class="header" href="#ros-topics" id="ros-topics">ROS Topics</a></h2>
+<h2 id="ros-topics"><a class="header" href="#ros-topics">ROS Topics</a></h2>
 <p>We now have two ROS 2 programs running from the <code>turtlesim</code> package.
 There is <code>turtle_node</code> that opens our turtle simulation, and <code>draw_square</code>
 that makes the turtle in <code>turtle_node</code> move around. How are these two
@@ -814,7 +814,7 @@ $ ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 4
 </code></pre>
 <p>If you did everything correctly you should have moved around the turtle on the
 screen. Try changing the command to draw a small picture.</p>
-<h2><a class="header" href="#ros-2-services-and-actions" id="ros-2-services-and-actions">ROS 2 Services and Actions</a></h2>
+<h2 id="ros-2-services-and-actions"><a class="header" href="#ros-2-services-and-actions">ROS 2 Services and Actions</a></h2>
 <p>As discussed previously, services are the name given to short,
 synchronous robot behaviors that can be done quickly, like turning on lights
 and switching components on or off. Actions are longer term,
@@ -1137,7 +1137,7 @@ Result:
 Goal finished with status: SUCCEEDED
 </code></pre>
 <p>If everything worked correctly we should see our turtle has rotated.</p>
-<h2><a class="header" href="#ros-parameters" id="ros-parameters">ROS Parameters</a></h2>
+<h2 id="ros-parameters"><a class="header" href="#ros-parameters">ROS Parameters</a></h2>
 <p>In ROS, parameters are values that are shared between nodes in the
 system (if you are familiar with the <a href="https://en.wikipedia.org/wiki/Blackboard_(design_pattern)">blackboard design
 pattern</a> in
@@ -1225,7 +1225,7 @@ std_srvs.srv.Empty_Response()
 </code></pre>
 <p>If everything worked correctly your turtle should look like the screen below.</p>
 <p><img src="./images/blue_screen.png" alt="image" /></p>
-<h2><a class="header" href="#ros-bags" id="ros-bags">ROS Bags</a></h2>
+<h2 id="ros-bags"><a class="header" href="#ros-bags">ROS Bags</a></h2>
 <p>ROS bags are ROS's tool for recording, and replaying data. ROS bags are like log
 files that let you store data along with messages. ROS systems can generate a
 lot of data, so when you bag data you must select which topics you want. Bags
@@ -1343,9 +1343,9 @@ linear_velocity: 1.0
 angular_velocity: 0.0
 ---
 </code></pre>
-<h2><a class="header" href="#ros2-component-command" id="ros2-component-command">ROS2 Component Command</a></h2>
-<h2><a class="header" href="#ros2-daemon-command" id="ros2-daemon-command">ROS2 Daemon Command</a></h2>
-<h2><a class="header" href="#ros2-doctor-command" id="ros2-doctor-command">ROS2 Doctor Command</a></h2>
+<h2 id="ros2-component-command"><a class="header" href="#ros2-component-command">ROS2 Component Command</a></h2>
+<h2 id="ros2-daemon-command"><a class="header" href="#ros2-daemon-command">ROS2 Daemon Command</a></h2>
+<h2 id="ros2-doctor-command"><a class="header" href="#ros2-doctor-command">ROS2 Doctor Command</a></h2>
 <p>With any complex system problems can sometimes arise, and knowing how to describe your
 system and what is happening can do a lot to help others help you fix your
 problem. ROS 2 has a <code>doctor</code> command that you can use to print a variety of
@@ -1373,7 +1373,7 @@ running <code>ros2 doctor -r</code> you should see a fairly lengthy report gener
 information about your computer's operating system, your networking
 configuration, and your running ROS system. If you ever run into an issue you
 should always include this full report.</p>
-<h2><a class="header" href="#ros-2-interface" id="ros-2-interface">ROS 2 Interface</a></h2>
+<h2 id="ros-2-interface"><a class="header" href="#ros-2-interface">ROS 2 Interface</a></h2>
 <p>As you've already seen, ROS uses standard messages so that different packages and
 programs, potentially written in different programming languages, can all talk
 to one another. To make this all work, ROS uses standard messages, and
@@ -1516,7 +1516,7 @@ $ ros2 service call /spawn turtlesim/srv/Spawn &quot;{&lt;copy and paste proto h
 <p>You can see from the example above how handy these tools can be. It is worth
 noting that you need to paste the prototype into a set of quotes and curly
 braces for the call to work <code>&quot;{&lt;prototype&gt;}&quot;</code>.</p>
-<h2><a class="header" href="#ros-2-launch" id="ros-2-launch">ROS 2 Launch</a></h2>
+<h2 id="ros-2-launch"><a class="header" href="#ros-2-launch">ROS 2 Launch</a></h2>
 <p>The <code>launch</code> command is used to run ROS launch files. Up until this point we've
 been running single ROS programs by hand using the <code>run</code> command, however this
 is not how larger ROS systems are generally operated and many robots command
@@ -1581,7 +1581,7 @@ $ ros2 launch turtlesim multisim.launch.py
 [INFO] [turtlesim_node-2]: process started with pid [20945]
 ^C[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
 </code></pre>
-<h2><a class="header" href="#ros-2-lifecycle" id="ros-2-lifecycle">ROS 2 Lifecycle</a></h2>
+<h2 id="ros-2-lifecycle"><a class="header" href="#ros-2-lifecycle">ROS 2 Lifecycle</a></h2>
 <p>ROS 2 has a new feature called <code>lifecycle</code> which allows for greater control over
 the state of a ROS node. Roughly, this feature allows nodes to have complex
 start-up and shut-down procedures that are correctly handed. An example of such
@@ -1620,11 +1620,11 @@ and the available transitions, the <code>lifecycle set</code> command can be use
 the node to transition to a new state. Generally, these CLI commands are used to
 diagnose failure modes of systems, or to manually transition a particular
 component.</p>
-<h2><a class="header" href="#ros-2-msg-message" id="ros-2-msg-message">ROS 2 msg (Message)</a></h2>
+<h2 id="ros-2-msg-message"><a class="header" href="#ros-2-msg-message">ROS 2 msg (Message)</a></h2>
 <p>ROS 2 Eloquent is the last version of ROS to use the <code>msg</code> command. All of the
 commands in <code>msg</code> are mirrored in the <code>interface</code> command. These features are
 currently deprecated and will be removed in Foxy.</p>
-<h2><a class="header" href="#ros-2-pkg-package" id="ros-2-pkg-package">ROS 2 pkg (Package)</a></h2>
+<h2 id="ros-2-pkg-package"><a class="header" href="#ros-2-pkg-package">ROS 2 pkg (Package)</a></h2>
 <p>The ROS 2 package command is a very useful command to understand what ROS
 packages are installed on your system, where they are installed, and the
 executables contained within each package. These tools are particularly useful
@@ -1692,8 +1692,8 @@ you create a ROS package. We'll use this sub command later in the chapter to
 create a new ROS package. The short of it is that you feed the command your
 package name and all of the relevant information for your package as optional
 arguments.</p>
-<h2><a class="header" href="#ros-2-security" id="ros-2-security">ROS 2 Security</a></h2>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/ros2_cli.md">Edit this file on GitHub.</a></footer>
+<h2 id="ros-2-security"><a class="header" href="#ros-2-security">ROS 2 Security</a></h2>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ros2_cli.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -169,10 +169,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#lifts-ie-elevators" id="lifts-ie-elevators">Lifts (i.e. Elevators)</a></h1>
-<h2><a class="header" href="#map-requirements" id="map-requirements">Map requirements</a></h2>
+                        <h1 id="lifts-ie-elevators"><a class="header" href="#lifts-ie-elevators">Lifts (i.e. Elevators)</a></h1>
+<h2 id="map-requirements"><a class="header" href="#map-requirements">Map requirements</a></h2>
 <p>Before a lift can be properly integrated, be sure to draw up the lift locations with the correct lift names and levels on the navigation graph using <code>traffic_editor</code>. The instructions to do so can be found in <a href="./traffic-editor.html">Traffic Editor</a> chapter.</p>
-<h2><a class="header" href="#integration" id="integration">Integration</a></h2>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
 <p>Elevator integration will allow RMF to work over multiple levels, resolving conflicts and managing shared resources on a larger scale. Similar to door integration, the basic requirement is that the lift controller accepts commands using a prescribed protocol, <code>OPC</code> is one such example.</p>
 <p>The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other:</p>
 <img src="images/lifts_block_diagram.png">
@@ -183,7 +183,7 @@
 <tr><td><code>rmf_lift_msgs/LiftRequest</code></td><td><code>/adapter_lift_requests</code></td><td>Requests to be sent to the lift adapter/supervisor to request safe operation of lifts</td></tr>
 </tbody></table>
 <p>A lift adapter subscribes to <code>lift_states</code> while keeping track of the internal and desired state of the lift in order to prevent it from performing any actions that might interrupt mobile robot or normal operations. The lift adapter performs this task by receiving lift requests from the fleet adapters and the RMF core systems and only relaying the instructions to the lift node if it is deemed appropriate. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_lifts.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_lifts.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

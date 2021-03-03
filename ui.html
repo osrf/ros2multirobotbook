@@ -169,10 +169,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#ui" id="ui">UI</a></h1>
-<h2><a class="header" href="#introduction" id="introduction">Introduction</a></h2>
+                        <h1 id="ui"><a class="header" href="#ui">UI</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>This chapter describes how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.</p>
-<h2><a class="header" href="#overview" id="overview">Overview</a></h2>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The most common way to write a UI application is to make use of a UI framework. There are many available UI frameworks, the following are some of the popular frameworks for reference:</p>
 <ul>
 <li>Multi-Paradigm
@@ -199,7 +199,7 @@
 </li>
 </ul>
 <p>Each framework has pros and cons and we do not feel there is a &quot;best&quot; framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
-<h2><a class="header" href="#how-does-an-rmf-ui-application-work" id="how-does-an-rmf-ui-application-work">How Does an RMF UI Application Work?</a></h2>
+<h2 id="how-does-an-rmf-ui-application-work"><a class="header" href="#how-does-an-rmf-ui-application-work">How Does an RMF UI Application Work?</a></h2>
 <p>Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publish door states and subscribe to door requests. Here we are doing the reverse; subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and we will also be sending door requests when the user clicks the open or close button.</p>
 <p>We need to use a libray to help us do that. In the hardware adapter examples we are using the <code>rclcpp</code> library, but <code>rclcpp</code> isn't the only way to use ROS 2. Here are some libraries that also work well</p>
 <ul>
@@ -223,11 +223,11 @@
 <b>Note</b>: This is not an exhaustive list, you can find many third-party projects that aim to bring the ROS 2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS 2. You can also write your own bindings and middlewares!
 </div>
 <p>Writing an RMF UI application isn't much different from writing any other UI application, the only difference being that we will be sending/receiving ROS 2 data in response to user input and updating the UI's state.</p>
-<h1><a class="header" href="#tutorial-react-webapp" id="tutorial-react-webapp">Tutorial: React WebApp</a></h1>
+<h1 id="tutorial-react-webapp"><a class="header" href="#tutorial-react-webapp">Tutorial: React WebApp</a></h1>
 <p>In this section, we will go through an example of creating a React-based webapp to monitor door states and send door open/close requests. The tutorial will focus on the aspects of communicating with RMF; basic knowledge of React and TypeScript is needed.</p>
 <p>Note that this isn't the only way to create a RMF UI application, as mentioned before, you can use any UI toolkit, the only requirement is to be able to send/receive ROS 2 messages.</p>
 <p>The code for this tutorial is available <a href="https://github.com/osrf/ros2multirobotbook/tree/master/src/react-app-tutorial">here</a>.</p>
-<h2><a class="header" href="#requirements" id="requirements">Requirements</a></h2>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
 <ul>
 <li>nodejs &gt;= 10</li>
 <li><a href="https://github.com/osrf/rmf_core">rmf_core</a></li>
@@ -236,7 +236,7 @@
 <li><a href="https://github.com/osrf/rmf_demos">rmf_demos</a></li>
 </ul>
 <p>We will not go through the process of setting up the dependencies, instructions to set them up can be easily found on the web or from their project homepages.</p>
-<h2><a class="header" href="#setting-up" id="setting-up">Setting Up</a></h2>
+<h2 id="setting-up"><a class="header" href="#setting-up">Setting Up</a></h2>
 <p>We will be using an example from <code>rmf_demo</code> as the RMF deployment that we will be interacting with. This is a good time to test if your installation of <code>rmf_demo</code> is working properly, start the demo with the following command:</p>
 <pre><code>ros2 launch demos office.launch.xml
 </code></pre>
@@ -253,7 +253,7 @@
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: Other than <code>@osrf/romi-js-soss-transport</code>, there is also <code>@osrf/romi-js-rclnodejs-transport</code> which is able to send ROS 2 messages directly, however it does not work on the browser. It is preferred if you are writing a Node.js based desktop application using something like Electron, or you are writing a server based application like a REST API provider.
 </div>
-<h2><a class="header" href="#door-component" id="door-component">Door Component</a></h2>
+<h2 id="door-component"><a class="header" href="#door-component">Door Component</a></h2>
 <p>First of all, let's start things simple by creating a component to show a door's state along with open and close buttons. Create a new file called <code>Door.tsx</code> in <code>react-app-tutorial/src</code> directory and copy the below snippet into it.</p>
 <pre><code class="language-js">import React from 'react';
 
@@ -296,7 +296,7 @@ export default App;
 <p>and start it with <code>npm start</code>. You should see something like this:</p>
 <p><img src="ui-resources/door.png" alt="Door" /></p>
 <p>Great! We now have a base to start implementing the rest of the app.</p>
-<h2><a class="header" href="#obtain-list-of-doors" id="obtain-list-of-doors">Obtain List of Doors</a></h2>
+<h2 id="obtain-list-of-doors"><a class="header" href="#obtain-list-of-doors">Obtain List of Doors</a></h2>
 <p>Previously we made a simple door component and tested rendering it with hard-coded values. Obviously this won't work in a proper app, so here we will look at how we can obtain the list of actual doors from RMF.</p>
 <p>Start of by adding a React state to track the list of doors:</p>
 <pre><code class="language-js">const [doors, setDoors] = React.useState&lt;RomiCore.Door[]&gt;([]);
@@ -400,7 +400,7 @@ export default App;
 </code></pre>
 <p>Don't worry about the door state for now. If everything goes well, you should see 3 doors that are in the building listed:</p>
 <p><img src="ui-resources/building-map-doors.png" alt="Doors" /></p>
-<h2><a class="header" href="#listening-for-door-states" id="listening-for-door-states">Listening for Door States</a></h2>
+<h2 id="listening-for-door-states"><a class="header" href="#listening-for-door-states">Listening for Door States</a></h2>
 <p>Previously we managed to render the list of doors in the RMF system, but the building map doesn't tell us the doors' states, so let's fix that. First, let's add a React state to track the door states:</p>
 <pre><code class="language-js">const [doorStates, setDoorStates] = React.useState&lt;Record&lt;string, RomiCore.DoorState&gt;&gt;({});
 </code></pre>
@@ -524,7 +524,7 @@ export default Door;
 </code></pre>
 <p>Great! Now we have readable door states instead of cryptic numbers.</p>
 <p><img src="ui-resources/with-door-states.png" alt="With door states" /></p>
-<h2><a class="header" href="#sending-door-requests" id="sending-door-requests">Sending Door Requests</a></h2>
+<h2 id="sending-door-requests"><a class="header" href="#sending-door-requests">Sending Door Requests</a></h2>
 <p>As you may have expected by now, all we have to do here is to send door requests to RMF.</p>
 <p>First, create a publisher. Add this to the start of the render function:</p>
 <pre><code class="language-js">const doorRequestPub = React.useRef&lt;RomiCore.Publisher&lt;RomiCore.DoorRequest&gt; | null&gt;(null);
@@ -605,12 +605,12 @@ export default App;
 <p>Try clicking on the open and close buttons now. You should see the door state being updated. You can also see the door opening/closing in Gazebo.
 Congratulations, you have just written a simple RMF UI application! Obviously the design leaves much to be desired as we didn't do any CSS styling but that is outside the scope of this tutorial.</p>
 <p>Extending this to provide more features like lift control, fleet states, etc. follows the same principle. All the available topics and services exposed by RMF are available in <code>RomiCore</code> and you can find more detailed information by reading the rest of the manual. This also extends to writing UI applications for other platforms and frameworks; at the core you are really just publishing and subscribing to ROS 2 messages so you can apply the same principles to other languages and frameworks.</p>
-<h2><a class="header" href="#conclusion" id="conclusion">Conclusion</a></h2>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>We have just created a minimal RMF UI application that reports the door state and allows a user to control the door. For simplicity, there aren't many features included but this tutorial should provide the basic knowledge of how to create an RMF UI application not only in React but also in any framework that you like.</p>
 <p>If you would like more examples of a React RMF application, you can take a look at the official <a href="https://github.com/osrf/romi-dashboard">RoMi dashboard</a>.</p>
-<h2><a class="header" href="#extra-extending-romi-js" id="extra-extending-romi-js">Extra: Extending romi-js</a></h2>
+<h2 id="extra-extending-romi-js"><a class="header" href="#extra-extending-romi-js">Extra: Extending romi-js</a></h2>
 <p>Throughout the tutorial, we used <code>romi-js</code> to simplify the communication to RMF. As you might have noticed <code>romi-js</code> is actually a collection of packages. This design makes it possible to easily extend it with new topics, services and even transports.</p>
-<h3><a class="header" href="#adding-topics-and-services" id="adding-topics-and-services">Adding Topics and Services</a></h3>
+<h3 id="adding-topics-and-services"><a class="header" href="#adding-topics-and-services">Adding Topics and Services</a></h3>
 <p>Topics and services are defined by the interfaces:</p>
 <pre><code class="language-js">export interface RomiTopic&lt;Message&gt; {
   readonly validate: (msg: any) =&gt; Message;
@@ -636,7 +636,7 @@ export interface RomiService&lt;Request, Response&gt; {
   topic: 'my_topic',
 };
 </code></pre>
-<h3><a class="header" href="#adding-transport" id="adding-transport">Adding Transport</a></h3>
+<h3 id="adding-transport"><a class="header" href="#adding-transport">Adding Transport</a></h3>
 <p>A <code>Transport</code> in <code>romi-js</code> is a class with the interface:</p>
 <pre><code class="language-js">export interface Subscription {
   unsubscribe(): void;
@@ -679,7 +679,7 @@ export interface Transport extends TransportEvents {
 </code></pre>
 <p>There isn't a general guide on how the interface should be implemented since the details would be different for each transport. One thing to note is that it might be tempting to return a type derived from <code>any</code> (e.g. <code>Publisher&lt;any&gt;</code>) to pass the typescript checks but doing so is not recommended. You should call the <code>validate*</code> methods in the topic or service to convert something into a type of <code>Message</code>.</p>
 <p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/ui.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ui.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

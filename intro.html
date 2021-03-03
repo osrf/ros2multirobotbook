@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>Welcome!
 This is a book about multi-robot systems.
 Why?
@@ -177,7 +177,7 @@ Because it's the future!</p>
 <p>Robots are becoming more affordable, more capable, and more useful in many &quot;real life&quot; scenarios.
 As a result, we are seeing more and more robots that need to share spaces and work together to accomplish tasks. In this book, we will introduce the Robot Operating System 2 (ROS 2) as well as the Robot Middleware Framework (RMF), which is built on ROS 2 and tries to simplify the creation and operation of complex multi-robot systems.</p>
 <p>This chapter describes the motivation and goals for ROS 2 and the RMF system for integrating multiple robots.</p>
-<h1><a class="header" href="#ros-2" id="ros-2">ROS 2</a></h1>
+<h1 id="ros-2"><a class="header" href="#ros-2">ROS 2</a></h1>
 <p>The Robot Operating System (ROS) is a set of software libraries and tools for building robot applications.
 From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project.
 And it’s all open source.</p>
@@ -201,7 +201,7 @@ So, ROS 2 was built as a parallel set of packages that can be installed alongsid
 <p>A large and growing amount of ROS 2 resources can be found on the web.
 A great place to start is on the ROS Index page for <a href="https://index.ros.org/doc/ros2/">ROS 2</a> and further along in this book in the ROS 2 chapter.</p>
 <p>Enjoy your journey!</p>
-<h1><a class="header" href="#robotics-middleware-framework-rmf" id="robotics-middleware-framework-rmf">Robotics Middleware Framework (RMF)</a></h1>
+<h1 id="robotics-middleware-framework-rmf"><a class="header" href="#robotics-middleware-framework-rmf">Robotics Middleware Framework (RMF)</a></h1>
 <p>For a moment, think of any large building.
 It could be a shopping mall, housing complex, university building, workplace, airport, hospital, hotel, and so on.
 Are items delivered within the building?
@@ -232,7 +232,7 @@ There is no magic here!
 All of the implementations are open-source and available for inspection and customization.</p>
 <p>We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, &quot;<em>Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling</em>&quot;. The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).</p>
 <p>Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of the NR2PO and MOH.</p>
-<h2><a class="header" href="#so-what-is-rmf" id="so-what-is-rmf">So what is RMF?</a></h2>
+<h2 id="so-what-is-rmf"><a class="header" href="#so-what-is-rmf">So what is RMF?</a></h2>
 <p>RMF is a collection of reusable, scalable libraries and tools building on top of ROS 2 that enable the interoperability of heterogeneous fleets of any type of robotic systems.
 RMF utilizes standardized communication protocols to infrastructure, environments and automation where robots are deployed to optimize the use of critical resources (i.e. robots, lifts, doors, passageways, etc).
 It adds intelligence to the system through resource allocation and by preventing conflicts over shared resources through the RMF Core which will be described in detail later in this book.</p>
@@ -243,42 +243,42 @@ Once deployed in an environment, RMF will save costs by allowing resources to be
 It is what robotic developers and robot customers have been looking for.
 In a nutshell, here is RMF:</p>
 <p><img src="https://user-images.githubusercontent.com/43839559/84993483-e89e3e80-b17b-11ea-8bc9-0a0d559de3ba.png" alt="RMF Book Architecture Diagram" /></p>
-<h2><a class="header" href="#how-does-rmf-make-the-magic-happen" id="how-does-rmf-make-the-magic-happen">How does RMF make the magic happen?</a></h2>
+<h2 id="how-does-rmf-make-the-magic-happen"><a class="header" href="#how-does-rmf-make-the-magic-happen">How does RMF make the magic happen?</a></h2>
 <p>One of the principles of RMF's design is to simplify and standardize messaging as much as possible.
 You can see all of the complex interactions and coordination currently boils down to only fourteen standard messages in the below diagram of the RMF Core:</p>
 <img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
 <p>We will explore each of these functional areas in more detail in later chapters of this book, but for now we'd like to also introduce some of the other utilities helpful when developing and integrating with RMF.</p>
-<h3><a class="header" href="#rmf-demos" id="rmf-demos">RMF Demos</a></h3>
+<h3 id="rmf-demos"><a class="header" href="#rmf-demos">RMF Demos</a></h3>
 <p><a href="https://github.com/osrf/rmf_demos">The demos</a> are demonstrations of the capabilities of RMF in various environments.
 This repository serves as a starting point for working and integrating with RMF.</p>
-<h3><a class="header" href="#traffic-editor" id="traffic-editor">Traffic Editor</a></h3>
+<h3 id="traffic-editor"><a class="header" href="#traffic-editor">Traffic Editor</a></h3>
 <p><a href="https://github.com/osrf/traffic_editor">Traffic Editor</a> is a GUI for creating and annotating floorplans for use in RMF.
 Through Traffic Editor you are able to create traffic patterns for use in RMF and introduce simulation models to enhance your virtual simulation environments.
 The <code>.yaml</code> files can be easily exported for use in Gazebo.</p>
-<h3><a class="header" href="#free-fleet" id="free-fleet">Free Fleet</a></h3>
+<h3 id="free-fleet"><a class="header" href="#free-fleet">Free Fleet</a></h3>
 <p><a href="https://github.com/osrf/free_fleet">Free Fleet</a> is an open-source robot fleet management system for robot developers who do not have their own fleet manager or who would prefer to use and contribute to an open-source fleet management utility.</p>
-<h3><a class="header" href="#systems-of-systems-synthesizer-soss" id="systems-of-systems-synthesizer-soss">Systems of Systems Synthesizer (SOSS)</a></h3>
+<h3 id="systems-of-systems-synthesizer-soss"><a class="header" href="#systems-of-systems-synthesizer-soss">Systems of Systems Synthesizer (SOSS)</a></h3>
 <p>The <a href="https://github.com/osrf/soss">SOSS</a> you've been missing! SOSS easily passes messages between various message formats and types, including ROS 1, ROS 2, WebSocket, REST, FiWare, DDS, OPC-UA, and more.</p>
-<h3><a class="header" href="#rmf-schedule-visualizer" id="rmf-schedule-visualizer">RMF Schedule Visualizer</a></h3>
+<h3 id="rmf-schedule-visualizer"><a class="header" href="#rmf-schedule-visualizer">RMF Schedule Visualizer</a></h3>
 <p>This <a href="https://github.com/osrf/rmf_schedule_visualizer">visualizer</a> is an rviz-based rmf_core visualizer and control panel.
 It is intended to be a functional tool for RMF or RoMi-H developers.</p>
-<h3><a class="header" href="#romi-dashboard" id="romi-dashboard">RoMi Dashboard</a></h3>
+<h3 id="romi-dashboard"><a class="header" href="#romi-dashboard">RoMi Dashboard</a></h3>
 <p>The Robotics Middleware for Healthcare (RoMi-H) is a healthcare specific implementation of RMF.
 This <a href="http://github.com/osrf/romi-dashboard">dashboard</a> is a web application that provides overall visualization and control over the RoMi-H system.
 The dashboard is by design more &quot;operator-friendly&quot; compared to the previously mentioned schedule visualizer.</p>
-<h3><a class="header" href="#simulation-assets" id="simulation-assets">Simulation Assets</a></h3>
+<h3 id="simulation-assets"><a class="header" href="#simulation-assets">Simulation Assets</a></h3>
 <p>The open-source and freely distributable <a href="https://app.ignitionrobotics.org/fuel">simulation assets</a> are created and shared to accelerate simulation efforts.</p>
-<h2><a class="header" href="#installation-of-the-rmf-essentials" id="installation-of-the-rmf-essentials">Installation of the RMF Essentials</a></h2>
+<h2 id="installation-of-the-rmf-essentials"><a class="header" href="#installation-of-the-rmf-essentials">Installation of the RMF Essentials</a></h2>
 <p>The current version of RMF is 1.1.0. It targets ROS Foxy, and Debian binary packages are released for Ubuntu Focal Fossa 20.04 LTS.</p>
 <p>RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Focal please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the <a href="#setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a> section.</p>
-<h3><a class="header" href="#setup-locale" id="setup-locale">Setup Locale</a></h3>
+<h3 id="setup-locale"><a class="header" href="#setup-locale">Setup Locale</a></h3>
 <p>Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. You can check your locale by running <code>locale</code> directly in your terminal.</p>
 <p>We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale. In case you need it, here is an example on how to switch to the US English UTF-8 locale:</p>
 <pre><code>sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 </code></pre>
-<h3><a class="header" href="#setup-and-install-ros-2" id="setup-and-install-ros-2">Setup and Install ROS 2</a></h3>
+<h3 id="setup-and-install-ros-2"><a class="header" href="#setup-and-install-ros-2">Setup and Install ROS 2</a></h3>
 <p>You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:</p>
 <pre><code>sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
@@ -293,14 +293,14 @@ sudo apt update
 <p>In order to run ROS 2 commands we need to source the <code>setup.bash</code> file:</p>
 <pre><code>source /opt/ros/foxy/setup.bash
 </code></pre>
-<h3><a class="header" href="#setup-ignition-gazebo-sources" id="setup-ignition-gazebo-sources">Setup Ignition-Gazebo Sources</a></h3>
+<h3 id="setup-ignition-gazebo-sources"><a class="header" href="#setup-ignition-gazebo-sources">Setup Ignition-Gazebo Sources</a></h3>
 <p>You will also need to add the Ignition-Gazebo apt repositories similar to the ROS 2 setup. Let's authorize the key:</p>
 <pre><code>curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
 </code></pre>
 <p>You will also need to add the repository to your sources list:</p>
 <pre><code>sudo sh -c 'echo &quot;deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main&quot; &gt; /etc/apt/sources.list.d/gazebo-stable.list'
 </code></pre>
-<h3><a class="header" href="#setup-sources-and-installation-of-rmf" id="setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a></h3>
+<h3 id="setup-sources-and-installation-of-rmf"><a class="header" href="#setup-sources-and-installation-of-rmf">Setup Sources and Installation of RMF</a></h3>
 <p>Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:</p>
 <pre><code>curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
 </code></pre>
@@ -313,7 +313,7 @@ sudo apt update
 <p>Finally, the following installs a basic set of packages that should get you going with RMF:</p>
 <pre><code>sudo apt-get install ros-foxy-ament-cmake-catch2 ros-foxy-building-gazebo-plugins ros-foxy-building-map-msgs ros-foxy-building-map-tools ros-foxy-rmf-cmake-uncrustify ros-foxy-rmf-dispenser-msgs ros-foxy-rmf-door-msgs ros-foxy-rmf-fleet-adapter ros-foxy-rmf-fleet-msgs ros-foxy-rmf-lift-msgs ros-foxy-rmf-task-msgs ros-foxy-rmf-traffic-msgs ros-foxy-rmf-traffic-ros2 ros-foxy-rmf-traffic ros-foxy-rmf-utils ros-foxy-traffic-editor
 </code></pre>
-<h2><a class="header" href="#install-and-run-rmf-demos" id="install-and-run-rmf-demos">Install and run RMF demos</a></h2>
+<h2 id="install-and-run-rmf-demos"><a class="header" href="#install-and-run-rmf-demos">Install and run RMF demos</a></h2>
 <p>You can install the provided RMF demos from their Debian package:</p>
 <pre><code>sudo apt-get install ros-foxy-demos
 </code></pre>
@@ -340,7 +340,7 @@ sudo apt update
 <p>You can also send them directly using ROS 2 messages. Here we request a robot from the <code>tinyRobot</code> fleet to go from the waypoint <code>tinyRobot_n09</code> to <code>tinyRobot_s07</code> only once:</p>
 <pre><code>ros2 run rmf_demo_tasks request_loop -s tinyRobot_n09 -f tinyRobot_s07 -r tinyRobot -n 1
 </code></pre>
-<h3><a class="header" href="#task-dispatcher-only-in-rolling-release" id="task-dispatcher-only-in-rolling-release">Task Dispatcher (only in Rolling Release)</a></h3>
+<h3 id="task-dispatcher-only-in-rolling-release"><a class="header" href="#task-dispatcher-only-in-rolling-release">Task Dispatcher (only in Rolling Release)</a></h3>
 <p>In the rolling release, we have introduced a new dispatching system. During a task request, instead of requiring the
 user to specify the robot name to complete a task, RMF will assign the task to the best robot.</p>
 <p>With the same airport world, run these lines on a seperate terminal:</p>
@@ -362,9 +362,9 @@ can be found here: <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_de
 <p>Then Click Submit to submit the list of tasks:</p>
 <p><img src="images/intro/install_run_RMF/airport_web_RMFPanel_tasks.png" alt="Airport Terminal RMF Panel" /></p>
 <p>Now, sit back and enjoy.</p>
-<h2><a class="header" href="#jump-in-the-water-is-fine" id="jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
+<h2 id="jump-in-the-water-is-fine"><a class="header" href="#jump-in-the-water-is-fine">Jump in, the water is fine!</a></h2>
 <p>So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the <a href="https://github.com/osrf/rmf_demos">RMF Demos</a> repository and if you want a really quick overview of RMF then take a look at this <a href="https://vimeo.com/405803151">Mock Airport Terminal video demo</a> (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/intro.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/intro.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

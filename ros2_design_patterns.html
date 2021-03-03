@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#ros-concepts-and-design-patterns" id="ros-concepts-and-design-patterns">ROS Concepts and Design Patterns</a></h1>
+                        <h1 id="ros-concepts-and-design-patterns"><a class="header" href="#ros-concepts-and-design-patterns">ROS Concepts and Design Patterns</a></h1>
 <p>As we said, learning about ROS is similar to learning about an
 automobile. In fact, a car is a lot like a robot (and sometimes it
 really is a robot; see the large and active self-driving vehicle
@@ -187,7 +187,7 @@ the functions of a complex system into individual parts that interact
 with each other to produce the desired behavior of that system. In ROS
 we call those parts <em>nodes</em> and we call the interactions between them
 <em>topics</em> (and sometimes <em>services</em>, but we will get to that).</p>
-<h2><a class="header" href="#the-ros-communication-graph" id="the-ros-communication-graph">The ROS Communication Graph</a></h2>
+<h2 id="the-ros-communication-graph"><a class="header" href="#the-ros-communication-graph">The ROS Communication Graph</a></h2>
 <p>Imagine we are building a wheeled robot that chases a red ball. This
 robot needs a camera with which to see the ball, a vision system to
 process the camera images to figure out where the ball is, a control
@@ -215,7 +215,7 @@ produce the steering direction needed to move toward the ball, again in
 a standard format. Finally, the motor driver node's responsibility is to
 convert the desired steering direction into the specific instructions
 necessary to command the robot's wheel motors accordingly.</p>
-<h2><a class="header" href="#publish-subscribe-messaging-topics-and-types" id="publish-subscribe-messaging-topics-and-types">Publish-Subscribe Messaging: Topics and Types</a></h2>
+<h2 id="publish-subscribe-messaging-topics-and-types"><a class="header" href="#publish-subscribe-messaging-topics-and-types">Publish-Subscribe Messaging: Topics and Types</a></h2>
 <p>With the example of the ball-chasing robot in mind, we can add some terminology
 to describe what is happening as the system operates. First, the ROS
 communication graph is based on a well-known pattern called <em>publish-subscribe
@@ -253,7 +253,7 @@ use that sort of generic type for rapid prototyping and experimenting. When you
 build a real system, even if something like <code>std_msgs/Float64</code> could get the job
 done on syntax, you should instead find or define a message that also matches
 the semantics of your application.</p>
-<h2><a class="header" href="#why-publish-subscribe" id="why-publish-subscribe">Why Publish-Subscribe?</a></h2>
+<h2 id="why-publish-subscribe"><a class="header" href="#why-publish-subscribe">Why Publish-Subscribe?</a></h2>
 <p>Given that it comes with additional complexity (nodes, topics, types, etc.), it
 is reasonable to ask why ROS follows the pub-sub pattern. After more than a
 decade of building and deploying ROS-based robot systems, we can identify
@@ -296,7 +296,7 @@ easily by just running those nodes in separate processes. In ROS, it is
 perfectly reasonable, and in fact quite common, to mix and match the use
 of languages in this way.</li>
 </ul>
-<h2><a class="header" href="#beyond-topics-services-actions-and-parameters" id="beyond-topics-services-actions-and-parameters">Beyond Topics: Services, Actions, and Parameters</a></h2>
+<h2 id="beyond-topics-services-actions-and-parameters"><a class="header" href="#beyond-topics-services-actions-and-parameters">Beyond Topics: Services, Actions, and Parameters</a></h2>
 <p>Most ROS data flows over topics, which we introduced in the previous
 sections. Topics are best for streaming data, which includes a lot of
 the common use cases in robotics. For example, going back to our
@@ -319,7 +319,7 @@ sufficient computational capacity to run all the nodes fast enough to
 keep up with the camera's data rate; that we do not have a way to predict
 where the ball is going in between camera frames; and that the motors
 can be commanded at the same rate the camera produces images.)</p>
-<h3><a class="header" href="#services" id="services">Services</a></h3>
+<h3 id="services"><a class="header" href="#services">Services</a></h3>
 <p>So topics get the job done for the basic ball-chasing robot. But now say
 that we want to add the ability to periodically capture an
 ultra-high-resolution image. The camera can do it, but it requires
@@ -356,7 +356,7 @@ and could then, say, add it to a photo gallery on disk.</li>
 </ul>
 <p>In general, if you have a need for infrequent, on-demand interactions
 among nodes, ROS services are a good choice.</p>
-<h3><a class="header" href="#actions" id="actions">Actions</a></h3>
+<h3 id="actions"><a class="header" href="#actions">Actions</a></h3>
 <p>Sometimes, when building robot control systems, there is a need for an
 interaction that looks like request-reply, but that can require a lot of
 time between the request and the reply. Imagine that we want to wrap up
@@ -393,7 +393,7 @@ if the chase is taking too long or if the feedback messages are showing
 that there is little chance of success.</p>
 <p>In general, if you want to support on-demand, long-running behaviors, ROS
 actions are a good choice.</p>
-<h3><a class="header" href="#parameters" id="parameters">Parameters</a></h3>
+<h3 id="parameters"><a class="header" href="#parameters">Parameters</a></h3>
 <p>Any nontrivial system requires configuration, and ROS is no exception.
 When we start our robot's motor driver node, how do we tell it to
 connect to the motors via <code>/dev/ttyUSB1</code>? We do not want to hard-code
@@ -437,7 +437,7 @@ finder needs to be sure to use the latest values for its parameters,
 knowing that they may have been changed by another node.</p>
 <p>In general, when you want to store stable, but possibly changeable,
 configuration information in a node, ROS parameters are a good choice.</p>
-<h2><a class="header" href="#asynchrony-in-code-callbacks" id="asynchrony-in-code-callbacks">Asynchrony in Code: Callbacks</a></h2>
+<h2 id="asynchrony-in-code-callbacks"><a class="header" href="#asynchrony-in-code-callbacks">Asynchrony in Code: Callbacks</a></h2>
 <p>Throughout ROS, you will see a common pattern in the code, which is the
 use of <em>callback functions</em>, or simply <em>callbacks</em>. For example, when
 subscribing to a topic, you supply a callback, which is a function that
@@ -469,7 +469,7 @@ callbacks you registered.</li>
 short: initialize and configure everything, then call a spin function to let
 ROS take over. When you are trying to understand what is happening in a ROS
 node, look in the callbacks; that is where the real work is happening.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/ros2_design_patterns.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ros2_design_patterns.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

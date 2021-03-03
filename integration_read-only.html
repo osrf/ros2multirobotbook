@@ -169,9 +169,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#read-only-fleet-integration" id="read-only-fleet-integration">Read-only Fleet Integration</a></h1>
+                        <h1 id="read-only-fleet-integration"><a class="header" href="#read-only-fleet-integration">Read-only Fleet Integration</a></h1>
 <p>In this section, we will cover the prototype API for integrating the <strong>Read Only</strong> category of mobile robot fleets. This means we assume the mobile robot fleet manager only allows RMF to see updates about where its robots are located and where they intend to go, but it does not offer any control over where the robots are going or how they can move around. This type of adapter is primarily aimed at legacy systems that were developed before RMF and did not anticipate the possibility of a third-party being able to command the robots.</p>
-<h2><a class="header" href="#fleet-driver-api" id="fleet-driver-api">Fleet Driver API</a></h2>
+<h2 id="fleet-driver-api"><a class="header" href="#fleet-driver-api">Fleet Driver API</a></h2>
 <p>The Fleet Driver API was an experimental API developed in the early stages of the RMF research project. It can still be used for a read-only fleet adapter implementation until an officially supported C++ API comes out to replace it.</p>
 <p>The Fleet Driver API uses ROS 2 messages from the <a href="https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs"><code>rmf_fleet_msgs</code></a> package. To use this API, you will want to write a ROS 2 application (using either rclcpp or rclpy) which we will refer to as the <em>Fleet Driver</em>. The job of the Fleet Driver is to transmit <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/FleetState.msg"><code>rmf_fleet_msgs/FleetState</code></a> messages out to the <code>fleet_states</code> topic.</p>
 <p>Inside the <code>FleetState</code> message is the <code>name</code> field. Be sure to fill in the correct name for your fleet state. There is also a collection of <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/RobotState.msg"><code>rmf_fleet_msgs/RobotState</code></a> messages. For integrating a read-only fleet with RMF, the most crucial fields of the <code>RobotState</code> message are:</p>
@@ -181,7 +181,7 @@
 <li><code>path</code> - The sequence of locations that the robot will be traveling through.</li>
 </ul>
 <p>Inside the <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/Location.msg"><code>rmf_fleet_msgs/Location</code></a> message, the <code>t</code> field (which represents time) is generally ignored by the read-only fleet adapter. We assume that it is too cumbersome for your Fleet Driver to make timing predictions, so we have the read-only fleet adapter make the predictions for you based on the traits of the vehicle.</p>
-<h2><a class="header" href="#configuring-the-read-only-fleet-adapter" id="configuring-the-read-only-fleet-adapter">Configuring the Read Only Fleet Adapter</a></h2>
+<h2 id="configuring-the-read-only-fleet-adapter"><a class="header" href="#configuring-the-read-only-fleet-adapter">Configuring the Read Only Fleet Adapter</a></h2>
 <p>For the prototype read-only integration, there are two applications that need to be launched:</p>
 <ol>
 <li>The Fleet Driver mentioned above which you write specifically for your fleet's custom API</li>
@@ -228,7 +228,7 @@
 <li><code>vicinity_radius</code>: The radius around the robot in which other robots are forbidden to physically enter. It is assumed that another robot entering this radius will interfere with the ability of this robot to operate.</li>
 </ul>
 <p>When the launch file and Fleet Driver application are both ready, you can launch them side-by-side and the integration of the read-only fleet adapter will be complete.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_read-only.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_read-only.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -169,13 +169,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#mobile-robot-fleet-integration" id="mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
+                        <h1 id="mobile-robot-fleet-integration"><a class="header" href="#mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
 <p>Here we will cover integrating a mobile robot fleet that offers the <strong>Full Control</strong> category of fleet adapter, as discussed in the <a href="./rmf-core.html">RMF Core Overview</a> chapter.
 This means we assume the mobile robot fleet manager allows us to specify explicit paths for the robot to follow, and that the path can be interrupted at any time and replaced with a new path.
 Furthermore, each robot's position will be updated live as the robots are moving.</p>
-<h2><a class="header" href="#route-map" id="route-map">Route Map</a></h2>
+<h2 id="route-map"><a class="header" href="#route-map">Route Map</a></h2>
 <p>Before such a fleet can be integrated, you will need to procure or produce a route map as described in the <a href="./integration_nav-maps.html">previous section</a>. The fleet adapter uses the route map to plan out feasible routes for the vehicles under its control, taking into account the schedules of all other vehicles. It will also use the route map to decide out how to negotiate with other fleet adapters when a scheduling conflict arises. The adapter will only consider moving the robots along routes that are specified on the route map, so it is important that the route coverage is comprehensive. At the same time, if there are extraneous waypoints on the route map, the adapter might spend more time considering all the possibilities than what should really be needed, so it is a good idea to have a balance of comprehensiveness and leanness.</p>
-<h2><a class="header" href="#c-api" id="c-api">C++ API</a></h2>
+<h2 id="c-api"><a class="header" href="#c-api">C++ API</a></h2>
 <p>The C++ API for <strong>Full Control</strong> automated guided vehicle (AGV) fleets can be found in the <a href="https://github.com/osrf/rmf_core/tree/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv"><code>rmf_fleet_adapter</code></a> package of the <code>rmf_core</code> repo. The API consists of four critical classes:</p>
 <ul>
 <li><a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/Adapter.hpp"><code>Adapter</code></a> - Initializes and maintains communication with the other core RMF systems. Use this to register one or more fleets and receive a <code>FleetUpdateHandle</code> for each fleet.</li>
@@ -201,9 +201,9 @@ Furthermore, each robot's position will be updated live as the robots are moving
 <li>As new information arrives from the fleet manager API, use the collection of <code>RobotUpdateHandle</code> classes to keep the adapter up-to-date on the robots' positions.</li>
 </ol>
 <p>An example of a functioning fleet adapter application can be found in the <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/full_control/main.cpp"><code>full_control</code> backwards-compatability adapter</a>. This is a fleet adapter whose fleet-side API is the &quot;Fleet Driver API&quot;, which is a deprecated prototype API for the RMF <strong>Full Control</strong> category of fleet adapters. This fleet adapter exists temporarily to maintain backwards compatibility with the old &quot;Fleet Driver&quot; implementations and to serve as an example of how to implement a fleet adapter using the new C++ API.</p>
-<h2><a class="header" href="#python-bindings" id="python-bindings">Python Bindings</a></h2>
+<h2 id="python-bindings"><a class="header" href="#python-bindings">Python Bindings</a></h2>
 <p>You may also choose to use Python to implement your fleet adapter. You can find Python bindings for the C++ API in the <a href="https://github.com/osrf/rmf_fleet_adapter_python">rmf_fleet_adapter_python repo</a>. The Python bindings literally just port the C++ API into Python so that you can develop your fleet adapter using Python instead of C++. The above API and workflow are exactly the same, just in Python instead. This should be very useful for fleets that use REST APIs, because you'll have access to tools like <a href="https://swagger.io/tools/open-source/getting-started/">Swagger</a> which can help you generate client code for the fleet's REST API server.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/integration_fleets.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_fleets.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

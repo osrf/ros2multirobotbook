@@ -169,8 +169,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a></h1>
-<h3><a class="header" href="#why-is-this-traffic-management-system-so-complicated" id="why-is-this-traffic-management-system-so-complicated">Why is this traffic management system so complicated?</a></h3>
+                        <h1 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h1>
+<h3 id="why-is-this-traffic-management-system-so-complicated"><a class="header" href="#why-is-this-traffic-management-system-so-complicated">Why is this traffic management system so complicated?</a></h3>
 <p>RMF has a number of system design constraints that create unique challenges for
 traffic management. The core goal of RMF is to facilitate system integration
 for heterogeneous mobile robot fleets that may be provided by different vendors
@@ -195,7 +195,7 @@ within the design to create simpler and more efficient subsets for categories
 of mobile robots that fit certain sets of requirements, but these optimizations
 can be added later, building on top of the existing completely generalized
 framework.</p>
-<h3><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both" id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h3>
+<h3 id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both"><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h3>
 <p>The responsibility of knowing when a door needs to be opened and then sending
 the command to open it belongs to the &quot;fleet adapter&quot;. The basic design is:</p>
 <ul>
@@ -216,7 +216,7 @@ providing a navigation graph to the fleet adapter.</p>
 <code>traffic-editor</code> project files.</p>
 <p>However, it's entirely possible to construct your own navigation graphs. They
 use YAML format.</p>
-<h3><a class="header" href="#are-lifts-supported" id="are-lifts-supported">Are lifts supported?</a></h3>
+<h3 id="are-lifts-supported"><a class="header" href="#are-lifts-supported">Are lifts supported?</a></h3>
 <p>Proper lift support (meaning, specifying an actual lift that can move between
 floors, and exporting that information into the navigation graph) is not
 something that has been developed yet.</p>
@@ -283,7 +283,7 @@ are edges):</p>
 </ul>
 </li>
 </ul>
-<h3><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen" id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h3>
+<h3 id="if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen"><a class="header" href="#if-multiple-fleets-can-do-the-same-task-which-one-is-one-chosen">If multiple fleets can do the same task, which one is one chosen?</a></h3>
 <p>Though not implemented yet, there is a design worked out for a bidding system
 where a task request will be converted to a bid request. The bid request will
 be sent to each fleet adapter, and each fleet adapter that can perform the task
@@ -291,7 +291,7 @@ will report its best estimate for how soon it would be able to have the task
 finished. The fleet adapter that offers the lowest bid will be assigned the
 task.</p>
 <p>The API and implementation are awaiting finalization of some critical components.</p>
-<h3><a class="header" href="#can-some-robots-have-priority-over-other-robots" id="can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h3>
+<h3 id="can-some-robots-have-priority-over-other-robots"><a class="header" href="#can-some-robots-have-priority-over-other-robots">Can some robots have priority over other robots?</a></h3>
 <p>The negotiation system concept does support prioritization for which robot will
 accommodate the other robot(s). Any arbitrary metric or weighting system can be
 used when resolving a negotiation. But in the current implementation that we
@@ -302,7 +302,7 @@ or weighting.</p>
 to use any prioritization system that you'd like. Specifically, replace
 <code>rmf_traffic::schedule::QuickestFinishEvaluator()</code> with your own
 <code>Negotiation::Evaluator</code> class that behaves in whatever way you would like.</p>
-<h3><a class="header" href="#what-distance-is-maintained-between-two-robots" id="what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h3>
+<h3 id="what-distance-is-maintained-between-two-robots"><a class="header" href="#what-distance-is-maintained-between-two-robots">What distance is maintained between two robots?</a></h3>
 <p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and
 <code>vicinity_radius</code>. The <code>footprint_radius</code> represents an estimate of the
 vehicle's physical footprint. The <code>vicinity_radius</code> represents an estimate of
@@ -311,7 +311,7 @@ conflict&quot; is defined as an instance where one vehicle's &quot;footprint&quo
 scheduled to enter another vehicle's &quot;vicinity&quot;. The job of the negotiation
 system is to come up with a fix to the schedule that keeps all vehicles'
 &quot;footprints&quot; out of all other vehicles' &quot;vicinities&quot;.</p>
-<h3><a class="header" href="#how-is-job-dispatching-accomplished" id="how-is-job-dispatching-accomplished">How is job dispatching accomplished?</a></h3>
+<h3 id="how-is-job-dispatching-accomplished"><a class="header" href="#how-is-job-dispatching-accomplished">How is job dispatching accomplished?</a></h3>
 <p>The Dispatch Planner module is currently a work-in-progress.
 So far, the demo platforms that have been developed for RMF did not require a planner to dispatch tasks to different fleets, because in all demo platforms done thus far (late 2020), each task type could only be performed by one (and only one) robot fleet.
 So the task dispatching has been trivial: the task gets assigned to whatever fleet is capable of performing the task, while the rest of the fleets just ignore the task request.
@@ -322,11 +322,11 @@ The &quot;cost&quot; will be determined by two factors:</p>
 <li>How quickly the task is finished</li>
 <li>How much other tasks get delayed if the new task needs to preempt them</li>
 </ul>
-<h3><a class="header" href="#what-is-rmf_traffic-" id="what-is-rmf_traffic-">What is <code>rmf_traffic</code> ?</a></h3>
+<h3 id="what-is-rmf_traffic-"><a class="header" href="#what-is-rmf_traffic-">What is <code>rmf_traffic</code> ?</a></h3>
 <p><code>rmf_traffic</code> provides a middleware-neutral implementation of the core traffic scheduling algorithms and utilities. It does not use or depend on ROS 2.</p>
-<h3><a class="header" href="#what-is-rmf_traffic_ros2-" id="what-is-rmf_traffic_ros2-">What is <code>rmf_traffic_ros2</code> ?</a></h3>
+<h3 id="what-is-rmf_traffic_ros2-"><a class="header" href="#what-is-rmf_traffic_ros2-">What is <code>rmf_traffic_ros2</code> ?</a></h3>
 <p><code>rmf_traffic_ros2</code> provides convenient wrappers for using the <code>rmf_traffic</code> as part of a distributed ROS 2 system.</p>
-<h3><a class="header" href="#where-is-the-costmap" id="where-is-the-costmap">Where is the costmap?</a></h3>
+<h3 id="where-is-the-costmap"><a class="header" href="#where-is-the-costmap">Where is the costmap?</a></h3>
 <p>There is no costmap representation in <code>rmf_core</code>.
 Costmaps are one method that is typically used for representing volume occupancy for autonomous navigation planning.
 While it's true that the traffic utilities deal with navigation planning, they are principally concerned about identifying conflicts between the intended routes of autonomous vehicles.
@@ -334,10 +334,10 @@ The traffic utilities are not responsible for the &quot;local&quot; navigation o
 <p>Different robot platforms often have different representations of costmaps or other navigation algorithms, many of which may be proprietary.
 On top of that, different robot platforms with the same costmap representations may still require different costmap values because of differences in robot footprints.
 Because of these factors, we leave it to the robot platforms themselves to determine how they represent their costmaps. If it's important for a system integrator to take a robot's costmap into account when performing traffic planning, they can implement a custom <code>rmf_traffic::agv::RouteValidator</code> that uses the robot's custom costmap when determining whether a candidate route is valid.</p>
-<h3><a class="header" href="#what-is-the-core-algorithm-behind-rmf_traffic-" id="what-is-the-core-algorithm-behind-rmf_traffic-">What is the core algorithm behind <code>rmf_traffic</code> ?</a></h3>
+<h3 id="what-is-the-core-algorithm-behind-rmf_traffic-"><a class="header" href="#what-is-the-core-algorithm-behind-rmf_traffic-">What is the core algorithm behind <code>rmf_traffic</code> ?</a></h3>
 <p>Conflict avoidance for AGV's in <code>rmf_traffic</code> is implemented with time-dependent extension to <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* search</a>
 This search takes time into account so that it can find paths through space and time that account for the motions of other agents that are in the traffic schedule.</p>
-<h3><a class="header" href="#during-negotiation-how-do-fleets-compute-their-proposals" id="during-negotiation-how-do-fleets-compute-their-proposals">During negotiation, how do fleets compute their proposals?</a></h3>
+<h3 id="during-negotiation-how-do-fleets-compute-their-proposals"><a class="header" href="#during-negotiation-how-do-fleets-compute-their-proposals">During negotiation, how do fleets compute their proposals?</a></h3>
 <p>Because the system is designed to be extensible and adaptable to a wide variety of scenarios and robot vendor combinations, including many that do not currently exist, it has many pieces and hooks for expansion. The sequence of computing a traffic proposal is as follows:</p>
 <ul>
 <li>First, the fleet adapter node will receive a conflict notification which tells it that it needs to participate in a negotiation to resolve a space-time conflict. This notification is received by the <code>rmf_traffic_ros2::schedule::Negotiation</code> class.</li>
@@ -361,7 +361,7 @@ When a deadlock happens, the participants will be sitting still so the negotiati
 When that happens, a successful resolution is practically assured.</li>
 </ul>
 <p>The preceeding explanation describes the &quot;Full Control&quot; style of fleet adapter. The implementation for the &quot;Read Only&quot; and &quot;Traffic Light&quot; APIs are a bit different.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/rmf-core_faq.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/rmf-core_faq.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#the-ros-api" id="the-ros-api">The ROS API</a></h1>
+                        <h1 id="the-ros-api"><a class="header" href="#the-ros-api">The ROS API</a></h1>
 <p>ROS comprises many software libraries that provide a wide array of
 functionality useful when building robot applications. The libraries
 you need will depend on the details of your project. In this section we will
@@ -190,7 +190,7 @@ Rust, and beyond.</p>
 to the ROS API. In service of that goal, we will purposefully ignore
 and/or violate various conventions and patterns.
 </div>
-<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-python" id="publishing-and-subscribing-to-topics-in-python">Publishing and Subscribing to Topics in Python</a></h2>
+<h2 id="publishing-and-subscribing-to-topics-in-python"><a class="header" href="#publishing-and-subscribing-to-topics-in-python">Publishing and Subscribing to Topics in Python</a></h2>
 <p>Publishing data with ROS is easy. Here is a complete Python program that
 publishes string messages:</p>
 <pre><code class="language-{.sourceCode.py}">from time import sleep
@@ -256,7 +256,7 @@ listener in another shell:</p>
 I heard: &quot;Hello world: 36&quot;
 I heard: &quot;Hello world: 37&quot;
 </code></pre>
-<h3><a class="header" href="#digging-into-the-python-code" id="digging-into-the-python-code">Digging into the Python Code</a></h3>
+<h3 id="digging-into-the-python-code"><a class="header" href="#digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
 <pre><code class="language-{sourceCode.py}">import rclpy
@@ -318,7 +318,7 @@ while rclpy.ok():
 <p>These steps are clear enough: we create a message object and then on
 each iteration of the loop, we update the message content and publish
 it, sleeping briefly between iterations.</p>
-<h2><a class="header" href="#publishing-and-subscribing-to-topics-in-c" id="publishing-and-subscribing-to-topics-in-c">Publishing and Subscribing to Topics in C++</a></h2>
+<h2 id="publishing-and-subscribing-to-topics-in-c"><a class="header" href="#publishing-and-subscribing-to-topics-in-c">Publishing and Subscribing to Topics in C++</a></h2>
 <p>Now we will write the same talker and listener pair, this time in C++.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
 <pre><code class="language-{sourceCode.cpp}">#include &lt;unistd.h&gt;
@@ -422,7 +422,7 @@ still running in one shell, start up your listener in another shell:</p>
 I heard: &quot;Hello world: 36&quot;
 I heard: &quot;Hello world: 37&quot;
 </code></pre>
-<h3><a class="header" href="#digging-into-the-c-code" id="digging-into-the-c-code">Digging into the C++ Code</a></h3>
+<h3 id="digging-into-the-c-code"><a class="header" href="#digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
 <pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
@@ -486,7 +486,7 @@ arrive (and more generally for events to occur) and invoke our callback.</p>
 <p>In these steps we create a message object, and then on
 each iteration of the loop we update the message content and publish
 it, sleeping briefly between iterations.</p>
-<h2><a class="header" href="#where-to-go-from-here" id="where-to-go-from-here">Where to Go From Here</a></h2>
+<h2 id="where-to-go-from-here"><a class="header" href="#where-to-go-from-here">Where to Go From Here</a></h2>
 <p>That was a very brief introduction and we only covered topics, not
 services, actions, parameters, or the many other facets of ROS. Luckily,
 the online <a href="https://index.ros.org/doc/ros2/Tutorials">ROS tutorials</a> are
@@ -494,7 +494,7 @@ an excellent resource for learning about the rest of ROS. We
 specifically recommend the <a href="https://index.ros.org/doc/ros2/Tutorials/#beginner-client-libraries">Beginner: Client
 Libraries</a>
 collection as a natural next step after reading this chapter.</p>
-<h2><a class="header" href="#regarding-the-shortcuts" id="regarding-the-shortcuts">Regarding the Shortcuts</a></h2>
+<h2 id="regarding-the-shortcuts"><a class="header" href="#regarding-the-shortcuts">Regarding the Shortcuts</a></h2>
 <p>In this section we have presented the simplest, shortest example ROS
 programs that we could come up with. Such programs are easy to
 understand and learn from, as they do not have unnecessary structure or
@@ -519,7 +519,7 @@ and conventions, such as:</p>
 <p>These techniques will serve you well when you start building your own ROS
 applications, especially when you want to share your code with others, whether
 on your team or out in the world.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/ros2_api.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ros2_api.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

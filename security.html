@@ -169,7 +169,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#security" id="security">Security</a></h1>
+                        <h1 id="security"><a class="header" href="#security">Security</a></h1>
 <p>This chapter describes how to use DDS Security tools to provide authentication,
 encryption, and access control to a RoMi-H system. </p>
 <p>The security of the RoMi-H system can be divided into two main parts: 
@@ -185,13 +185,13 @@ corresponds to the role of that user.</p>
 <p>The <a href="https://github.com/osrf/rmf_demos">RMF demos</a> repository contains an example of a 
 full RMF application using secured ROS 2 communications along with
 step by step explanations. </p>
-<h2><a class="header" href="#ros-2-security" id="ros-2-security">ROS 2 Security</a></h2>
+<h2 id="ros-2-security"><a class="header" href="#ros-2-security">ROS 2 Security</a></h2>
 <p>ROS 2 contains tools that help create and load the needed security artifacts 
 to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
 security on its ROS 2 elements. A brief introduction to these tools and its 
 usage is provided here. For a deeper understanding of the whole system, 
 please refer to the <a href="https://design.ros2.org/articles/ros2_dds_security.html">ROS 2 DDS-Security integration</a> documentation.</p>
-<h3><a class="header" href="#dds-security-overview" id="dds-security-overview">DDS-Security overview</a></h3>
+<h3 id="dds-security-overview"><a class="header" href="#dds-security-overview">DDS-Security overview</a></h3>
 <p>The <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security specification</a> expands upon the <a href="https://www.omg.org/spec/DDS/1.4/PDF">DDS specification</a>, 
 adding security enhancements by defining a Service Plugin Interface (SPI) 
 architecture, a set of builtin implementations of the SPIs, and the security model enforced by the SPIs.
@@ -208,7 +208,7 @@ performed by an authenticated domain participant.</li>
 This is due to the fact that neither <strong>Logging</strong> nor <strong>Data Tagging</strong> 
 are required in order to be compliant with the <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security spec</a> 
 (see section 2.3), and thus not all DDS implementations support them.</p>
-<h3><a class="header" href="#sros-2-tools" id="sros-2-tools">SROS 2 tools</a></h3>
+<h3 id="sros-2-tools"><a class="header" href="#sros-2-tools">SROS 2 tools</a></h3>
 <p>Since the DDS-Security plugins require a set of security files per domain participant, these 
 need to be created beforehand in order to provide authentication, access control and encryption
 to the ROS 2 elements of RoMi-H. Domain participants usually map to a context within the 
@@ -237,7 +237,7 @@ Commands:
 
   Call \`ros2 security &lt;command&gt; -h\` for more detailed usage.
 </code></pre>
-<h4><a class="header" href="#sros-2-environment-variables" id="sros-2-environment-variables">SROS 2 environment variables</a></h4>
+<h4 id="sros-2-environment-variables"><a class="header" href="#sros-2-environment-variables">SROS 2 environment variables</a></h4>
 <p>There are a few environment variables you should be aware of when using SROS 2: </p>
 <ul>
 <li><strong>ROS_SECURITY_ENABLE</strong> is the SROS 2 enabler variable, it takes a boolean value 
@@ -248,7 +248,7 @@ just run the participant in non secure mode if those files are not found. </li>
 <li><strong>ROS_SECURITY_KEYSTORE</strong> should point to the root of the keystore directory tree. This will help <code>RCL</code>
 find the location of the security artifacts to initialize the ROS 2 security environment.</li>
 </ul>
-<h4><a class="header" href="#sros-2-security-keystore" id="sros-2-security-keystore">SROS 2 security keystore</a></h4>
+<h4 id="sros-2-security-keystore"><a class="header" href="#sros-2-security-keystore">SROS 2 security keystore</a></h4>
 <p>The keystore is the root directory where the DDS security artifacts are stored. <code>RCL</code> will use the 
 contents of this directory to provide the DDS security to the ROS 2 network. The 
 <code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
@@ -284,7 +284,7 @@ keystore onto the target device/robot.</p>
 SROS 2 introduces the concept of a security “enclave”, 
 where an “enclave” is a process or group of processes that will share the same identity and access 
 control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. </p>
-<h4><a class="header" href="#sros-2-enclave-keys" id="sros-2-enclave-keys">SROS 2 enclave keys</a></h4>
+<h4 id="sros-2-enclave-keys"><a class="header" href="#sros-2-enclave-keys">SROS 2 enclave keys</a></h4>
 <p>Once the <code>keystore</code> has been initialized you may wish to create the security keys for your 
 enclaves. This will populate the <code>enclaves</code> directory with the necessary keys and governance
 files. As an example, in order to create the security files for our<code>/hospital/rviz</code> enclave the
@@ -323,7 +323,7 @@ should be secured  (signed by the Permissions CA).</li>
 <li><strong>permissions.p7s</strong>: The XML document that specifies the permissions of this particular enclave 
 instance to the <strong>Access control</strong> plugin (also signed by the Permissions CA).</li>
 </ul>
-<h4><a class="header" href="#sros-2-access-control" id="sros-2-access-control">SROS 2 access control</a></h4>
+<h4 id="sros-2-access-control"><a class="header" href="#sros-2-access-control">SROS 2 access control</a></h4>
 <p>In order to provide access control the security permissions need to be added to the permissions files
 of the enclave and signed by the CA. In order to do this a policy file following the
 <a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed. 
@@ -338,7 +338,7 @@ creating permission
 We will have to specify this enclave through rosargs when starting our process:</p>
 <pre><code class="language-{.sourceCode.bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
 </code></pre>
-<h1><a class="header" href="#sros-2-automated-generation" id="sros-2-automated-generation">SROS 2 automated generation</a></h1>
+<h1 id="sros-2-automated-generation"><a class="header" href="#sros-2-automated-generation">SROS 2 automated generation</a></h1>
 <p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools 
 to automate this process. An automated way to generate the policy is provided, it can be
 triggered by running the following command:</p>
@@ -374,7 +374,7 @@ creating permission
 /hosptial/rviz2
 ...
 </code></pre>
-<h2><a class="header" href="#romi-h-dashboard-security" id="romi-h-dashboard-security">RoMi-H Dashboard Security</a></h2>
+<h2 id="romi-h-dashboard-security"><a class="header" href="#romi-h-dashboard-security">RoMi-H Dashboard Security</a></h2>
 <p>The RoMi-H Dashboard is a web application that provides overall visualization and control over the 
 RoMi-H system. It is served over TLS to ensure encryption, integrity and authentication of the 
 communication with the final user. The server uses <a href="https://openid.net/connect/">openid-connect (OIDC)</a> for 
@@ -385,7 +385,7 @@ which is reflected on an id token generated on the user. This id token is signed
 and sent to the api server which it can then look at the role of the user and act accordingly.
 The api server runs a secured ROS 2 node per each role and provides access to them based on 
 the id token of each user.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/security.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/security.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -169,16 +169,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#rmf-core-overview" id="rmf-core-overview">RMF Core Overview</a></h1>
+                        <h1 id="rmf-core-overview"><a class="header" href="#rmf-core-overview">RMF Core Overview</a></h1>
 <p>This chapter describes RMF, an umbrella term for a wide range of open specifications and software
 tools that aim to ease the integration and interoperability of robotic systems,
 building infrastructure, and user interfaces. <a href="https://github.com/osrf/rmf_core"><code>rmf_core</code></a>
 is an implementation of some of the core scheduling and traffic management systems.</p>
-<h2><a class="header" href="#traffic-deconfliction" id="traffic-deconfliction">Traffic deconfliction</a></h2>
+<h2 id="traffic-deconfliction"><a class="header" href="#traffic-deconfliction">Traffic deconfliction</a></h2>
 <p>Avoiding mobile robot traffic conflicts is a key functionality of <code>rmf_core</code>.
 There are two levels to traffic deconfliction: (1) prevention, and (2)
 resolution.</p>
-<h3><a class="header" href="#prevention" id="prevention">Prevention</a></h3>
+<h3 id="prevention"><a class="header" href="#prevention">Prevention</a></h3>
 <p>Preventing traffic conflicts whenever possible is the best-case scenario.
 To facilitate traffic conflict prevention, we have implemented a
 platform-agnostic Traffic Schedule Database. The traffic schedule is a living
@@ -193,7 +193,7 @@ class to help facilitate this for vehicles that behave like standard AGVs (Autom
 rigidly following routes along a pre-determined grid. In the future
 we intend to provide a similar utility for AMRs (Autonomous Mobile Robots) that can perform ad hoc motion
 planning around unanticipated obstacles.</p>
-<h3><a class="header" href="#negotiation" id="negotiation">Negotiation</a></h3>
+<h3 id="negotiation"><a class="header" href="#negotiation">Negotiation</a></h3>
 <p>It is not always possible to perfectly prevent traffic conflicts.
 Mobile robots may experience delays because of unanticipated obstacles in their
 environment, or the predicted schedule may be flawed for any number of reasons.
@@ -213,7 +213,7 @@ may intentionally post a traffic conflict onto the schedule and force a
 negotiation to take place. The negotiation can be forced to choose an itinerary
 arrangement that favors the emergency task by implementing the third-party
 judge to always favor the high-priority participant.</p>
-<h2><a class="header" href="#traffic-schedule" id="traffic-schedule">Traffic Schedule</a></h2>
+<h2 id="traffic-schedule"><a class="header" href="#traffic-schedule">Traffic Schedule</a></h2>
 <p>The traffic schedule is a centralized database of all the intended robot traffic
 trajectories in a facility. Note that it contains the intended trajectories; it is
 looking into the future. The job of the schedule is to identify conflicts in
@@ -221,7 +221,7 @@ the intentions of the different robot fleets and notify the fleets when a
 conflict is identified. Upon receiving the notification, the fleets will begin
 a traffic negotiation, as described above.</p>
 <p><img src="images/rmf_core/schedule_and_fleet_adapters.png" alt="Schedule and Fleet Adapters" /></p>
-<h2><a class="header" href="#task-dispatcher" id="task-dispatcher">Task Dispatcher</a></h2>
+<h2 id="task-dispatcher"><a class="header" href="#task-dispatcher">Task Dispatcher</a></h2>
 <p>In RMF version 21.04 and above, tasks are awarded to robot fleets based on the outcome
 of a bidding process that is orchestrated by a Dispatcher node, <code>rmf_dispatcher_node</code>.
 When the Dispatcher receives a new task request from an external application, the dispatcher
@@ -234,7 +234,7 @@ are optimally injected into a robot's schedule when the robot has insufficient c
 fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging
 location as annotated with the <code>is_charger</code> option in the traffic editor map.</p>
 <p><img src="images/rmf_core/rmf_bidding.png" alt="RMF Bidding Diagram" /></p>
-<h2><a class="header" href="#fleet-adapters" id="fleet-adapters">Fleet Adapters</a></h2>
+<h2 id="fleet-adapters"><a class="header" href="#fleet-adapters">Fleet Adapters</a></h2>
 <p>Each robot fleet that participates in an RMF deployment is expected to have a
 fleet adapter that connects its fleet-specific API to the interfaces
 of the core RMF traffic scheduling and negotiation system. The fleet adapter is
@@ -269,7 +269,7 @@ A preliminary ROS 2 message API is available for the <strong>Read Only</strong> 
 The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
 <p>The API for the <strong>Full Control</strong> category is described in the <a href="./integration_fleets.html">Mobile Robot Fleets</a> section of the Integration chapter, and the <strong>Read Only</strong> category is described in the <a href="./integration_read-only.html">Read Only Fleets</a> section of the Integration chapter.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/rmf-core.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/rmf-core.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

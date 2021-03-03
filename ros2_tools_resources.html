@@ -169,10 +169,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#ros-kick-off" id="ros-kick-off">ROS Kick Off</a></h1>
+                        <h1 id="ros-kick-off"><a class="header" href="#ros-kick-off">ROS Kick Off</a></h1>
 <p>This chapter describes the avenues available for learning about and getting help
 with ROS, as well as how to get started by setting up and installing ROS.</p>
-<h2><a class="header" href="#resources" id="resources">Resources</a></h2>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
 <p>The most up to date information about ROS can be found on the web. There are a
 myriad of resources on-line to help you out in your educational or
 practical journey. One thing to keep in mind is that ROS, like most software,
@@ -227,7 +227,7 @@ news. We also have a yearly ROS developers conference called
 <a href="https://roscon.ros.org/2020/">ROSCon</a>; most talks are freely available
 on the web. There are a few other resources that can also be useful including the <a href="https://www.reddit.com/r/ROS/">ROS subreddit</a>
 and an &quot;unofficial&quot; <a href="https://discord.com/invite/HnVcz5a">ROS Discord</a>.</p>
-<h2><a class="header" href="#setting-up-your-computer" id="setting-up-your-computer">Setting Up Your Computer</a></h2>
+<h2 id="setting-up-your-computer"><a class="header" href="#setting-up-your-computer">Setting Up Your Computer</a></h2>
 <p>For this chapter we assume that you are working on a modern desktop with a
 discrete graphics card. While a graphics card isn't necessary for this chapter,
 later chapters will be graphics intensive and having one will greatly improve
@@ -258,7 +258,7 @@ run these commands you'll need a terminal window. To open a terminal in Ubuntu
 should appear. Enter the word <em>terminal</em> and click on the terminal icon to open
 a terminal. Alternatively, you can press the control, alt, and 't' keys
 simultaneously to open a terminal (we abbreviate this <code>CTRL-ALT-T</code>).</p>
-<h2><a class="header" href="#setup-locale" id="setup-locale">Setup Locale</a></h2>
+<h2 id="setup-locale"><a class="header" href="#setup-locale">Setup Locale</a></h2>
 <p>The first step is to make sure you have a locale which supports <code>UTF-8</code>. What this means is that we
 will check that the language used by your computer uses a particular format of
 text. If you are in a minimal environment, such as a Docker container, the locale may be
@@ -268,7 +268,7 @@ should be fine if you're using a different UTF-8 supported locale.</p>
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 </code></pre>
-<h2><a class="header" href="#setup-sources" id="setup-sources">Setup Sources</a></h2>
+<h2 id="setup-sources"><a class="header" href="#setup-sources">Setup Sources</a></h2>
 <p>You will need to add the ROS 2 apt repositories to your system. Out of the box
 Ubuntu doesn't know where the ROS 2 binary programs live so we have to give it a
 secure location. To do this the computer will prompt you for your root
@@ -277,7 +277,7 @@ apt by typing the following command in the terminal:</p>
 <pre><code class="language-{.sourceCode.bash}">sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 </code></pre>
-<h2><a class="header" href="#install-ros-2-packages" id="install-ros-2-packages">Install ROS 2 Packages</a></h2>
+<h2 id="install-ros-2-packages"><a class="header" href="#install-ros-2-packages">Install ROS 2 Packages</a></h2>
 <p>The next steps for installing ROS is to do a system update (i.e. check for newer
 programs) and then install ROS Eloquent. To do this we run the following
 commands. Be aware that these commands will download a lot of data and may take
@@ -296,7 +296,7 @@ want autocompletion, installing argcomplete is necessary. We're also going to
 install a few other tools to make our lives easier.</p>
 <pre><code class="language-{.sourceCode.bash}">sudo apt install python3-argcomplete htop byobu
 </code></pre>
-<h2><a class="header" href="#check-your-installation" id="check-your-installation">Check Your Installation</a></h2>
+<h2 id="check-your-installation"><a class="header" href="#check-your-installation">Check Your Installation</a></h2>
 <p>ROS uses <code>environment variables</code> to help keep track of what version of ROS is
 running and where all the programs using ROS are on the computer. To set
 these environment variables we <code>source</code>, or load, a bash script file. A bash
@@ -350,7 +350,7 @@ these programs we navigate to the terminal running the program and press the
 <code>Ctrl</code> and <code>C</code> keys simultaneously. We call this combo <code>CTRL-C</code> and you can use
 it to stop just about any program in a terminal. Use it to stop the talker and
 listener programs.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/master/src/ros2_tools_resources.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ros2_tools_resources.md">Edit this file on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
