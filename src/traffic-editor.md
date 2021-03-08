@@ -29,28 +29,14 @@ accurately reflect physical environments.
 
 The `traffic_editor` [repository](https://github.com/osrf/traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output.
 The GUI is an easy-to-use interface which can create and annotate 2D floor plans with robot traffic along with building infrastructure information.
-In the case there are existing floor plans of the environment, the `traffic_editor` is able to import those images for faster layout and floor generation.
+Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a "reference" coordinate system for vendor-specific maps.
+For such cases, `traffic-editor` can import these types of "backgroud images" to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.
 
-The `traffic_editor` GUI projects are stored as `yaml` files with
-`.project.yaml` file extensions. The template of a project file is seen below:
-
-```yaml
-building:
-  filename: ""
-name: ""
-traffic_maps:
-  {}
-version: 1
-```
-
-The structure essentially breaks a project into `.building.yaml` files that may
-represent various buildings that make up a given site. Populating the `filename`
-tag with the appropriate `.building.yaml` file will set the editor to load and
-apply any annotations to this file.
-
-Each `.building.yaml` file includes several attributes for each level in
-the site as annotated by the user. A detailed description of the various
-options are discussed in the following section.
+The `traffic_editor` GUI projects are stored as `yaml` files with `.building.yaml` file extensions.
+Although the typical workflow uses the GUI and does not require hand-editing the `yaml` files directly, we have used a `yaml` file format to make it easy to parse using custom scripting if needed.
+Each `.building.yaml` file includes several attributes for each level in the site as annotated by the user.
+An empty `.building.yaml` file appears below.
+The GUI tries to make it easy to add and update content to these file.
 
 ```yaml
 levels:
@@ -72,7 +58,6 @@ levels:
       {}
     measurements:
       - []
-
     models:
       -{}
     vertices:
@@ -86,23 +71,14 @@ name: building
 ```
 
 ## GUI Layout
-The layout of the `traffic_editor` comprises of a `Main Toolbar`, a `Working Area`
-and a `Sidebar` as seen in the figure below:
+
+The layout of the `traffic_editor` includes a `Toolbar`, a `Working Area` and a `Sidebar` as seen in the figure below:
 
 ![Traffic Editor GUI](images/traffic_editor/layout.png)
 
-The editor operates in three modes selectable from the `Edit mode` dropdown
-list in the `Main Toolbar`, or by using shortkeys:
-* **Building (Ctrl + B):** to annotate _walls_, floors (_polygons_), _doors_,
-  _measurements_ to set the scale of the drawing, _fiducials_ to align levels
-  for multi-level simulations and environment assets to add virtual models to your simulated environment.  
-* **Traffic (Ctrl + T):** to annotate traffic lanes of various robots on each level
-* **Scenario (Ctrl + E):** to define special regions of interest on a level. In
-  larger facilities robot traffic may be limited to certain areas only. Hence,
-  it may be more meaningful to generate simulation worlds of these special
-  regions alone which can be specified in this mode.
+The toolbar contains a variety of tools to support actions such as setting the scale of the drawing, aligning levels for multi-level scenarios, adding virtual models to simulated environments, adding robot traffic lanes, simulated flooring, and so on.
 
-Each mode has a unique set of tools, but the following tools are common across all modes:
+The following table summarizes the available tools:
 
 |                    Icon                           |  Name  | Shortkey |               Function               |
 |:-------------------------------------------------:|:------:|:--------:|:------------------------------------:|
@@ -110,25 +86,21 @@ Each mode has a unique set of tools, but the following tools are common across a
 |  ![Move icon](images/traffic_editor/icons/move.svg)    |  Move  |    `m`   |  Move an entity in the `Working Area`  |
 | ![Rotate icon](images/traffic_editor/icons/rotate.svg) | Rotate |    `r`   | Rotate an entity in the `Working Area` |
 
-The `SideBar` contains multiple tabs with various functionalities:
+The `Sidebar` contains multiple tabs with various functionalities:
 * **levels:** to add a new level to the building. This can be done from scratch or by importing a floor plan image file.
 * **layers:** to overlap other images such as lidar maps over the level
 * **lifts:** to configure and add lifts to the building
 * **traffic:** to add "navigation graphs" to the level (a collection of
   lanes occupiable by a fleet of robots, corresponding to a single fleet
   operating in the facility)
-* **scenarios:** to configure scenarios for simulation
 
-The `Working Area` is where the levels, along with their annotations, are
-rendered. The user is able to zoom via the `Mouse Scroll` and pan the view by
-holding the `Scroll Button` and moving the mouse cursor.
+The `Working Area` is where the levels, along with their annotations, are rendered.
+The user is able to zoom via the mouse scroll wheel, and pan the view by depressing the scroll wheel and moving the mouse cursor.
 
 ## Annotation Guide
-This section walks through the process of annotating
-facilities while highlighting the capabilities of the `traffic_editor` GUI.
+This section walks through the process of annotating facilities while highlighting the capabilities of the `traffic_editor` GUI.
 
-To create a new `traffic_editor` project, setup a working directory as shown
-below with empty `.project.yaml` and `.building.yaml` files:
+To create a new `traffic_editor` project, setup a working directory as shown below with empty `.project.yaml` and `.building.yaml` files:
 
 ```
 maps/
