@@ -14,7 +14,7 @@ In this section, we will address 4 different approaches of using `free_fleet` to
 
 ## ROS 1 Navigation Stack
 
-An implementation of a `free_fleet` client that works with a ROS 1 navigation stack can be found in the [free_fleet repository](https://github.com/osrf/free_fleet). The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status published using the `sensor_msgs/BatteryState` message.
+An implementation of a `free_fleet` client that works with a ROS 1 navigation stack can be found in the [free_fleet repository](https://github.com/open-rmf/free_fleet). The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the `move_base` action library, as well as publishing its battery status published using the `sensor_msgs/BatteryState` message.
 
 After following the build instructions on the README on the mobile robot, the user can launch the client as part of their launch script while at the same time define the necessary parameters using `rosparam`. Below is a small snippet example of how a client can be launched, with its paramters defined,
 
@@ -107,7 +107,7 @@ The current implementation of the `free_fleet` server is implemented with ROS 2 
 
 Furthermore, an example of this configuration can be found in the repository as well, under the packages `ff_examples_ros1` and `ff_exmaples_ros2`. This example launches the example simulation [from `ROBOTIS`](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#ros-1-simulation), which has a small simulated world with 3 Turtlebot3 mobile robots, each running its own ROS 1 navigation stack.
 
-After successful builds for both ROS 1 and ROS 2 workspaces, the simulation can be launched following [these instructions](https://github.com/osrf/free_fleet#turtlebot3-simulation), which also includes a ROS 2 `free_fleet` server, publishing fleet state messages and accepting mode and navigation requests over ROS 2 messages and topics.
+After successful builds for both ROS 1 and ROS 2 workspaces, the simulation can be launched following [these instructions](https://github.com/open-rmf/free_fleet#turtlebot3-simulation), which also includes a ROS 2 `free_fleet` server, publishing fleet state messages and accepting mode and navigation requests over ROS 2 messages and topics.
 
 ## ROS 2 Navigation Stack
 
