@@ -62,23 +62,6 @@ a traffic negotiation, as described above.
 
 ![Schedule and Fleet Adapters](images/rmf_core/schedule_and_fleet_adapters.png)
 
-## Task Dispatcher
-
-In RMF version 21.04 and above, tasks are awarded to robot fleets based on the outcome
-of a bidding process that is orchestrated by a Dispatcher node, `rmf_dispatcher_node`.
-When the Dispatcher receives a new task request from an external application, the dispatcher
-will initiate the bidding process with a series of messages (`BidNotice`, `BidProposal`, `DispatchRequest`...).
-If a fleet adapter is able to process that request, propose a cost to accommodate the task
-to the `rmf_dispatcher_node`. An instance of rmf_task::agv::TaskPlanner is used by the fleet
-adapters to determine how best to accommodate the new request.
-
-Battery recharging is tightly integrated with the new task planner. `ChargeBattery` tasks
-are optimally injected into a robot's schedule when the robot has insufficient charge to
-fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging
-location as annotated with the `is_charger` option in the traffic editor map.
-
-![RMF Bidding Diagram](images/rmf_core/rmf_bidding.png)
-
 ## Fleet Adapters
 
 Each robot fleet that participates in an RMF deployment is expected to have a
