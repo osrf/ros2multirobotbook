@@ -329,13 +329,6 @@ Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.co
 A common use case is robots performing deliveries within facilities, so a `Delivery` task is configured into the `rmf_fleet_adapters`.
 In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
 The loading and unloading of the payload onto and from a robot may be automated by robots/workcells in the facility. These devices are henceforth referred to as dispensers and ingestors respectively.
-To integrate these systems with RMF core systems, a set of [dispenser](https://github.com/osrf/rmf_core/tree/master/rmf_dispenser_msgs/msg) and [ingestor](https://github.com/osrf/rmf_core/tree/master/rmf_ingestor_msgs) messages are defined.
-Despite their names, these messages are sufficiently general enough to be used by any other system that requires similar information.
-When a robot reaches the pickup waypoint where the loading workcell is located, its `rmf_fleet_adapter` publishes a `DispenserRequest` message which the workcell receives and begins processing.
-When the loading is successful, the workcell publishes a `DispenserResult` message with `SUCCESS` status.
-The `rmf_fleet_adapter` then instructs the robot to proceed to the dropoff waypoint where the unloading workcell is located. 
-Here, in an exchange that parallels the dispenser workflow, the `rmf_fleet_adapter` first publishes an `IngestorRequest` message.
-Upon receipt of the message, the unloading workcell begins to retrieve the payload. Upon completion, it publishes an `IngestorResult` message with a `SUCCESS` status.
 
 To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) have been designed.
 These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models), respectively.
@@ -363,7 +356,7 @@ but the underlying message exchanges will remain the same.
 The section aims to provide an overview of the various components in the `rmf_demos` [repository](https://github.com/osrf/rmf_demos) which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the `office` world.
 
 ### Map package
-The `rmf_demo_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.
+The `rmf_demos_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.
 
 ![Robot spawn location properties](images/rmf_demo_maps.png)
 
@@ -420,7 +413,7 @@ endforeach()
 ### Launch Files
 The `demos` package includes all the essential launch files required to bring up the simulation world and start various RMF services. The office simulation is launched using the `office.launch.xml` file. First, a `common.launch.xml` file is loaded and starts:
   * The `rmf_traffic_schedule` node responsible for maintaining the database of robot trajectories and monitoring traffic for conflicts. If a conflict is detected, notifications are sent to relevant fleet adapters which begin the negotiation process to find an optimal resolution.
-  * The `building_map_server` which publishes a `BuildingMap` message used by UIs for visualization. The executable takes in the path to the relevant `.building.yaml` file as an argument. The `office.building.yaml` file installed by the `rmf_demo_maps` package is located using the `find-pkg-share` substitution command and is stored in the `config_file` argument.
+  * The `building_map_server` which publishes a `BuildingMap` message used by UIs for visualization. The executable takes in the path to the relevant `.building.yaml` file as an argument. The `office.building.yaml` file installed by the `rmf_demos_maps` package is located using the `find-pkg-share` substitution command and is stored in the `config_file` argument.
   * The `rmf_schedule_visualizer` which is an RViz based UI to visualize the traffic lanes, actual positions of the robots, expected trajectory of robots as reflected in the `rmf_traffic_schedule` and states of building systems such as door and lifts.
   * The `door_supervisor` and `lift_supervisor` nodes to manage requests submitted by fleet adapter and UIs.
 
@@ -478,29 +471,17 @@ More information on running demos with hardware can be found [the chapter on Int
 
 
 ### Task Requests
-With the office world launched, robots may be issued tasks to carry out. At present, the rmf_fleet_adapters are designed to fulfil two classes of tasks: 1) `Loop` requests where a robot is requested to loop between two waypoints and 2) `Delivery` requests which requires a robot to pick up a payload from a dispenser and drop it off at an unloading station. The `rmf_fleet_adapters` listen for `Loop` and `Delivery` request [messages](https://github.com/osrf/rmf_core/tree/master/rmf_task_msgs/msg) published over `/loop_requests` and `delivery_requests` topics respectively and assign the task to an available robot in their fleet.
-
-Note: the `perform_deliveries` parameter in the fleet adapter launch file must be set `true` to enable the given fleet to perform delivery requests. In the current version it is advised to have only one fleet of robots capable of fulfilling delivery requests as a "task allocator" is yet to be implemented.
-
- The `rmf_demo_tasks` package is created with two executables, `request_loop.py` and `request_delivery.py`, which populate and publish `Loop` and `Delivery` messages with supplied arguments. Their usages are shown below. The `ROBOT_TYPE` argument in both cases should match the `FleetState.name` of the fleet to be assigned the task. For `request_loop` the `START` and `FINISH` arguments should contain valid waypoint names from the navigation graph while `NUM` specifies the number of loops between these waypoints. For `request_delivery`, the `PICKUP` and `DROPOFF` arguments must be valid waypoint names with `workcell_name` fields specified in the `traffic_editor`.
-
-```bash
-ros2 run rmf_demo_tasks request_loop -h
-usage: request_loop [-h] [-s START] [-f FINISH] [-n NUM] [-i TASK_ID]
-                    [-r ROBOT_TYPE]
-
-ros2 run rmf_demo_tasks request_delivery -h
-usage: request_delivery [-h] [-p PICKUP] [-d DROPOFF] [-i TASK_ID]
-                        [-r ROBOT_TYPE]
-```
-
-As an alternative, UIs may be developed to send out these requests. More information can be found in the [UI chapter](ui.md). The `rmf_demos` repository contains a `rmf_rviz_plugin` package which defines a custom panel that can be used to send the above commands from RViz. A snapshot of the same is seen below.
+RMF supports various tasks out of the box. For more information see [Tasks in RMF](./task.md)
+A web-based dashboard is provided to allow users to send commands to RMF.
+Once the [dashboard](https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/common.launch.xml#L57-L61) is launched, it can be accessed at `localhost:5000`.
 
 ![Custom RMF panel in RViz](images/rmf_panel.png)
+
+Alternatively several scripts exist in `rmf_demos_tasks` to assist users with submitting requests from the terminal. Presently the `dispatch_loop.py`, `dispatch_delivery.py` and `dispatch_clean.py` scripts can be used to submit `Loop`, `Delivery` and `Clean` requests.
 
 ## Conclusion
 
 This chapter covered the utilization of the `traffic_editor` tool to create annotated maps that allow the auto-generation of 3D worlds for simulations.
 It also covered the assets used within simulations and the corresponding plugins necessary for ROS 2 and RMF to interface with them.
-A working example of these components running together, in the form of the `rmf_demo_maps` package, was provided as a reference for how to actualize a custom system.
+A working example of these components running together, in the form of the `rmf_demos_maps` package, was provided as a reference for how to actualize a custom system.
 The next chapter will introduces the basic concept behind RMF.
