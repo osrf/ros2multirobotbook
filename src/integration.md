@@ -16,10 +16,9 @@
 
 # Integration
 
-This chapter describes the requirements and basic steps to integrate hardware with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells). In each section, we will go through how to build the necessary ROS 2 packages and interfaces that are used by `rmf_core`, as well as possible scenarios where such interactions occur.
+This chapter describes the requirements and basic steps to integrate hardware with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells).
+In each section, we will go through how to build and use the necessary ROS 2 packages and interfaces, as well as possible scenarios where such interactions occur.
 
-In general, all the interactions can be summed up with this system architecture diagram:
-
-<img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
-
-RMF uses ROS 2 messages and topic interfaces. Hence, in most cases we use components called Adapters to bridge between the hardware interfaces and RMF, with some exception for robot fleets which also have fleet drivers as part of the process. Robot fleets will be further elaborated in the next few sections.
+RMF uses ROS 2 messages and topic interfaces to communicate between different components in the overall RMF system.
+In most cases we use components called Adapters to bridge between the hardware-specific interfaces and the general purpose interfaces of RMF.
+This chapter will discuss how to develop an RMF Adapter for different types of hardware components.
