@@ -102,10 +102,10 @@ to initalize and populate `keystore_storage` directory files the following comma
 
 ``` {.sourceCode .bash}
 $ ros2 security create_keystore keystore_storage
-creating keystore: keystore_test
+creating keystore: keystore_storage
 creating new CA key/cert pair
-creating governance file: keystore_test/enclaves/governance.xml
-creating signed governance file: keystore_test/enclaves/governance.p7s
+creating governance file: keystore_storage/enclaves/governance.xml
+creating signed governance file: keystore_storage/enclaves/governance.p7s
 ```
 
 After creating the keystore, its initial structure would look like this:
