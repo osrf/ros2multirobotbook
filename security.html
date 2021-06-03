@@ -142,13 +142,15 @@
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
                         
+                        
+
                     </div>
                 </div>
 
                 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -254,10 +256,10 @@ contents of this directory to provide the DDS security to the ROS 2 network. The
 <code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
 to initalize and populate <code>keystore_storage</code> directory files the following command can be used:</p>
 <pre><code class="language-{.sourceCode.bash}">$ ros2 security create_keystore keystore_storage
-creating keystore: keystore_test
+creating keystore: keystore_storage
 creating new CA key/cert pair
-creating governance file: keystore_test/enclaves/governance.xml
-creating signed governance file: keystore_test/enclaves/governance.p7s
+creating governance file: keystore_storage/enclaves/governance.xml
+creating signed governance file: keystore_storage/enclaves/governance.p7s
 </code></pre>
 <p>After creating the keystore, its initial structure would look like this:</p>
 <pre><code>keystore_storage
