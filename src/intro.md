@@ -111,18 +111,18 @@ We will explore each of these functional areas in more detail in later chapters 
 
 ### RMF Demos
 
-[The demos](https://github.com/osrf/rmf_demos) are demonstrations of the capabilities of RMF in various environments.
+[The demos](https://github.com/open-rmf/rmf_demos) are demonstrations of the capabilities of RMF in various environments.
 This repository serves as a starting point for working and integrating with RMF.
 
 ### Traffic Editor
 
-[Traffic Editor](https://github.com/osrf/traffic_editor) is a GUI for creating and annotating floorplans for use in RMF.
+[Traffic Editor](https://github.com/open-rmf/rmf_traffic_editor) is a GUI for creating and annotating floorplans for use in RMF.
 Through Traffic Editor you are able to create traffic patterns for use in RMF and introduce simulation models to enhance your virtual simulation environments.
 The `.yaml` files can be easily exported for use in Gazebo.
 
 ### Free Fleet
 
-[Free Fleet](https://github.com/osrf/free_fleet) is an open-source robot fleet management system for robot developers who do not have their own fleet manager or who would prefer to use and contribute to an open-source fleet management utility.
+[Free Fleet](https://github.com/open-rmf/free_fleet) is an open-source robot fleet management system for robot developers who do not have their own fleet manager or who would prefer to use and contribute to an open-source fleet management utility.
 
 ### Systems of Systems Synthesizer (SOSS)
 
@@ -130,13 +130,12 @@ The [SOSS](https://github.com/osrf/soss) you've been missing! SOSS easily passes
 
 ### RMF Schedule Visualizer
 
-This [visualizer](https://github.com/osrf/rmf_schedule_visualizer) is an rviz-based rmf_core visualizer and control panel.
-It is intended to be a functional tool for RMF or RoMi-H developers.
+This [visualizer](https://github.com/open-rmf/rmf_visualization) is an rviz-based `rmf_core` visualizer and control panel.
+It is intended to be a functional tool for RMF developers.
 
-### RoMi Dashboard
+### RMF Web UI
 
-The Robotics Middleware for Healthcare (RoMi-H) is a healthcare specific implementation of RMF.
-This [dashboard](http://github.com/osrf/romi-dashboard) is a web application that provides overall visualization and control over the RoMi-H system.
+[rmf-web](http://github.com/open-rmf/rmf-web) is a configurable web application that provides overall visualization and control over the RoMi-H system.
 The dashboard is by design more "operator-friendly" compared to the previously mentioned schedule visualizer.
 
 ### Simulation Assets
@@ -145,7 +144,7 @@ The open-source and freely distributable [simulation assets](https://app.ignitio
 
 ## Installation of the RMF Essentials
 
-The current version of RMF is 1.1.0. It targets ROS Foxy, and Debian binary packages are released for Ubuntu Focal Fossa 20.04 LTS.
+The current version of RMF is 2021.04, and it targets ROS Foxy, and Debian binary packages are released for Ubuntu Focal Fossa 20.04 LTS.
 
 RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Focal please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
 
@@ -320,4 +319,4 @@ Now, sit back and enjoy.
 
 ## Jump in, the water is fine!
 
-So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the [RMF Demos](https://github.com/osrf/rmf_demos) repository and if you want a really quick overview of RMF then take a look at this [Mock Airport Terminal video demo](https://vimeo.com/405803151) (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!
+So now you have an idea of what RMF is all about, it's time to jump in. We would suggest if you have not already that you take the time to review the [RMF Demos](https://github.com/open-rmf/rmf_demos) repository and if you want a really quick overview of RMF then take a look at this [Mock Airport Terminal video demo](https://vimeo.com/405803151) (Short film Oscar nominations most welcome). We hope you find RMF to be a useful tool to help you scale your robot deployments and operations and we look forward to the many improvements and contributions to come!
