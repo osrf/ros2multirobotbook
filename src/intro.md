@@ -105,7 +105,7 @@ In a nutshell, here is RMF:
 One of the principles of RMF's design is to simplify and standardize messaging as much as possible.
 You can see all of the complex interactions and coordination currently boils down to only fourteen standard messages in the below diagram of the RMF Core:
 
-<img src="https://raw.githubusercontent.com/osrf/rmf_core/master/docs/rmf_core_integration_diagram.png">
+<img src="https://github.com/open-rmf/rmf_ros2/blob/main/docs/rmf_core_integration_diagram.png">
 
 We will explore each of these functional areas in more detail in later chapters of this book, but for now we'd like to also introduce some of the other utilities helpful when developing and integrating with RMF.
 
@@ -124,10 +124,6 @@ The `.yaml` files can be easily exported for use in Gazebo.
 
 [Free Fleet](https://github.com/open-rmf/free_fleet) is an open-source robot fleet management system for robot developers who do not have their own fleet manager or who would prefer to use and contribute to an open-source fleet management utility.
 
-### Systems of Systems Synthesizer (SOSS)
-
-The [SOSS](https://github.com/osrf/soss) you've been missing! SOSS easily passes messages between various message formats and types, including ROS 1, ROS 2, WebSocket, REST, FiWare, DDS, OPC-UA, and more.
-
 ### RMF Schedule Visualizer
 
 This [visualizer](https://github.com/open-rmf/rmf_visualization) is an rviz-based `rmf_core` visualizer and control panel.
@@ -137,6 +133,9 @@ It is intended to be a functional tool for RMF developers.
 
 [rmf-web](http://github.com/open-rmf/rmf-web) is a configurable web application that provides overall visualization and control over the RoMi-H system.
 The dashboard is by design more "operator-friendly" compared to the previously mentioned schedule visualizer.
+
+### RMF Simulation
+[rmf_simulation](https://github.com/open-rmf/rmf_simulation) contains the simulation plugins to simulate RMF. Plugins are available in `gazebo` and `ignition`.
 
 ### Simulation Assets
 
@@ -203,6 +202,8 @@ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `ls
 ```
 
 ### Setup Sources and Installation of RMF
+
+> To install RMF from source, please refer to [here](https://github.com/open-rmf/rmf)
 
 Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:
 
