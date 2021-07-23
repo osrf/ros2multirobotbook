@@ -27,7 +27,7 @@ accurately reflect physical environments.
 
 ## Overview
 
-The `traffic_editor` [repository](https://github.com/osrf/traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output.
+The `traffic_editor` [repository](https://github.com/open-rmf/rmf_traffic_editor) is home to the `traffic_editor` GUI and tools to auto-generate simulation worlds from GUI output.
 The GUI is an easy-to-use interface which can create and annotate 2D floor plans with robot traffic along with building infrastructure information.
 Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a "reference" coordinate system for vendor-specific maps.
 For such cases, `traffic-editor` can import these types of "backgroud images" to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.
@@ -231,7 +231,9 @@ If the corner vertices are not present, they will automatically be created when 
 Meshes of the annotated walls are automatically generated during 3D world generation using `building_map_generator`.
 By default, the walls are of thickness of 10cm and height 2.5m.
 The `wall_height` and `wall_thickness` attributes may be
-modified [in the source code](https://github.com/osrf/traffic_editor/blob/master/building_map_tools/building_map/level.py#L42).
+modified [in the source code](https://github.com/open-rmf/rmf_traffic_editor/blob/main/rmf_building_map_tools/building_map/wall.py#L16-L17).
+
+Wall texture options are available [here] (https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures) in the source code.
 
 ![Annotating walls](images/traffic_editor/add_wall.png)
 
@@ -256,7 +258,7 @@ Floors are annotated using the _Add floor polygon_ tool from the `Main Toolbar` 
 To define a floor, select consecutive vertices to create a polygon that accurately represents the flooring area as seen below.
 These vertices will need to be added manually prior to this step.
 Once created, save the project and reload.
-Selecting the defined floor highlights its texture attributes. The [default list of available textures](https://github.com/osrf/traffic_editor/tree/master/building_map_tools/building_map_generator/textures) is available in the source code.
+Selecting the defined floor highlights its texture attributes. Similarly, [default list of available textures](https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures) is available in the source code.
 
 ![Highlighting floor's textures](images/traffic_editor/add_floor.png)
 
@@ -457,11 +459,11 @@ lifts:
 Levels may be annotated with thumbnails of models available for simulation using the _Add model_ tool in _Building_ edit mode.
 Selecting this tool opens a dialog box with a list of model names and matching thumbnails which can be imported to the map.
 Once on the map, their positions and orientations can be adjusted using the _Move_ and _Rotate_ tools.
-The [thumbnail_generator documentation](https://github.com/osrf/traffic_editor/tree/master/traffic_editor#generating-custom-thumbnails) contains instructions on expanding the list of thumbnails for other models.
+The [thumbnail_generator documentation](https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor#generating-custom-thumbnails) contains instructions on expanding the list of thumbnails for other models.
 
 ![Model name and thumbnails dialog](images/traffic_editor/add_model.png)
 
 ## Conclusion
 This chapter covered various capabilities of the `traffic_editor` which are useful for annotating maps of facilities while adhering to a standardized set of semantics.
-Examples of other traffic editor projects can be found in the [rmf_demos](https://github.com/osrf/rmf_demos) repository.
+Examples of other traffic editor projects can be found in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository.
 Running physics based simulations with RMF in the annotated sites is described in the [Simulation](simulation.md) chapter.

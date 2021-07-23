@@ -1,5 +1,7 @@
 # UI
 
+> Certain portion of this doc is deprecated, please refer to [rmf-web](https://github.com/open-rmf/rmf-web) for the latest development.
+
 ## Introduction
 
 This chapter describes how we can write end user applications which integrate into RMF. We will briefly go through the requirements of an RMF UI application and provide a tutorial to write a React Webapp that interfaces with RMF.

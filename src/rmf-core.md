@@ -2,8 +2,13 @@
 
 This chapter describes RMF, an umbrella term for a wide range of open specifications and software
 tools that aim to ease the integration and interoperability of robotic systems,
-building infrastructure, and user interfaces. [`rmf_core`](https://github.com/osrf/rmf_core)
-is an implementation of some of the core scheduling and traffic management systems.
+building infrastructure, and user interfaces. `rmf_core` consists of:
+ - [rmf_traffic](https://github.com/open-rmf/rmf_traffic): Core scheduling and traffic management systems
+ - [rmf_traffic_ros2](https://github.com/open-rmf/rmf_traffic_ros2): rmf_traffic for ros2
+ - [rmf_task](https://github.com/open-rmf/rmf_task): Task planner for rmf
+ - [rmf_battery](https://github.com/open-rmf/rmf_battery): rmf battery estimation
+ - [rmf_ros2](https://github.com/open-rmf/rmf_ros2): ros2 adapters and nodes and python bindings for rmf_core
+ - [rmf_utils](https://github.com/open-rmf/rmf_utils): utility for rmf
 
 ## Traffic deconfliction
 
@@ -22,7 +27,7 @@ report the expected itineraries of their vehicles to the traffic schedule. With
 the information available on the schedule, compliant fleet managers can plan
 routes for their vehicles that avoid conflicts with any other vehicles, no
 matter which fleet they belong to. `rmf_traffic` provides a
-[`Planner`](https://github.com/osrf/rmf_core/blob/master/rmf_traffic/include/rmf_traffic/agv/Planner.hpp)
+[`Planner`](https://github.com/open-rmf/rmf_traffic/blob/main/rmf_traffic/include/rmf_traffic/agv/Planner.hpp)
 class to help facilitate this for vehicles that behave like standard AGVs (Automated Guided Vehicles),
 rigidly following routes along a pre-determined grid. In the future
 we intend to provide a similar utility for AMRs (Autonomous Mobile Robots) that can perform ad hoc motion
@@ -91,7 +96,7 @@ Note again that there can only ever be one "Read Only" fleet in a shared space, 
 
 Currently we provide a reusable C++ API (as well as Python bindings) for integrating the **Full Control** category of fleet management.
 A preliminary ROS 2 message API is available for the **Read Only** category, but that API will be deprecated in favor of a C++ API 
-(with [Python bindings](https://github.com/osrf/rmf_fleet_adapter_python/) available) in a future release.
+(with [Python bindings](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter_python/) available) in a future release.
 The **Traffic Light** control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a **Traffic Light** fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).
 

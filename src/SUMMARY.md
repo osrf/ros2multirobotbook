@@ -23,6 +23,7 @@
     - [Doors](./integration_doors.md)
     - [Lifts (Elevators)](./integration_lifts.md)
     - [Workcells](./integration_workcells.md)
-- [User Interfaces](./ui.md)
+- [RMF Web](./rmf-web.md)
+    - [User Interfaces](./ui.md)
 - [Security](./security.md)
 - [Roadmap](./roadmap.md)
