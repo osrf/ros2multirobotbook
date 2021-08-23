@@ -242,7 +242,7 @@ will check that the language used by your computer uses a particular format of
 text. If you are in a minimal environment, such as a Docker container, the locale may be
 something minimal like POSIX. We test with the following settings. It
 should be fine if you're using a different UTF-8 supported locale.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo locale-gen en_US en_US.UTF-8
+<pre><code class="language-{.sourceCode .bash}">sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 </code></pre>
@@ -252,7 +252,7 @@ Ubuntu doesn't know where the ROS 2 binary programs live so we have to give it a
 secure location. To do this the computer will prompt you for your root
 password. For more technical readers we need to authorize the ROS GPG key with
 apt by typing the following command in the terminal:</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
+<pre><code class="language-{.sourceCode .bash}">sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 </code></pre>
 <h2 id="install-ros-2-packages"><a class="header" href="#install-ros-2-packages">Install ROS 2 Packages</a></h2>
@@ -260,19 +260,19 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 programs) and then install ROS Eloquent. To do this we run the following
 commands. Be aware that these commands will download a lot of data and may take
 awhile. It is best to run these commands on your home network.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt update
+<pre><code class="language-{.sourceCode .bash}">sudo apt update
 </code></pre>
 <p>Desktop Install (Recommended): ROS, RViz, demos, tutorials.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install ros-eloquent-desktop
+<pre><code class="language-{.sourceCode .bash}">sudo apt install ros-eloquent-desktop
 </code></pre>
 <p>Next we'll install a set of tutorials called <code>TurtleSim</code>. To do this we run
 another apt command.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install ros-eloquent-turtlesim
+<pre><code class="language-{.sourceCode .bash}">sudo apt install ros-eloquent-turtlesim
 </code></pre>
 <p>ROS 2 command line tools use argcomplete for autocompletion. If you
 want autocompletion, installing argcomplete is necessary. We're also going to
 install a few other tools to make our lives easier.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install python3-argcomplete htop byobu
+<pre><code class="language-{.sourceCode .bash}">sudo apt install python3-argcomplete htop byobu
 </code></pre>
 <h2 id="check-your-installation"><a class="header" href="#check-your-installation">Check Your Installation</a></h2>
 <p>ROS uses <code>environment variables</code> to help keep track of what version of ROS is
@@ -291,7 +291,7 @@ makes the version of ROS you are using explicit. On Ubuntu 18.04 all versions of
 ROS live in <code>/opt/ros/</code>. Inside this directory will be a programs and scripts
 file to run ROS. To tell the operating system that we want to use ROS Eloquent
 we simply source the ROS Eloquent <code>setup.bash</code> file using the command below:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 </code></pre>
 <p>Once that command runs, your terminal should be ready to run a ROS program. Let's
 test our installation by running two small ROS programs called <code>talker</code> and
@@ -299,11 +299,11 @@ test our installation by running two small ROS programs called <code>talker</cod
 perform the communication. One program was written in C++ and the other in
 Python. Running these two different programs is a quick and easy way to check
 that your ROS system is configured correctly. To start the talker run the following command:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_cpp talker
 </code></pre>
 <p>If everything is working correctly you should see something like the following:</p>
-<pre><code class="language-{.sourceCode.bash}">[INFO] [talker]: Publishing: 'Hello World: 1'
+<pre><code class="language-{.sourceCode .bash}">[INFO] [talker]: Publishing: 'Hello World: 1'
 [INFO] [talker]: Publishing: 'Hello World: 2'
 [INFO] [talker]: Publishing: 'Hello World: 3'
 ....
@@ -314,11 +314,11 @@ open a new terminal tab by entering <code>CTRL-SHIFT-T</code> in our terminal. W
 create a wholly new terminal by pressing <code>CTRL-ALT-T</code>. Pick whatever works best
 for you. Now in your new terminal source your bash file and run the following
 command:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_py listener
 </code></pre>
 <p>If everything is working correctly you should see something like the following:</p>
-<pre><code class="language-{.sourceCode.bash}">[INFO] [listener]: I heard: [Hello World: 264]
+<pre><code class="language-{.sourceCode .bash}">[INFO] [listener]: I heard: [Hello World: 264]
 [INFO] [listener]: I heard: [Hello World: 265]
 [INFO] [listener]: I heard: [Hello World: 266]
 </code></pre>

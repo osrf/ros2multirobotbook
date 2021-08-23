@@ -197,7 +197,7 @@ An example of this is the <code>tmux</code> script used in the <a href="https://
 <p>The <code>ros2 security</code> command is the way to access the SROS 2 set of tools to create and manage
 your DDS-security artifacts. You can get a glimpse at its features by accessing the documentation
 through the <code>-h</code> flag:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security -h
 usage: ros2 security [-h] Call `ros2 security &lt;command&gt; -h` for more detailed usage. ...
 
 Various security related sub-commands
@@ -231,7 +231,7 @@ find the location of the security artifacts to initialize the ROS 2 security env
 contents of this directory to provide the DDS security to the ROS 2 network. The 
 <code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
 to initalize and populate <code>keystore_storage</code> directory files the following command can be used:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_keystore keystore_storage
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_keystore keystore_storage
 creating keystore: keystore_storage
 creating new CA key/cert pair
 creating governance file: keystore_storage/enclaves/governance.xml
@@ -267,7 +267,7 @@ control rules. The enclaves folder may recursively nest sub-paths for organizing
 enclaves. This will populate the <code>enclaves</code> directory with the necessary keys and governance
 files. As an example, in order to create the security files for our<code>/hospital/rviz</code> enclave the
 following command would be issued:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_key keystore_storage /hospital/rviz
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_key keystore_storage /hospital/rviz
 creating key for identity: '/hospital/rviz'
 creating cert and key
 creating permission
@@ -307,27 +307,27 @@ of the enclave and signed by the CA. In order to do this a policy file following
 <a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed. 
 This file specifies the permissions awarded to the enclave within the ROS 2 network.
 To create and sign the permissions the <code>create_permission</code> option can be used:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
 creating permission file for identity: '/hospital/rviz'
 creating permission
 </code></pre>
 <p>After running this command, the <code>permissions.p7s</code> and <code>permissions.xml</code> files for the 
 <code>enclave</code> /hospital/rviz will contain the signed permissions specified in policy.xml. 
 We will have to specify this enclave through rosargs when starting our process:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
+<pre><code class="language-{.sourceCode .bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
 </code></pre>
 <h1 id="sros-2-automated-generation"><a class="header" href="#sros-2-automated-generation">SROS 2 automated generation</a></h1>
 <p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools 
 to automate this process. An automated way to generate the policy is provided, it can be
 triggered by running the following command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_policy policy.xml
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_policy policy.xml
 </code></pre>
 <p>This command will take the ROS graph at the point of running and generate the policy.xml file 
 that corresponds to it. Note that this, as it only uses the current ROS graph as a source of 
 information, might still miss policies for future publishers, subscribers, services or others.</p>
 <p>The process and key and permissions generation can also be troublesome, SROS 2 provides a 
 command that you can use to generate all of them at once:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
 keystore_storage is not a valid keystore, creating new keystore
 creating keystore: keystore_storage
 creating new CA key/cert pair
@@ -343,7 +343,7 @@ creating permission
 ...
 </code></pre>
 <p>Finally SROS 2 also provides a way to easily list the keys of a certain keystorage:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security list_keys keystore_storage
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security list_keys keystore_storage
 /hospital/building_map_server
 /hopsital/building_systems_visualizer
 /hospital/door_supervisor

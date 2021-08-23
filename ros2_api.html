@@ -171,7 +171,7 @@ and/or violate various conventions and patterns.
 <h2 id="publishing-and-subscribing-to-topics-in-python"><a class="header" href="#publishing-and-subscribing-to-topics-in-python">Publishing and Subscribing to Topics in Python</a></h2>
 <p>Publishing data with ROS is easy. Here is a complete Python program that
 publishes string messages:</p>
-<pre><code class="language-{.sourceCode.py}">from time import sleep
+<pre><code class="language-{.sourceCode .py}">from time import sleep
 import rclpy
 from std_msgs.msg import String
 
@@ -190,7 +190,7 @@ while rclpy.ok():
 <p>Try it out yourself. (Make sure that in every shell used you have
 sourced your ROS setup file as we discussed in the previous chapter; e.g., <code>source /opt/ros/foxy/setup.bash</code>.) Copy the code block above into a file, call
 it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
-<pre><code class="language-{.sourceCode.bash}">$ python3 talker.py
+<pre><code class="language-{.sourceCode .bash}">$ python3 talker.py
 </code></pre>
 <p>You should see:</p>
 <pre><code>Publishing: &quot;Hello world: 0&quot;
@@ -200,7 +200,7 @@ Publishing: &quot;Hello world: 2&quot;
 <p>It prints to console, but is the data going anywhere? We can check
 our work using the <code>ros2 topic</code> tool that was introduced earlier. In
 another shell (leave your talker running), run:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo chatter
 </code></pre>
 <p>You should see the following, though the numbers will vary depending on timing between the two
 commands:</p>
@@ -213,7 +213,7 @@ data: 'Hello world: 15'
 <p>So we have a working talker. Now we can add our own listener to use in
 place of <code>ros2 topic</code>. Here is a complete Python program that subscribes
 to string messages and prints them to console:</p>
-<pre><code class="language-{sourceCode.py}">import rclpy
+<pre><code class="language-{sourceCode .py}">import rclpy
 from std_msgs.msg import String
 
 def cb(msg):
@@ -227,7 +227,7 @@ rclpy.spin(node)
 <p>Try it out yourself. Copy the code block above into a file and call it
 <code>listener.py</code>. With your talker still running in one shell, start up your
 listener in another shell:</p>
-<pre><code class="language-{sourceCode.bash}">$ python3 listener.py
+<pre><code class="language-{sourceCode .bash}">$ python3 listener.py
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
 <pre><code>I heard: &quot;Hello world: 35&quot;
@@ -237,7 +237,7 @@ I heard: &quot;Hello world: 37&quot;
 <h3 id="digging-into-the-python-code"><a class="header" href="#digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode.py}">import rclpy
+<pre><code class="language-{sourceCode .py}">import rclpy
 from std_msgs.msg import String
 </code></pre>
 <p>We need to import the <code>rclpy</code> client library, which gives us
@@ -248,14 +248,14 @@ single field called <code>data</code>, of type <code>string</code>. If we wanted
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
 would write <code>from sensor_msgs.msg import Image</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
-<pre><code class="language-{sourceCode.py}">rclpy.init()
+<pre><code class="language-{sourceCode .py}">rclpy.init()
 node = rclpy.create_node('my_node_name')
 </code></pre>
 <p>We initialize the <code>rclpy</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode.py}">pub = node.create_publisher(String, 'chatter', 10)
+<pre><code class="language-{sourceCode .py}">pub = node.create_publisher(String, 'chatter', 10)
 </code></pre>
 <p>We declare the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -264,14 +264,14 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode.py}">sub = node.create_subscription(String, 'chatter', cb, 10)
+<pre><code class="language-{sourceCode .py}">sub = node.create_subscription(String, 'chatter', cb, 10)
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as the <code>create_publisher()</code> call, and the final argument (10) is
 setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
-<pre><code class="language-{sourceCode.py}">def cb(msg):
+<pre><code class="language-{sourceCode .py}">def cb(msg):
     print(f'I heard: &quot;{msg.data}&quot;')
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
@@ -279,12 +279,12 @@ and the received message will be passed in as an argument. In this case
 we simply print the content to console.</p>
 <p>With the callback defined and the <code>Subscription</code> created, the rest of
 the listener is one line:</p>
-<pre><code class="language-{sourceCode.py}">rclpy.spin(node)
+<pre><code class="language-{sourceCode .py}">rclpy.spin(node)
 </code></pre>
 <p>This call hands control over to <code>rclpy</code> to wait for new messages to
 arrive (and more generally for events to occur) and invoke our callback.</p>
 <p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
-<pre><code class="language-{sourceCode.py}">msg = String()
+<pre><code class="language-{sourceCode .py}">msg = String()
 i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
@@ -299,7 +299,7 @@ it, sleeping briefly between iterations.</p>
 <h2 id="publishing-and-subscribing-to-topics-in-c"><a class="header" href="#publishing-and-subscribing-to-topics-in-c">Publishing and Subscribing to Topics in C++</a></h2>
 <p>Now we will write the same talker and listener pair, this time in C++.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &lt;unistd.h&gt;
+<pre><code class="language-{sourceCode .cpp}">#include &lt;unistd.h&gt;
 #include &lt;iostream&gt;
 #include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
@@ -337,11 +337,11 @@ target_link_libraries(talker ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
 <p>Try it out yourself. Copy the C++ code into a file called <code>talker.cpp</code>
 and the CMake code into a file called <code>CMakeLists.txt</code>. Have them
 side-by-side in a directory and then invoke <code>cmake</code> followed by <code>make</code>:</p>
-<pre><code class="language-{sourceCode.bash}">$ cmake .
+<pre><code class="language-{sourceCode .bash}">$ cmake .
 $ make
 </code></pre>
 <p>You should end up with a compiled executable called <code>talker</code>. Run it:</p>
-<pre><code class="language-{sourceCode.bash}">$ ./talker
+<pre><code class="language-{sourceCode .bash}">$ ./talker
 </code></pre>
 <p>You should see:</p>
 <pre><code>Publishing: &quot;Hello world: 0&quot;
@@ -350,7 +350,7 @@ Publishing: &quot;Hello world: 2&quot;
 </code></pre>
 <p>Keep the talker running and another shell try <code>ros2 topic</code> to listen
 in:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo chatter
 </code></pre>
 <p>You should see (numbers will vary depending on timing between the two
 commands):</p>
@@ -363,7 +363,7 @@ data: 'Hello world: 15'
 <p>Now we can write our own listener to use in place of <code>ros2 topic</code>. Here
 is a complete C++ program that subscribes to string messages and prints
 them to console:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
 
 void cb(const std_msgs::msg::String::SharedPtr msg)
@@ -388,12 +388,12 @@ target_include_directories(listener PRIVATE ${rclcpp_INCLUDE_DIRS} ${std_msgs_IN
 target_link_libraries(listener ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
 </code></pre>
 <p>Configure and build again:</p>
-<pre><code class="language-{sourceCode.bash}">$ cmake .
+<pre><code class="language-{sourceCode .bash}">$ cmake .
 $ make
 </code></pre>
 <p>Now you should have also have a <code>listener</code> executable. With your talker
 still running in one shell, start up your listener in another shell:</p>
-<pre><code class="language-{sourceCode.bash}">$ ./listener
+<pre><code class="language-{sourceCode .bash}">$ ./listener
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
 <pre><code>I heard: &quot;Hello world: 35&quot;
@@ -403,7 +403,7 @@ I heard: &quot;Hello world: 37&quot;
 <h3 id="digging-into-the-c-code"><a class="header" href="#digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
 </code></pre>
 <p>We always need to include the <code>rclcpp</code> client library, which gives us
@@ -414,14 +414,14 @@ single field called <code>data</code>, of type <code>string</code>. If we wanted
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
 would <code>#include &quot;sensor_msgs/msg/image.hpp&quot;</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
-<pre><code class="language-{sourceCode.cpp}">  rclcpp::init(argc, argv);
+<pre><code class="language-{sourceCode .cpp}">  rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared(&quot;my_node_name&quot;);
 </code></pre>
 <p>We initialize the <code>rclcpp</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode.cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
 </code></pre>
 <p>We declare via template the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -430,14 +430,14 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode.cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as for the <code>create_publisher()</code> call, and the numerical argument (10) is
 setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
-<pre><code class="language-{sourceCode.cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
+<pre><code class="language-{sourceCode .cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
 {
   std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
@@ -447,12 +447,12 @@ and the received message will be passed in as an argument. In this case
 we simply print the content to console.</p>
 <p>With the callback defined and the <code>Subscription</code> created, the rest of
 the listener is one line:</p>
-<pre><code class="language-{sourceCode.cpp}">  rclcpp::spin(node);
+<pre><code class="language-{sourceCode .cpp}">  rclcpp::spin(node);
 </code></pre>
 <p>This call hands control over to <code>rclcpp</code> to wait for new messages to
 arrive (and more generally for events to occur) and invoke our callback.</p>
 <p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
-<pre><code class="language-{sourceCode.cpp}">  std_msgs::msg::String message;
+<pre><code class="language-{sourceCode .cpp}">  std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
     message.data = &quot;Hello world: &quot; + std::to_string(i++);

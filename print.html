@@ -495,7 +495,7 @@ will check that the language used by your computer uses a particular format of
 text. If you are in a minimal environment, such as a Docker container, the locale may be
 something minimal like POSIX. We test with the following settings. It
 should be fine if you're using a different UTF-8 supported locale.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo locale-gen en_US en_US.UTF-8
+<pre><code class="language-{.sourceCode .bash}">sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 </code></pre>
@@ -505,7 +505,7 @@ Ubuntu doesn't know where the ROS 2 binary programs live so we have to give it a
 secure location. To do this the computer will prompt you for your root
 password. For more technical readers we need to authorize the ROS GPG key with
 apt by typing the following command in the terminal:</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
+<pre><code class="language-{.sourceCode .bash}">sudo apt update &amp;&amp; sudo apt install curl gnupg2 lsb-release
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 </code></pre>
 <h2 id="install-ros-2-packages"><a class="header" href="#install-ros-2-packages">Install ROS 2 Packages</a></h2>
@@ -513,19 +513,19 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 programs) and then install ROS Eloquent. To do this we run the following
 commands. Be aware that these commands will download a lot of data and may take
 awhile. It is best to run these commands on your home network.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt update
+<pre><code class="language-{.sourceCode .bash}">sudo apt update
 </code></pre>
 <p>Desktop Install (Recommended): ROS, RViz, demos, tutorials.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install ros-eloquent-desktop
+<pre><code class="language-{.sourceCode .bash}">sudo apt install ros-eloquent-desktop
 </code></pre>
 <p>Next we'll install a set of tutorials called <code>TurtleSim</code>. To do this we run
 another apt command.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install ros-eloquent-turtlesim
+<pre><code class="language-{.sourceCode .bash}">sudo apt install ros-eloquent-turtlesim
 </code></pre>
 <p>ROS 2 command line tools use argcomplete for autocompletion. If you
 want autocompletion, installing argcomplete is necessary. We're also going to
 install a few other tools to make our lives easier.</p>
-<pre><code class="language-{.sourceCode.bash}">sudo apt install python3-argcomplete htop byobu
+<pre><code class="language-{.sourceCode .bash}">sudo apt install python3-argcomplete htop byobu
 </code></pre>
 <h2 id="check-your-installation"><a class="header" href="#check-your-installation">Check Your Installation</a></h2>
 <p>ROS uses <code>environment variables</code> to help keep track of what version of ROS is
@@ -544,7 +544,7 @@ makes the version of ROS you are using explicit. On Ubuntu 18.04 all versions of
 ROS live in <code>/opt/ros/</code>. Inside this directory will be a programs and scripts
 file to run ROS. To tell the operating system that we want to use ROS Eloquent
 we simply source the ROS Eloquent <code>setup.bash</code> file using the command below:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 </code></pre>
 <p>Once that command runs, your terminal should be ready to run a ROS program. Let's
 test our installation by running two small ROS programs called <code>talker</code> and
@@ -552,11 +552,11 @@ test our installation by running two small ROS programs called <code>talker</cod
 perform the communication. One program was written in C++ and the other in
 Python. Running these two different programs is a quick and easy way to check
 that your ROS system is configured correctly. To start the talker run the following command:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_cpp talker
 </code></pre>
 <p>If everything is working correctly you should see something like the following:</p>
-<pre><code class="language-{.sourceCode.bash}">[INFO] [talker]: Publishing: 'Hello World: 1'
+<pre><code class="language-{.sourceCode .bash}">[INFO] [talker]: Publishing: 'Hello World: 1'
 [INFO] [talker]: Publishing: 'Hello World: 2'
 [INFO] [talker]: Publishing: 'Hello World: 3'
 ....
@@ -567,11 +567,11 @@ open a new terminal tab by entering <code>CTRL-SHIFT-T</code> in our terminal. W
 create a wholly new terminal by pressing <code>CTRL-ALT-T</code>. Pick whatever works best
 for you. Now in your new terminal source your bash file and run the following
 command:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 ros2 run demo_nodes_py listener
 </code></pre>
 <p>If everything is working correctly you should see something like the following:</p>
-<pre><code class="language-{.sourceCode.bash}">[INFO] [listener]: I heard: [Hello World: 264]
+<pre><code class="language-{.sourceCode .bash}">[INFO] [listener]: I heard: [Hello World: 264]
 [INFO] [listener]: I heard: [Hello World: 265]
 [INFO] [listener]: I heard: [Hello World: 266]
 </code></pre>
@@ -907,7 +907,7 @@ system by exploring the underlying software processes in the system.</p>
 The first command simply tells your computer that
 you are using ROS, and what version of ROS you want to use. Let's take a look at
 the magic command:</p>
-<pre><code class="language-{.sourceCode.bash}">source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 </code></pre>
 <p>If everything is working correctly, this command should simply return. Nothing
 happens that you can see, but underneath the hood you've just told this particular shell that you are using
@@ -920,7 +920,7 @@ it won't make any difference.</p>
 <p>The other command you need to commit to memory is <code>ros2</code>. Almost everything in
 the ROS 2 CLI starts with <code>ros2</code>. Go ahead and try it in the same shell where you just sourced the setup file.
 If everything is working correctly you should see the following:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2
+<pre><code class="language-{.sourceCode .bash}">$ ros2
 usage: ros2 [-h] Call `ros2 &lt;command&gt; -h` for more detailed usage. ...
 
 ros2 is an extensible command-line tool for ROS 2.
@@ -967,13 +967,13 @@ can modify and rerun as needed.</p>
 <h2 id="running-your-first-ros-program"><a class="header" href="#running-your-first-ros-program">Running Your First ROS Program</a></h2>
 <p>Let's get started with our first ROS CLI command. The first command we'll visit
 is <code>run</code>. Let's start by looking at the documentation for the <code>run</code> command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 run
+<pre><code class="language-{.sourceCode .bash}">$ ros2 run
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 ros2 run: error: the following arguments are required: package_name, executable_name, argv
 </code></pre>
 <p>To get more complete information about a ROS 2 command, simply ask the command for help by
 adding <code>--help</code> to the command. Let's try that again:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 run --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 run --help
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 
 Run a package specific executable
@@ -1018,7 +1018,7 @@ we want to run is <code>turtlesim_node</code>. Let's run this program (remember 
 complete!). Your command should look like the following:</p>
 <p><code>ros2 run turtlesim turtlesim_node</code></p>
 <p>If everything goes smoothly you should see the following:</p>
-<pre><code class="language-{.sourceCode.bash}">[INFO] [turtlesim]: Starting turtlesim with node name /turtlesim
+<pre><code class="language-{.sourceCode .bash}">[INFO] [turtlesim]: Starting turtlesim with node name /turtlesim
 [INFO] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
 </code></pre>
 <p>A window should also pop up with a cute little turtle that looks like the one
@@ -1034,7 +1034,7 @@ Finally, we'll run another program in the
 <code>turtlesim</code> package to draw a square. See if you can find the program
 yourself (hint: use <code>TAB</code>). If everything works you should have typed the following, and the
 following output should be visible:</p>
-<pre><code class="language-{.sourceCode.bash}">$ source /opt/ros/eloquent/setup.bash
+<pre><code class="language-{.sourceCode .bash}">$ source /opt/ros/eloquent/setup.bash
 $ ros2 run turtlesim draw_square
 [INFO] [draw_square]: New goal [7.544445 5.544445, 0.000000]
 [INFO] [draw_square]: Reached goal
@@ -1073,7 +1073,7 @@ process that input data, and then publish to another set of topics.</p>
 understand the topics, publishers, and subscribers.
 To see sub commands and syntax for the <code>topic</code> command, we'll run: <code>ros2 topic --help</code>.</p>
 <p>This command outputs the following:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic --help
 usage: ros2 topic [-h] [--include-hidden-topics]
                   Call `ros2 topic &lt;command&gt; -h` for more detailed usage. ...
 
@@ -1102,7 +1102,7 @@ few sub commands; we won't discuss all of them, but let's look closely at a few.
 Sub commands have their
 own help command. Why don't we examine the <code>list</code> command. Repeating our command
 pattern let's try running <code>ros2 topic list --help</code>.</p>
-<pre><code class="language-{.sourceCode.bash}">usage: ros2 topic list [-h] [--spin-time SPIN_TIME] [-t] [-c]
+<pre><code class="language-{.sourceCode .bash}">usage: ros2 topic list [-h] [--spin-time SPIN_TIME] [-t] [-c]
                        [--include-hidden-topics]
 
 Output a list of available topics
@@ -1127,7 +1127,7 @@ with a single dash (&quot;-&quot;), and a long form indicated by a double dash
 (&quot;--&quot;). Don't worry, despite looking different both versions of the argument do
 the same thing. Let's try running this command, sub command pair with the
 <code>-show-types</code> argument.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic list --show-types
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic list --show-types
 /parameter_events [rcl_interfaces/msg/ParameterEvent]
 /rosout [rcl_interfaces/msg/Log]
 /turtle1/cmd_vel [geometry_msgs/msg/Twist]
@@ -1146,7 +1146,7 @@ into messages in detail a bit later.</p>
 <p>One of the more commonly used topic sub commands is
 <code>info</code>. Unsurprisingly, <code>info</code> provides info about a topic.  Let's peek at its
 help file using <code>ros2 topic info --help</code></p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic info --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic info --help
 usage: ros2 topic info [-h] topic_name
 
 Print information about a topic
@@ -1159,7 +1159,7 @@ optional arguments:
 </code></pre>
 <p>That seems pretty straight forward. Let's give it a go by running it on
 <code>/turtle1/pose</code></p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic info /turtle1/pose
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic info /turtle1/pose
 Type: turtlesim/msg/Pose
 Publisher count: 1
 Subscriber count: 1
@@ -1175,7 +1175,7 @@ processing the incoming pose data.</p>
 <p>If we only wanted to know the message type of a topic
 there is a sub command just for that called, <code>type</code>. Let's take a look at its
 help file and its result:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic type --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
 
 Print a topic's type
@@ -1198,7 +1198,7 @@ But what does <code>turtlesim/msg/Pose</code> data look like? We can look at the
 structure transferred by this topic by running the <code>ros2 interface show</code>
 sub command and giving the message type name as an input. Let's look at the help
 for this sub command and its output:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface show --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface show --help
 usage: ros2 interface show [-h] type
 
 Output the interface definition
@@ -1230,7 +1230,7 @@ back at our topic sub commands, we can see a sub command called <code>echo</code
 computer jargon that means &quot;repeat&quot; something. If you echo a topic it means you
 want the CLI to repeat what's on a topic. Let's look at the <code>echo</code> sub command's
 help text:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo --help
 usage: ros2 topic echo [-h]
                        [--qos-profile {system_default,sensor_data,services_default,parameters,parameter_events,action_status_default}]
                        [--qos-reliability {system_default,reliable,best_effort}]
@@ -1280,7 +1280,7 @@ elements. Two things to keep in mind: first is that topics are long and easy to 
 up, so use the <code>TAB</code> key. Second is that this will print a lot of data, fast. You can
 use <code>CTRL-C</code> to stop the command and stop all the output. Let's take a look at the
 <code>/turtle1/pose</code> topic.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo /turtle1/pose
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo /turtle1/pose
 x: 5.4078755378723145
 y: 7.081490516662598
 theta: -1.0670461654663086
@@ -1322,7 +1322,7 @@ echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file, saving the data for later
 review or analysis. To do this file saving in Linux we use the <code>&gt;</code> character
 followed by a file name. Below are two examples of using the <code>--csv</code> argument:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo /turtle1/pose --csv
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo /turtle1/pose --csv
 7.097168922424316,8.498645782470703,2.442624092102051,0.0,0.4000000059604645
 7.097168922424316,8.498645782470703,2.449024200439453,0.0,0.4000000059604645
 ...
@@ -1347,7 +1347,7 @@ engineering term related to the <em>volume</em> of data being produced. A high
 bandwidth connection can move more data, like high definition video, than a low
 bandwidth data, which might move a radio show. Let's take a look at the help
 for these two commands:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic hz --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic hz --help
 usage: ros2 topic hz [-h] [--window WINDOW] [--filter EXPR] [--wall-time]
                      topic_name
 
@@ -1386,7 +1386,7 @@ messages; how many messages to use in calculating those statistics is the window
 size. The default value for <code>window</code> is 100, so when you call <code>ros2 topic bw</code> it
 will first collect 100 messages then use that data to calculate the average
 message size. Let's give it a shot (use <code>TAB</code> to complete and <code>CTRL-C</code> to exit).</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic hz /turtle1/pose
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic hz /turtle1/pose
 average rate: 60.021
 	min: 0.001s max: 0.073s std dev: 0.00731s window: 65
 average rate: 61.235
@@ -1414,7 +1414,7 @@ to know what topics use a particular message type you can use the <code>topic fi
 command, sub command pair. Both the <code>topic type</code> and <code>topic interface</code> command,
 sub command pairs have a very limited set of optional arguments, so we simply
 provide them with our desired topic or message type. Let's take a look at these two commands together:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic type --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
 Print a topic's type
 
@@ -1455,7 +1455,7 @@ values for the message are specified in the YAML format and we can use the
 command we'll issue a message to rotate and stop  our turtle by publishing
 to the <code>/turtle1/cmd_vel/</code> topic. Let's first take a look at the <code>topic pub</code>
 documentation before we construct our command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic pub --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic pub --help
 usage: ros2 topic pub [-h] [-r N] [-p N] [-1] [-n NODE_NAME]
                       [--qos-profile {system_default,sensor_data,services_default,parameters,parameter_events,action_status_default}]
                       [--qos-reliability {system_default,reliable,best_effort}]
@@ -1507,7 +1507,7 @@ pattern of <code>name:value</code>, and <code>name:{name1:val1,name2:val2}</code
 like the <code>Twist</code> command.</li>
 <li>Issue the command using <code>ros2 pub</code>.</li>
 </ul>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic type /turtle1/cmd_vel
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic type /turtle1/cmd_vel
 geometry_msgs/msg/Twist
 $ ros2 interface show geometry_msgs/msg/Twist
 # This expresses velocity in free space broken into its linear and angular parts.
@@ -1550,7 +1550,7 @@ specific nodes in the case where multiple copies of the same node (program) are
 running. Let's dig in a bit by restarting our turtle simulation in a terminal
 using <code>ros2 run turtlesim turtlesim_node</code>. Now in a new terminal let's first
 examine what <code>ros2 node</code> has to offer by asking for help.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 node --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 node --help
 usage: ros2 node [-h]
                  Call `ros2 node &lt;command&gt; -h` for more detailed usage. ...
 
@@ -1568,14 +1568,14 @@ Commands:
 <p>Much like topics, we see two sub commands, <code>info</code> and <code>list</code>. <code>node list</code> works much the
 same as <code>topic list</code> and simply prints a list of all running nodes. Let's see what
 is running on our system:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 node list
+<pre><code class="language-{.sourceCode .bash}">$ ros2 node list
 /turtlesim
 </code></pre>
 <p>We have a single node running called &quot;turtlesim&quot;. <code>node info</code> works in a way
 very similar to <code>topic info</code> except that it lists information about the nodes we
 give it. Let's call it with our single ROS Node <code>/turtlesim</code> as its
 argument:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 node info /turtlesim
+<pre><code class="language-{.sourceCode .bash}">$ ros2 node info /turtlesim
 /turtlesim
   Subscribers:
     /parameter_events: rcl_interfaces/msg/ParameterEvent
@@ -1615,7 +1615,7 @@ be other ROS nodes, or for these examples, a human using the CLI.</p>
 <p>The command line interface for services and actions are very similar, in fact
 they both have only four sub commands. Let's run the <code>action</code> and <code>service</code>
 commands and compare them:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action --help
 usage: ros2 action [-h]
                    Call `ros2 action &lt;command&gt; -h` for more detailed usage.
                    ...
@@ -1633,7 +1633,7 @@ Commands:
 
   Call `ros2 action &lt;command&gt; -h` for more detailed usage.
 </code></pre>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 service --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service --help
 usage: ros2 service [-h] [--include-hidden-services]
                     Call `ros2 service &lt;command&gt; -h` for more detailed usage.
                     ...
@@ -1660,7 +1660,7 @@ inefficient, particularly if we had tens, or even hundreds of nodes running.
 In this case it would be much more efficient to use the list commands for the
 action and service commands. We can run these commands below and see that we get
 roughly the same list of actions and services listed in our single nodes:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 service list
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service list
 /clear
 /kill
 /reset
@@ -1684,7 +1684,7 @@ to communicate. In fact, actions and services are built on top of messages.
 We can use the <code>service type</code> sub command to determine the message type
 used by a particular service. We can find specifics of the message by using the
 <code>interface show</code> command. Let's see this in practice with the <code>spawn</code> service:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 service type /spawn
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service type /spawn
 turtlesim/srv/Spawn
 $ ros2 interface show turtlesim/srv/Spawn
 float32 x
@@ -1700,7 +1700,7 @@ values for its position and orientation as well a <code>string</code> for its na
 a return value, which enables them to do things like perform computations and
 calculations.</p>
 <p>Let's examine the help for calling a service by running <code>ros2 service call --help</code>:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 service call --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service call --help
 usage: ros2 service call [-h] [-r N] service_name service_type [values]
 
 Call a service
@@ -1722,7 +1722,7 @@ that we used in the past, but instead of using a message type we need a service
 type. Finally we give it a value in YAML format. A YAML string must be encased
 in single quotes. Let's try calling a service by creating a turtle
 named <code>Larry</code> at a position where all values are zero (use <code>TAB</code> complete).</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 0, y: 0, theta: 0.0, name: 'Larry'}&quot;
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 0, y: 0, theta: 0.0, name: 'Larry'}&quot;
 requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, name='Larry')
 
 response:
@@ -1750,14 +1750,14 @@ you change your mind.</li>
 our ROS system by using the <code>action list</code>, <code>action show</code>, and <code>action info</code>
 commands. Recall, that when we called <code>ros2 action list</code> we got a single
 service. Now that we have Larry things have changed. Let's take a look:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action list
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action list
 /Larry/rotate_absolute
 /turtle1/rotate_absolute
 </code></pre>
 <p>Now there are two actions available, one for Larry and one for <code>turtle1</code>.
 Let's rotate turtle1 to face Larry. First we'll call <code>action info</code>
 using <code>/turtle1/rotate_absolute</code> as the input and see what we get:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action info /turtle1/rotate_absolute
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action info /turtle1/rotate_absolute
 Action: /turtle1/rotate_absolute
 Action clients: 0
 Action servers: 1
@@ -1766,7 +1766,7 @@ Action servers: 1
 <p>Well, that tells us about the client and servers, but it really isn't
 helpful for our goal of moving Larry. Why don't we look at the <code>action send_goal</code> help and see if we can
 figure out how to use it:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action send_goal --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action send_goal --help
 usage: ros2 action send_goal [-h] [-f] action_name action_type goal
 
 Send an action goal
@@ -1788,7 +1788,7 @@ published a message.</p>
 <p>We see each of our turtles have one service called <code>rotate_absolute</code>.
 Let's dig into this action using the <code>info</code> sub command. This command has a <code>-t</code>
 flag to list the types of messages.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action info /moe/rotate_absolute -t
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action info /moe/rotate_absolute -t
 Action: /moe/rotate_absolute
 Action clients: 0
 Action servers: 1
@@ -1805,7 +1805,7 @@ action type.</p>
 <p>Let's understand the <code>RotateAbsolute</code> action message</p>
 <p>The <code>ros2 interface show</code> command can be used to find the type of action
 message. Let's take a look:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface show turtlesim/action/RotateAbsolute
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface show turtlesim/action/RotateAbsolute
 # The desired heading in radians
 float32 theta #&lt; --- This section is the GOAL
 ---
@@ -1824,7 +1824,7 @@ float32 remaining # &lt; --- This is the current state.
 </ul>
 <p>With this information we can create our call to the action server. We'll
 use the <code>-f</code> flag to make this a bit clearer. Keep an eye on your turtle! It should move, slowly.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 action send_goal -f /turtle1/rotate_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action send_goal -f /turtle1/rotate_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
 Waiting for an action server to become available...
 Sending goal:
   theta: 1.7
@@ -1860,7 +1860,7 @@ example, if you were building an autonomous vehicle and wanted to cap
 the maximum velocity of the vehicle at 100 km/h, you could create a
 parameter called &quot;MAX_SPEED&quot; that is visible to all the nodes.</p>
 <p>Let's take a look at the <code>param</code> command by running <code>ros2 param --help</code>.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 param --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 param --help
 Various param related sub-commands
 
 Commands:
@@ -1875,7 +1875,7 @@ along with a <code>list</code> functionality, and a <code>delete</code> command.
 other commands we've worked through, it is instructive to look at <code>list</code>
 first. Let's see what the docs say about the <code>list</code> command and then see what
 happens when we call the sub command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 param list --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 param list --help
 usage: ros2 param list [-h] [--spin-time SPIN_TIME] [--include-hidden-nodes]
                        [--param-prefixes PARAM_PREFIXES [PARAM_PREFIXES ...]]
                        [node_name]
@@ -1913,7 +1913,7 @@ is. The <code>param get</code> sub command requires both a node name and a param
 name. In our list above we can see the node name as the top level element with
 the forward slash in front of it, namely <code>/turtlesim</code>. The syntax for <code>param get</code> is <code>ros2 param get &lt;node_name&gt; &lt;param&gt;</code>. Let's give it a whirl and see our
 current background color values.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 param get /turtlesim background_b
+<pre><code class="language-{.sourceCode .bash}">$ ros2 param get /turtlesim background_b
 Integer value is: 255
 $ ros2 param get /turtlesim background_g
 Integer value is: 86
@@ -1927,7 +1927,7 @@ value and then reset the turtlesim to make it apply the color changes. We
 covered the basics of calling a service previously so we won't cover the steps
 of constructing a service call. Let's try setting our background color's blue
 component to 128.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 param set turtlesim background_b 128
+<pre><code class="language-{.sourceCode .bash}">$ ros2 param set turtlesim background_b 128
 Set parameter successful
 $ ros2 service call /reset std_srvs/srv/Empty
 requester: making request: std_srvs.srv.Empty_Request()
@@ -1946,7 +1946,7 @@ building robust unit tests.</p>
 <p>Let's take a look at the root ROS Bag command by typing <code>ros2 bag --help</code> into
 the terminal. If you get an error you might need to install ROS Bag as it is
 often in a separate package. On Linux you can run <code>sudo apt install ros-eloquent-ros2bag</code> and it should automatically install the package for you.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 bag -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 bag -h
 usage: ros2 bag [-h] Call `ros2 bag &lt;command&gt; -h` for more detailed usage. ...
 
 Various rosbag related sub-commands
@@ -1965,7 +1965,7 @@ you'll need to start the <code>draw_square</code> demo again to get the default 
 moving. To do this run <code>ros2 run turtlesim draw_square</code>. Now, in a third
 terminal we can bag some data by running the bag command. Let's first look at
 the record sub command by running <code>ros2 bag record -h</code></p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 bag record -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 bag record -h
 usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
                        [-f SERIALIZATION_FORMAT] [--no-discovery]
                        [-p POLLING_INTERVAL] [-b MAX_BAG_SIZE]
@@ -2009,7 +2009,7 @@ can also specify the output bag file with the <code>-o, --output command</code>.
 flag. Be aware that the program will continue bagging data until you hit
 <code>CTRL-C</code>, so give the command a good 30 seconds to collect data before you kill
 it.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 bag record /turtle1/pose -o turtle1
+<pre><code class="language-{.sourceCode .bash}">$ ros2 bag record /turtle1/pose -o turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 [INFO] [rosbag2_transport]: Listening for topics...
 [INFO] [rosbag2_transport]: Subscribed to topic '/turtle1/pose'
@@ -2019,7 +2019,7 @@ it.</p>
 <p>Now that we collected our data let's inspect our bag file. You can introspect
 any bag file using the <code>ros2 bag info</code> command. This command will list the
 messages in the bag, the duration of file, and the number of messages.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 bag info turtle1
+<pre><code class="language-{.sourceCode .bash}">$ ros2 bag info turtle1
 Files:             turtle1.db3
 Bag size:          268.4 KiB
 Storage id:        sqlite3
@@ -2036,13 +2036,13 @@ can use most of the ros2 CLI tools to inspect the recorded topics.</p>
 <p>To replay the bag, first use <code>CTRL-C</code> to turn off the
 <code>turtlesim_node</code> and the <code>draw_square</code> node. Now in a new terminal replay the bag
 file using the following command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 bag play turtle1
+<pre><code class="language-{.sourceCode .bash}">$ ros2 bag play turtle1
 [INFO] [rosbag2_storage]: Opened database 'turtle1'.
 </code></pre>
 <p>Nothing should happen visibly, but a lot is happening under the hood.
 To see what is happening go to a second terminal. Just like a running robot,
 you should be able to <code>list</code> and <code>echo</code> topics:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic list
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic list
 /parameter_events
 /rosout
 /turtle1/pose
@@ -2066,7 +2066,7 @@ trying to provide help. Whether it is one of your co-workers, a vendor, or an
 on-line forum, providing detailed and complete information about your ROS system
 can go a long way to solving your problem. Let's call <code>--help</code> on the ROS 2
 doctor command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 doctor --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 doctor --help
 usage: ros2 doctor [-h] [--report | --report-failed] [--include-warnings]
 
 Check ROS setup and other potential issues
@@ -2097,7 +2097,7 @@ briefly in other sections, as it is the go to tool for message type
 information.</p>
 <p>To better understand the <code>interface</code> command let's start by looking at its high
 level help command to see what sub commands are available:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface --help
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface --help
 usage: ros2 interface [-h]
                       Call `ros2 interface &lt;command&gt; -h` for more detailed
                       usage. ...
@@ -2126,7 +2126,7 @@ find what you are looking for quickly and easily. You can grep in a case
 insensitive manner using the <code>-i</code> flag followed by the text you want to search
 for. We can tie this CLI tool to our interface tool by using the UNIX pipe operator <code>|</code>. The example below
 shows you how to use the list operation and then how to use it to search:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface list --only-msgs
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface list --only-msgs
 Messages:
     action_msgs/msg/GoalInfo
     action_msgs/msg/GoalStatus
@@ -2153,7 +2153,7 @@ messages are in that package. Note that
 you can use <code>grep</code> just like before to search for your specific interest. The
 example below shows you how to first determine if <code>std_msgs</code> is installed and
 then to find out what sort of array types it contains:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface packages
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface packages
 action_msgs
 action_tutorials_interfaces
 actionlib_msgs
@@ -2209,7 +2209,7 @@ our turtle simulation. We can use <code>interface show</code> to tell us broadly
 service and what each of the values mean. We can then use <code>interface proto</code>,
 short for prototype, to then generate an empty message that we can fill
 out. See the example below:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 interface show turtlesim/srv/Spawn
+<pre><code class="language-{.sourceCode .bash}">$ ros2 interface show turtlesim/srv/Spawn
 float32 x
 float32 y
 float32 theta
@@ -2237,7 +2237,7 @@ most of the other ROS commands in that it has no sub commands and has a single
 function, to start a ROS launch file that executes multiple of programs.
 To illustrate this command let's take a look at
 its help file.</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 launch -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 launch -h
 usage: ros2 launch [-h] [-d] [-p | -s] [-a]
                    package_name [launch_file_name]
                    [launch_arguments [launch_arguments ...]]
@@ -2274,7 +2274,7 @@ appended to the command. If you are unsure about what a launch file does, or
 what arguments it needs, the <code>--print</code> and <code>--show-args</code> commands will tell you
 this information. Let's read up on the <code>multisym.launch.py</code> launch file and then
 run it following the example below (end the simulation with <code>CTRL-C</code>):</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 launch turtlesim multisim.launch.py --show-args
+<pre><code class="language-{.sourceCode .bash}">$ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '&lt;name&gt;:=&lt;value&gt;'):
 
   No arguments.
@@ -2303,7 +2303,7 @@ docs</a>
 give a great primer on the states and transitions in a lifecycle
 node. Let's look at the
 <code>lifecycle</code> command to determine what sub commands are available:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 lifecycle -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 lifecycle -h
 usage: ros2 lifecycle [-h]
                       Call `ros2 lifecycle &lt;command&gt; -h` for more detailed
                       usage. ...
@@ -2342,7 +2342,7 @@ packages are installed on your system, where they are installed, and the
 executables contained within each package. These tools are particularly useful
 for understanding an existing robot configuration and finding tools that are
 only used on occasion. Let's start by taking a look at the help file for the <code>pkg</code> command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 pkg -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 pkg -h
 usage: ros2 pkg [-h] Call `ros2 pkg &lt;command&gt; -h` for more detailed usage. ...
 
 Various package related sub-commands
@@ -2371,7 +2371,7 @@ in a single argument which is the package name. The executables command has a
 single optional argument, <code>--full-path</code>, which will output the full path to all
 the executable programs. The example below shows how to use these
 commands to check the path for all of the turtlesim executables:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 pkg list | grep turtle
+<pre><code class="language-{.sourceCode .bash}">$ ros2 pkg list | grep turtle
 turtlesim
 $ ros2 pkg list | grep turtle
 turtlesim
@@ -2390,7 +2390,7 @@ pkg has a handy <code>xml</code> sub command to print these files to the screen,
 the hassle of locating and opening the file. You can use <code>grep</code> on the output of
 this command to get just the info you need. Below is an example of <code>xml</code> and <code>prefix</code> used to find
 the directory of turtlesim, its maintainer, and its license:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 pkg prefix turtlesim
+<pre><code class="language-{.sourceCode .bash}">$ ros2 pkg prefix turtlesim
 /opt/ros/eloquent
 $ ros2 pkg xml turtlesim | grep maintainer
   &lt;maintainer email=&quot;dthomas@osrfoundation.org&quot;&gt;Dirk Thomas&lt;/maintainer&gt;
@@ -2429,7 +2429,7 @@ and/or violate various conventions and patterns.
 <h2 id="publishing-and-subscribing-to-topics-in-python"><a class="header" href="#publishing-and-subscribing-to-topics-in-python">Publishing and Subscribing to Topics in Python</a></h2>
 <p>Publishing data with ROS is easy. Here is a complete Python program that
 publishes string messages:</p>
-<pre><code class="language-{.sourceCode.py}">from time import sleep
+<pre><code class="language-{.sourceCode .py}">from time import sleep
 import rclpy
 from std_msgs.msg import String
 
@@ -2448,7 +2448,7 @@ while rclpy.ok():
 <p>Try it out yourself. (Make sure that in every shell used you have
 sourced your ROS setup file as we discussed in the previous chapter; e.g., <code>source /opt/ros/foxy/setup.bash</code>.) Copy the code block above into a file, call
 it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
-<pre><code class="language-{.sourceCode.bash}">$ python3 talker.py
+<pre><code class="language-{.sourceCode .bash}">$ python3 talker.py
 </code></pre>
 <p>You should see:</p>
 <pre><code>Publishing: &quot;Hello world: 0&quot;
@@ -2458,7 +2458,7 @@ Publishing: &quot;Hello world: 2&quot;
 <p>It prints to console, but is the data going anywhere? We can check
 our work using the <code>ros2 topic</code> tool that was introduced earlier. In
 another shell (leave your talker running), run:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo chatter
 </code></pre>
 <p>You should see the following, though the numbers will vary depending on timing between the two
 commands:</p>
@@ -2471,7 +2471,7 @@ data: 'Hello world: 15'
 <p>So we have a working talker. Now we can add our own listener to use in
 place of <code>ros2 topic</code>. Here is a complete Python program that subscribes
 to string messages and prints them to console:</p>
-<pre><code class="language-{sourceCode.py}">import rclpy
+<pre><code class="language-{sourceCode .py}">import rclpy
 from std_msgs.msg import String
 
 def cb(msg):
@@ -2485,7 +2485,7 @@ rclpy.spin(node)
 <p>Try it out yourself. Copy the code block above into a file and call it
 <code>listener.py</code>. With your talker still running in one shell, start up your
 listener in another shell:</p>
-<pre><code class="language-{sourceCode.bash}">$ python3 listener.py
+<pre><code class="language-{sourceCode .bash}">$ python3 listener.py
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
 <pre><code>I heard: &quot;Hello world: 35&quot;
@@ -2495,7 +2495,7 @@ I heard: &quot;Hello world: 37&quot;
 <h3 id="digging-into-the-python-code"><a class="header" href="#digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode.py}">import rclpy
+<pre><code class="language-{sourceCode .py}">import rclpy
 from std_msgs.msg import String
 </code></pre>
 <p>We need to import the <code>rclpy</code> client library, which gives us
@@ -2506,14 +2506,14 @@ single field called <code>data</code>, of type <code>string</code>. If we wanted
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
 would write <code>from sensor_msgs.msg import Image</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
-<pre><code class="language-{sourceCode.py}">rclpy.init()
+<pre><code class="language-{sourceCode .py}">rclpy.init()
 node = rclpy.create_node('my_node_name')
 </code></pre>
 <p>We initialize the <code>rclpy</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode.py}">pub = node.create_publisher(String, 'chatter', 10)
+<pre><code class="language-{sourceCode .py}">pub = node.create_publisher(String, 'chatter', 10)
 </code></pre>
 <p>We declare the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -2522,14 +2522,14 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode.py}">sub = node.create_subscription(String, 'chatter', cb, 10)
+<pre><code class="language-{sourceCode .py}">sub = node.create_subscription(String, 'chatter', cb, 10)
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as the <code>create_publisher()</code> call, and the final argument (10) is
 setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
-<pre><code class="language-{sourceCode.py}">def cb(msg):
+<pre><code class="language-{sourceCode .py}">def cb(msg):
     print(f'I heard: &quot;{msg.data}&quot;')
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
@@ -2537,12 +2537,12 @@ and the received message will be passed in as an argument. In this case
 we simply print the content to console.</p>
 <p>With the callback defined and the <code>Subscription</code> created, the rest of
 the listener is one line:</p>
-<pre><code class="language-{sourceCode.py}">rclpy.spin(node)
+<pre><code class="language-{sourceCode .py}">rclpy.spin(node)
 </code></pre>
 <p>This call hands control over to <code>rclpy</code> to wait for new messages to
 arrive (and more generally for events to occur) and invoke our callback.</p>
 <p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
-<pre><code class="language-{sourceCode.py}">msg = String()
+<pre><code class="language-{sourceCode .py}">msg = String()
 i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
@@ -2557,7 +2557,7 @@ it, sleeping briefly between iterations.</p>
 <h2 id="publishing-and-subscribing-to-topics-in-c"><a class="header" href="#publishing-and-subscribing-to-topics-in-c">Publishing and Subscribing to Topics in C++</a></h2>
 <p>Now we will write the same talker and listener pair, this time in C++.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &lt;unistd.h&gt;
+<pre><code class="language-{sourceCode .cpp}">#include &lt;unistd.h&gt;
 #include &lt;iostream&gt;
 #include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
@@ -2595,11 +2595,11 @@ target_link_libraries(talker ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
 <p>Try it out yourself. Copy the C++ code into a file called <code>talker.cpp</code>
 and the CMake code into a file called <code>CMakeLists.txt</code>. Have them
 side-by-side in a directory and then invoke <code>cmake</code> followed by <code>make</code>:</p>
-<pre><code class="language-{sourceCode.bash}">$ cmake .
+<pre><code class="language-{sourceCode .bash}">$ cmake .
 $ make
 </code></pre>
 <p>You should end up with a compiled executable called <code>talker</code>. Run it:</p>
-<pre><code class="language-{sourceCode.bash}">$ ./talker
+<pre><code class="language-{sourceCode .bash}">$ ./talker
 </code></pre>
 <p>You should see:</p>
 <pre><code>Publishing: &quot;Hello world: 0&quot;
@@ -2608,7 +2608,7 @@ Publishing: &quot;Hello world: 2&quot;
 </code></pre>
 <p>Keep the talker running and another shell try <code>ros2 topic</code> to listen
 in:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 topic echo chatter
+<pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo chatter
 </code></pre>
 <p>You should see (numbers will vary depending on timing between the two
 commands):</p>
@@ -2621,7 +2621,7 @@ data: 'Hello world: 15'
 <p>Now we can write our own listener to use in place of <code>ros2 topic</code>. Here
 is a complete C++ program that subscribes to string messages and prints
 them to console:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
 
 void cb(const std_msgs::msg::String::SharedPtr msg)
@@ -2646,12 +2646,12 @@ target_include_directories(listener PRIVATE ${rclcpp_INCLUDE_DIRS} ${std_msgs_IN
 target_link_libraries(listener ${rclcpp_LIBRARIES} ${std_msgs_LIBRARIES})
 </code></pre>
 <p>Configure and build again:</p>
-<pre><code class="language-{sourceCode.bash}">$ cmake .
+<pre><code class="language-{sourceCode .bash}">$ cmake .
 $ make
 </code></pre>
 <p>Now you should have also have a <code>listener</code> executable. With your talker
 still running in one shell, start up your listener in another shell:</p>
-<pre><code class="language-{sourceCode.bash}">$ ./listener
+<pre><code class="language-{sourceCode .bash}">$ ./listener
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
 <pre><code>I heard: &quot;Hello world: 35&quot;
@@ -2661,7 +2661,7 @@ I heard: &quot;Hello world: 37&quot;
 <h3 id="digging-into-the-c-code"><a class="header" href="#digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode.cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
 #include &quot;std_msgs/msg/string.hpp&quot;
 </code></pre>
 <p>We always need to include the <code>rclcpp</code> client library, which gives us
@@ -2672,14 +2672,14 @@ single field called <code>data</code>, of type <code>string</code>. If we wanted
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
 would <code>#include &quot;sensor_msgs/msg/image.hpp&quot;</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
-<pre><code class="language-{sourceCode.cpp}">  rclcpp::init(argc, argv);
+<pre><code class="language-{sourceCode .cpp}">  rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared(&quot;my_node_name&quot;);
 </code></pre>
 <p>We initialize the <code>rclcpp</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode.cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
 </code></pre>
 <p>We declare via template the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -2688,14 +2688,14 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode.cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as for the <code>create_publisher()</code> call, and the numerical argument (10) is
 setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
-<pre><code class="language-{sourceCode.cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
+<pre><code class="language-{sourceCode .cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
 {
   std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
@@ -2705,12 +2705,12 @@ and the received message will be passed in as an argument. In this case
 we simply print the content to console.</p>
 <p>With the callback defined and the <code>Subscription</code> created, the rest of
 the listener is one line:</p>
-<pre><code class="language-{sourceCode.cpp}">  rclcpp::spin(node);
+<pre><code class="language-{sourceCode .cpp}">  rclcpp::spin(node);
 </code></pre>
 <p>This call hands control over to <code>rclcpp</code> to wait for new messages to
 arrive (and more generally for events to occur) and invoke our callback.</p>
 <p>Back in the talker, we create a simple loop to use our <code>Publisher</code>:</p>
-<pre><code class="language-{sourceCode.cpp}">  std_msgs::msg::String message;
+<pre><code class="language-{sourceCode .cpp}">  std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
     message.data = &quot;Hello world: &quot; + std::to_string(i++);
@@ -4295,7 +4295,7 @@ Furthermore, each robot's position will be updated live as the robots are moving
 <tr><td><code>rmf_dispenser_msgs/DispenserRequest</code></td><td><code>/dispenser_reqeusts</code></td><td>Direct requests subscribed by the dispenser node</td></tr>
 <tr><td><code>rmf_dispenser_msgs/DispenserResult</code></td><td><code>/dispenser_results</code></td><td>Result of a dispenser request, published by the dispenser</td></tr>
 <tr><td><code>rmf_dispenser_msgs/DispenserState</code></td><td><code>/dispenser_states</code></td><td>State of the dispenser published by the dispenser periodically</td></tr>
-<tr><td><code>rmf_ingestor_msgs/IngestorRequest</code></td><td><code>/ingestor_requests</code></td><td>Direct requests subscribed by the dispenser node</td></tr>
+<tr><td><code>rmf_ingestor_msgs/IngestorRequest</code></td><td><code>/ingestor_requests</code></td><td>Direct requests subscribed by the ingestor node</td></tr>
 <tr><td><code>rmf_ingestor_msgs/IngestorResult</code></td><td><code>/ingestor_results</code></td><td>Result of a ingestor request, published by the ingestor</td></tr>
 <tr><td><code>rmf_ingestor_msgs/IngestorState</code></td><td><code>/ingestor_states</code></td><td>State of the dispenser published by the ingestor periodically</td></tr>
 </tbody></table>
@@ -4884,7 +4884,7 @@ An example of this is the <code>tmux</code> script used in the <a href="https://
 <p>The <code>ros2 security</code> command is the way to access the SROS 2 set of tools to create and manage
 your DDS-security artifacts. You can get a glimpse at its features by accessing the documentation
 through the <code>-h</code> flag:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security -h
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security -h
 usage: ros2 security [-h] Call `ros2 security &lt;command&gt; -h` for more detailed usage. ...
 
 Various security related sub-commands
@@ -4918,7 +4918,7 @@ find the location of the security artifacts to initialize the ROS 2 security env
 contents of this directory to provide the DDS security to the ROS 2 network. The 
 <code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
 to initalize and populate <code>keystore_storage</code> directory files the following command can be used:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_keystore keystore_storage
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_keystore keystore_storage
 creating keystore: keystore_storage
 creating new CA key/cert pair
 creating governance file: keystore_storage/enclaves/governance.xml
@@ -4954,7 +4954,7 @@ control rules. The enclaves folder may recursively nest sub-paths for organizing
 enclaves. This will populate the <code>enclaves</code> directory with the necessary keys and governance
 files. As an example, in order to create the security files for our<code>/hospital/rviz</code> enclave the
 following command would be issued:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_key keystore_storage /hospital/rviz
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_key keystore_storage /hospital/rviz
 creating key for identity: '/hospital/rviz'
 creating cert and key
 creating permission
@@ -4994,27 +4994,27 @@ of the enclave and signed by the CA. In order to do this a policy file following
 <a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed. 
 This file specifies the permissions awarded to the enclave within the ROS 2 network.
 To create and sign the permissions the <code>create_permission</code> option can be used:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
 creating permission file for identity: '/hospital/rviz'
 creating permission
 </code></pre>
 <p>After running this command, the <code>permissions.p7s</code> and <code>permissions.xml</code> files for the 
 <code>enclave</code> /hospital/rviz will contain the signed permissions specified in policy.xml. 
 We will have to specify this enclave through rosargs when starting our process:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
+<pre><code class="language-{.sourceCode .bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
 </code></pre>
 <h1 id="sros-2-automated-generation"><a class="header" href="#sros-2-automated-generation">SROS 2 automated generation</a></h1>
 <p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools 
 to automate this process. An automated way to generate the policy is provided, it can be
 triggered by running the following command:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_policy policy.xml
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_policy policy.xml
 </code></pre>
 <p>This command will take the ROS graph at the point of running and generate the policy.xml file 
 that corresponds to it. Note that this, as it only uses the current ROS graph as a source of 
 information, might still miss policies for future publishers, subscribers, services or others.</p>
 <p>The process and key and permissions generation can also be troublesome, SROS 2 provides a 
 command that you can use to generate all of them at once:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
 keystore_storage is not a valid keystore, creating new keystore
 creating keystore: keystore_storage
 creating new CA key/cert pair
@@ -5030,7 +5030,7 @@ creating permission
 ...
 </code></pre>
 <p>Finally SROS 2 also provides a way to easily list the keys of a certain keystorage:</p>
-<pre><code class="language-{.sourceCode.bash}">$ ros2 security list_keys keystore_storage
+<pre><code class="language-{.sourceCode .bash}">$ ros2 security list_keys keystore_storage
 /hospital/building_map_server
 /hopsital/building_systems_visualizer
 /hospital/door_supervisor
