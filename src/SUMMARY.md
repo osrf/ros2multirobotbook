@@ -1,6 +1,8 @@
 # Summary
 
 - [Introduction](./intro.md)
+    - [Installation](./installation.md)
+    - [Demos](./demos.md)
 - [ROS 2](./ros2.md)
     - [ROS Resources](./ros2_tools_resources.md)
     - [ROS Concepts and Design Patterns](./ros2_design_patterns.md)

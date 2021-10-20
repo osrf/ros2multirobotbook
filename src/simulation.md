@@ -331,7 +331,7 @@ In a delivery task, a payload is loaded onto the robot at one location (pickup w
 The loading and unloading of the payload onto and from a robot may be automated by robots/workcells in the facility. These devices are henceforth referred to as dispensers and ingestors respectively.
 
 To replicate the loading and unloading processes in simulation, the `TeleportDispenser` and `TeleportIngestor` [plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src) have been designed.
-These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_assets/models), respectively.
+These plugins are attached to the `TeleportDispenser` and `TeleportIngestor` [3D models](https://github.com/osrf/rmf_demos/tree/master/rmf_demos_assets/models), respectively.
 To setup a payload loading station in simulation:
 * Add a `TeleportDispenser` model beside the pickup waypoint and assign it a
   unique `name`
@@ -352,13 +352,32 @@ but the underlying message exchanges will remain the same.
 
 ![TeleportDispenser and TeleportIngestor models](images/dispensers.png)
 
+### Crowdsim
+
+Crowd Simulation, aka `CrowdSim` is an optional feature in RMF simulation. User can
+choose to enable crowdsim on `rmf_traffic_editor`. In RMF, the crowdsim plugin uses 
+[menge](https://github.com/open-rmf/menge_vendor) as the core to control each of
+simulated agent in the world.
+
+An example of crowdsim is demonstrated on rmf_demos's `airport_world`:
+```bash
+ros2 launch rmf_demos_gz airport_terminal.launch.xml use_crowdsim:=1
+```
+
+For more details on how `crowdsim` works and how to configure it, 
+please dive in to [the detailed guide for using Crowdsim](https://github.com/FloodShao/crowd_simulation/blob/master/crowd_simulation_doc/crowd_simulation_usage.md).
+
+![crowdsim example](images/airport_crowdsim.png)
+
+---
+
 ## Creating Simulations and Running Scenarios
 The section aims to provide an overview of the various components in the `rmf_demos` [repository](https://github.com/osrf/rmf_demos) which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the `office` world.
 
 ### Map package
 The `rmf_demos_maps` package houses annotated `traffic_editor` files which will be used for the 3D world generation. Opening the `office.project.yaml` file in `traffic_editor` reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to `bidirectional` with `graph_idx` equal to "0". The latter signifies that all the lanes belong to the same fleet. In the `airport` world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.
 
-![Robot spawn location properties](images/rmf_demo_maps.png)
+![Robot spawn location properties](images/rmf_demos_maps.png)
 
 To export a 3D world file along with the navigation graphs, the `building_map_generator` script is used. The `CMakeLists.txt` file of this package is configured to automatically run the generator scripts when the package is built. The outputs are installed to the `share/` directory for the package. This allows for the generated files to be easily located and used by other packages in the demo.
 
@@ -380,7 +399,7 @@ foreach(path ${traffic_editor_paths})
   # first, generate the world
   add_custom_command(
     OUTPUT ${output_world_path}
-    COMMAND ros2 run building_map_tools building_map_generator gazebo ${map_path} ${output_world_path} ${output_model_dir}
+    COMMAND ros2 run rmf_building_map_tools building_map_generator gazebo ${map_path} ${output_world_path} ${output_model_dir}
     DEPENDS ${map_path}
   )
 
@@ -393,7 +412,7 @@ foreach(path ${traffic_editor_paths})
   set(output_nav_graphs_phony ${output_nav_graphs_dir}/phony)
   add_custom_command(
     OUTPUT ${output_nav_graphs_phony}
-    COMMAND ros2 run building_map_tools building_map_generator nav ${map_path} ${output_nav_graphs_dir}
+    COMMAND ros2 run rmf_building_map_tools building_map_generator nav ${map_path} ${output_nav_graphs_dir}
     DEPENDS ${map_path}
   )
 
@@ -411,7 +430,7 @@ endforeach()
 ```
 
 ### Launch Files
-The `demos` package includes all the essential launch files required to bring up the simulation world and start various RMF services. The office simulation is launched using the `office.launch.xml` file. First, a `common.launch.xml` file is loaded and starts:
+The `rmf_demos` package includes all the essential launch files required to bring up the simulation world and start various RMF services. The office simulation is launched using the `office.launch.xml` file. First, a `common.launch.xml` file is loaded and starts:
   * The `rmf_traffic_schedule` node responsible for maintaining the database of robot trajectories and monitoring traffic for conflicts. If a conflict is detected, notifications are sent to relevant fleet adapters which begin the negotiation process to find an optimal resolution.
   * The `building_map_server` which publishes a `BuildingMap` message used by UIs for visualization. The executable takes in the path to the relevant `.building.yaml` file as an argument. The `office.building.yaml` file installed by the `rmf_demos_maps` package is located using the `find-pkg-share` substitution command and is stored in the `config_file` argument.
   * The `rmf_schedule_visualizer` which is an RViz based UI to visualize the traffic lanes, actual positions of the robots, expected trajectory of robots as reflected in the `rmf_traffic_schedule` and states of building systems such as door and lifts.
@@ -422,16 +441,20 @@ The `demos` package includes all the essential launch files required to bring up
 <include file="$(find-pkg-share demos)/common.launch.xml">
   <arg name="use_sim_time" value="true"/>
   <arg name="viz_config_file" value ="$(find-pkg-share demos)/include/office/office.rviz"/>
-  <arg name="config_file" value="$(find-pkg-share rmf_demo_maps)/office/office.building.yaml"/>
+  <arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/office/office.building.yaml"/>
 </include>
 ```
-The next set of commands in `office.launch.xml` load the `office.world` in `Gazebo` after updating the relevant environment variables with paths to the models, plugins and resources directories.
+
+
+To launch a simulated world in gazebo, a snippet from [rmf_demos_gz](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz) 
+is shown below. Similarly, user can also choose to run with ignition 
+simulator, [rmf_demos_ign](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign) 
 
 ```xml
   <group>
-    <let name="world_path" value="$(find-pkg-share rmf_demo_maps)/maps/office/office.world" />
-    <let name="model_path" value="$(find-pkg-share rmf_demo_maps)/maps/office/models:$(find-pkg-share rmf_demo_assets)/models:/usr/share/gazebo-9/models" />
-    <let name="resource_path" value="$(find-pkg-share rmf_demo_assets):/usr/share/gazebo-9" />
+    <let name="world_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/office.world" />
+    <let name="model_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models" />
+    <let name="resource_path" value="$(find-pkg-share rmf_demos_assets):/usr/share/gazebo-9" />
     <let name="plugin_path" value="$(find-pkg-prefix rmf_gazebo_plugins)/lib:$(find-pkg-prefix building_gazebo_plugins)/lib" />
 
     <executable cmd="gzserver --verbose -s libgazebo_ros_factory.so -s libgazebo_ros_init.so $(var world_path)" output="both">
@@ -454,10 +477,10 @@ Lastly, instances of the "full control" `rmf_fleet_adapter` are launched for eac
 ```xml
 <group>
   <let name="fleet_name" value="magni"/>
-  <include file="$(find-pkg-share demos)/include/adapters/magni_adapter.launch.xml">
+  <include file="$(find-pkg-share rmf_demos)/include/adapters/magni_adapter.launch.xml">
     <arg name="fleet_name" value="$(var fleet_name)"/>
     <arg name="use_sim_time" value="$(var use_sim_time)"/>
-    <arg name="nav_graph_file" value="$(find-pkg-share rmf_demo_maps)/maps/office/nav_graphs/0.yaml" />
+    <arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml" />
   </include>
   <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
     <arg name="robot_prefix" value="magni"/>
@@ -466,6 +489,7 @@ Lastly, instances of the "full control" `rmf_fleet_adapter` are launched for eac
   </include>
 </group>
 ```
+
 When testing RMF with hardware, the same launch files can be used, with the exception of starting `Gazebo`.
 More information on running demos with hardware can be found [the chapter on Integration](integration.md).
 
@@ -473,9 +497,9 @@ More information on running demos with hardware can be found [the chapter on Int
 ### Task Requests
 RMF supports various tasks out of the box. For more information see [Tasks in RMF](./task.md)
 A web-based dashboard is provided to allow users to send commands to RMF.
-Once the [dashboard](https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/common.launch.xml#L57-L61) is launched, it can be accessed at `localhost:5000`.
+Once the [dashboard server](https://github.com/open-rmf/rmf_demos/blob/0d4265a6c81a24e2bbfe6378b4060e94f50066a9/rmf_demos/launch/common.launch.xml#L67-L72) is launched, it can be accessed at https://open-rmf.github.io/rmf-panel-js/.
 
-![Custom RMF panel in RViz](images/rmf_panel.png)
+![Custom RMF web panel](https://github.com/open-rmf/rmf_demos/raw/media/RMF_Panel.png?raw=true)
 
 Alternatively several scripts exist in `rmf_demos_tasks` to assist users with submitting requests from the terminal. Presently the `dispatch_loop.py`, `dispatch_delivery.py` and `dispatch_clean.py` scripts can be used to submit `Loop`, `Delivery` and `Clean` requests.
 
