@@ -141,22 +141,18 @@ To create a vertex, click on the vertex icon in the `Toolbar` and then click any
 The default attributes of a vertex are its coordinates along with an empty name field.
 Additional attributes may be added by first selecting the vertex (which will turn it red), and then clicking the `Add` button in the figure.
 Short descriptions of these are presented below:
-* **is_parking_spot:** if true and if the waypoint is part of a traffic lane,
+* **is_holding_point:** if true and if the waypoint is part of a traffic lane,
   the `rmf_fleet_adapter` will treat this as a _holding point_ during path
   planning, i.e., the robot is allowed to wait at this waypoint for an indefinite
   period of time.
+* **is_parking_spot:** robot's parking spot. [Definition](https://github.com/open-rmf/rmf_traffic/blob/40023b0f9b5d79a4781f6105f0368d74c1dfc443/rmf_traffic/include/rmf_traffic/agv/Graph.hpp#L73-L76)
+* **is_passthrough_point:** waypoint which the robot shouldnt stop. [Definition](https://github.com/open-rmf/rmf_traffic/blob/40023b0f9b5d79a4781f6105f0368d74c1dfc443/rmf_traffic/include/rmf_traffic/agv/Graph.hpp#L63-L68)
 * **is_charger:** if true and if the waypoint is part of a traffic lane, the
   `rmf_fleet_adapter` will treat this as a charging station.
+* **is_cleaning_zone** indicate if current waypoint is a cleaning zone, specifically for `Clean` Task.
 * **dock_name:** if specified and if the waypoint is part of a traffic lane, the
   `rmf_fleet_adapter` will issue an `rmf_fleet_msgs::ModeRequest` message with
-  `MODE_DOCKING` and `task_id` equal to the specified name to the robot as it
-  approaches this waypoint.
-* **workcell_name [deprecated]:** This attribute was previously used by the
-  `rmf_fleet_adapter` to issue an `rmf_dispenser_msgs::DispenerRequest` message
-  with `target_guid` equal to the name specified when a robot reached this
-  waypoint. In the latest version of `rmf_core` the workcell name is passed via
-  the `rmf_task_msgs::Delivery` message. See Chapter [Simulation](simulation.md)
-  for more details.
+  `MODE_DOCKING` and `task_id` equal to the specified name to the robot as it approaches this waypoint. This is used when the robot is executing their custom docking sequence (or custom travel path).
 * **spawn_robot_type:** the name of the robot model to spawn at this waypoint in
   simulation. The value must match the model's folder name in the assets
   repository. More details on the robot model and plugin required for simulation
@@ -164,6 +160,11 @@ Short descriptions of these are presented below:
 * **spawn_robot_name:** a unique identifier for the robot spawned at this
   waypoint. The `rmf_fleet_msgs::RobotState` message published by this robot
   will have `name` field equal to this value.
+* **pickup_dispenser** name of the dispenser workcell for `Delivery` Task, typically is the name of the  
+  model. See Chapter [Simulation](simulation.md#Workcells) for more details.
+* **dropoff_ingestor** name of the ingestor workcell for `Delivery` Task, typically is the name of the
+  model. See Chapter [Simulation](simulation.md#Workcells) for more details.
+* **human_goal_set_name** The `goal_sets.set_area` name, used by crowd simulation. For more info about `crowd_sim`, please refer to [Simulation](simulation.md#Crowdsim)
 
 ![Vertex attributes](images/traffic_editor/add_vertex.png)
 
@@ -233,7 +234,7 @@ By default, the walls are of thickness of 10cm and height 2.5m.
 The `wall_height` and `wall_thickness` attributes may be
 modified [in the source code](https://github.com/open-rmf/rmf_traffic_editor/blob/main/rmf_building_map_tools/building_map/wall.py#L16-L17).
 
-Wall texture options are available [here] (https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures) in the source code.
+Wall texture options are available [here](https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures) in the source code.
 
 ![Annotating walls](images/traffic_editor/add_wall.png)
 
@@ -455,11 +456,18 @@ lifts:
     yaw: 1.09
 ```
 
+After adding the lift, we would also wish to let our robots to transverse through the lift.
+To achieve that, the user needs to create vertices/waypoints which are located within the lift cabin on each floor.
+Once done, connect the waypoint within the lift cabin to other vertices via __add_lane__.
+
 ### Adding environment assets
-Levels may be annotated with thumbnails of models available for simulation using the _Add model_ tool in _Building_ edit mode.
+Levels may be annotated with thumbnails of models available for simulation using the __Add model__ tool in __Building__ edit mode.
 Selecting this tool opens a dialog box with a list of model names and matching thumbnails which can be imported to the map.
-Once on the map, their positions and orientations can be adjusted using the _Move_ and _Rotate_ tools.
+Once on the map, their positions and orientations can be adjusted using the _Move_ and _Rotate_ tools. Sample models are provided [here](https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor_assets/assets/thumbnails/images/cropped/OpenRobotics)
+
 The [thumbnail_generator documentation](https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor#generating-custom-thumbnails) contains instructions on expanding the list of thumbnails for other models.
+
+> Note: If no models are shown on the __add models__ window, Go to "Edit -> Preference", then indicate the thumbnail path. (`e.g. $HOME/rmf_ws/src/rmf/rmf_traffic_editor/rmf_traffic_editor_assets/assets/thumbnails`)
 
 ![Model name and thumbnails dialog](images/traffic_editor/add_model.png)
 
