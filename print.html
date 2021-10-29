@@ -4875,8 +4875,8 @@ export interface Transport extends TransportEvents {
 <p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ui.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="security"><a class="header" href="#security">Security</a></h1>
 <p>This chapter describes how to use DDS Security tools to provide authentication,
-encryption, and access control to a RoMi-H system. </p>
-<p>The security of the RoMi-H system can be divided into two main parts: 
+encryption, and access control to an RMF system. </p>
+<p>The security of the RMF system can be divided into two main parts: 
 its ROS 2 elements and the dashboard. The security of the ROS 2 
 elements is provided by the DDS security tools which help ensure authentication, 
 encryption and access control. The dashboard provides the user with an 
@@ -4891,7 +4891,7 @@ full RMF application using secured ROS 2 communications along with
 step by step explanations. </p>
 <h2 id="ros-2-security-1"><a class="header" href="#ros-2-security-1">ROS 2 Security</a></h2>
 <p>ROS 2 contains tools that help create and load the needed security artifacts 
-to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
+to enable DDS-security. RMF makes uses of these tools in order to enable 
 security on its ROS 2 elements. A brief introduction to these tools and its 
 usage is provided here. For a deeper understanding of the whole system, 
 please refer to the <a href="https://design.ros2.org/articles/ros2_dds_security.html">ROS 2 DDS-Security integration</a> documentation.</p>
@@ -4915,7 +4915,7 @@ are required in order to be compliant with the <a href="https://www.omg.org/spec
 <h3 id="sros-2-tools"><a class="header" href="#sros-2-tools">SROS 2 tools</a></h3>
 <p>Since the DDS-Security plugins require a set of security files per domain participant, these 
 need to be created beforehand in order to provide authentication, access control and encryption
-to the ROS 2 elements of RoMi-H. Domain participants usually map to a context within the 
+to the ROS 2 elements of RMF. Domain participants usually map to a context within the 
 process in ROS 2, therefore each process will require a set of these files.</p>
 <p>Since SROS 2 has no support for launch files yet, each binary needs to be launched separately
 on its own terminal. Alternatively we recommend the creation of scripts to automate this process. 
