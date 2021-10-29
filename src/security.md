@@ -1,9 +1,9 @@
 # Security
 
 This chapter describes how to use DDS Security tools to provide authentication,
-encryption, and access control to a RoMi-H system. 
+encryption, and access control to an RMF system. 
 
-The security of the RoMi-H system can be divided into two main parts: 
+The security of the RMF system can be divided into two main parts: 
 its ROS 2 elements and the dashboard. The security of the ROS 2 
 elements is provided by the DDS security tools which help ensure authentication, 
 encryption and access control. The dashboard provides the user with an 
@@ -22,7 +22,7 @@ step by step explanations.
 ## ROS 2 Security
 
 ROS 2 contains tools that help create and load the needed security artifacts 
-to enable DDS-security. RoMi-H makes uses of these tools in order to enable 
+to enable DDS-security. RMF makes uses of these tools in order to enable 
 security on its ROS 2 elements. A brief introduction to these tools and its 
 usage is provided here. For a deeper understanding of the whole system, 
 please refer to the [ROS 2 DDS-Security integration][SROS] documentation.
@@ -50,7 +50,7 @@ are required in order to be compliant with the [DDS-Security spec][dds_security]
 
 Since the DDS-Security plugins require a set of security files per domain participant, these 
 need to be created beforehand in order to provide authentication, access control and encryption
-to the ROS 2 elements of RoMi-H. Domain participants usually map to a context within the 
+to the ROS 2 elements of RMF. Domain participants usually map to a context within the 
 process in ROS 2, therefore each process will require a set of these files.
 
 Since SROS 2 has no support for launch files yet, each binary needs to be launched separately
