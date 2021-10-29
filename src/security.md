@@ -250,10 +250,10 @@ $ ros2 security list_keys keystore_storage
 ...
 ```
 
-## RoMi-H Dashboard Security
+## RMF Web Dashboard Security
 
-The RoMi-H Dashboard is a web application that provides overall visualization and control over the 
-RoMi-H system. It is served over TLS to ensure encryption, integrity and authentication of the 
+[RMF Web] (https://github.com/open-rmf/rmf-web) is a web application that provides overall visualization and control over the 
+RMF system. It is served over TLS to ensure encryption, integrity and authentication of the 
 communication with the final user. The server uses [openid-connect (OIDC)][openid_connect] for 
 authentication, an open standard based on [oauth 2.0][oauth2] and [JOSE][jose]. Currently the 
 dashboard makes use of [Keycloack][keycloack], an open source implementation of OIDC. It provides 
