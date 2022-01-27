@@ -160,11 +160,9 @@ Short descriptions of these are presented below:
 * **spawn_robot_name:** a unique identifier for the robot spawned at this
   waypoint. The `rmf_fleet_msgs::RobotState` message published by this robot
   will have `name` field equal to this value.
-* **pickup_dispenser** name of the dispenser workcell for `Delivery` Task, typically is the name of the  
-  model. See Chapter [Simulation](simulation.md#Workcells) for more details.
-* **dropoff_ingestor** name of the ingestor workcell for `Delivery` Task, typically is the name of the
-  model. See Chapter [Simulation](simulation.md#Workcells) for more details.
-* **human_goal_set_name** The `goal_sets.set_area` name, used by crowd simulation. For more info about `crowd_sim`, please refer to [Simulation](simulation.md#Crowdsim)
+* **pickup_dispenser** name of the dispenser workcell for `Delivery` Task, typically is the name of the model. See the [Workcell section] (https://osrf.github.io/ros2multirobotbook/simulation.html#workcells) of the Simulation Chapter for more details.
+* **dropoff_ingestor** name of the ingestor workcell for `Delivery` Task, typically is the name of the model. See the [Workcell section] (https://osrf.github.io/ros2multirobotbook/simulation.html#workcells) of the Simulation Chapter for more details.
+* **human_goal_set_name** The `goal_sets.set_area` name, used by crowd simulation. For more info about `crowd_sim`, please see the [Crowdsim section] (https://osrf.github.io/ros2multirobotbook/simulation.html#crowdsim) of the Simulation Chapter for more details.
 
 ![Vertex attributes](images/traffic_editor/add_vertex.png)
 
