@@ -2894,11 +2894,9 @@ can be found in <a href="simulation.html">Simulation</a></li>
 <li><strong>spawn_robot_name:</strong> a unique identifier for the robot spawned at this
 waypoint. The <code>rmf_fleet_msgs::RobotState</code> message published by this robot
 will have <code>name</code> field equal to this value.</li>
-<li><strong>pickup_dispenser</strong> name of the dispenser workcell for <code>Delivery</code> Task, typically is the name of the<br />
-model. See Chapter <a href="simulation.html#Workcells">Simulation</a> for more details.</li>
-<li><strong>dropoff_ingestor</strong> name of the ingestor workcell for <code>Delivery</code> Task, typically is the name of the
-model. See Chapter <a href="simulation.html#Workcells">Simulation</a> for more details.</li>
-<li><strong>human_goal_set_name</strong> The <code>goal_sets.set_area</code> name, used by crowd simulation. For more info about <code>crowd_sim</code>, please refer to <a href="simulation.html#Crowdsim">Simulation</a></li>
+<li><strong>pickup_dispenser</strong> name of the dispenser workcell for <code>Delivery</code> Task, typically is the name of the model. See the [Workcell section] (https://osrf.github.io/ros2multirobotbook/simulation.html#workcells) of the Simulation Chapter for more details.</li>
+<li><strong>dropoff_ingestor</strong> name of the ingestor workcell for <code>Delivery</code> Task, typically is the name of the model. See the [Workcell section] (https://osrf.github.io/ros2multirobotbook/simulation.html#workcells) of the Simulation Chapter for more details.</li>
+<li><strong>human_goal_set_name</strong> The <code>goal_sets.set_area</code> name, used by crowd simulation. For more info about <code>crowd_sim</code>, please see the [Crowdsim section] (https://osrf.github.io/ros2multirobotbook/simulation.html#crowdsim) of the Simulation Chapter for more details.</li>
 </ul>
 <p><img src="images/traffic_editor/add_vertex.png" alt="Vertex attributes" /></p>
 <p>Each vertex is stored in the <code>tutorial.building.yaml</code> file as a list of x-coordinate, y-coordinate, elevation, vertex_name and a set of additional parameters.</p>
