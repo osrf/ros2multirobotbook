@@ -115,7 +115,7 @@ An implementation for a robot using ROS 2 would be similar to a ROS 1 navigation
 
 The same ready `free_fleet` server implementation in the repository will work in this scenario, as the interfaces provided by the fleet adapters are still the same ROS 2 messages and topics.
 
-If required in the meantime, users can implement their own `free_fleet` client, by working with the `free_fleet` library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section, [Custom Navigation Stack](#custom-navigation-stack).
+If required in the meantime, users can implement their own `free_fleet` client, by working with the `free_fleet` library that contains the base implementation and API for the DDS communication. This will be further elaborated in the next section, [Developer Navigation Stack](https://osrf.github.io/ros2multirobotbook/integration_free-fleet.html#developer-navigation-stack).
 
 ## Developer Navigation Stack
 
