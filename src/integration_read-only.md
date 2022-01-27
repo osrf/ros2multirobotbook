@@ -6,15 +6,15 @@ In this section, we will cover the prototype API for integrating the **Read Only
 
 The Fleet Driver API was an experimental API developed in the early stages of the RMF research project. It can still be used for a read-only fleet adapter implementation until an officially supported C++ API comes out to replace it.
 
-The Fleet Driver API uses ROS 2 messages from the [`rmf_fleet_msgs`](https://github.com/osrf/rmf_core/tree/master/rmf_fleet_msgs) package. To use this API, you will want to write a ROS 2 application (using either rclcpp or rclpy) which we will refer to as the *Fleet Driver*. The job of the Fleet Driver is to transmit [`rmf_fleet_msgs/FleetState`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/FleetState.msg) messages out to the `fleet_states` topic.
+The Fleet Driver API uses ROS 2 messages from the [`rmf_fleet_msgs`](https://github.com/open-rmf/rmf_internal_msgs/tree/main/rmf_fleet_msgs) package. To use this API, you will want to write a ROS 2 application (using either rclcpp or rclpy) which we will refer to as the *Fleet Driver*. The job of the Fleet Driver is to transmit [`rmf_fleet_msgs/FleetState`](https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/FleetState.msg) messages out to the `fleet_states` topic.
 
-Inside the `FleetState` message is the `name` field. Be sure to fill in the correct name for your fleet state. There is also a collection of [`rmf_fleet_msgs/RobotState`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/RobotState.msg) messages. For integrating a read-only fleet with RMF, the most crucial fields of the `RobotState` message are:
+Inside the `FleetState` message is the `name` field. Be sure to fill in the correct name for your fleet state. There is also a collection of [`rmf_fleet_msgs/RobotState`](https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/RobotState.msg) messages. For integrating a read-only fleet with RMF, the most crucial fields of the `RobotState` message are:
 
 * `name` - The name of the robot whose state is being specified.
 * `location` - The current location of the robot.
 * `path` - The sequence of locations that the robot will be traveling through.
 
-Inside the [`rmf_fleet_msgs/Location`](https://github.com/osrf/rmf_core/blob/master/rmf_fleet_msgs/msg/Location.msg) message, the `t` field (which represents time) is generally ignored by the read-only fleet adapter. We assume that it is too cumbersome for your Fleet Driver to make timing predictions, so we have the read-only fleet adapter make the predictions for you based on the traits of the vehicle.
+Inside the [`rmf_fleet_msgs/Location`](https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/Location.msg) message, the `t` field (which represents time) is generally ignored by the read-only fleet adapter. We assume that it is too cumbersome for your Fleet Driver to make timing predictions, so we have the read-only fleet adapter make the predictions for you based on the traits of the vehicle.
 
 ## Configuring the Read Only Fleet Adapter
 
@@ -23,7 +23,7 @@ For the prototype read-only integration, there are two applications that need to
 1. The Fleet Driver mentioned above which you write specifically for your fleet's custom API
 2. The `read_only` fleet adapter which must be launched through ROS 2
 
-To launch the fleet adapter, you will need to use `ros2 launch` and include `rmf_fleet_adapter/fleet_adapter.launch.xml` file with the required parameters filled in. An example of this using the XML front-end of ros2 launch [can be found in `rmf_demos`](https://github.com/osrf/rmf_demos/blob/master/demos/launch/include/adapters/caddy_adapter.launch.xml), copied below:
+To launch the fleet adapter, you will need to use `ros2 launch` and include `rmf_fleet_adapter/fleet_adapter.launch.xml` file with the required parameters filled in. An example of this using the XML front-end of ros2 launch [can be found in `rmf_demos`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos/launch/include/adapters/caddy_adapter.launch.xml), copied below:
 
 ```
 <?xml version='1.0' ?>
