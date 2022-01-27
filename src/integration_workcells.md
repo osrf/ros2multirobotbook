@@ -12,7 +12,7 @@ Currently RMF has 2 types of sample workcells, namely: `Dispenser` and `Ingestor
 | `rmf_ingestor_msgs/IngestorState` | `/ingestor_states` |  State of the dispenser published by the ingestor periodically |
 
 In `rmf_demos` world, both `TeleportDispenser` and `TeleportIngestor` 
-[plugins](https://github.com/osrf/rmf_demos/tree/master/rmf_demo_plugins) act as workcell adapter nodes.
+[plugins](https://github.com/open-rmf/rmf_simulation/tree/main/rmf_robot_sim_gazebo_plugins/src) act as workcell adapter nodes.
 
 Workcells currently work alongside with Delivery Task. In `fleet_adapter.lauch.xml`,
 `perform_deliveries` needs to be `true` for the robot to accept a delivery task. 
