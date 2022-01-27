@@ -55,7 +55,7 @@ process in ROS 2, therefore each process will require a set of these files.
 
 Since SROS 2 has no support for launch files yet, each binary needs to be launched separately
 on its own terminal. Alternatively we recommend the creation of scripts to automate this process. 
-An example of this is the `tmux` script used in the [Office SROS 2 demo][office_sros].
+An example of this is the `tmux` script used in the [Office SROS 2 demo][https://github.com/open-rmf/rmf_demos/blob/main/docs/secure_office_world.md].
 
 The `ros2 security` command is the way to access the SROS 2 set of tools to create and manage
 your DDS-security artifacts. You can get a glimpse at its features by accessing the documentation
