@@ -4,7 +4,7 @@ This chapter describes RMF, an umbrella term for a wide range of open specificat
 tools that aim to ease the integration and interoperability of robotic systems,
 building infrastructure, and user interfaces. `rmf_core` consists of:
  - [rmf_traffic](https://github.com/open-rmf/rmf_traffic): Core scheduling and traffic management systems
- - [rmf_traffic_ros2](https://github.com/open-rmf/rmf_traffic_ros2): rmf_traffic for ros2
+ - [rmf_traffic_ros2](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_traffic_ros2): rmf_traffic for ros2
  - [rmf_task](https://github.com/open-rmf/rmf_task): Task planner for rmf
  - [rmf_battery](https://github.com/open-rmf/rmf_battery): rmf battery estimation
  - [rmf_ros2](https://github.com/open-rmf/rmf_ros2): ros2 adapters and nodes and python bindings for rmf_core
