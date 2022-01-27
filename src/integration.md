@@ -16,7 +16,7 @@
 
 # Integration
 
-This chapter describes the requirements and basic steps to integrate hardware with RMF. These include [mobile robots](#mobile-robots), [doors](#doors), [elevators](#elevators) and [workcells](#workcells).
+This chapter describes the requirements and basic steps to integrate hardware with RMF. These include [mobile robots](https://osrf.github.io/ros2multirobotbook/integration_fleets.html), [doors](https://osrf.github.io/ros2multirobotbook/integration_doors.html), [elevators](https://osrf.github.io/ros2multirobotbook/integration_lifts.html) and [workcells](https://osrf.github.io/ros2multirobotbook/integration_workcells.html).
 In each section, we will go through how to build and use the necessary ROS 2 packages and interfaces, as well as possible scenarios where such interactions occur.
 
 RMF uses ROS 2 messages and topic interfaces to communicate between different components in the overall RMF system.
