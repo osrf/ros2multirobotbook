@@ -278,9 +278,9 @@ generated for the door in the figure above is presented below.
 </model>
 ```
 
-The door [plugin](https://github.com/open-rmf/rmf_simulation/blob/6fe97895371789eb870c32db2934fbcb69f5b4c5/rmf_building_sim_common/src/door_common.cpp) responds to `DoorRequest` messages with `door_name` matching its `model name` sdf tag. These messages are published over the `/door_requests` topic. The plugin is agnostic of the type of door defined and relies on the `left_joint_name` and `right_joint_name` parameters to determine which joints to actuate during open and close motions. During these motions, the joints are commanded to their appropriate limits which are specified in the parent element. The joint motions adhere to kinematic constraints specified by sdf parameters while following acceleration and deceleration profiles similar to the `slotcar`.
+The door [plugin](https://github.com/open-rmf/rmf_simulation/blob/main/rmf_building_sim_common/src/door_common.cpp) responds to `DoorRequest` messages with `door_name` matching its `model name` sdf tag. These messages are published over the `/door_requests` topic. The plugin is agnostic of the type of door defined and relies on the `left_joint_name` and `right_joint_name` parameters to determine which joints to actuate during open and close motions. During these motions, the joints are commanded to their appropriate limits which are specified in the parent element. The joint motions adhere to kinematic constraints specified by sdf parameters while following acceleration and deceleration profiles similar to the `slotcar`.
 
-To avoid situations where one robot requests a door to close on another robot, a `door_supervisor` [node](https://github.com/open-rmf/rmf_ros2/blob/2fe08e328f543fe6a4e0853a60607b5b52015f2a/rmf_fleet_adapter/src/door_supervisor/main.cpp) is deployed in practice. The node publishes to `/door_requests` and subscribes to `/adapter_door_requests` which the fleet adapters publish to when their robot requires access through a door. The `door_supervisor` keeps track of requests from all the fleet adapters in the system and relays the request to the door adapters while avoiding aforementioned conflicts.
+To avoid situations where one robot requests a door to close on another robot, a `door_supervisor` [node](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/src/door_supervisor) is deployed in practice. The node publishes to `/door_requests` and subscribes to `/adapter_door_requests` which the fleet adapters publish to when their robot requires access through a door. The `door_supervisor` keeps track of requests from all the fleet adapters in the system and relays the request to the door adapters while avoiding aforementioned conflicts.
 
 ### Lifts
 The ability to test lift integration is crucial as these systems are often the operational bottlenecks in facilities given their shared usage by both humans and multi robot fleets. As with annotated doors, lifts can be customized in a number of ways in the `traffic_editor` GUI including the dimension & orientation of the cabin and mapping cabin doors to building levels.
@@ -322,7 +322,7 @@ The plugin subscribes to `/lift_requests` topic and responds to `LiftRequest` me
 The displacement between the cabin's current elevation and that of the `destination_floor` is computed and a suitable velocity is applied to the cabin joint.
 Prior to any motion, the cabin doors are closed and only opened at the `destination_floor` if specified in the `LiftRequest` message.
 As the cabin and shaft doors are configured with the `door` plugin, they are commanded through `DoorRequest` messages published by the `lift` plugin.
-Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.com/open-rmf/rmf_ros2/blob/2fe08e328f543fe6a4e0853a60607b5b52015f2a/rmf_fleet_adapter/src/lift_supervisor/main.cpp) is started in practice to manage requests from different robot fleets.
+Analogous to the `door_supervisor`, a `lift_supervisor` [node](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/src/lift_supervisor) is started in practice to manage requests from different robot fleets.
 
 ### Workcells
 
@@ -343,11 +343,11 @@ To setup a payload unloading station in simulation:
 
 When a `DispenserRequest` message is published with `target_guid` matching the
 name of the `TeleportDispenser` model, the plugin will teleport the payload onto
-the nearest robot model. Conversely, when an `IngestorRequest` message is published 
+the nearest robot model. Conversely, when an `IngestorRequest` message is published
 with the `target_guid` matching the name of the `TeleportIngestor` model, the
-`TeleportIngestor` plugin will teleport the payload from the robot to its location in 
-the world. The combinations of these plugins allow delivery requests to be simulated. 
-In the future, these mechanisms will be replaced by actual workcells or robot arms 
+`TeleportIngestor` plugin will teleport the payload from the robot to its location in
+the world. The combinations of these plugins allow delivery requests to be simulated.
+In the future, these mechanisms will be replaced by actual workcells or robot arms
 but the underlying message exchanges will remain the same.
 
 ![TeleportDispenser and TeleportIngestor models](images/dispensers.png)
@@ -355,7 +355,7 @@ but the underlying message exchanges will remain the same.
 ### Crowdsim
 
 Crowd Simulation, aka `CrowdSim` is an optional feature in RMF simulation. User can
-choose to enable crowdsim on `rmf_traffic_editor`. In RMF, the crowdsim plugin uses 
+choose to enable crowdsim on `rmf_traffic_editor`. In RMF, the crowdsim plugin uses
 [menge](https://github.com/open-rmf/menge_vendor) as the core to control each of
 simulated agent in the world.
 
@@ -364,7 +364,7 @@ An example of crowdsim is demonstrated on rmf_demos's `airport_world`:
 ros2 launch rmf_demos_gz airport_terminal.launch.xml use_crowdsim:=1
 ```
 
-For more details on how `crowdsim` works and how to configure it, 
+For more details on how `crowdsim` works and how to configure it,
 please dive in to [the detailed guide for using Crowdsim](https://github.com/FloodShao/crowd_simulation/blob/master/crowd_simulation_doc/crowd_simulation_usage.md).
 
 ![crowdsim example](images/airport_crowdsim.png)
@@ -446,9 +446,9 @@ The `rmf_demos` package includes all the essential launch files required to brin
 ```
 
 
-To launch a simulated world in gazebo, a snippet from [rmf_demos_gz](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz) 
-is shown below. Similarly, user can also choose to run with ignition 
-simulator, [rmf_demos_ign](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign) 
+To launch a simulated world in gazebo, a snippet from [rmf_demos_gz](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz)
+is shown below. Similarly, user can also choose to run with ignition
+simulator, [rmf_demos_ign](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign)
 
 ```xml
   <group>
