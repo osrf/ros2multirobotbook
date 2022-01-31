@@ -281,7 +281,7 @@ open sourced for use in simulation. For these models to emulate the behavior of
 their physical counterparts which have been integrated with RMF, they need to 1)
 interface with <code>rmf_fleet_adapters</code> and 2) navigate to locations in the
 simulated world. These functionalities, for a &quot;<em>full control</em>&quot; robot type, are
-achieved through the <code>slotcar</code> <a href="https://github.com/osrf/traffic_editor/blob/master/building_gazebo_plugins/src/slotcar.cpp">plugin</a>.
+achieved through the <code>slotcar</code> <a href="https://github.com/open-rmf/rmf_simulation/blob/main/rmf_robot_sim_gazebo_plugins/src/slotcar.cpp">plugin</a>.
 The plugin subscribes to <code>/robot_path_requests</code> and <code>/robot_mode_requests</code>
 topics and responds to relevant <code>PathRequest</code> and <code>ModeRequest</code> messages
 published by its <code>rmf_fleet_adapter</code>. The plugin also publishes the robot's
@@ -389,8 +389,8 @@ generated for the door in the figure above is presented below.</p>
   &lt;/joint&gt;
 &lt;/model&gt;
 </code></pre>
-<p>The door <a href="https://github.com/osrf/traffic_editor/blob/master/building_gazebo_plugins/src/door.cpp">plugin</a> responds to <code>DoorRequest</code> messages with <code>door_name</code> matching its <code>model name</code> sdf tag. These messages are published over the <code>/door_requests</code> topic. The plugin is agnostic of the type of door defined and relies on the <code>left_joint_name</code> and <code>right_joint_name</code> parameters to determine which joints to actuate during open and close motions. During these motions, the joints are commanded to their appropriate limits which are specified in the parent element. The joint motions adhere to kinematic constraints specified by sdf parameters while following acceleration and deceleration profiles similar to the <code>slotcar</code>.</p>
-<p>To avoid situations where one robot requests a door to close on another robot, a <code>door_supervisor</code> <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/door_supervisor/main.cpp">node</a> is deployed in practice. The node publishes to <code>/door_requests</code> and subscribes to <code>/adapter_door_requests</code> which the fleet adapters publish to when their robot requires access through a door. The <code>door_supervisor</code> keeps track of requests from all the fleet adapters in the system and relays the request to the door adapters while avoiding aforementioned conflicts.</p>
+<p>The door <a href="https://github.com/open-rmf/rmf_simulation/blob/main/rmf_building_sim_common/src/door_common.cpp">plugin</a> responds to <code>DoorRequest</code> messages with <code>door_name</code> matching its <code>model name</code> sdf tag. These messages are published over the <code>/door_requests</code> topic. The plugin is agnostic of the type of door defined and relies on the <code>left_joint_name</code> and <code>right_joint_name</code> parameters to determine which joints to actuate during open and close motions. During these motions, the joints are commanded to their appropriate limits which are specified in the parent element. The joint motions adhere to kinematic constraints specified by sdf parameters while following acceleration and deceleration profiles similar to the <code>slotcar</code>.</p>
+<p>To avoid situations where one robot requests a door to close on another robot, a <code>door_supervisor</code> <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/src/door_supervisor">node</a> is deployed in practice. The node publishes to <code>/door_requests</code> and subscribes to <code>/adapter_door_requests</code> which the fleet adapters publish to when their robot requires access through a door. The <code>door_supervisor</code> keeps track of requests from all the fleet adapters in the system and relays the request to the door adapters while avoiding aforementioned conflicts.</p>
 <h3 id="lifts"><a class="header" href="#lifts">Lifts</a></h3>
 <p>The ability to test lift integration is crucial as these systems are often the operational bottlenecks in facilities given their shared usage by both humans and multi robot fleets. As with annotated doors, lifts can be customized in a number of ways in the <code>traffic_editor</code> GUI including the dimension &amp; orientation of the cabin and mapping cabin doors to building levels.</p>
 <p><img src="images/lift_traffic_editor.png" alt="Customizing lifts in Traffic Editor" /></p>
@@ -425,13 +425,13 @@ These doors are created using the same method as other doors in the building and
 The displacement between the cabin's current elevation and that of the <code>destination_floor</code> is computed and a suitable velocity is applied to the cabin joint.
 Prior to any motion, the cabin doors are closed and only opened at the <code>destination_floor</code> if specified in the <code>LiftRequest</code> message.
 As the cabin and shaft doors are configured with the <code>door</code> plugin, they are commanded through <code>DoorRequest</code> messages published by the <code>lift</code> plugin.
-Analogous to the <code>door_supervisor</code>, a <code>lift_supervisor</code> <a href="https://github.com/osrf/rmf_core/blob/master/rmf_fleet_adapter/src/lift_supervisor/main.cpp">node</a> is started in practice to manage requests from different robot fleets.</p>
+Analogous to the <code>door_supervisor</code>, a <code>lift_supervisor</code> <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/src/lift_supervisor">node</a> is started in practice to manage requests from different robot fleets.</p>
 <h3 id="workcells"><a class="header" href="#workcells">Workcells</a></h3>
 <p>A common use case is robots performing deliveries within facilities, so a <code>Delivery</code> task is configured into the <code>rmf_fleet_adapters</code>.
 In a delivery task, a payload is loaded onto the robot at one location (pickup waypoint) and unloaded at another (dropoff waypoint).
 The loading and unloading of the payload onto and from a robot may be automated by robots/workcells in the facility. These devices are henceforth referred to as dispensers and ingestors respectively.</p>
-<p>To replicate the loading and unloading processes in simulation, the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_gazebo_plugins/src">plugins</a> have been designed.
-These plugins are attached to the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/osrf/rmf_demos/tree/master/rmf_demos_assets/models">3D models</a>, respectively.
+<p>To replicate the loading and unloading processes in simulation, the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/open-rmf/rmf_simulation/tree/main/rmf_robot_sim_gazebo_plugins/src">plugins</a> have been designed.
+These plugins are attached to the <code>TeleportDispenser</code> and <code>TeleportIngestor</code> <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_assets/models">3D models</a>, respectively.
 To setup a payload loading station in simulation:</p>
 <ul>
 <li>Add a <code>TeleportDispenser</code> model beside the pickup waypoint and assign it a
@@ -445,27 +445,27 @@ unique <code>name</code></li>
 </ul>
 <p>When a <code>DispenserRequest</code> message is published with <code>target_guid</code> matching the
 name of the <code>TeleportDispenser</code> model, the plugin will teleport the payload onto
-the nearest robot model. Conversely, when an <code>IngestorRequest</code> message is published 
+the nearest robot model. Conversely, when an <code>IngestorRequest</code> message is published
 with the <code>target_guid</code> matching the name of the <code>TeleportIngestor</code> model, the
-<code>TeleportIngestor</code> plugin will teleport the payload from the robot to its location in 
-the world. The combinations of these plugins allow delivery requests to be simulated. 
-In the future, these mechanisms will be replaced by actual workcells or robot arms 
+<code>TeleportIngestor</code> plugin will teleport the payload from the robot to its location in
+the world. The combinations of these plugins allow delivery requests to be simulated.
+In the future, these mechanisms will be replaced by actual workcells or robot arms
 but the underlying message exchanges will remain the same.</p>
 <p><img src="images/dispensers.png" alt="TeleportDispenser and TeleportIngestor models" /></p>
 <h3 id="crowdsim"><a class="header" href="#crowdsim">Crowdsim</a></h3>
 <p>Crowd Simulation, aka <code>CrowdSim</code> is an optional feature in RMF simulation. User can
-choose to enable crowdsim on <code>rmf_traffic_editor</code>. In RMF, the crowdsim plugin uses 
+choose to enable crowdsim on <code>rmf_traffic_editor</code>. In RMF, the crowdsim plugin uses
 <a href="https://github.com/open-rmf/menge_vendor">menge</a> as the core to control each of
 simulated agent in the world.</p>
 <p>An example of crowdsim is demonstrated on rmf_demos's <code>airport_world</code>:</p>
 <pre><code class="language-bash">ros2 launch rmf_demos_gz airport_terminal.launch.xml use_crowdsim:=1
 </code></pre>
-<p>For more details on how <code>crowdsim</code> works and how to configure it, 
+<p>For more details on how <code>crowdsim</code> works and how to configure it,
 please dive in to <a href="https://github.com/FloodShao/crowd_simulation/blob/master/crowd_simulation_doc/crowd_simulation_usage.md">the detailed guide for using Crowdsim</a>.</p>
 <p><img src="images/airport_crowdsim.png" alt="crowdsim example" /></p>
 <hr />
 <h2 id="creating-simulations-and-running-scenarios"><a class="header" href="#creating-simulations-and-running-scenarios">Creating Simulations and Running Scenarios</a></h2>
-<p>The section aims to provide an overview of the various components in the <code>rmf_demos</code> <a href="https://github.com/osrf/rmf_demos">repository</a> which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the <code>office</code> world.</p>
+<p>The section aims to provide an overview of the various components in the <code>rmf_demos</code> <a href="https://github.com/open-rmf/rmf_demos">repository</a> which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the <code>office</code> world.</p>
 <h3 id="map-package"><a class="header" href="#map-package">Map package</a></h3>
 <p>The <code>rmf_demos_maps</code> package houses annotated <code>traffic_editor</code> files which will be used for the 3D world generation. Opening the <code>office.project.yaml</code> file in <code>traffic_editor</code> reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to <code>bidirectional</code> with <code>graph_idx</code> equal to &quot;0&quot;. The latter signifies that all the lanes belong to the same fleet. In the <code>airport</code> world, we have two sets of graphs with indices &quot;0&quot; and &quot;1&quot; which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.</p>
 <p><img src="images/rmf_demos_maps.png" alt="Robot spawn location properties" /></p>
@@ -531,9 +531,9 @@ endforeach()
   &lt;arg name=&quot;config_file&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/office/office.building.yaml&quot;/&gt;
 &lt;/include&gt;
 </code></pre>
-<p>To launch a simulated world in gazebo, a snippet from <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz">rmf_demos_gz</a> 
-is shown below. Similarly, user can also choose to run with ignition 
-simulator, <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign">rmf_demos_ign</a> </p>
+<p>To launch a simulated world in gazebo, a snippet from <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz">rmf_demos_gz</a>
+is shown below. Similarly, user can also choose to run with ignition
+simulator, <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign">rmf_demos_ign</a></p>
 <pre><code class="language-xml">  &lt;group&gt;
     &lt;let name=&quot;world_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/office.world&quot; /&gt;
     &lt;let name=&quot;model_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models&quot; /&gt;
