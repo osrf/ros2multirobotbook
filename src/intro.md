@@ -98,14 +98,9 @@ Once deployed in an environment, RMF will save costs by allowing resources to be
 It is what robotic developers and robot customers have been looking for.
 In a nutshell, here is RMF:
 
-![RMF Book Architecture Diagram](https://user-images.githubusercontent.com/43839559/84993483-e89e3e80-b17b-11ea-8bc9-0a0d559de3ba.png)
+![RMF Book Architecture Diagram](images/grand_unified_diagram.png)
 
 ## How does RMF make the magic happen?
-
-One of the principles of RMF's design is to simplify and standardize messaging as much as possible.
-You can see all of the complex interactions and coordination currently boils down to only fourteen standard messages in the below diagram of the RMF Core:
-
-<img src="https://raw.githubusercontent.com/open-rmf/rmf_ros2/main/docs/rmf_core_integration_diagram.png">
 
 We will explore each of these functional areas in more detail in later chapters of this book, but for now we'd like to also introduce some of the other utilities helpful when developing and integrating with RMF.
 
