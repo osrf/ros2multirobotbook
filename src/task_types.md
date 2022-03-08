@@ -1,7 +1,5 @@
 # Supported Tasks in RMF
 
-> [RMF Task V2](https://github.com/open-rmf/rmf_task/pull/39) is in active development. This will allow user to construct custom task in a more flexble way.
-
 ## Clean Task:
 
 ![](images/cleaning_robots.png)
@@ -92,7 +90,7 @@ As with `Clean` and `Delivery` tasks, the fleet adapter must be configured to ac
 To submit a `Loop` request, the `dispatch_loop` script in `rmf_demos_tasks` can be utilized.
 
 ```
-ros2 run tasks dispatch_loop -h
+ros2 run rmf_demos_tasks dispatch_loop -h
 usage: dispatch_loop [-h] -s START -f FINISH [-n LOOP_NUM] [-st START_TIME] [-pt PRIORITY]
                      [--use_sim_time]
 
