@@ -139,9 +139,6 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="supported-tasks-in-rmf"><a class="header" href="#supported-tasks-in-rmf">Supported Tasks in RMF</a></h1>
-<blockquote>
-<p><a href="https://github.com/open-rmf/rmf_task/pull/39">RMF Task V2</a> is in active development. This will allow user to construct custom task in a more flexble way.</p>
-</blockquote>
 <h2 id="clean-task"><a class="header" href="#clean-task">Clean Task:</a></h2>
 <p><img src="images/cleaning_robots.png" alt="" /></p>
 <p>Cleaning robots are becoming increasingly popular in various facilities. While there are many ways of cleaning (vacuuming, mopping, disinfecting, etc) and hence many varieties of cleaning robots, the workflow remains identical across them all. Floor space in facilities is divided into a number of “zones” or sub-regions for cleaning. Each zone has a start and finish location for the robot. In-between these locations, the robot traverses along a special path while performing the cleaning operation.</p>
@@ -210,7 +207,7 @@ optional arguments:
 <p>A <code>Loop</code> task can be submitted to request a robot to navigate back and forth between two waypoints for a given number of iterations (loops).
 As with <code>Clean</code> and <code>Delivery</code> tasks, the fleet adapter must be configured to accept <code>Loop</code> requests.</p>
 <p>To submit a <code>Loop</code> request, the <code>dispatch_loop</code> script in <code>rmf_demos_tasks</code> can be utilized.</p>
-<pre><code>ros2 run tasks dispatch_loop -h
+<pre><code>ros2 run rmf_demos_tasks dispatch_loop -h
 usage: dispatch_loop [-h] -s START -f FINISH [-n LOOP_NUM] [-st START_TIME] [-pt PRIORITY]
                      [--use_sim_time]
 

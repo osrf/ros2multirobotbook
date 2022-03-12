@@ -3895,9 +3895,6 @@ When the Dispatcher receives a new task request from a dashboard or terminal, it
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="rmf-task-allocation-planner"><a class="header" href="#rmf-task-allocation-planner">RMF Task Allocation Planner</a></h1>
 <p>Coming soon...</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task_planner.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="supported-tasks-in-rmf"><a class="header" href="#supported-tasks-in-rmf">Supported Tasks in RMF</a></h1>
-<blockquote>
-<p><a href="https://github.com/open-rmf/rmf_task/pull/39">RMF Task V2</a> is in active development. This will allow user to construct custom task in a more flexble way.</p>
-</blockquote>
 <h2 id="clean-task"><a class="header" href="#clean-task">Clean Task:</a></h2>
 <p><img src="images/cleaning_robots.png" alt="" /></p>
 <p>Cleaning robots are becoming increasingly popular in various facilities. While there are many ways of cleaning (vacuuming, mopping, disinfecting, etc) and hence many varieties of cleaning robots, the workflow remains identical across them all. Floor space in facilities is divided into a number of “zones” or sub-regions for cleaning. Each zone has a start and finish location for the robot. In-between these locations, the robot traverses along a special path while performing the cleaning operation.</p>
@@ -3966,7 +3963,7 @@ optional arguments:
 <p>A <code>Loop</code> task can be submitted to request a robot to navigate back and forth between two waypoints for a given number of iterations (loops).
 As with <code>Clean</code> and <code>Delivery</code> tasks, the fleet adapter must be configured to accept <code>Loop</code> requests.</p>
 <p>To submit a <code>Loop</code> request, the <code>dispatch_loop</code> script in <code>rmf_demos_tasks</code> can be utilized.</p>
-<pre><code>ros2 run tasks dispatch_loop -h
+<pre><code>ros2 run rmf_demos_tasks dispatch_loop -h
 usage: dispatch_loop [-h] -s START -f FINISH [-n LOOP_NUM] [-st START_TIME] [-pt PRIORITY]
                      [--use_sim_time]
 
@@ -4009,7 +4006,134 @@ User can set a valid charging station by setting <code>is_parking_spot</code> to
 </ol>
 <p><a href="./task_new.html">Click here</a> to learn how to develop support for a custom task.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task_types.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="supporting-a-new-task-in-rmf"><a class="header" href="#supporting-a-new-task-in-rmf">Supporting a new Task in RMF</a></h1>
-<p>Coming soon...</p>
+<p>With the release of <a href="https://github.com/open-rmf/rmf_task/pull/39">RMF Task V2</a>, users can now construct custom tasks according to their specific needs. Different combination or sequence of robotic tasks can be dispatched to a specified robot or to the best available fleet based on the users' preferences.</p>
+<p>The new flexible task system introduces the concept of a Phase. A task is an object that generates phases. In other words, a task is typically made up of a series or combination of phases as its building blocks. For example, a delivery task would require a robot to complete the following steps:</p>
+<ol>
+<li>Move from its current waypoint to a pick-up location</li>
+<li>Pick up the delivery payload</li>
+<li>Move from the pick up location to the drop-off location</li>
+<li>Drop off the payload</li>
+<li>Move back to the initial starting waypoint</li>
+</ol>
+<p>Each of these steps can be considered a Phase. Users can use the following public API phases to construct their own tasks:</p>
+<ul>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__go_to_place.json"><code>GoToPlace</code></a></li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__pickup.json"><code>PickUp</code></a></li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__dropoff.json"><code>DropOff</code></a></li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__perform_action.json"><code>PerformAction</code></a></li>
+</ul>
+<p>Additional phase descriptions, including those supporting the public API phases, are defined and listed <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>. They will be useful for building your own custom task.</p>
+<p>Certain tasks may require specific phases that are not mentioned above. For example, if a delivery task involves the robot moving from the first to second level, it would require a <code>RequestLift</code> phase. Such phases are used by RMF internally and automatically added to a task when necessary, so users do not need to worry about them when creating their custom tasks.</p>
+<h2 id="building-a-custom-task"><a class="header" href="#building-a-custom-task">Building a Custom Task</a></h2>
+<p>Users can build and send their own tasks by publishing <a href="https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_task_msgs/msg/ApiRequest.msg"><code>ApiRequest</code></a> messages. You will need to fill in the <code>request_id</code> and <code>json_msg</code> fields according to the types of phases that make up the task, as well as whether the task is intended for a specific robot or the best available fleet. You may follow these steps to construct your own task:</p>
+<ol>
+<li>Create an <code>ApiRequest</code> publisher that sends task requests via the <code>/task_api_requests</code> topic.</li>
+<li>Fill in the <code>request_id</code> field with a unique string ID that can be used to identify the task.</li>
+<li>For the <code>json_msg</code> field,
+<ul>
+<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/robot_task_request.json"><code>robot_task_request</code></a> schema and fill in the JSON payload type with <code>&quot;robot_task_request&quot;</code> to send a task request to a specific robot</li>
+<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/dispatch_task_request.json"><code>dispatch_task_request</code></a> schema and fill in the JSON payload type with <code>&quot;dispatch_task_request&quot;</code> to send a task request to the best available fleet</li>
+<li>The <code>request</code> fields for these objects follow the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/task_request.json"><code>task_request</code></a> schema</li>
+</ul>
+</li>
+<li>Populate the object fields with the required information.
+<ul>
+<li>The <code>category</code> and <code>description</code> fields under the <code>task_request</code> schema take in the string name of the task and the task description respectively. The JSON schema for these descriptions can be found <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>. There are currently four task descriptions available:
+<ul>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/task_description__clean.json"><strong>Clean</strong></a>: create your own clean task, requires the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__clean.json"><code>Clean</code></a> phase description</li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/task_description__compose.json"><strong>Compose</strong></a>: create your own custom task that may comprise of a sequence of phases, requires descriptions for the relevant phases</li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/task_description__delivery.json"><strong>Delivery</strong></a>: create your own delivery task, requires the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__pickup.json"><code>PickUp</code></a> and <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__dropoff.json"><code>DropOff</code></a> phase descriptions</li>
+<li><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/task_description__patrol.json"><strong>Patrol</strong></a>: create your own patrol task, requires the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/place.json"><code>Place</code></a> description to indicate where you would like your robot to go to</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Publish the <code>ApiRequest</code>!</li>
+</ol>
+<h4 id="examples-of-json-task-requests"><a class="header" href="#examples-of-json-task-requests">Examples of JSON Task Requests</a></h4>
+<p>For a <strong>Clean</strong> <code>dispatch_task_request</code>:</p>
+<pre><code>{
+  &quot;type&quot;: &quot;dispatch_task_request&quot;,
+  &quot;request&quot;: {
+    &quot;unix_millis_earliest_start_time&quot;: start_time,
+    &quot;category&quot;: &quot;clean&quot;,
+    &quot;description&quot;: {
+      &quot;zone&quot;: &quot;clean_lobby&quot;
+    }
+  }
+}
+</code></pre>
+<p>For a <strong>Compose</strong> <code>robot_task_request</code> that commands a specific robot to go to a place, followed by performing a <code>teleop</code> action:</p>
+<pre><code>{
+  &quot;type&quot;: &quot;robot_task_request&quot;,
+  &quot;robot&quot;: &quot;tinyRobot1&quot;,
+  &quot;fleet&quot;: &quot;tinyRobot&quot;,
+  &quot;request&quot;: {
+    &quot;category&quot;: &quot;compose&quot;,
+    &quot;description&quot;: {
+      &quot;category&quot;: &quot;teleop&quot;,
+      &quot;phases&quot;: [
+        {&quot;activity&quot;: {
+          &quot;category&quot;: &quot;sequence&quot;,
+          &quot;description&quot;: {
+            &quot;activities&quot;: [
+              {&quot;category&quot;: &quot;go_to_place&quot;,
+               &quot;description&quot;: &quot;coe&quot;
+              },
+              {&quot;category&quot;: &quot;perform_action&quot;,
+                &quot;description&quot;: {&quot;category&quot;: &quot;teleop&quot;, &quot;description&quot;: &quot;coe&quot;}
+              }
+            ]
+          }
+        }}
+      ]
+    }
+  }
+}
+</code></pre>
+<p>For a <strong>Delivery</strong> <code>dispatch_task_request</code>:</p>
+<pre><code>{
+  &quot;type&quot;: &quot;dispatch_task_request&quot;,
+  &quot;request&quot;: {
+    &quot;category&quot;: &quot;delivery&quot;,
+    &quot;description&quot;: {
+      &quot;pickup&quot;: {
+        &quot;place&quot;: &quot;pantry&quot;,
+        &quot;handler&quot;: &quot;coke_dispenser&quot;,
+        &quot;payload&quot;: [
+          {&quot;sku&quot;: &quot;coke&quot;,
+           &quot;quantity&quot;: 1}
+        ]
+      },
+      &quot;dropoff&quot;: {
+        &quot;place&quot;: &quot;hardware_2&quot;,
+        &quot;handler&quot;: &quot;coke_ingestor&quot;,
+        &quot;payload&quot;: [
+          {&quot;sku&quot;: &quot;coke&quot;,
+           &quot;quantity&quot;: 1}
+        ]
+      }
+    }
+  }
+}
+</code></pre>
+<p>For a <strong>Patrol</strong> <code>robot_task_request</code>:</p>
+<pre><code>{
+  &quot;type&quot;: &quot;robot_task_request&quot;,
+  &quot;robot&quot;: &quot;tinyRobot1&quot;,
+  &quot;fleet&quot;: &quot;tinyRobot&quot;,
+  &quot;request&quot;: {
+    &quot;category&quot;: &quot;patrol&quot;,
+    &quot;description&quot;: {
+      &quot;places&quot;: [&quot;pantry&quot;, &quot;lounge&quot;],
+      &quot;rounds&quot;: 2
+    }
+  }
+}
+</code></pre>
+<p>Some examples of composed task requests can be found <a href="https://github.com/open-rmf/rmf_demos/pull/122">here</a> as reference. They can be used with <code>rmf_demos</code>. Feel free to modify these files according to your own application.</p>
+<h2 id="task-management-control"><a class="header" href="#task-management-control">Task Management Control</a></h2>
+<p>You may take additional control over your tasks by sending requests to RMF to cancel a task or skip a phase. A full list of JSON schemas for such requests are defined <a href="https://github.com/open-rmf/rmf_api_msgs/tree/main/rmf_api_msgs/schemas">here</a>.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task_new.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="soss"><a class="header" href="#soss">SOSS</a></h1>
 <p>This chapter describes the system-of-systems synthesizer (SOSS), a tool which provides protocol translation between different subsystems.
 Such composite systems can be called The ROS-SOSS.
