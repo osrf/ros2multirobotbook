@@ -1,98 +1,135 @@
-## Installation of the RMF Essentials
+## Install ROS 2 Galactic
 
-The current version of RMF is 2021.10, and it targets ROS Foxy, and Debian binary packages are released for Ubuntu Focal Fossa 20.04 LTS.
+First, please follow the installation instructions for ROS 2 Galactic.
+If you are on an Ubuntu 20.04 LTS machine (as recommended), [here is the binary install page for ROS 2 Galactic on Ubuntu 20.04](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html).
 
-RMF leverages the ROS and Gazebo-Ignition ecosystem. We will have to setup their repositories as the first steps of the RMF installation process. Since the current binary release targets Ubuntu Focal please ensure you match the system and version before proceeding with the installation. If you have ROS 2 and Gazebo installed you can directly skip to the [Setup Sources and Installation of RMF](#setup-sources-and-installation-of-rmf) section.
+## Setup Gazebo repositories
 
-> For the most updated installation instruction, please refer to [here](https://github.com/open-rmf/rmf).
-
-### Setup Locale
-
-Make sure you have a locale which supports UTF-8. If you are in a minimal environment, such as a docker container, the locale may be something minimal like POSIX. You can check your locale by running `locale` directly in your terminal.
-
-We test with the following settings. It should be fine if you’re using a different UTF-8 supported locale. In case you need it, here is an example on how to switch to the US English UTF-8 locale:
-
-```
-sudo locale-gen en_US en_US.UTF-8
-sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-export LANG=en_US.UTF-8
-```
-
-### Setup and Install ROS 2
-
-You will need to add the ROS 2 apt repositories to your system. To do so, first authorize our GPG key with apt like this:
-
-```
-sudo apt update && sudo apt install curl gnupg2 lsb-release
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-```
-
-And then add the repository to your sources list:
-
-```
-sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
-sudo apt update
-```
-
-If ROS 2 is not installed using at least `ros-foxy-ros-base` you will need the following packages to run the RMF demos:
-
-```
-sudo apt-get install ros-foxy-ros2cli ros-foxy-ros2run ros-foxy-ros2launch
-```
-
-In order to run ROS 2 commands we need to source the `setup.bash` file:
-
-```
-source /opt/ros/foxy/setup.bash
-```
-
-### Setup Ignition-Gazebo Sources
-
-You will also need to add the Ignition-Gazebo apt repositories similar to the ROS 2 setup. Let's authorize the key:
-
-```
-curl -s http://packages.osrfoundation.org/gazebo.key | sudo apt-key add -
-```
-
-You will also need to add the repository to your sources list:
-
-```
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-```
-
-### Setup Sources and Installation of RMF
-
-> To install RMF from source, please refer to [here](https://github.com/open-rmf/rmf)
-
-Next you will need to setup the source of RMF packages similar to the previous two steps. First authorizing the key:
-
-```
-curl -s http://rmf.servehttp.com/repos.key | sudo apt-key add -
-```
-
-Secondly adding the repository to the apt sources:
-
-```
-sudo sh -c 'echo "deb http://rmf.servehttp.com/ubuntu/main/ `lsb_release -cs` main" > /etc/apt/sources.list.d/rmf.list'
-```
-
-And now we are ready to install. Let's update our packages:
-
-```
-sudo apt-get update
-```
-
-Finally, the following installs a basic set of packages that should get you going with RMF:
-
-```
-sudo apt-get install ros-foxy-ament-cmake-catch2 ros-foxy-building-gazebo-plugins ros-foxy-building-map-msgs ros-foxy-building-map-tools ros-foxy-rmf-cmake-uncrustify ros-foxy-rmf-dispenser-msgs ros-foxy-rmf-door-msgs ros-foxy-rmf-fleet-adapter ros-foxy-rmf-fleet-msgs ros-foxy-rmf-lift-msgs ros-foxy-rmf-task-msgs ros-foxy-rmf-traffic-msgs ros-foxy-rmf-traffic-ros2 ros-foxy-rmf-traffic ros-foxy-rmf-utils ros-foxy-traffic-editor
-```
-
-## Install and run RMF demos
-
-You can install the provided RMF demos from their Debian package:
+Setup your computer to accept Gazebo packages from packages.osrfoundation.org.
 
 ```bash
-# Demos example with gazebo simulator, use ros-foxy-rmf-demos-ign for ignition
-sudo apt-get install ros-foxy-rmf-demos-gz
+sudo apt update
+sudo apt install -y wget
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 ```
+
+## Binary install
+
+OpenRMF binary packages are available for Ubuntu Focal 20.04 for the `Foxy`, `Galactic` and `Rolling` releases of ROS 2. Most OpenRMF packages have the prefix `rmf` on their name, therefore, you can find them by them by searching for the pattern `ros-<ro2distro>-rmf`, e.g., for galatic it would be:
+
+```bash
+apt-cache search ros-galactic-rmf
+```
+
+### RMF Demos
+
+A good way to install the `rmf` set of packages in one go is to install the one of the main [RMF Demos](https://github.com/open-rmf/rmf_demos) packages. This will pull all the rest of the OpenRMF packages as a dependency. The core of RMF demos is contained on the `rmf_demos` package. However, if you want to install it with simulation support, you should install the `rmf_demos_gz` or `rmf_demos_ign` package which come with gazebo or ignition support respectively. As an example, to install the ROS 2 Galactic release with gazebo support package, you would run:
+
+```bash
+sudo apt install ros-galactic-rmf-demos-gz
+```
+
+## Building from sources
+
+If you want to get the latest developments you might want to install from sources and compile OpenRMF yourself.
+
+
+### Additional Dependencies
+
+Install all non-ROS dependencies of OpenRMF packages,
+
+```bash
+sudo apt update && sudo apt install \
+  git cmake python3-vcstool curl \
+  qt5-default \
+  -y
+python3 -m pip install flask-socketio
+sudo apt-get install python3-colcon*
+```
+
+### Install rosdep
+
+`rosdep` helps install dependencies for ROS packages across various distros. It can be installed with:
+
+```bash
+sudo apt install python3-rosdep
+sudo rosdep init
+rosdep update
+```
+
+### Download the source code
+Setup a new ROS 2 workspace and pull in the demo repositories using `vcs`,
+
+```bash
+mkdir -p ~/rmf_ws/src
+cd ~/rmf_ws
+wget https://raw.githubusercontent.com/open-rmf/rmf/main/rmf.repos
+vcs import src < rmf.repos
+```
+
+Ensure all ROS 2 prerequisites are fulfilled,
+```
+cd ~/rmf_ws
+rosdep install --from-paths src --ignore-src --rosdistro galactic -y
+```
+
+### Compiling Instructions
+
+> NOTE: Due to newer changes in the source build, there might be conflicts and compilation errors with older header files installed by the binaries. Please remove the binary installations before building from source, using `sudo apt remove ros-galactic-rmf*`.
+
+Compiling on `Ubuntu 20.04`:
+
+```bash
+cd ~/rmf_ws
+source /opt/ros/galactic/setup.bash
+colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
+```
+
+> NOTE: The first time the build occurs, many simulation models will be downloaded from Ignition Fuel to populate the scene when the simulation is run.
+As a result, the first build can take a very long time depending on the server load and your Internet connection (for example, 60 minutes).
+
+## Run RMF Demos
+
+Demonstrations of OpenRMF are shown in [rmf_demos](https://github.com/open-rmf/rmf_demos/).
+
+### Docker Containers
+Alternatively, you can run RMF Demos by using [docker](https://docs.docker.com/engine/install/ubuntu/).
+
+Pull docker image from `open-rmf/rmf` github registry (setup refer [here](https://docs.github.com/en/free-pro-team@latest/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages#authenticating-with-a-personal-access-token)).
+
+```bash
+docker pull ghcr.io/open-rmf/rmf/rmf_demos:latest
+docker tag ghcr.io/open-rmf/rmf/rmf_demos:latest rmf:latest
+```
+
+Run it!
+
+```bash
+
+docker run -it --network host rmf:latest bash -c "export ROS_DOMAIN_ID=9; ros2 launch rmf_demos_gz office.launch.xml headless:=1"
+```
+This will run `rmf_demos` in headless mode. Open [this link](https://open-rmf.github.io/rmf-panel-js/) with a browser to start a task.
+
+(Experimental) User can also run `rmf_demos` in “non-headless” graphical form, via [rocker](https://github.com/osrf/rocker).
+
+## Roadmap
+
+A near-term roadmap of the entire OpenRMF project (including and beyond `rmf_traffic`) can be found in the user manual [here](https://osrf.github.io/ros2multirobotbook/roadmap.html).
+
+## Integrating with RMF
+
+Instructions on how to integrate your system with OpenRMF can be found [here](https://osrf.github.io/ros2multirobotbook/integration.html).
+
+## Open sourced fleet adapters
+
+A number of commercial robots have been integrated with RMF and links to their adapters are available below.
+
+* [Gaussian Ecobots](https://github.com/open-rmf/fleet_adapter_ecobot)
+* [OTTO Motors](https://github.com/open-rmf/fleet_adapter_clearpath) (and robots running the Clearpath Autonomy stack)
+* [Mobile Industrial Robots: MiR](https://github.com/osrf/fleet_adapter_mir)
+* [Temi- the personal robot](https://github.com/open-rmf/temi_fleet_adapter_python)
+
+Help us add to this list!
+
+A helpful starting point for integrating your fleet with RMF is the [fleet_adapter_template](https://github.com/open-rmf/free_fleet) package.
