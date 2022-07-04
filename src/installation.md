@@ -1,6 +1,6 @@
-## Install ROS 2 Galactic
+## Install ROS 2.
 
-First, please follow the installation instructions for ROS 2 Galactic.
+First, please follow the installation instructions for ROS 2.
 If you are on an Ubuntu 20.04 LTS machine (as recommended), [here is the binary install page for ROS 2 Galactic on Ubuntu 20.04](https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html).
 
 ## Setup Gazebo repositories
@@ -16,18 +16,18 @@ wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 
 ## Binary install
 
-OpenRMF binary packages are available for Ubuntu Focal 20.04 for the `Foxy`, `Galactic` and `Rolling` releases of ROS 2. Most OpenRMF packages have the prefix `rmf` on their name, therefore, you can find them by them by searching for the pattern `ros-<ro2distro>-rmf`, e.g., for galatic it would be:
+OpenRMF binary packages are available for Ubuntu Focal 20.04 for the `Foxy`, `Galactic` and `Rolling` releases of ROS 2. Most OpenRMF packages have the prefix `rmf` on their name, therefore, you can find them by them by searching for the pattern `ros-<ro2distro>-rmf`
 
 ```bash
-apt-cache search ros-galactic-rmf
+apt-cache search ros-<ro2distro>-rmf
 ```
 
 ### RMF Demos
 
-A good way to install the `rmf` set of packages in one go is to install the one of the main [RMF Demos](https://github.com/open-rmf/rmf_demos) packages. This will pull all the rest of the OpenRMF packages as a dependency. The core of RMF demos is contained on the `rmf_demos` package. However, if you want to install it with simulation support, you should install the `rmf_demos_gz` or `rmf_demos_ign` package which come with gazebo or ignition support respectively. As an example, to install the ROS 2 Galactic release with gazebo support package, you would run:
+A good way to install the `rmf` set of packages in one go is to install the one of the main [RMF Demos](https://github.com/open-rmf/rmf_demos) packages. This will pull all the rest of the OpenRMF packages as a dependency. The core of RMF demos is contained on the `rmf_demos` package. However, if you want to install it with simulation support, you should install the `rmf_demos_gz` or `rmf_demos_ign` package which come with gazebo or ignition support respectively. To install the ROS 2 release with gazebo support package, you would run:
 
 ```bash
-sudo apt install ros-galactic-rmf-demos-gz
+sudo apt install ros-<ro2distro>-rmf-demos-gz
 ```
 
 ## Building from sources
@@ -71,18 +71,18 @@ vcs import src < rmf.repos
 Ensure all ROS 2 prerequisites are fulfilled,
 ```
 cd ~/rmf_ws
-rosdep install --from-paths src --ignore-src --rosdistro galactic -y
+rosdep install --from-paths src --ignore-src --rosdistro <ro2distro> -y
 ```
 
 ### Compiling Instructions
 
-> NOTE: Due to newer changes in the source build, there might be conflicts and compilation errors with older header files installed by the binaries. Please remove the binary installations before building from source, using `sudo apt remove ros-galactic-rmf*`.
+> NOTE: Due to newer changes in the source build, there might be conflicts and compilation errors with older header files installed by the binaries. Please remove the binary installations before building from source, using `sudo apt remove ros-<ro2distro>-rmf*`.
 
 Compiling on `Ubuntu 20.04`:
 
 ```bash
 cd ~/rmf_ws
-source /opt/ros/galactic/setup.bash
+source /opt/ros/<ro2distro>/setup.bash
 colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
