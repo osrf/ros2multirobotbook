@@ -1,3 +1,4 @@
+> The latest instructions are available in the [open-rmf/rmf repository](https://github.com/open-rmf/rmf/blob/main/README.md)
 ## Install ROS 2.
 
 First, please follow the installation instructions for ROS 2.
