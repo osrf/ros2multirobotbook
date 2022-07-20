@@ -7,21 +7,21 @@ When dealing with rmf_task, there are two packages.
 - rmf_task 
 - rmf_task_sequence
 
-`rmf_task` provides APIs and base classes for defining and managing Tasks in RMF. A Task is defined as an object that generates phases which are a meaningful sequence of steps that results in a desirable outcome.  Each task will have a description and a component that allows us to model the state of the robot after completing the task given its initial state and also a component that will command the actual robot to perform the task.
+`rmf_task` provides APIs and base classes for defining and managing Tasks in RMF. A Task is defined as an object that generates phases which are a meaningful sequence of steps that results in a desirable outcome. Each task will have a description and a component that allows us to model the state of the robot after completing the task given its initial state and also a component that will command the actual robot to perform the task.
 
-`rmf_task_sequence` provides an out of the box implementation of rmf_task where a Task object is defined by a sequence of phases. The phases that such tasks generate will thus match the sequence of phases used to define them. 
-The phases defined in rmf_task_sequence are in turn a collection of events which also have components to model the end state and command the robot during the event. Presently the following events are supported  are defined [here](https://github.com/open-rmf/rmf_task/tree/main/rmf_task_sequence/include/rmf_task_sequence/events)
+`rmf_task_sequence` provides an out of the box implementation of `rmf_task` where a `Task` object is defined by a sequence of phases. The phases that such tasks generate will thus match the sequence of phases used to define them. 
+The phases defined in `rmf_task_sequence` are in turn a collection of events which also have components to model the end state and command the robot during the event. Presently the following events are supported and defined [here](https://github.com/open-rmf/rmf_task/tree/main/rmf_task_sequence/include/rmf_task_sequence/events).
 Users can then construct arbitrary definitions of tasks by stringing together a sequence of such phases/events. RMF is capable of planning and executing such tasks.
 
-Users will be working on `rmf_fleet_adapter` layer. In this layer API is restricted to use only `rmf_task_sequence` to perform tasks and only certain events are supported their description can be found [here](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas)
+Users will be working on the `rmf_fleet_adapter` layer. In this layer the API is restricted to use only `rmf_task_sequence` to perform tasks. Only certain events are supported, their description can be found [here](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas).
 
-The `rmf_fleet_adapter` layer acts as an API that users can use and it supports customised behaviour on only `perform_action` in already existing  events mentioned [here](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas) .
-Users can only add custom tasks in `perform_action`. RMF passes the command to the platform-specific end of the fleet adapter integration and formally releases control of the bot until the action is finished.
+The `rmf_fleet_adapter` layer acts as an API that users can use. It supports customised behaviour on only `perform_action` in the already existing events mentioned [here](https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas).
+Users can only add custom tasks in `perform_action`. RMF passes the command to the platform-specific end of the fleet adapter integration and formally releases control of the robot until the action is finished.
 To use a custom task in `perform_action` users need to use two parts of the API. 
 1. [FleetUpdateHandle::add_performable_action](https://github.com/open-rmf/rmf_ros2/blob/8440488d5583edc5a5b7226326aa2a8d41dad975/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp#L188-L201)
-This consists of two things one is the `category` of the action and the second is the `consider` based on which it would be decided whether to accept the action or not.
+This consists of two parts: the first one is the `category` of the action and the second is the `consider` part, based on which it would be decided whether to accept the action or not.
 
-example
+Here is an example:
 ```yml
 rmf_fleet:
   name: "ecobot40"
@@ -87,15 +87,15 @@ if 'action_categories' in task_capabilities_config:
 	
 		fleet_handle.add_performable_action(cat, _consider)
 ```
-2. [RobotUpdateHandle::set_action_executor](https://github.com/open-rmf/rmf_ros2/blob/8440488d5583edc5a5b7226326aa2a8d41dad975/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp#L178-L179) This is where you tell the fleet adapter how to instruct your robot to begin performing an action. This callback to this function consists of 
-- `category(string)`  type of action
-- `description(JSON)`  message which contains details about how the action should be performed
+2. [RobotUpdateHandle::set_action_executor](https://github.com/open-rmf/rmf_ros2/blob/8440488d5583edc5a5b7226326aa2a8d41dad975/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp#L178-L179) This is where you tell the fleet adapter how to instruct your robot to begin performing an action. This callback to this function consists of:
+- `category(string)`  type of action.
+- `description(JSON)`  message which contains details about how the action should be performed.
 - `execution(object)` object which the platform-specific side of the fleet adapter must hold onto while the action is being performed, ideally giving periodic updates for remaining time estimates.
 
-The robot will not participate in the traffic negotiations while using a custom task in perform_action. That means that the robot will be allowed to report its trajectory to the traffic schedule thus making it possible for other robots to avoid the bot however the bot would not be able to accommodate other bots until the task is complete.
+The robot will not participate in the traffic negotiations while using a custom task in `perform_action`. That means that it will be allowed to report its trajectory to the traffic schedule, thus making it possible for other robots to avoid it. However, the robot would not be able to accommodate other robots until the task is complete.
 
 
-example
+Here is an example:
 ```python
 # call this when starting cleaning execution
     def _action_executor(self, 
@@ -145,4 +145,4 @@ self.update_handle.set_action_executor(self._action_executor)
 ```
 
 
-The examples are part of the following  [repository](https://github.com/open-rmf/fleet_adapter_ecobot/tree/70dab6e657ca281bb0a299b7fe03785d4d4e1d54).
+These examples are part of the following [repository](https://github.com/open-rmf/fleet_adapter_ecobot/tree/70dab6e657ca281bb0a299b7fe03785d4d4e1d54).
