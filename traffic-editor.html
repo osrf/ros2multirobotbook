@@ -207,11 +207,12 @@ name: building
 <p>As usual in a modern GUI, the top Toolbar contains a variety of tools to interact with items in the main Working Area.
 This document will introduce and explain the tools as an example project is created.
 However, the first three tools in the toolbar are commonly found in 2D drawing tools, and should behave as expected:</p>
-<table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Name</th><th style="text-align: center">Shortkey</th><th style="text-align: center">Function</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Name</th><th style="text-align: center">Shortkey</th><th style="text-align: center">Function</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/select.svg" alt="Select icon" /></td><td style="text-align: center">Select</td><td style="text-align: center"><code>Esc</code></td><td style="text-align: center">Select an entity in the <code>Working Area</code></td></tr>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/move.svg" alt="Move icon" /></td><td style="text-align: center">Move</td><td style="text-align: center"><code>m</code></td><td style="text-align: center">Move an entity in the <code>Working Area</code></td></tr>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/rotate.svg" alt="Rotate icon" /></td><td style="text-align: center">Rotate</td><td style="text-align: center"><code>r</code></td><td style="text-align: center">Rotate an entity in the <code>Working Area</code></td></tr>
 </tbody></table>
+</div>
 <p>The <code>Working Area</code> is where the levels, along with their annotations, are rendered.
 The user is able to zoom via the mouse scroll wheel, and pan the view by pressing the scroll wheel and moving the mouse cursor.</p>
 <p>The <code>Sidebar</code> on the right side of the window contains multiple tabs with various functionalities:</p>
@@ -250,9 +251,10 @@ lifts:
 name: building
 </code></pre>
 <h3 id="adding-a-vertex"><a class="header" href="#adding-a-vertex">Adding a vertex</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Shortkey</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Shortkey</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/vertex.svg" alt="Vertex icon" /></td><td style="text-align: center"><code>v</code></td></tr>
 </tbody></table>
+</div>
 <p>A vertex is a fundamental component of multiple annotations.
 Walls, measurements, doors, floor polygons and traffic lanes are created from two or more vertices.
 To create a vertex, click on the vertex icon in the <code>Toolbar</code> and then click anywhere on the canvas.
@@ -289,9 +291,10 @@ will have <code>name</code> field equal to this value.</li>
     - [1364.76, 1336.717, 0, magni1_charger, {is_charger: [4, true], is_parking_spot: [4, true], spawn_robot_name: [1, magni1], spawn_robot_type: [1, Magni]}]
 </code></pre>
 <h3 id="adding-a-measurement"><a class="header" href="#adding-a-measurement">Adding a measurement</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/measurement.svg" alt="Measurement icon" /></td></tr>
 </tbody></table>
+</div>
 <p>Adding a measurement sets the scale of the imported 2D drawing, which is essential for planning and simulation accuracy.
 Scalebars or reference dimensions in the floor plan aid with the process. Often, you can draw the measurement line directly on top of a reference scale bar in a drawing.
 With the editor in <em>Building</em> mode, select the <em>Add Measurement</em> tool and click on two points with known dimensions.
@@ -327,9 +330,10 @@ lifts:
 name: building
 </code></pre>
 <h3 id="adding-a-wall"><a class="header" href="#adding-a-wall">Adding a wall</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Shortkey</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th><th style="text-align: center">Shortkey</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/wall.svg" alt="Wall icon" /></td><td style="text-align: center"><code>w</code></td></tr>
 </tbody></table>
+</div>
 <p>To annotate walls in the map, select the <em>Add Wall</em> icon from the <code>Toolbar</code> and click on consecutive vertices that represent the corners of the wall.
 The process of adding wall segments is continuous, and can be exited by pressing the <code>Esc</code> key.
 Blue lines between vertices are rendered on the map which represent the drawn walls.
@@ -350,9 +354,10 @@ modified <a href="https://github.com/open-rmf/rmf_traffic_editor/blob/main/rmf_b
       - [8, 9, {}]
 </code></pre>
 <h3 id="adding-a-floor"><a class="header" href="#adding-a-floor">Adding a floor</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/floor.svg" alt="Floor icon" /></td></tr>
 </tbody></table>
+</div>
 <p>Flooring is essential for simulations as it provides a ground plane for the robots to travel over.
 Floors are annotated using the <em>Add floor polygon</em> tool from the <code>Main Toolbar</code> in <em>Building</em> edit mode.
 To define a floor, select consecutive vertices to create a polygon that accurately represents the flooring area as seen below.
@@ -370,9 +375,10 @@ Clicking on the tool after selecting an existing polygon enables the user to mod
         vertices: [11, 10, 14, 15, 13, 12]
 </code></pre>
 <h3 id="adding-a-door"><a class="header" href="#adding-a-door">Adding a door</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/door.svg" alt="Door icon" /></td></tr>
 </tbody></table>
+</div>
 <p>A door between two vertices can be added in <em>Building</em> edit mode by selecting the <em>Add door</em> tool from the <code>Main Toolbar</code>, and clicking on vertices representing the ends of the door.
 Selecting an annotated door highlights its properties as seen in the figure below.
 Presently, four door <code>types</code> are supported: &quot;hinged&quot;, &quot;double_hinged&quot;, &quot;sliding&quot; and &quot;double_sliding&quot;.
@@ -457,9 +463,10 @@ differently than the floor plan.
 With the right transformation values, the two maps can be made to overlap.</p>
 <p><img src="images/traffic_editor/coordinate_transform.png" alt="Overlap robot-generated map" /></p>
 <h3 id="adding-fiducials"><a class="header" href="#adding-fiducials">Adding fiducials</a></h3>
-<table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Icon</th></tr></thead><tbody>
 <tr><td style="text-align: center"><img src="images/traffic_editor/icons/fiducial.svg" alt="Fiducial icon" /></td></tr>
 </tbody></table>
+</div>
 <p>For maps with multiple levels, fiducials provide a means to scale and align different levels with respect to a reference level.
 This is crucial for ensuring dimensional accuracy of annotations across different levels and aligning the
 same for simulation.
@@ -533,7 +540,7 @@ Once on the map, their positions and orientations can be adjusted using the <em>
 <p>This chapter covered various capabilities of the <code>traffic_editor</code> which are useful for annotating maps of facilities while adhering to a standardized set of semantics.
 Examples of other traffic editor projects can be found in the <a href="https://github.com/open-rmf/rmf_demos">rmf_demos</a> repository.
 Running physics based simulations with RMF in the annotated sites is described in the <a href="simulation.html">Simulation</a> chapter.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/traffic-editor.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/traffic-editor.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

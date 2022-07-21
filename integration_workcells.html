@@ -140,7 +140,7 @@
                     <main>
                         <h2 id="workcells"><a class="header" href="#workcells">Workcells</a></h2>
 <p>Currently RMF has 2 types of sample workcells, namely: <code>Dispenser</code> and <code>Ingestor</code>.</p>
-<table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>rmf_dispenser_msgs/DispenserRequest</code></td><td><code>/dispenser_reqeusts</code></td><td>Direct requests subscribed by the dispenser node</td></tr>
 <tr><td><code>rmf_dispenser_msgs/DispenserResult</code></td><td><code>/dispenser_results</code></td><td>Result of a dispenser request, published by the dispenser</td></tr>
 <tr><td><code>rmf_dispenser_msgs/DispenserState</code></td><td><code>/dispenser_states</code></td><td>State of the dispenser published by the dispenser periodically</td></tr>
@@ -148,6 +148,7 @@
 <tr><td><code>rmf_ingestor_msgs/IngestorResult</code></td><td><code>/ingestor_results</code></td><td>Result of a ingestor request, published by the ingestor</td></tr>
 <tr><td><code>rmf_ingestor_msgs/IngestorState</code></td><td><code>/ingestor_states</code></td><td>State of the dispenser published by the ingestor periodically</td></tr>
 </tbody></table>
+</div>
 <p>In <code>rmf_demos</code> world, both <code>TeleportDispenser</code> and <code>TeleportIngestor</code> 
 <a href="https://github.com/open-rmf/rmf_simulation/tree/main/rmf_robot_sim_gazebo_plugins/src">plugins</a> act as workcell adapter nodes.</p>
 <p>Workcells currently work alongside with Delivery Task. In <code>fleet_adapter.lauch.xml</code>,
@@ -159,7 +160,7 @@
 <li>Continue delivery and moves to <code>dropoff_waypoint</code></li>
 <li>Requests a <code>IngestorRequest</code> till receives a <code>IngestorResult</code>. (Done Ingesting)</li>
 </ol>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_workcells.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_workcells.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

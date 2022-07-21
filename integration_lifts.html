@@ -146,13 +146,14 @@
 <p>The elevators will be integrated in a similar fashion as doors as well, relying on a lift node and a lift adapter. The following block diagram shows how each component works with each other:</p>
 <img src="images/lifts_block_diagram.png">
 <p>The lift node will act as a driver to work with the lift controller. An example of a lift node can be found in this <a href="https://github.com/sharp-rmf/kone_lift_controller">repository</a>. The node will publish its state and receive lift requests over ROS 2, using the messages and topics listed below.</p>
-<table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>rmf_lift_msgs/LiftState</code></td><td><code>/lift_states</code></td><td>State of the lift published by the lift node</td></tr>
 <tr><td><code>rmf_lift_msgs/LiftRequest</code></td><td><code>/lift_requests</code></td><td>Direct requests subscribed by the lift node and published by the lift adapter</td></tr>
 <tr><td><code>rmf_lift_msgs/LiftRequest</code></td><td><code>/adapter_lift_requests</code></td><td>Requests to be sent to the lift adapter/supervisor to request safe operation of lifts</td></tr>
 </tbody></table>
+</div>
 <p>A lift adapter subscribes to <code>lift_states</code> while keeping track of the internal and desired state of the lift in order to prevent it from performing any actions that might interrupt mobile robot or normal operations. The lift adapter performs this task by receiving lift requests from the fleet adapters and the RMF core systems and only relaying the instructions to the lift node if it is deemed appropriate. Any requests sent directly to the lift node, without going through the lift adapter, will also be negated by the lift adapter, to prevent unwanted disruption to mobile robot fleet operations.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_lifts.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_lifts.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

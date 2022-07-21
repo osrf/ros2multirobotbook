@@ -156,7 +156,7 @@ When the Dispatcher receives a new task request from a dashboard or terminal, it
 <p>The Dispatcher then compares all the <code>BidProposals</code> received and submits a <code>rmf_task_msgs/DispatchRequest</code> message with the fleet name of the robot that the bid is awarded to. There are a couple different ways the Dispatcher evaluates the proposals such as fastest to finish, lowest cost, etc which can be configured.</p>
 <p>Battery recharging is tightly integrated with the new task planner. <code>ChargeBattery</code> tasks are optimally injected into a robot's schedule when the robot has insufficient charge to fulfill a series of tasks. Currently we assume each robot in the map has a dedicated charging location as annotated with the <code>is_charger</code> option in the traffic editor map.</p>
 <p><img src="images/rmf_core/rmf_bidding.png" alt="RMF Bidding Diagram" /></p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/task.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

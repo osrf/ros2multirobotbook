@@ -146,15 +146,16 @@
 <p>Doors can be integrated with RMF using a ROS 2 door node and a door adapter, which we sometimes refer to as a door supervisor. The block diagram below displays the relationship and communication modes between each component:</p>
 <img src="images/doors_block_diagram.png">
 <p>The door node will have to be implemented based on the make and model of the door that is being integrated in order to address the specific API of the door controller module. The communication protocol will also be dependent on the door and controller model, which might be some form of <code>REST</code>, <code>RPCXML</code>, etc. The door node is in charge of publishing its state and receiving commands over ROS 2, using the messages and topics listed below:</p>
-<table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Message Types</th><th>ROS2 Topic</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>rmf_door_msgs/DoorState</code></td><td><code>/door_states</code></td><td>State of the door published by the door node</td></tr>
 <tr><td><code>rmf_door_msgs/DoorRequest</code></td><td><code>/door_requests</code></td><td>Direct requests subscribed by the door node and published by the door adapter</td></tr>
 <tr><td><code>rmf_door_msgs/DoorRequest</code></td><td><code>/adapter_door_requests</code></td><td>Requests to be sent to the door adapter/supervisor to request safe operation of doors</td></tr>
 </tbody></table>
+</div>
 <p>The door adapter stands in between the rest of the RMF core systems, fleet adapters, and the door node, and acts like a state supervisor ensuring that the doors are not acting on requests that might obstruct an ongoing mobile robot task or accidentally closing on it. It keeps track of the door state from the door node, and receives requests from the <code>adapter_door_requests</code> topic which are published by either fleet adapters or other parts of the RMF core system. Only when the door adapter deems that a request is safe enough to be performed, it will instruct the door node using a request. It should also be noted that direct requests sent to the door node, without going through the door adapter will be negated by the door adapter, to return it to its prior state in order to prevent disruptions during operations with mobile robots.</p>
 <h2 id="door-adapter-template"><a class="header" href="#door-adapter-template">Door Adapter Template</a></h2>
 <p>To make the process of integrating doors with RMF even simpler, we have open-sourced a <a href="https://github.com/open-rmf/door_adapter_template">template package</a> where users only need to update certain blocks of code with the API calls to their specific door controller.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_doors.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_doors.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

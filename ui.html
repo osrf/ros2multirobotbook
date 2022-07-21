@@ -651,7 +651,7 @@ export interface Transport extends TransportEvents {
 </code></pre>
 <p>There isn't a general guide on how the interface should be implemented since the details would be different for each transport. One thing to note is that it might be tempting to return a type derived from <code>any</code> (e.g. <code>Publisher&lt;any&gt;</code>) to pass the typescript checks but doing so is not recommended. You should call the <code>validate*</code> methods in the topic or service to convert something into a type of <code>Message</code>.</p>
 <p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ui.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ui.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
