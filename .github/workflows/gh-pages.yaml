@@ -1,13 +1,10 @@
 name: github pages
 
-on:
-  push:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
