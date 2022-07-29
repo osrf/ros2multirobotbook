@@ -1,7 +1,10 @@
-name: github pages
+name: Dev Workflow 
 
-on: [push, pull_request]
-
+on:
+  push:
+    branches:
+      - master
+      
 jobs:
   deploy:
     runs-on: ubuntu-20.04
