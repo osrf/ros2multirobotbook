@@ -1656,14 +1656,12 @@ $ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '<name>:=<value>'):
 
   No arguments.
+
 $ ros2 launch turtlesim multisim.launch.py --print
 <launch.launch_description.LaunchDescription object at 0x7f75aab63828>
 ├── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
 └── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
-$ ros2 launch turtlesim multisim.launch.py --show-args
-Arguments (pass arguments as '<name>:=<value>'):
 
-  No arguments.
 $ ros2 launch turtlesim multisim.launch.py
 [INFO] [launch]: All log files can be found below /home/kscottz/.ros/log/2020-06-24-14-39-03-312667-kscottz-ratnest-20933
 [INFO] [launch]: Default logging verbosity is set to INFO
@@ -1765,8 +1763,6 @@ the executable programs. The example below shows how to use these
 commands to check the path for all of the turtlesim executables:
 
 ```{.sourceCode .bash}
-$ ros2 pkg list | grep turtle
-turtlesim
 $ ros2 pkg list | grep turtle
 turtlesim
 $ ros2 pkg executables turtlesim --full-path
