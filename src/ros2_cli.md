@@ -1068,8 +1068,8 @@ Let's dig into this action using the `info` sub command. This command has a `-t`
 flag to list the types of messages.
 
 ``` {.sourceCode .bash}
-$ ros2 action info /moe/rotate_absolute -t
-Action: /moe/rotate_absolute
+$ ros2 action info /turtle1/rotate_absolute -t
+Action: /turtle1/rotate_absolute
 Action clients: 0
 Action servers: 1
   /turtlesim [turtlesim/action/RotateAbsolute]
