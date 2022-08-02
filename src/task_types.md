@@ -21,7 +21,7 @@ Two waypoints need to be added to the navigation graph of the robot. The first i
 To estimate the resource drain from the cleaning process which is essential for optimal task allocation planning, the fleet adapters require the list of waypoints that the robot will traverse while cleaning.
 This information can be summarized in a [DockSummary](https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/DockSummary.msg) message published to `/dock_summary` topic.
 The [mock_docker](https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/airport_terminal.launch.xml#L97-L102) node is responsible for publishing this information. 
-It accepts a `yaml` configuration file containing the lists of waypoints for each zone for each fleet whcih is used to populate the `DockSummary` message.
+It accepts a `yaml` configuration file containing the lists of waypoints for each zone for each fleet which is used to populate the `DockSummary` message.
 For the `airport_terminal` demo the file is located [here](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_tasks/rmf_demos_tasks/airport_docker_config.yaml)
 
 #### Step 3: Configure fleet adapter to accept clean tasks
