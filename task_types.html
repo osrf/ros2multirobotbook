@@ -154,7 +154,7 @@
 <p>To estimate the resource drain from the cleaning process which is essential for optimal task allocation planning, the fleet adapters require the list of waypoints that the robot will traverse while cleaning.
 This information can be summarized in a <a href="https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/DockSummary.msg">DockSummary</a> message published to <code>/dock_summary</code> topic.
 The <a href="https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/airport_terminal.launch.xml#L97-L102">mock_docker</a> node is responsible for publishing this information. 
-It accepts a <code>yaml</code> configuration file containing the lists of waypoints for each zone for each fleet whcih is used to populate the <code>DockSummary</code> message.
+It accepts a <code>yaml</code> configuration file containing the lists of waypoints for each zone for each fleet which is used to populate the <code>DockSummary</code> message.
 For the <code>airport_terminal</code> demo the file is located <a href="https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_tasks/rmf_demos_tasks/airport_docker_config.yaml">here</a></p>
 <h4 id="step-3-configure-fleet-adapter-to-accept-clean-tasks"><a class="header" href="#step-3-configure-fleet-adapter-to-accept-clean-tasks">Step 3: Configure fleet adapter to accept clean tasks</a></h4>
 <p>The fleet adapter needs to be configured to accept <code>Clean</code> type of task. Else, it will not submit a bid for this task to the dispatcher node during task bidding.
