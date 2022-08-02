@@ -1045,8 +1045,8 @@ published a message.</p>
 <p>We see each of our turtles have one service called <code>rotate_absolute</code>.
 Let's dig into this action using the <code>info</code> sub command. This command has a <code>-t</code>
 flag to list the types of messages.</p>
-<pre><code class="language-{.sourceCode .bash}">$ ros2 action info /moe/rotate_absolute -t
-Action: /moe/rotate_absolute
+<pre><code class="language-{.sourceCode .bash}">$ ros2 action info /turtle1/rotate_absolute -t
+Action: /turtle1/rotate_absolute
 Action clients: 0
 Action servers: 1
   /turtlesim [turtlesim/action/RotateAbsolute]
@@ -1535,14 +1535,12 @@ run it following the example below (end the simulation with <code>CTRL-C</code>)
 Arguments (pass arguments as '&lt;name&gt;:=&lt;value&gt;'):
 
   No arguments.
+
 $ ros2 launch turtlesim multisim.launch.py --print
 &lt;launch.launch_description.LaunchDescription object at 0x7f75aab63828&gt;
 ├── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
 └── ExecuteProcess(cmd=[ExecInPkg(pkg='turtlesim', exec='turtlesim_node'), '--ros-args'], cwd=None, env=None, shell=False)
-$ ros2 launch turtlesim multisim.launch.py --show-args
-Arguments (pass arguments as '&lt;name&gt;:=&lt;value&gt;'):
 
-  No arguments.
 $ ros2 launch turtlesim multisim.launch.py
 [INFO] [launch]: All log files can be found below /home/kscottz/.ros/log/2020-06-24-14-39-03-312667-kscottz-ratnest-20933
 [INFO] [launch]: Default logging verbosity is set to INFO
@@ -1629,8 +1627,6 @@ single optional argument, <code>--full-path</code>, which will output the full p
 the executable programs. The example below shows how to use these
 commands to check the path for all of the turtlesim executables:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 pkg list | grep turtle
-turtlesim
-$ ros2 pkg list | grep turtle
 turtlesim
 $ ros2 pkg executables turtlesim --full-path
 /opt/ros/eloquent/lib/turtlesim/draw_square
