@@ -16,33 +16,130 @@ Its responsibilities include but are not limited to:
 
 >Note, the example below is uses REST API with FAST API framework
 
+
 Fetch dependencies
 ```bash
 pip3 install fastapi uvicorn
 ```
-Clone the [fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) using svn
+
 ```bash
-svn checkout https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter
+mkdir fleet_adapter_demo && cd fleet_adapter_demo
+ros2 pkg create --build-type ament_python fleet_adapter_demo
+cd fleet_adapter_demo
+mkdir launch && cd launch
+touch fleet_adapter.launch.xml
 ```
 
-The folder tree looks like this
-```bash
-.
-├── CHANGELOG.md
-├── config.yaml
-├── launch
-├── package.xml
-├── README.md
-├── resource
-├── rmf_demos_fleet_adapter
-├── setup.cfg
-├── setup.py
-└── test
+Add the following to the `fleet_adapter.launch.xml`
+```xml
+<?xml version='1.0' ?>
+
+<launch>
+
+  <arg name="use_sim_time" default="true" description="Use the /clock topic for time to sync with simulation"/>
+  <arg name="config_file" description="The config file that provides important parameters for setting up the adapter"/>
+  <arg name="nav_graph_file" description="The graph that this fleet should use for navigation"/>
+  <arg name="server_uri" default="" description="The URI of the api server to transmit state and task information."/>
+  <arg name="output" default="screen"/>
+
+  <!-- Fleet manager -->
+  <node pkg="fleet_adapter_demo"
+        exec="fleet_manager"
+        args="--config_file $(var config_file) --nav_graph $(var nav_graph_file)"
+        output="both">
+
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <!-- Fleet adapter -->
+  <group if="$(var use_sim_time)">
+    <node pkg="fleet_adapter_demo"
+          exec="fleet_adapter"
+          args="--config_file $(var config_file) --nav_graph $(var nav_graph_file) --use_sim_time"
+          output="both">
+
+      <param name="use_sim_time" value="$(var use_sim_time)"/>
+      <param name="server_uri" value="$(var server_uri)"/>
+    </node>
+  </group>
+
+  <group unless="$(var use_sim_time)">
+    <node pkg="fleet_adapter_demo"
+          exec="fleet_adapter"
+          args="--config_file $(var config_file) --nav_graph $(var nav_graph_file)"
+          output="both">
+
+      <param name="use_sim_time" value="$(var use_sim_time)"/>
+      <param name="server_uri" value="$(var server_uri)"/>
+    </node>
+  </group>
+
+</launch>
+```
+Add the following to the setup.py
+
+```python
+import os
+from glob import glob
+from setuptools import setup, find_packages
+
+package_name = 'rmf_demos_fleet_adapter'
+
+setup(
+    name=package_name,
+    version='1.4.0',
+    packages=find_packages(),
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name, ['config.yaml']),
+        (os.path.join('share', package_name, 'launch'),
+            glob('launch/*.launch.xml')),
+    ],
+    install_requires=['setuptools', 'fastapi>=0.79.0', 'uvicorn>=0.18.2'],
+    zip_safe=True,
+    description='Fleet adapters for interfacing with RMF Demos robots with a '
+                'fleet manager via REST API',
+    license='Apache License 2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'fleet_adapter=rmf_demos_fleet_adapter.fleet_adapter:main',
+            'fleet_manager=rmf_demos_fleet_adapter.fleet_manager:main',
+        ],
+    },
+)
 ```
 
-The setup is like a normal ros2 python project.
-Most important file here is config.yaml file
-```yml
+In `package.xml` add 
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>fleet_adapter_demo</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="manekdev2001@gmail.com">dev</maintainer>
+  <license>TODO: License declaration</license>
+  <exec_depend>rmf_fleet_adapter_python</exec_depend>
+
+  <depend>rclpy</depend>
+  <depend>rmf_fleet_msgs</depend>
+  <depend>rmf_task_msgs</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+```
+
+
+Create a new file called `config.yaml` with following contents
+```yaml
+
+# FLEET CONFIG =================================================================
+# RMF Fleet parameters
 
 rmf_fleet:
   name: "tinyRobot"
@@ -70,19 +167,22 @@ rmf_fleet:
     power: 20.0 # W
   tool_system:
     power: 0.0 # W
-  recharge_threshold: 0.10 # Battery level below which robots in this fleet will not operate
-  recharge_soc: 1.0 # Battery level to which robots in this fleet should be charged up to during recharging tasks
-  publish_fleet_state: 10.0 # Publish frequency for fleet state, ensure that it is same as robot_state_update_frequency
+  recharge_threshold: 0.10
+  recharge_soc: 1.0 
+  publish_fleet_state: 10.0 
   account_for_battery_drain: True
-  task_capabilities: # Specify the types of RMF Tasks that robots in this fleet are capable of performing
+  task_capabilities: 
     loop: True
     delivery: True
     clean: False
     finishing_request: "park" # [park, charge, nothing]
+
+# TinyRobot CONFIG =================================================================
+
 robots:
   tinyRobot1:
     robot_config:
-      max_delay: 15.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
+      max_delay: 15.0 
       filter_waypoints: False
     rmf_config:
       robot_state_update_frequency: 10.0
@@ -95,7 +195,7 @@ robots:
   # Configuration for the second robot in this fleet if there is a second robot
   tinyRobot2:
     robot_config:
-      max_delay: 15.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
+      max_delay: 15.0 
       filter_waypoints: False
     rmf_config:
       robot_state_update_frequency: 10.0
@@ -106,6 +206,10 @@ robots:
       charger:
         waypoint: "tinyRobot2_charger"
 
+# TRANSFORM CONFIG =============================================================
+# For computing transforms between Robot and RMF coordinate systems
+# For demos, robots operate in the same coordinate system as RMF
+
 reference_coordinates:
   rmf: [[0.0, 0.0 ],
         [1.0, 1.0],
@@ -115,14 +219,31 @@ reference_coordinates:
         [1.0, 1.0],
         [2.0, 2.0],
         [3.0, 3.0]]
-
 ```
 
-This file contains all the important parameter that RMF needs to run fleet adapter successfully.
-- `rmf_fleet` Contains information about the fleet.
-- `robots` Contains information about individual robots.
-- `reference_coordinates` Contains reference coordinates. The coordinate system used by RMF and the robot might not be the same.
+- `rmf_fleet`  information about the fleet and the bots in the fleet. 
+	- `fleet_manager`  prefix, username and password
+		- `limits`  maximum values for linear and angular accelerations and velocities.
+		- `profile`  footprint and vicinity.
+		- `reversible`  a flag that can enable/disable reverse traversal in the robot.
+		- `battery_system`  information about the battery
+		- `recharge_threshold` sets a value for minimum charge below which the robot cannot operate.
+		- `recharge_soc`  the maximum level to which robots should be charged.
+		- `task_capabilities`  the capabilities of the robot
+			- `finishing_request`  can be set to `park`, `charge` or `nothing`
+- `robots`  information about all the types of robots in this case there is only one robot i.e. delivery bot
+	- `tinyRobot1` will have all the information required by the bot.
+	- `max_delay`  seconds before interruption occurs and replanning happens
+	- `robot_state_update_frequency` how frequently should robot update the fleet
+		- `map_name` name of the map
+		- `waypoint` target location
+		- `orientation` orientation in radians
+	- `charger` location of the charger
+- `reference_coordinates` The robot and the RMF may use different coordinate system the `reference_coordinates` help in correcting them.
 
+The set-up is complete. 
+
+---
 The next important folder is
 `rmf_fleet_adapter` folder, the structure looks like this
 ```bash
@@ -135,8 +256,10 @@ The next important folder is
 
 ```
 
+> Note only function declaration and relevant information is present here
+
 The first thing user should look into is `RobotClientAPI.py`
-The `RobotAPI` class is a wrapper for API calls to the robot. Here, users
+The [`RobotAPI`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L28) class is a wrapper for API calls to the robot. Here, users
 are expected to fill up the implementations of functions which will be used
 by the `RobotCommandHandle`. For example, if your robot has a REST API, the user will need to make HTTP request calls to the appropriate endpoints within these functions.
 
@@ -175,7 +298,7 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return None
 ```
-`data` function checks if the robot responds to the request. If the robot responds, the response is logged on the console for debugging purpose and returns the response.
+[`data`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L172) function checks if the robot responds to the request. If the robot responds, the response is logged on the console for debugging purpose and returns the response.
 
 ```python
     def check_connection(self):
@@ -184,7 +307,7 @@ def data(self, robot_name=None):
         return True
 ```
 
-`check_connection` will check if the robot is responding.
+[`check_connection`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L39) will check if the robot is responding.
 
 ```python
     def position(self, robot_name: str):
@@ -211,7 +334,7 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return None
 ```
-`position` function does the job returning the position of the robot in following format in robot's coordinate frame
+[`position`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L45) function does the job returning the position of the robot in following format in robot's coordinate frame
 												`[x, y, theta]`
 
 ```python
@@ -239,7 +362,7 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return False
 ```
-`navigate` Sends an POST request to the robot with the destination coordinates. It returns true if the robot accepts the request, else false.
+[`navigate`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L71) Sends an POST request to the robot with the destination coordinates. It returns true if the robot accepts the request, else false.
 
 ```python 
     def start_process(self,
@@ -276,9 +399,15 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return False
 ```
-`start_process` function will send a POST request to the robot and will ask it to perform the task for example load/unload for delivery bot.`stop` command will simply check if robot has stopped.
+[`start_process`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L99) function will send a POST request to the robot and will ask it to perform the task for example load/unload for delivery bot.[`stop`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L123) command will simply check if the robot has stopped.
 
 ```python
+    def navigation_remaining_duration(self, robot_name: str):
+        response = self.data(robot_name)
+        if response is not None:
+            return response['data']['destination_arrival_duration']
+        else:
+            return 0.0    
     def navigation_completed(self, robot_name: str):
         response = self.data(robot_name)
         if response is not None and response.get('data') is not None:
@@ -288,13 +417,22 @@ def data(self, robot_name=None):
 
     def process_completed(self, robot_name: str):
         return self.navigation_completed(robot_name)
+    def battery_soc(self, robot_name: str):
+        response = self.data(robot_name)
+        if response is not None:
+            return response['data']['battery']/100.0
+        else:
+            return None
 ```
 
-`process_completed` checks if the robot has completed its navigation using the `navigation_completed` function.
+- `navigation_remaining_duration` will return remaining duration
+- `process_completed` checks if the robot has completed its navigation using the `navigation_completed` function.
+- `battery_soc` will return battery status between 0 and 1.0
+
 
 ---
 
-`RobotCommandHandle.py` is a handler for robots in fleet adapter
+[`RobotCommandHandle.py`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py) is a handler for robots in fleet adapter
 
 ```python
 class RobotState(enum.IntEnum):
@@ -302,7 +440,7 @@ class RobotState(enum.IntEnum):
     WAITING = 1
     MOVING = 2
 ```
-`RobotState` is an enum which is used to update current status of the robot.
+[`RobotState`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L44) is an enum which is used to update current status of the robot.
 
 ```python
 class PlanWaypoint:
@@ -314,8 +452,8 @@ class PlanWaypoint:
         self.approach_lanes = wp.approach_lanes
 ```
 
-Custom wrapper for Plan::Waypoint. We use this to modify position of
-waypoints to prevent backtracking
+[`PlanWaypoint`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L52) is a custom wrapper for Plan::Waypoint. We use this to modify position of
+waypoints to prevent backtracking.
 
 ```python
 class RobotCommandHandle(adpt.RobotCommandHandle):
@@ -335,95 +473,10 @@ class RobotCommandHandle(adpt.RobotCommandHandle):
                  api):
         adpt.RobotCommandHandle.__init__(self)
         self.name = name
-        self.fleet_name = fleet_name
-        self.config = config
-        self.node = node
-        self.graph = graph
-        self.vehicle_traits = vehicle_traits
-        self.map_name = map_name
-        # Get the index of the charger waypoint
-        waypoint = self.graph.find_waypoint(charger_waypoint)
-        assert waypoint, f"Charger waypoint {charger_waypoint} \
-          does not exist in the navigation graph"
-        self.charger_waypoint_index = waypoint.index
-        self.update_frequency = update_frequency
-        self.update_handle = None  # RobotUpdateHandle
-        self.battery_soc = 1.0
-        self.api = api
-        self.position = position  # (x,y,theta) in RMF crs (meters,radians)
-        self.initialized = False
-        self.state = RobotState.IDLE
-        self.dock_name = ""
-        # comparison with Plan::Waypoint::time
-        self.adapter = adapter
-        self.action_execution = None
-
-        self.requested_waypoints = []  # RMF Plan waypoints
-        self.remaining_waypoints = []
-        self.path_finished_callback = None
-        self.next_arrival_estimator = None
-        self.path_index = 0
-        self.docking_finished_callback = None
-        self.docks = {}
-
-        # RMF location trackers
-        self.last_known_lane_index = None
-        self.last_known_waypoint_index = None
-        # if robot is waiting at a waypoint. This is a Graph::Waypoint index
-        self.on_waypoint = None
-        # if robot is travelling on a lane. This is a Graph::Lane index
-        self.on_lane = None
-        self.target_waypoint = None  # this is a Plan::Waypoint
-        # The graph index of the waypoint the robot is currently docking into
-        self.dock_waypoint_index = None
-        # The graph index of the waypoint the robot starts or ends an action
-        self.action_waypoint_index = None
-
-        # Threading variables
-        self._lock = threading.Lock()
-        self._follow_path_thread = None
-        self._quit_path_event = threading.Event()
-        self._dock_thread = None
-        self._quit_dock_event = threading.Event()
-
-        self.node.get_logger().info(
-            f"The robot is starting at: [{self.position[0]:.2f}, "
-            f"{self.position[1]:.2f}, {self.position[2]:.2f}]")
-
-        # Update tracking variables
-        if start.lane is not None:  # If the robot is on a lane
-            self.last_known_lane_index = start.lane
-            self.on_lane = start.lane
-            self.last_known_waypoint_index = start.waypoint
-        else:  # Otherwise, the robot is on a waypoint
-            self.last_known_waypoint_index = start.waypoint
-            self.on_waypoint = start.waypoint
-
-        transient_qos = QoSProfile(
-            history=History.KEEP_LAST,
-            depth=1,
-            reliability=Reliability.RELIABLE,
-            durability=Durability.TRANSIENT_LOCAL)
-
-        self.node.create_subscription(
-            DockSummary,
-            'dock_summary',
-            self.dock_summary_cb,
-            qos_profile=transient_qos)
-
-        self.node.create_subscription(
-            ModeRequest,
-            'action_execution_notice',
-            self.mode_request_cb,
-            qos_profile=qos_profile_system_default)
-
-        self.update_thread = threading.Thread(target=self.update)
-        self.update_thread.start()
-
-        self.initialized = True
+        
 ```
 
-RobotCommandHandle will contain a constructor which will have all the metadata about the robot.
+[`RobotCommandHandle` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L62)will contain a constructor which will have all the metadata about the robot.
 
 ```python
 def sleep_for(self, seconds):
@@ -446,9 +499,9 @@ def sleep_for(self, seconds):
             self.sleep_for(0.1)
 ```
 
-`sleep_for` will send bot to sleep
-`clear` will clear all waypoints
-`stop` will stop the bot but will retain the waypoints.
+[`sleep_for`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L167) will send bot to sleep
+[`clear`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L173) will clear all waypoints
+[`stop`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L179) will stop the bot but will retain the waypoints.
 
 ```python 
 def follow_new_path(
@@ -457,150 +510,10 @@ def follow_new_path(
             next_arrival_estimator,
             path_finished_callback):
 
-        if self._follow_path_thread is not None:
-            self._quit_path_event.set()
-            if self._follow_path_thread.is_alive():
-                self._follow_path_thread.join()
-            self._follow_path_thread = None
-            self.clear()
-        self._quit_path_event.clear()
-
-        self.node.get_logger().info(f"Received new path for {self.name}")
-
-        wait, entries = self.filter_waypoints(waypoints)
-        self.remaining_waypoints = copy.copy(entries)
-        assert next_arrival_estimator is not None
-        assert path_finished_callback is not None
-        self.next_arrival_estimator = next_arrival_estimator
-        self.path_finished_callback = path_finished_callback
-
-        # Make the robot wait at its current position
-        if (wait is not None):
-            self.path_index = wait.index
-            self.target_waypoint = wait
-            self.state = RobotState.WAITING
-            with self._lock:
-                if (self.target_waypoint.graph_index is not None):
-                    self.on_waypoint = self.target_waypoint.graph_index
-                else:
-                    self.on_waypoint = None  # we are still on a lane
-                self.last_known_waypoint_index = self.on_waypoint
-
         def _follow_path():
-            target_pose = []
-            while (
-                    self.remaining_waypoints or
-                    self.state == RobotState.MOVING or
-                    self.state == RobotState.WAITING):
-                # Check if we need to abort
-                if self._quit_path_event.is_set():
-                    self.node.get_logger().info(f"Robot [{self.name}] aborting"
-                                                " previously followed path")
-                    return
-                # State machine
-                if self.state == RobotState.IDLE:
-                    # Assign the next waypoint
-                    self.target_waypoint = self.remaining_waypoints[0]
-                    self.path_index = self.remaining_waypoints[0].index
-                    # Move robot to next waypoint
-                    target_pose = self.target_waypoint.position
-                    [x, y] = target_pose[:2]
-                    theta = target_pose[2]
-                    speed_limit = self.get_speed_limit(self.target_waypoint)
-                    response = self.api.navigate(self.name,
-                                                 [x, y, theta],
-                                                 self.map_name,
-                                                 speed_limit)
-
-                    if response:
-                        self.remaining_waypoints = self.remaining_waypoints[1:]
-                        self.state = RobotState.MOVING
-                    else:
-                        self.node.get_logger().info(
-                            f"Robot {self.name} failed to navigate to "
-                            f"[{x:.0f}, {y:.0f}, {theta:.0f}] coordinates. "
-                            f"Retrying...")
-                        self.sleep_for(0.1)
-
-                elif self.state == RobotState.WAITING:
-                    self.sleep_for(0.1)
-                    time_now = self.adapter.now()
-                    with self._lock:
-                        if self.target_waypoint is not None:
-                            waypoint_wait_time = self.target_waypoint.time
-                            if (waypoint_wait_time < time_now):
-                                self.state = RobotState.IDLE
-                            else:
-                                if self.path_index is not None:
-                                    d = (waypoint_wait_time - time_now).seconds
-                                    self.node.get_logger().debug(
-                                        f"Waiting for {d}s")
-                                    self.next_arrival_estimator(
-                                        self.path_index,
-                                        timedelta(seconds=0.0))
-
-                elif self.state == RobotState.MOVING:
-                    self.sleep_for(0.1)
-                    # Check if we have reached the target
-                    with self._lock:
-                        if (self.api.navigation_completed(self.name)):
-                            self.node.get_logger().info(
-                                f"Robot [{self.name}] has reached its target "
-                                f"waypoint")
-                            self.state = RobotState.WAITING
-                            if (self.target_waypoint.graph_index is not None):
-                                self.on_waypoint = \
-                                    self.target_waypoint.graph_index
-                                self.last_known_waypoint_index = \
-                                    self.on_waypoint
-                            else:
-                                self.on_waypoint = None  # still on a lane
-                        else:
-                            # Update the lane the robot is on
-                            lane = self.get_current_lane()
-                            if lane is not None:
-                                self.on_waypoint = None
-                                self.on_lane = lane
-                            else:
-                                # The robot may either be on the previous
-                                # waypoint or the target one
-                                if self.target_waypoint.graph_index is not \
-                                        None and self.dist(self.position,
-                                                           target_pose) < 0.5:
-                                    self.on_waypoint =\
-                                        self.target_waypoint.graph_index
-                                elif self.last_known_waypoint_index is not \
-                                        None and self.dist(
-                                        self.position, self.graph.get_waypoint(
-                                        self.last_known_waypoint_index
-                                        ).location) < 0.5:
-                                    self.on_waypoint =\
-                                        self.last_known_waypoint_index
-                                else:
-                                    self.on_lane = None  # update_off_grid()
-                                    self.on_waypoint = None
-                        duration =\
-                            self.api.navigation_remaining_duration(self.name)
-                        if self.path_index is not None:
-                            target_time = self.target_waypoint.time
-                            now = self.adapter.now()
-                            if target_time < now + timedelta(seconds=duration):
-                                self.next_arrival_estimator(
-                                    self.path_index,
-                                    timedelta(seconds=duration))
-                            else:
-                                self.next_arrival_estimator(
-                                    self.path_index, target_time - now)
-            self.path_finished_callback()
-            self.node.get_logger().info(
-                f"Robot {self.name} has successfully navigated along "
-                f"requested path.")
-
-        self._follow_path_thread = threading.Thread(
-            target=_follow_path)
-        self._follow_path_thread.start()
 ```
 
+[`follow_new_path`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L187) requires the following
 - `waypoints` contains the waypoint(coordinates) of the path.
 - `next_arrival_estimator` contains the estimated value for arrival.
 - `path_finished_callback`  is triggered when path is finished.
@@ -611,184 +524,25 @@ def dock(
             self,
             dock_name,
             docking_finished_callback):
-        ''' Docking is very specific to each application. Hence, the user will
-            need to customize this function accordingly. In this example, we
-            assume the dock_name is the same as the name of the waypoints that
-            the robot is trying to dock into. We then call api.start_process()
-            to initiate the robot specific process. This could be to start a
-            cleaning process or load/unload a cart for delivery.
-        '''
-
-        self._quit_dock_event.clear()
-        if self._dock_thread is not None:
-            self._dock_thread.join()
-
-        self.dock_name = dock_name
-        assert docking_finished_callback is not None
-        self.docking_finished_callback = docking_finished_callback
-
-        # Get the waypoint that the robot is trying to dock into
-        dock_waypoint = self.graph.find_waypoint(self.dock_name)
-        assert(dock_waypoint)
-        self.dock_waypoint_index = dock_waypoint.index
-
+        
         def _dock():
-            # Request the robot to start the relevant process
-            while (not self.api.start_process(
-                    self.name, self.dock_name, self.map_name)):
-                self.node.get_logger().info(
-                    f"Requesting robot {self.name} "
-                    "to dock at {self.dock_name}")
-                time.sleep_for(1.0)
-
-            with self._lock:
-                self.on_waypoint = None
-                self.on_lane = None
-            self.sleep_for(0.1)
-
-            if self.dock_name not in self.docks:
-                self.node.get_logger().info(f"Request dock not found, "
-                                            "aborting docking")
-                return
-
-            positions = []
-            for wp in self.docks[self.dock_name]:
-                positions.append([wp.x, wp.y, wp.yaw])
-            self.node.get_logger().info(f"Robot {self.name} is docking...")
-
-            while (not self.api.process_completed(self.name)):
-
-                if len(positions) < 1:
-                    continue
-
-                traj = schedule.make_trajectory(self.vehicle_traits,
-                                                self.adapter.now(),
-                                                positions)
-                itinerary = schedule.Route(self.map_name, traj)
-                if self.update_handle is not None:
-                    participant = self.update_handle.get_unstable_participant()
-                    participant.set_itinerary([itinerary])
-
-                # Check if we need to abort
-                if self._quit_dock_event.is_set():
-                    self.node.get_logger().info("Aborting docking")
-                    return
-                self.sleep_for(0.1)
-
-            with self._lock:
-                self.on_waypoint = self.dock_waypoint_index
-                self.dock_waypoint_index = None
-                self.docking_finished_callback()
-                self.node.get_logger().info(f"Robot {self.name} has completed"
-                                            " docking")
-
-        self._dock_thread = threading.Thread(target=_dock)
-        self._dock_thread.start()
 
     def get_position(self):
-        ''' This helper function returns the live position of the robot in the
-        RMF coordinate frame'''
-        position = self.api.position(self.name)
-        if position is not None:
-            x, y = [position[0], position[1]]
-            theta = position[2]
-            # Wrap theta between [-pi, pi]. Else arrival estimate will
-            # assume robot has to do full rotations and delay the schedule
-            if theta > np.pi:
-                theta = theta - (2 * np.pi)
-            if theta < -np.pi:
-                theta = (2 * np.pi) + theta
-            return [x, y, theta]
-        else:
-            self.node.get_logger().error(
-                "Unable to retrieve position from robot.")
-            return self.position
-
+        
     def get_battery_soc(self):
-        battery_soc = self.api.battery_soc(self.name)
-        if battery_soc is not None:
-            return battery_soc
-        else:
-            self.node.get_logger().error(
-                "Unable to retrieve battery data from robot.")
-            return self.battery_soc
+
 
     def update(self):
-        while rclpy.ok():
-            self.position = self.get_position()
-            self.battery_soc = self.get_battery_soc()
-            if self.update_handle is not None:
-                self.update_state()
-            sleep_duration = float(1.0/self.update_frequency)
-            self.sleep_for(sleep_duration)
+
 
     def update_state(self):
-        self.update_handle.update_battery_soc(self.battery_soc)
-        # Update position
-        with self._lock:
-            if (self.on_waypoint is not None):  # if robot is on a waypoint
-                self.update_handle.update_current_waypoint(
-                    self.on_waypoint, self.position[2])
-            elif (self.on_lane is not None):  # if robot is on a lane
-                # We only keep track of the forward lane of the robot.
-                # However, when calling this update it is recommended to also
-                # pass in the reverse lane so that the planner does not assume
-                # the robot can only head forwards. This would be helpful when
-                # the robot is still rotating on a waypoint.
-                forward_lane = self.graph.get_lane(self.on_lane)
-                entry_index = forward_lane.entry.waypoint_index
-                exit_index = forward_lane.exit.waypoint_index
-                reverse_lane = self.graph.lane_from(exit_index, entry_index)
-                lane_indices = [self.on_lane]
-                if reverse_lane is not None:  # Unidirectional graph
-                    lane_indices.append(reverse_lane.index)
-                self.update_handle.update_current_lanes(
-                    self.position, lane_indices)
-            elif (self.dock_waypoint_index is not None):
-                self.update_handle.update_off_grid_position(
-                    self.position, self.dock_waypoint_index)
-            # if robot is performing an action
-            elif (self.action_execution is not None):
-                self.update_handle.update_off_grid_position(
-                    self.position, self.action_waypoint_index)
-            # if robot is merging into a waypoint
-            elif (self.target_waypoint is not None and
-                    self.target_waypoint.graph_index is not None):
-                self.update_handle.update_off_grid_position(
-                    self.position, self.target_waypoint.graph_index)
-            else:  # if robot is lost
-                self.update_handle.update_lost_position(
-                    self.map_name, self.position)
+        
 
     def get_current_lane(self):
         def projection(current_position,
                        target_position,
                        lane_entry,
                        lane_exit):
-            px, py, _ = current_position
-            p = np.array([px, py])
-            t = np.array(target_position)
-            entry = np.array(lane_entry)
-            exit = np.array(lane_exit)
-            return np.dot(p - t, exit - entry)
-
-        if self.target_waypoint is None:
-            return None
-        approach_lanes = self.target_waypoint.approach_lanes
-        # Spin on the spot
-        if approach_lanes is None or len(approach_lanes) == 0:
-            return None
-        # Determine which lane the robot is currently on
-        for lane_index in approach_lanes:
-            lane = self.graph.get_lane(lane_index)
-            p0 = self.graph.get_waypoint(lane.entry.waypoint_index).location
-            p1 = self.graph.get_waypoint(lane.exit.waypoint_index).location
-            p = self.position
-            before_lane = projection(p, p0, p0, p1) < 0.0
-            after_lane = projection(p, p1, p0, p1) >= 0.0
-            if not before_lane and not after_lane:  # The robot is on this lane
-                return lane_index
-        return None
 
     def dist(self, A, B):
         ''' Euclidian distance between A(x,y) and B(x,y)'''
@@ -797,87 +551,170 @@ def dock(
         return math.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
 
     def get_speed_limit(self, target_waypoint):
-        approach_lane_limit = np.inf
-        approach_lanes = target_waypoint.approach_lanes
-        for lane_index in approach_lanes:
-            lane = self.graph.get_lane(lane_index)
-            lane_limit = lane.properties.speed_limit
-            if lane_limit is not None:
-                if lane_limit < approach_lane_limit:
-                    approach_lane_limit = lane_limit
-        return approach_lane_limit if approach_lane_limit != np.inf else 0.0
-
+        
     def filter_waypoints(self, wps: list, threshold=1.0):
-        ''' Return filtered PlanWaypoints'''
-
-        assert(len(wps) > 0)
-        first = None
-        threshold = 0.5
-        last_pose = copy.copy(self.position)
-        waypoints = []
-        for i in range(len(wps)):
-            waypoints.append(PlanWaypoint(i, wps[i]))
-
-        # We assume the first waypoint is safe for pruning if it is
-        # within a threshold of the robot's current position
-        first_position = waypoints[0].position
-        if len(waypoints) > 2 and\
-                self.dist(first_position, last_pose) < threshold:
-            del waypoints[0]
-
-        return (first, waypoints)
-
+        
     def complete_robot_action(self):
-        with self._lock:
-            if self.action_execution is None:
-                return
-            self.action_execution.finished()
-            self.action_execution = None
-            self.node.get_logger().info(f"Robot {self.name} has completed the"
-                                        f" action it was performing")
-
+        
     def newly_closed_lanes(self, closed_lanes):
-        need_to_replan = False
-        current_lane = self.get_current_lane()
+        
 
-        if self.target_waypoint is not None and \
-                self.target_waypoint.approach_lanes is not None:
-            for lane_idx in self.target_waypoint.approach_lanes:
-                if lane_idx in closed_lanes:
-                    need_to_replan = True
-                    # The robot is currently on a lane that has been closed.
-                    # We take this to mean that the robot needs to reverse.
-                    if lane_idx == current_lane:
-                        lane = self.graph.get_lane(current_lane)
+    def dock_summary_cb(self, msg):
 
-                        return_waypoint = lane.entry.waypoint_index
-                        reverse_lane = \
-                            self.graph.lane_from(lane.entry.waypoint_index,
-                                                 lane.exit.waypoint_index)
+    def mode_request_cb(self, msg):
 
-                        with self._lock:
-                            if reverse_lane:
-                                # Update current lane to reverse back to
-                                # start of the lane
-                                self.on_lane = reverse_lane.index
-                            else:
-                                # Update current position and waypoint index
-                                # to return to
-                                self.target_waypoint = return_waypoint
+```
 
-        if not need_to_replan and self.target_waypoint is not None:
-            # Check if the remainder of the current plan has been invalidated
-            # by the lane closure
-            for wp in self.remaining_waypoints:
-                for lane in wp.approach_lanes:
-                    if lane in closed_lanes:
-                        need_to_replan = True
-                        break
-                if need_to_replan:
-                    break
+[`_doc`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L361) will request the robot to start the relevant process
+[`get_position`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L414) returns the live position of the robot in RMF coordinate frame.
+[`get_battery_soc`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L433) returns battery level from 0 to 1.0
 
-        if need_to_replan:
-            self.update_handle.replan()
+[`update`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L442) will update the position and `battery_soc` it will check if `update_handle` is present, if so it will [`update_state` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L451)
+
+[`get_current_lane`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L489) will fetch the current lane
+[`get_speed_limit`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L525) will get the max speed limit
+[`filter_waypoints`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L536)returns filtered PlanWaypoints
+[`complete_robot_action`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L556) returns if robot has completed the action it was performing
+[`newly_closed_lanes`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L565) if the lane is closed the robot will reverse back to the start of the lane or update current position and waypoint index. The route will be planned again.
+
+---
+```python
+
+def initialize_fleet(config_yaml, nav_graph_path, node, use_sim_time):
+
+    def _task_request_check(task_capabilities, msg: TaskProfile):
+        if msg.description.task_type in task_capabilities:
+            return True
+        else:
+            return False
+
+    fleet_handle.accept_task_requests(
+        partial(_task_request_check, task_capabilities))
+
+    def _consider(description: dict):
+        confirm = adpt.fleet_update_handle.Confirmation()
+        confirm.accept()
+        return confirm
+
+    # Configure this fleet to perform any kind of teleop action
+    fleet_handle.add_performable_action("teleop", _consider)
+
+    def _updater_inserter(cmd_handle, update_handle):
+   
+
+    def _add_fleet_robots():
+
+    def _lane_request_cb(msg):
+ 
+def main(argv=sys.argv):
+    # Init rclpy and adapter
+    rclpy.init(args=argv)
+    adpt.init_rclcpp()
+    args_without_ros = rclpy.utilities.remove_ros_args(argv)
+
+    parser = argparse.ArgumentParser(
+        prog="fleet_adapter",
+        description="Configure and spin up the fleet adapter")
+    parser.add_argument("-c", "--config_file", type=str, required=True,
+                        help="Path to the config.yaml file")
+    parser.add_argument("-n", "--nav_graph", type=str, required=True,
+                        help="Path to the nav_graph for this fleet adapter")
+    parser.add_argument("--use_sim_time", action="store_true",
+                        help='Use sim time, default: false')
+    args = parser.parse_args(args_without_ros[1:])
+    print(f"Starting fleet adapter...")
+
+    config_path = args.config_file
+    nav_graph_path = args.nav_graph
+
+    # Load config and nav graph yamls
+    with open(config_path, "r") as f:
+        config_yaml = yaml.safe_load(f)
+
+    # ROS 2 node for the command handle
+    fleet_name = config_yaml['rmf_fleet']['name']
+    node = rclpy.node.Node(f'{fleet_name}_command_handle')
+
+    # Enable sim time for testing offline
+    if args.use_sim_time:
+        param = Parameter("use_sim_time", Parameter.Type.BOOL, True)
+        node.set_parameters([param])
+
+    adapter = initialize_fleet(
+        config_yaml,
+        nav_graph_path,
+        node,
+        args.use_sim_time)
+
+    # Create executor for the command handle node
+    rclpy_executor = rclpy.executors.SingleThreadedExecutor()
+    rclpy_executor.add_node(node)
+
+    # Start the fleet adapter
+    rclpy_executor.spin()
+
+    # Shutdown
+    node.destroy_node()
+    rclpy_executor.shutdown()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main(sys.argv)
+```
+
+[`initialize_fleet`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L52) will initialize and give values to all the variable that were present in the `config.yaml `file that was created earlier. 
+
+[`_updater_inserter` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L163) will insert a `RobotUpdateHandle`  and set action executor for the robot. It will then initialize the `RobotAPI` with username and password.
+
+[`_add_fleet_robots`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L210) will try to add the robots mentioned in the yaml file one by one using [`RobotCommandHandle`](https://github.com/open-rmf/rmf_demos/blob/5ab2f4bc789570f49da5204df601189e22944ae5/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L62) to initialize the handler.
+
+[`_lane_request_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L309) will publish open and closed lanes and return the adapter. It is subscribed to LaneRequest topic so it can respond whenever LaneRequest is sent.
+
+---
+```python
+class Request(BaseModel):
+    map_name: str
+    task: Optional[str] = None
+    destination: Optional[dict] = None
+    data: Optional[dict] = None
+    speed_limit: Optional[float] = None
+
+
+class Response(BaseModel):
+    data: Optional[dict] = None
+    success: bool
+    msg: str
+
+class State:
+    def __init__(self, state: RobotState = None, destination: Location = None):
+        self.state = state
+        self.destination = destination
+        self.svy_transformer = Transformer.from_crs('EPSG:4326', 'EPSG:3414')
+        self.gps_pos = [0, 0]
+
+    def gps_to_xy(self, gps_json: dict):
+        svy21_xy = \
+            self.svy_transformer.transform(gps_json['lat'], gps_json['lon'])
+        self.gps_pos[0] = svy21_xy[1]
+        self.gps_pos[1] = svy21_xy[0]
+
+
+class FleetManager(Node):
+    def __init__(self, config, nav_path):
+            return data
+
+    def robot_state_cb(self, msg):
+        if (msg.name in self.robots):
+            self.robots[msg.name].state = msg
+            # Check if robot has reached destination
+            state = self.robots[msg.name]
+            if state.destination is None:
+                return
+            destination = state.destination
+            if ((msg.mode.mode == 0 or msg.mode.mode == 1) and
+                    len(msg.path) == 0):
+                self.robots[msg.name].destination = None
 
     def dock_summary_cb(self, msg):
         for fleet in msg.docks:
@@ -885,12 +722,57 @@ def dock(
                 for dock in fleet.params:
                     self.docks[dock.start] = dock.path
 
-    def mode_request_cb(self, msg):
-        if msg.fleet_name is None or msg.fleet_name != self.fleet_name or\
-                msg.robot_name is None:
-            return
-        if msg.mode.mode == RobotState.IDLE:
-            self.complete_robot_action()
+    def get_robot_state(self, state, robot_name):
+
+    def disp(self, A, B):
+        return math.sqrt((A[0]-B[0])**2 + (A[1]-B[1])**2)
+
+
+# ------------------------------------------------------------------------------
+# Main
+# ------------------------------------------------------------------------------
+def main(argv=sys.argv):
+    # Init rclpy and adapter
+    rclpy.init(args=argv)
+    adpt.init_rclcpp()
+    args_without_ros = rclpy.utilities.remove_ros_args(argv)
+
+    parser = argparse.ArgumentParser(
+        prog="fleet_adapter",
+        description="Configure and spin up the fleet adapter")
+    parser.add_argument("-c", "--config_file", type=str, required=True,
+                        help="Path to the config.yaml file")
+    parser.add_argument("-n", "--nav_graph", type=str, required=True,
+                        help="Path to the nav_graph for this fleet adapter")
+    args = parser.parse_args(args_without_ros[1:])
+    print(f"Starting fleet manager...")
+
+    with open(args.config_file, "r") as f:
+        config = yaml.safe_load(f)
+
+    fleet_manager = FleetManager(config, args.nav_graph)
+
+    spin_thread = threading.Thread(target=rclpy.spin, args=(fleet_manager,))
+    spin_thread.start()
+
+    uvicorn.run(app,
+                host=config['rmf_fleet']['fleet_manager']['ip'],
+                port=config['rmf_fleet']['fleet_manager']['port'],
+                log_level='warning')
+
+
+if __name__ == '__main__':
+    main(sys.argv)
 ```
+
+class [`State`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L72) will initialize the robot state and transform the coordonates from gps location to xy plane.
+
+class [`FleetManger`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L86) will initialize the robot fleet and use FASTAPI to fetch and post the data about the fleet.
+
+[`robot_state_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L294) is a robot state callback
+[`dock_summary_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L306) is dock summary callback
+[`get_robot_state`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L312) will return state of the robot by inserting all the required values as mentioned in config.yaml
+
+
 
 
