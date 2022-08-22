@@ -1,20 +1,21 @@
 `fleet_adapter` acts as a bridge between the robots and the core RMF system.  
-Its responsibilities include but are not limited to:  
-- updating the traffic schedule with the fleet robot's positions  
-- responding to tasks  
-- controlling the vendor robots.  
-  
+Its responsibilities include but are not limited to:
+
+- updating the traffic schedule with the fleet robot's positions
+- responding to tasks
+- controlling the vendor robots.
+
 The `fleet_adapter` receives information (position, current ongoing tasks, battery levels etc.) about each robot in the fleet and sends them to the core RMF system to for task planning and scheduling.
-- When the core RMF system has a task to dispatch, it communicates with the various fleet adapters to check which fleet is suitable for taking this task.  
-- It sends a request, to which fleet adapters respond by sending robot availability and statuses.  
-- RMF determines the best fleet for the task and responds to the winning bid, i.e. the fleet that is selected. The response contains navigation commands relevant to the delegated task.  
+
+- When the core RMF system has a task to dispatch, it communicates with the various fleet adapters to check which fleet is suitable for taking this task.
+- It sends a request, to which fleet adapters respond by sending robot availability and statuses.
+- RMF determines the best fleet for the task and responds to the winning bid, i.e. the fleet that is selected. The response contains navigation commands relevant to the delegated task.
 - The fleet adapter will then send the navigation commands to the robot in appropriate API.
 
-
->The tutorial provided below is based on the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) implemented in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository. This specific implementation uses REST API as an interface between the fleet adapter and fleet manager. You may choose to use other APIs for your own integration.
-
+> The tutorial provided below is based on the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) implemented in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository. This specific implementation uses REST API as an interface between the fleet adapter and fleet manager. You may choose to use other APIs for your own integration.
 
 Fetch dependencies
+
 ```bash
 pip3 install fastapi uvicorn
 ```
@@ -28,6 +29,7 @@ touch fleet_adapter.launch.xml
 ```
 
 Add the following to the `fleet_adapter.launch.xml`
+
 ```xml
 <?xml version='1.0' ?>
 
@@ -73,6 +75,7 @@ Add the following to the `fleet_adapter.launch.xml`
 
 </launch>
 ```
+
 Add the following to the setup.py
 
 ```python
@@ -109,7 +112,8 @@ setup(
 )
 ```
 
-In `package.xml` add 
+In `package.xml` add
+
 ```xml
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
@@ -131,10 +135,9 @@ In `package.xml` add
 </package>
 ```
 
-
 Create a new file called `config.yaml` with following contents
-```yaml
 
+```yaml
 # FLEET CONFIG =================================================================
 # RMF Fleet parameters
 
@@ -165,10 +168,10 @@ rmf_fleet:
   tool_system:
     power: 0.0 # W
   recharge_threshold: 0.10
-  recharge_soc: 1.0 
-  publish_fleet_state: 10.0 
+  recharge_soc: 1.0
+  publish_fleet_state: 10.0
   account_for_battery_drain: True
-  task_capabilities: 
+  task_capabilities:
     loop: True
     delivery: True
     clean: False
@@ -179,7 +182,7 @@ rmf_fleet:
 robots:
   tinyRobot1:
     robot_config:
-      max_delay: 15.0 
+      max_delay: 15.0
       filter_waypoints: False
     rmf_config:
       robot_state_update_frequency: 10.0
@@ -192,7 +195,7 @@ robots:
   # Configuration for the second robot in this fleet if there is a second robot
   tinyRobot2:
     robot_config:
-      max_delay: 15.0 
+      max_delay: 15.0
       filter_waypoints: False
     rmf_config:
       robot_state_update_frequency: 10.0
@@ -208,41 +211,37 @@ robots:
 # For demos, robots operate in the same coordinate system as RMF
 
 reference_coordinates:
-  rmf: [[0.0, 0.0 ],
-        [1.0, 1.0],
-        [2.0, 2.0],
-        [3.0, 3.0]]
-  robot: [[0.0, 0.0 ],
-        [1.0, 1.0],
-        [2.0, 2.0],
-        [3.0, 3.0]]
+  rmf: [[0.0, 0.0], [1.0, 1.0], [2.0, 2.0], [3.0, 3.0]]
+  robot: [[0.0, 0.0], [1.0, 1.0], [2.0, 2.0], [3.0, 3.0]]
 ```
 
-- `rmf_fleet`  information about the fleet and the bots in the fleet. 
-	- `fleet_manager`  prefix, username and password
-		- `limits`  maximum values for linear and angular accelerations and velocities.
-		- `profile`  footprint and vicinity.
-		- `reversible`  a flag that can enable/disable reverse traversal in the robot.
-		- `battery_system`  information about the battery
-		- `recharge_threshold` sets a value for minimum charge below which the robot cannot operate.
-		- `recharge_soc`  the maximum level to which robots should be charged.
-		- `task_capabilities`  the capabilities of the robot
-			- `finishing_request`  can be set to `park`, `charge` or `nothing`
-- `robots`  information about all the types of robots in this case there is only one robot i.e. delivery bot
-	- `tinyRobot1` will have all the information required by the bot.
-	- `max_delay`  seconds before interruption occurs and replanning happens
-	- `robot_state_update_frequency` how frequently should robot update the fleet
-		- `map_name` name of the map
-		- `waypoint` target location
-		- `orientation` orientation in radians
-	- `charger` location of the charger
+- `rmf_fleet` information about the fleet and the bots in the fleet.
+  - `fleet_manager` prefix, username and password
+    - `limits` maximum values for linear and angular accelerations and velocities.
+    - `profile` footprint and vicinity.
+    - `reversible` a flag that can enable/disable reverse traversal in the robot.
+    - `battery_system` information about the battery
+    - `recharge_threshold` sets a value for minimum charge below which the robot cannot operate.
+    - `recharge_soc` the maximum level to which robots should be charged.
+    - `task_capabilities` the capabilities of the robot
+      - `finishing_request` can be set to `park`, `charge` or `nothing`
+- `robots` information about all the types of robots in this case there is only one robot i.e. delivery bot
+  - `tinyRobot1` will have all the information required by the bot.
+  - `max_delay` seconds before interruption occurs and replanning happens
+  - `robot_state_update_frequency` how frequently should robot update the fleet
+    - `map_name` name of the map
+    - `waypoint` target location
+    - `orientation` orientation in radians
+  - `charger` location of the charger
 - `reference_coordinates` The robot and the RMF may use different coordinate system the `reference_coordinates` help in correcting them.
 
-The set-up is complete. 
+The set-up is complete.
 
 ---
+
 The next important folder is
 `rmf_fleet_adapter` folder, the structure looks like this
+
 ```bash
 .
 ├── fleet_adapter.py
@@ -257,7 +256,6 @@ The next important folder is
 
 Users can start by filling in the appropriate API inside [`RobotClientAPI.py`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L28), which will be used by the `RobotCommandHandle` to make calls to the fleet robots. For example, if your robot uses REST API to interface with the fleet adapter, you will need to make HTTP request calls to the appropriate endpoints within these functions.
 
-
 ```python
 import requests
 from urllib.error import HTTPError
@@ -271,6 +269,7 @@ class RobotAPI:
         self.timeout = 5.0
         self.debug = False
 ```
+
 User must initialize all the essential parameters in the class constructor required for API calls. Extra fields can be added to the constructor if need be
 
 ```python
@@ -292,6 +291,7 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return None
 ```
+
 [`data`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L172) function checks if the robot responds to the request. If the robot responds, the response is logged on the console for debugging purpose and returns the response.
 
 ```python
@@ -328,8 +328,9 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return None
 ```
+
 [`position`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L45) function does the job returning the position of the robot in following format in robot's coordinate frame
-												`[x, y, theta]`
+`[x, y, theta]`
 
 ```python
     def navigate(self,
@@ -356,9 +357,10 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return False
 ```
+
 [`navigate`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L71) Sends an POST request to the robot with the destination coordinates. It returns true if the robot accepts the request, else false.
 
-```python 
+```python
     def start_process(self,
                       robot_name: str,
                       process: str,
@@ -393,6 +395,7 @@ def data(self, robot_name=None):
             print(f'Other error: {err}')
         return False
 ```
+
 [`start_process`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L99) function will send a POST request to the robot and will ask it to perform the task for example load/unload for delivery bot.[`stop`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L123) command will simply check if the robot has stopped.
 
 ```python
@@ -401,7 +404,7 @@ def data(self, robot_name=None):
         if response is not None:
             return response['data']['destination_arrival_duration']
         else:
-            return 0.0    
+            return 0.0
     def navigation_completed(self, robot_name: str):
         response = self.data(robot_name)
         if response is not None and response.get('data') is not None:
@@ -423,7 +426,6 @@ def data(self, robot_name=None):
 - `process_completed` checks if the robot has completed its navigation using the `navigation_completed` function.
 - `battery_soc` will return battery status between 0 and 1.0
 
-
 ---
 
 [`RobotCommandHandle.py`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py) is a handler for robots in fleet adapter
@@ -434,6 +436,7 @@ class RobotState(enum.IntEnum):
     WAITING = 1
     MOVING = 2
 ```
+
 [`RobotState`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L44) is an enum which is used to update current status of the robot.
 
 ```python
@@ -467,7 +470,7 @@ class RobotCommandHandle(adpt.RobotCommandHandle):
                  api):
         adpt.RobotCommandHandle.__init__(self)
         self.name = name
-        
+
 ```
 
 [`RobotCommandHandle` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L62)will contain a constructor which will have all the metadata about the robot.
@@ -497,7 +500,7 @@ def sleep_for(self, seconds):
 [`clear`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L173) will clear all waypoints
 [`stop`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L179) will stop the bot but will retain the waypoints.
 
-```python 
+```python
 def follow_new_path(
             self,
             waypoints,
@@ -508,21 +511,22 @@ def follow_new_path(
 ```
 
 [`follow_new_path`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L187) requires the following
+
 - `waypoints` contains the waypoint(coordinates) of the path.
 - `next_arrival_estimator` contains the estimated value for arrival.
-- `path_finished_callback`  is triggered when path is finished.
+- `path_finished_callback` is triggered when path is finished.
 
-```python 
+```python
 
 def dock(
             self,
             dock_name,
             docking_finished_callback):
-        
+
         def _dock():
 
     def get_position(self):
-        
+
     def get_battery_soc(self):
 
 
@@ -530,7 +534,7 @@ def dock(
 
 
     def update_state(self):
-        
+
 
     def get_current_lane(self):
         def projection(current_position,
@@ -545,13 +549,13 @@ def dock(
         return math.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
 
     def get_speed_limit(self, target_waypoint):
-        
+
     def filter_waypoints(self, wps: list, threshold=1.0):
-        
+
     def complete_robot_action(self):
-        
+
     def newly_closed_lanes(self, closed_lanes):
-        
+
 
     def dock_summary_cb(self, msg):
 
@@ -572,6 +576,7 @@ def dock(
 [`newly_closed_lanes`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L565) if the lane is closed the robot will reverse back to the start of the lane or update current position and waypoint index. The route will be planned again.
 
 ---
+
 ```python
 
 def initialize_fleet(config_yaml, nav_graph_path, node, use_sim_time):
@@ -594,12 +599,12 @@ def initialize_fleet(config_yaml, nav_graph_path, node, use_sim_time):
     fleet_handle.add_performable_action("teleop", _consider)
 
     def _updater_inserter(cmd_handle, update_handle):
-   
+
 
     def _add_fleet_robots():
 
     def _lane_request_cb(msg):
- 
+
 def main(argv=sys.argv):
     # Init rclpy and adapter
     rclpy.init(args=argv)
@@ -657,15 +662,16 @@ if __name__ == '__main__':
     main(sys.argv)
 ```
 
-[`initialize_fleet`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L52) will initialize and give values to all the variable that were present in the `config.yaml `file that was created earlier. 
+[`initialize_fleet`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L52) will initialize and give values to all the variable that were present in the `config.yaml `file that was created earlier.
 
-[`_updater_inserter` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L163) will insert a `RobotUpdateHandle`  and set action executor for the robot. It will then initialize the `RobotAPI` with username and password.
+[`_updater_inserter` ](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L163) will insert a `RobotUpdateHandle` and set action executor for the robot. It will then initialize the `RobotAPI` with username and password.
 
 [`_add_fleet_robots`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L210) will try to add the robots mentioned in the yaml file one by one using [`RobotCommandHandle`](https://github.com/open-rmf/rmf_demos/blob/5ab2f4bc789570f49da5204df601189e22944ae5/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotCommandHandle.py#L62) to initialize the handler.
 
 [`_lane_request_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_adapter.py#L309) will publish open and closed lanes and return the adapter. It is subscribed to LaneRequest topic so it can respond whenever LaneRequest is sent.
 
 ---
+
 ```python
 class Request(BaseModel):
     map_name: str
@@ -766,7 +772,3 @@ class [`FleetManger`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_
 [`robot_state_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L294) is a robot state callback
 [`dock_summary_cb`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L306) is dock summary callback
 [`get_robot_state`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/fleet_manager.py#L312) will return state of the robot by inserting all the required values as mentioned in config.yaml
-
-
-
-
