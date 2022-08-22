@@ -4,17 +4,14 @@ Its responsibilities include but are not limited to:
 - responding to tasks  
 - controlling the vendor robots.  
   
-`fleet_adapter` Recieves information(position, current ongoing tasks, battery levels etc.) about each robot in the fleet and sends them to the core RMF system to for task planning and scheduling.  
+The `fleet_adapter` receives information (position, current ongoing tasks, battery levels etc.) about each robot in the fleet and sends them to the core RMF system to for task planning and scheduling.
 - When the core RMF system has a task to dispatch, it communicates with the various fleet adapters to check which fleet is suitable for taking this task.  
 - It sends a request, to which fleet adapters respond by sending robot availability and statuses.  
 - RMF determines the best fleet for the task and responds to the winning bid, i.e. the fleet that is selected. The response contains navigation commands relevant to the delegated task.  
 - The fleet adapter will then send the navigation commands to the robot in appropriate API.
 
 
->The example given below refers to the [fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) demo in[ rmf_demos](https://github.com/open-rmf/rmf_demos) repository.
-
-
->Note, the example below is uses REST API with FAST API framework
+>The tutorial provided below is based on the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) implemented in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository. This specific implementation uses REST API as an interface between the fleet adapter and fleet manager. You may choose to use other APIs for your own integration.
 
 
 Fetch dependencies
@@ -258,10 +255,7 @@ The next important folder is
 
 > Note only function declaration and relevant information is present here
 
-The first thing user should look into is `RobotClientAPI.py`
-The [`RobotAPI`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L28) class is a wrapper for API calls to the robot. Here, users
-are expected to fill up the implementations of functions which will be used
-by the `RobotCommandHandle`. For example, if your robot has a REST API, the user will need to make HTTP request calls to the appropriate endpoints within these functions.
+Users can start by filling in the appropriate API inside [`RobotClientAPI.py`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L28), which will be used by the `RobotCommandHandle` to make calls to the fleet robots. For example, if your robot uses REST API to interface with the fleet adapter, you will need to make HTTP request calls to the appropriate endpoints within these functions.
 
 
 ```python
