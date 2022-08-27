@@ -355,28 +355,4 @@ User must initialize all the essential parameters in the class constructor requi
 
 - `battery_soc` will return battery status between 0 and 1.0
 
-```python
-
-  def data(self, robot_name=None):
-        if robot_name is None:
-            url = self.prefix + f'/open-rmf/rmf_demos_fm/status/'
-        else:
-            url = self.prefix +\
-                f'/open-rmf/rmf_demos_fm/status?robot_name={robot_name}'
-        try:
-            response = requests.get(url, timeout=self.timeout)
-            response.raise_for_status()
-            if self.debug:
-                print(f'Response: {response.json()}')
-            return response.json()
-        except HTTPError as http_err:
-            print(f'HTTP error: {http_err}')
-        except Exception as err:
-            print(f'Other error: {err}')
-        return None
-
-```
-
-[`data`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L172) function checks if the robot responds to the request. If the robot responds, the response is logged on the console for debugging purpose and returns the response.
-  
   
