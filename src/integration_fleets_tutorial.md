@@ -1,4 +1,5 @@
-# Fleet Adapter Tutorial
+# Fleet Adapter Tutorial(Python)
+
 `fleet_adapter` acts as a bridge between the robots and the core RMF system.
 
 Its responsibilities include but are not limited to:
@@ -9,11 +10,7 @@ Its responsibilities include but are not limited to:
 
 - Controlling the vendor robots.
 
-  
-
 The `fleet_adapter` receives information (position, current ongoing tasks, battery levels etc.) about each robot in the fleet and sends them to the core RMF system for task planning and scheduling.
-
-  
 
 - When the core RMF system has a task to dispatch, it communicates with the various fleet adapters to check which fleet is suitable for taking this task.
 
@@ -23,11 +20,7 @@ The `fleet_adapter` receives information (position, current ongoing tasks, batte
 
 - The fleet adapter will then send the navigation commands to the robot in appropriate API.
 
-  
-
-> The tutorial provided below is based on the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) implemented in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository. This specific implementation uses REST API as an interface between the fleet adapter and fleet manager. You may choose to use other APIs for your own integration.
-
-  
+> The tutorial provided below is based on the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) implemented in the [rmf_demos](https://github.com/open-rmf/rmf_demos) repository. This specific implementation is written in Python and uses REST API as an interface between the fleet adapter and fleet manager.You may choose to use other APIs for your own integration.
 
 ## Fetch dependencies
 
@@ -37,15 +30,16 @@ pip3 install fastapi uvicorn
 
 ```
 
-Clone the  [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter)  repository.
+Clone the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) repository.
 
 Users can use the template and fill in the missing blocks of code in [`RobotClientAPI.py`](https://github.com/open-rmf/fleet_adapter_template/blob/main/fleet_adapter_template/fleet_adapter_template/RobotClientAPI.py) marked with `# IMPLEMENT YOUR CODE HERE #`. This sets up the API between the fleet adapter and the user's robots.
 
 > The code given below serves as an example for implementing your own fleet adapter using `RobotClientAPI.py`.
 
-
 ## Update the `config.yaml` file
+
 The `config.yaml` file contains important parameters for setting up the fleet adapter. Users should start by updating these configurations describing their fleet robots.
+
 ```yaml
 # FLEET CONFIG =================================================================
 # RMF Fleet parameters
@@ -117,21 +111,13 @@ robots:
         waypoint: "tinyRobot2_charger"
 
 reference_coordinates:
-  rmf: [[20.33, -3.156],
-        [8.908, -2.57],
-        [13.02, -3.601],
-        [21.93, -4.124]]
-  robot: [[59, 399],
-        [57, 172],
-        [68, 251],
-        [75, 429]]
+  rmf: [[20.33, -3.156], [8.908, -2.57], [13.02, -3.601], [21.93, -4.124]]
+  robot: [[59, 399], [57, 172], [68, 251], [75, 429]]
 ```
-
-  
 
 - `rmf_fleet` important fleet parameters including vehicle traits, task capabilities and user information for connecting to the fleet manager.
 
-- `fleet_manager` the prefix, user and password fields that can be configured to suit your chosen API. These parameters will be brought into `RobotClientAPI.py` for you to set up connection with your fleet manager/robots. 
+- `fleet_manager` the prefix, user and password fields that can be configured to suit your chosen API. These parameters will be brought into `RobotClientAPI.py` for you to set up connection with your fleet manager/robots.
 
 - `limits` maximum values for linear and angular accelerations and velocities.
 
@@ -152,7 +138,6 @@ reference_coordinates:
 - `robots` information about individual fleet robots
 
 - `tinyRobot1,tinyRobot2` name of the robot.
-- ```
 
 - `max_delay` seconds before interruption occurs and replanning happens
 
@@ -162,14 +147,11 @@ reference_coordinates:
 
 - `charger` waypoint name of the robot's charging point
 
-- `reference_coordinates` if the fleet robots are not operating in the same coordinate system as RMF, you can provide two sets of (x, y) coordinates that correspond to the same locations in each system. This helps with estimating coordinate transformations from one frame to another. A minimum of 4 matching waypoints is recommended. Note: this is not being implemented in `rmf_demos_fleet_adapter` as the demos robots and RMF are using the same coordinate system. 
+- `reference_coordinates` if the fleet robots are not operating in the same coordinate system as RMF, you can provide two sets of (x, y) coordinates that correspond to the same locations in each system. This helps with estimating coordinate transformations from one frame to another. A minimum of 4 matching waypoints is recommended. Note: this is not being implemented in `rmf_demos_fleet_adapter` as the demos robots and RMF are using the same coordinate system.
 
+## RobotClientAPI.py
 
-## RobotClientAPI.py 
 Users can fill in the appropriate API inside [`RobotClientAPI.py`](https://github.com/open-rmf/fleet_adapter_template/blob/main/fleet_adapter_template/fleet_adapter_template/RobotClientAPI.py), which will be used by the `RobotCommandHandle` to make calls to the fleet robots. For example, if your robot uses REST API to interface with the fleet adapter, you will need to make HTTP request calls to the appropriate endpoints within these functions.
-
-  
-  
 
 ```python
 
@@ -191,7 +173,6 @@ class RobotAPI:
 ```
 
 User must initialize all the essential parameters in the class constructor required for API calls. Extra fields can be added to the constructor if need be
-  
 
 ```python
 
@@ -203,11 +184,7 @@ User must initialize all the essential parameters in the class constructor requi
 
 ```
 
-  
-
 [`check_connection`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L39) will check if connection to the robot was successful
-
-  
 
 ```python
 
@@ -240,8 +217,6 @@ User must initialize all the essential parameters in the class constructor requi
 ```
 
 [`position`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L45) function returns the `[x, y, theta]` position of the robot in its coordinate frame
-
-  
 
 ```python
 
@@ -276,8 +251,6 @@ User must initialize all the essential parameters in the class constructor requi
 ```
 
 [`navigate`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L71) Sends an POST request to the robot with the destination coordinates. It returns true if the robot accepts the request, else false.
-
-  
 
 ```python
 
@@ -326,8 +299,6 @@ User must initialize all the essential parameters in the class constructor requi
 
 [`start_process`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L99) sends a POST request to the robot asking it to perform a task. [`stop`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py#L123) command tells the robot to stop moving.
 
-  
-
 ```python
 
     def navigation_remaining_duration(self, robot_name: str):
@@ -352,7 +323,7 @@ User must initialize all the essential parameters in the class constructor requi
         ''' Return True if the robot has successfully completed its previous
             process request. Else False.'''
         return self.navigation_completed(robot_name)
-        
+
     def battery_soc(self, robot_name: str):
         ''' Return the state of charge of the robot as a value between 0.0
             and 1.0. Else return None if any errors are encountered'''
@@ -369,5 +340,3 @@ User must initialize all the essential parameters in the class constructor requi
 - `process_completed` checks if the robot has completed its navigation using the `navigation_completed` function.
 
 - `battery_soc` will return battery status between 0 and 1.0
-
-  
