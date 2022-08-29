@@ -51,56 +51,71 @@ The `config.yaml` file contains important parameters for setting up the fleet ad
 # RMF Fleet parameters
 
 rmf_fleet:
-  name: "DeliveryBot"
+  name: "tinyRobot"
   fleet_manager:
-    prefix: "http://127.0.0.1:8000"
+    ip: "127.0.0.1"
+    port: 22011
     user: "some_user"
     password: "some_password"
   limits:
-    linear: [0.4, 0.2] # velocity, acceleration
-    angular: [0.3, 0.35] # velocity, acceleration
+    linear: [0.5, 0.75] # velocity, acceleration
+    angular: [0.6, 2.0] # velocity, acceleration
   profile: # Robot profile is modelled as a circle
-    footprint: 0.5 # radius in m
-    vicinity: 0.6 # radius in m
-  reversible: False # whether robots in this fleet can reverse
+    footprint: 0.3 # radius in m
+    vicinity: 0.5 # radius in m
+  reversible: True # whether robots in this fleet can reverse
   battery_system:
-    voltage: 24.0 # V
-    capacity: 40.0 # Ahr
-    charging_current: 26.4 # A
+    voltage: 12.0 # V
+    capacity: 24.0 # Ahr
+    charging_current: 5.0 # A
   mechanical_system:
-    mass: 80.0 # kg
-    moment_of_inertia: 20.0 #kgm^2
-    friction_coefficient: 0.20
+    mass: 20.0 # kg
+    moment_of_inertia: 10.0 #kgm^2
+    friction_coefficient: 0.22
   ambient_system:
     power: 20.0 # W
   tool_system:
-    power: 760.0 # W
-  recharge_threshold: 0.20 
-  recharge_soc: 1.0 
-  publish_fleet_state: True
+    power: 0.0 # W
+  recharge_threshold: 0.10 # Battery level below which robots in this fleet will not operate
+  recharge_soc: 1.0 # Battery level to which robots in this fleet should be charged up to during recharging tasks
+  publish_fleet_state: 10.0 # Publish frequency for fleet state, ensure that it is same as robot_state_update_frequency
   account_for_battery_drain: True
-  task_capabilities: 
+  task_capabilities: # Specify the types of RMF Tasks that robots in this fleet are capable of performing
     loop: True
-    delivery: False
+    delivery: True
     clean: False
-    finishing_request: "nothing" # [park, charge, nothing]
+    finishing_request: "park" # [park, charge, nothing]
 
-# DeliveryBot CONFIG =================================================================
+# TinyRobot CONFIG =================================================================
 
 robots:
-  deliverybot1:
+  # Here the user is expected to append the configuration for each robot in the
+  # fleet.
+  # Configuration for tinyRobot1
+  tinyRobot1:
     robot_config:
-      max_delay: 10.0 
+      max_delay: 15.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
     rmf_config:
-      robot_state_update_frequency: 0.5
+      robot_state_update_frequency: 10.0
       start:
         map_name: "L1"
-        # waypoint: "charger_deliverybot1" # Optional
-        # orientation: 0.0 # Optional, radians
-        waypoint: null
-        orientation: null
+        waypoint: "tinyRobot1_charger"
+        orientation: 0.0 # radians
       charger:
-        waypoint: "charger_deliverybot1"
+        waypoint: "tinyRobot1_charger"
+  # Configuration for tinyRobot2
+  tinyRobot2:
+    robot_config:
+      max_delay: 15.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
+    rmf_config:
+      robot_state_update_frequency: 10.0
+      start:
+        map_name: "L1"
+        waypoint: "tinyRobot2_charger"
+        orientation: 0.0 # radians
+      charger:
+        waypoint: "tinyRobot2_charger"
+
 reference_coordinates:
   rmf: [[20.33, -3.156],
         [8.908, -2.57],
@@ -136,7 +151,7 @@ reference_coordinates:
 
 - `robots` information about individual fleet robots
 
-- `tinyRobot1` name of the robot.
+- `tinyRobot1,tinyRobot2` name of the robot.
 - ```
 
 - `max_delay` seconds before interruption occurs and replanning happens
