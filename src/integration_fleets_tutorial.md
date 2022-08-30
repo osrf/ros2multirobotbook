@@ -30,7 +30,7 @@ pip3 install fastapi uvicorn
 
 ```
 
-Clone the [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) repository.
+Clone the [rmf_demos_fleet_adapter](https://github.com/open-rmf/fleet_adapter_template) repository.
 
 Users can use the template and fill in the missing blocks of code in [`RobotClientAPI.py`](https://github.com/open-rmf/fleet_adapter_template/blob/main/fleet_adapter_template/fleet_adapter_template/RobotClientAPI.py) marked with `# IMPLEMENT YOUR CODE HERE #`. This sets up the API between the fleet adapter and the user's robots.
 
