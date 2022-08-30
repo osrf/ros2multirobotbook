@@ -1,4 +1,4 @@
-# Fleet Adapter Tutorial(Python)
+# Fleet Adapter Tutorial (Python)
 
 `fleet_adapter` acts as a bridge between the robots and the core RMF system.
 
@@ -137,7 +137,7 @@ reference_coordinates:
 
 - `robots` information about individual fleet robots
 
-- `tinyRobot1,tinyRobot2` name of the robot.
+- `tinyRobot1`, `tinyRobot2` name of the robot.
 
 - `max_delay` seconds before interruption occurs and replanning happens
 
