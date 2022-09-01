@@ -22,6 +22,8 @@
   - [Navigation Maps](./integration_nav-maps.md)
   - [Mobile Robot Fleets](./integration_fleets.md)
     - [Tutorials](./integration_fleets_tutorial.md)
+      - [Python Tutorial](./integration_fleets_tutorial_python.md)
+      - [Cpp Tutorial](./integration_fleets_tutorial_cpp.md)
   - [Free Fleet](./integration_free-fleet.md)
   - [Read-Only Fleets](./integration_read-only.md)
   - [Doors](./integration_doors.md)
