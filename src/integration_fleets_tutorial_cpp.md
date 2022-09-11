@@ -95,8 +95,31 @@ takes two arguments
 - node_name - The name of rclcpp node that will be produced for this adapter.
 - discovery_timeout - The minimum time it will wait to discover the schedule node before giving up. If the default `rmf_utils:nullopt` is used it will use `discovery_timeout`node parameter or wait for 1 minute if`discovery_timeout` is not defined.
 
-[`make`](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/Adapter.hpp#L75) instantiates an rclcpp::Noe like `init_and_make` however it is more customisable.
+[`make`](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/Adapter.hpp#L75) instantiates an rclcpp::Node like `init_and_make` however it is more customisable.
 
 - node_name - The name of rclcpp node that will be produced for this adapter.
--
-- discovery_timeout - The minimum time it will wait to discover the schedule node before giving up. If the default `rmf_utils:nullopt` is used it will use `discovery_timeout`node parameter or wait for 1 minute if`discovery_timeout` is not defined.
+- node_options - It can be used to customize the node.
+- discovery_timeout - The minimum time it will wait to discover the schedule node before giving up. If the default `rmf_utils:nullopt` is used it will use `discovery_timeout` node parameter or wait for 1 minute if `discovery_timeout` is not defined.
+
+`add_fleet` allows to add a fleet that needs to be adapted.
+
+- fleet_name - name of the fleet
+- traits - specify approximate traits of the vehicle.
+- navigation_graph - specify navigation graph used by the vehicles in the fleet
+- server_uri - uri of the websocket server that receives updates on the tasks and states. If the default `rmf_utils:nullopt` is used it will not publish any data.
+
+`add_easy_traffic_light` helps you create simple version of traffic light which allows to manage robot that can only support pause or resume commands.This API is simpler to use than the standard traffic light API but it provides less information about the exact timing needed for the starts and stops.This API must only be used if system integrators can ensure very low-latency and reliable connections to the robots to ensure that commands arrive on time.
+
+- handle_callback -The callback that will be triggered when the EasyTrafficLight handle is ready to be used. This callback will only be triggered once.
+
+- fleet_name - The name of the fleet
+
+- robot_name -The name of the robot
+
+- traits -The traits of the robot
+
+- pause_callback -The callback that should be triggered by the traffic light when an immediate pause is needed.
+
+- resume_callback -The callback that will be triggered by the traffic light when the robot may resume moving forward.
+
+- deadlock_callbackThe callback that will be triggered by the traffic light if there is a permanent blocker disrupting the ability of this vehicle to proceed.Manual intervention may be required in this circumstance. A callback does not need to be provided for this. Either way, an error message will be printed to the log.
