@@ -8,6 +8,7 @@
   - [ROS Concepts and Design Patterns](./ros2_design_patterns.md)
   - [The ROS Command Line Interface](./ros2_cli.md)
   - [The ROS API](./ros2_api.md)
+  - [ROS Lauch Files](./ros2_launchfiles.md)
 - [Traffic Editor](./traffic-editor.md)
 - [Simulation](./simulation.md)
 - [RMF Core Overview](./rmf-core.md)
