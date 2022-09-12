@@ -123,3 +123,241 @@ takes two arguments
 - resume_callback -The callback that will be triggered by the traffic light when the robot may resume moving forward.
 
 - deadlock_callbackThe callback that will be triggered by the traffic light if there is a permanent blocker disrupting the ability of this vehicle to proceed.Manual intervention may be required in this circumstance. A callback does not need to be provided for this. Either way, an error message will be printed to the log.
+
+## [FleetUpdateHandle.hpp](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp)
+
+The Update Handle works as handler between the fleet robots and the fleetadapter. 
+
+```c++
+#ifndef RMF_FLEET_ADAPTER__AGV__FLEETUPDATEHANDLE_HPP
+#define RMF_FLEET_ADAPTER__AGV__FLEETUPDATEHANDLE_HPP
+
+#include <rmf_fleet_adapter/agv/RobotUpdateHandle.hpp>
+#include <rmf_fleet_adapter/agv/RobotCommandHandle.hpp>
+
+#include <rmf_task_msgs/msg/delivery.hpp>
+#include <rmf_task_msgs/msg/task_profile.hpp>
+
+#include <rmf_battery/agv/BatterySystem.hpp>
+#include <rmf_battery/DevicePowerSink.hpp>
+#include <rmf_battery/MotionPowerSink.hpp>
+
+#include <rmf_task/RequestFactory.hpp>
+
+#include <nlohmann/json.hpp>
+#include <rmf_task/Activator.hpp>
+#include <rmf_task_sequence/Phase.hpp>
+#include <rmf_task_sequence/Event.hpp>
+
+namespace rmf_fleet_adapter {
+namespace agv {
+
+//==============================================================================
+class FleetUpdateHandle : public std::enable_shared_from_this<FleetUpdateHandle>
+{
+public:
+
+  void add_robot(
+    std::shared_ptr<RobotCommandHandle> command,
+    const std::string& name,
+    const rmf_traffic::Profile& profile,
+    rmf_traffic::agv::Plan::StartSet start,
+    std::function<void(std::shared_ptr<RobotUpdateHandle> handle)> handle_cb);
+
+  /// Confirmation is a class used by the task acceptance callbacks to decide if
+  /// a task description should be accepted.
+  class Confirmation
+  {
+  public:
+
+    /// Constructor
+    Confirmation();
+
+    /// Call this function to decide that you want to accept the task request.
+    /// If this function is never called, it will be assumed that the task is
+    /// rejected.
+    Confirmation& accept();
+
+    /// Check whether
+    bool is_accepted() const;
+
+    /// Call this function to bring attention to errors related to the task
+    /// request. Each call to this function will overwrite any past calls, so
+    /// it is recommended to only call it once.
+    Confirmation& errors(std::vector<std::string> error_messages);
+
+    /// Call this function to add errors instead of overwriting the ones that
+    /// were already there.
+    Confirmation& add_errors(std::vector<std::string> error_messages);
+
+    /// Check the errors that have been given to this confirmation.
+    const std::vector<std::string>& errors() const;
+
+    class Implementation;
+  private:
+    rmf_utils::impl_ptr<Implementation> _pimpl;
+  };
+
+  using ConsiderRequest =
+    std::function<void(
+        const nlohmann::json& description,
+        Confirmation& confirm)
+    >;
+
+  FleetUpdateHandle& consider_delivery_requests(
+    ConsiderRequest consider_pickup,
+    ConsiderRequest consider_dropoff);
+
+
+  FleetUpdateHandle& consider_cleaning_requests(ConsiderRequest consider);
+
+  FleetUpdateHandle& consider_patrol_requests(ConsiderRequest consider);
+
+  FleetUpdateHandle& consider_composed_requests(ConsiderRequest consider);
+
+
+  FleetUpdateHandle& add_performable_action(
+    const std::string& category,
+    ConsiderRequest consider);
+
+  /// Specify a set of lanes that should be closed.
+  void close_lanes(std::vector<std::size_t> lane_indices);
+
+  /// Specify a set of lanes that should be open.
+  void open_lanes(std::vector<std::size_t> lane_indices);
+
+
+  bool set_task_planner_params(
+    std::shared_ptr<rmf_battery::agv::BatterySystem> battery_system,
+    std::shared_ptr<rmf_battery::MotionPowerSink> motion_sink,
+    std::shared_ptr<rmf_battery::DevicePowerSink> ambient_sink,
+    std::shared_ptr<rmf_battery::DevicePowerSink> tool_sink,
+    double recharge_threshold,
+    double recharge_soc,
+    bool account_for_battery_drain,
+    rmf_task::ConstRequestFactoryPtr finishing_requst = nullptr);
+
+  using AcceptTaskRequest =
+    std::function<bool(const rmf_task_msgs::msg::TaskProfile& profile)>;
+
+  using AcceptDeliveryRequest =
+    std::function<bool(const rmf_task_msgs::msg::Delivery& request)>;
+
+  /// Specify the default value for how high the delay of the current itinerary
+  /// can become before it gets interrupted and replanned. A nullopt value will
+  /// allow for an arbitrarily long delay to build up without being interrupted.
+  FleetUpdateHandle& default_maximum_delay(
+    std::optional<rmf_traffic::Duration> value);
+
+  /// Get the default value for the maximum acceptable delay.
+  std::optional<rmf_traffic::Duration> default_maximum_delay() const;
+
+  /// The behavior is identical to fleet_state_topic_publish_period
+  [[deprecated("Use fleet_state_topic_publish_period instead")]]
+  FleetUpdateHandle& fleet_state_publish_period(
+    std::optional<rmf_traffic::Duration> value);
+
+  /// Specify a period for how often the fleet state message is published for
+  /// this fleet. Passing in std::nullopt will disable the fleet state message
+  /// publishing. The default value is 1s.
+  FleetUpdateHandle& fleet_state_topic_publish_period(
+    std::optional<rmf_traffic::Duration> value);
+
+  /// Specify a period for how often the fleet state is updated in the database
+  /// and to the API server. This is separate from publishing the fleet state
+  /// over the ROS2 fleet state topic. Passing in std::nullopt will disable
+  /// the updating, but this is not recommended unless you intend to provide the
+  /// API server with the fleet states through some other means.
+  ///
+  /// The default value is 1s.
+  FleetUpdateHandle& fleet_state_update_period(
+    std::optional<rmf_traffic::Duration> value);
+
+  /// Set a callback for listening to update messages (e.g. fleet states and
+  /// task updates). This will not receive any update messages that happened
+  /// before the listener was set.
+  FleetUpdateHandle& set_update_listener(
+    std::function<void(const nlohmann::json&)> listener);
+
+  // Do not allow moving
+  FleetUpdateHandle(FleetUpdateHandle&&) = delete;
+  FleetUpdateHandle& operator=(FleetUpdateHandle&&) = delete;
+
+  class Implementation;
+private:
+  FleetUpdateHandle();
+  rmf_utils::unique_impl_ptr<Implementation> _pimpl;
+};
+
+using FleetUpdateHandlePtr = std::shared_ptr<FleetUpdateHandle>;
+using ConstFleetUpdateHandlePtr = std::shared_ptr<const FleetUpdateHandle>;
+
+} // namespace agv
+} // namespace rmf_fleet_adapter
+
+#endif // RMF_FLEET_ADAPTER__AGV__FLEETUPDATEHANDLE_HPP
+
+```
+
+`add_robot`
+
+- command
+  A reference to a command handle for this robot.
+- name
+  The name of this robot.
+- profile
+  The profile of this robot. This profile should account for the largest possible payload that the robot might carry.
+- start
+  The initial location of the robot, expressed as `Plan::StartSet`. Multiple Start objects might be needed if the robot is not starting precisely on a waypoint.The function `rmf_traffic::agv::compute_plan_starts()` may help with this.
+- handle_cb
+  This callback function will get triggered when the RobotUpdateHandle is ready to be used by the Fleet API side of the Adapter. Setting up a new robot requires communication with the Schedule Node, so there may be a delay before the robot is ready to be used.
+
+- `add_performable_action`
+  Allow this fleet adapter to execute a PerformAction activity of specified
+  category which may be present in sequence event.
+
+  - `category`
+    A string that categorizes the action. This value should be used when
+    filling out the category field in event_description_PerformAction.json
+    schema.
+
+  - `consider`
+    Decide whether to accept the action based on the description field in
+    event_description_PerformAction.json schema.
+
+- `set_task_planner_params`
+  Set the parameters required for task planning. Without calling this
+  function, this fleet will not bid for and accept tasks.
+
+  - `battery_system`
+    Specify the battery system used by the vehicles in this fleet.
+
+  - `motion_sink`
+    Specify the motion sink that describes the vehicles in this fleet.
+
+  - `ambient_sink`
+    Specify the device sink for ambient sensors used by the vehicles in this fleet.
+
+  - `tool_sink`
+    Specify the device sink for special tools used by the vehicles in this fleet.
+
+  - `recharge_threshold`
+    The threshold for state of charge below which robots in this fleet
+    will cease to operate and require recharging. A value between 0.0 and
+    1.0 should be specified.
+
+  - `recharge_soc`
+    The state of charge to which robots in this fleet should be charged up
+    to by automatic recharging tasks. A value between 0.0 and 1.0 should be
+    specified.
+
+  - `account_for_battery_drain`
+    Specify whether battery drain is to be considered while allocating tasks.
+    If false, battery drain will not be considered when planning for tasks.
+    As a consequence, charging tasks will not be automatically assigned to
+    vehicles in this fleet when battery levels fall below the
+    recharge_threshold.
+
+  - `finishing_request`
+    A factory for a request that should be performed by each robot in this
+    fleet at the end of its assignments.
