@@ -276,7 +276,9 @@ using ConstFleetUpdateHandlePtr = std::shared_ptr<const FleetUpdateHandle>;
 
 `add_robot`
 This function will allow you to add a robot to the fleet.
+
 > Note currently there is no support for deleting the robot
+
 - `command`
   A reference to a command handle for this robot.
 - `name`
@@ -824,6 +826,10 @@ robot will take to reach its next destination.
 
 `follow_new_path` Have the robot follow a new path. If it was already following a path, then
 it should immediately switch over to this one.
+
+> Note:- The waypoints argument that will be given to the follow_new_path function of the RobotCommandHandle contains a list of `rmf_traffic::agv::Plan::Waypoint` objects that have a graph_index function.When that graph_index is non-null it can be passed to `Graph::get_waypoint` and then `Graph::Waypoint::get_map_name` can be called to check what the current map is for that waypoint. If there is a change in map name, then you robot should change its map.
+
+We don't provide an out-of-the-box hook for this because map switching logic is likely to vary too much between robots and deployments. For example, in a certain deployment you might need the robot to decompose a very large floor into multiple maps internally, but inside the RMF traffic system those multiple maps would all be part of one single map. In that case you'd need a dictionary of nav graph index -> robot's internal map name.
 
 - `waypoints`
   The sequence of waypoints to follow. When the robot arrives at a
