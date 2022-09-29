@@ -293,6 +293,8 @@ This function will allow you to add a robot to the fleet.
 Allow this fleet adapter to execute a PerformAction activity of specified
 category which may be present in sequence event.
 
+> Note:- It's intentionally left up to the system integrators to decide how to structure your implementation when the user might receive different types of perform_action requests.
+
 - `category`
   A string that categorizes the action. This value should be used when
   filling out the category field in event_description_PerformAction.json
