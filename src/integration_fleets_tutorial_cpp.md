@@ -123,25 +123,6 @@ takes two arguments
 The Update Handle works as handler between the fleet robots and the fleetadapter.
 
 ```c++
-#ifndef RMF_FLEET_ADAPTER__AGV__FLEETUPDATEHANDLE_HPP
-#define RMF_FLEET_ADAPTER__AGV__FLEETUPDATEHANDLE_HPP
-
-#include <rmf_fleet_adapter/agv/RobotUpdateHandle.hpp>
-#include <rmf_fleet_adapter/agv/RobotCommandHandle.hpp>
-
-#include <rmf_task_msgs/msg/delivery.hpp>
-#include <rmf_task_msgs/msg/task_profile.hpp>
-
-#include <rmf_battery/agv/BatterySystem.hpp>
-#include <rmf_battery/DevicePowerSink.hpp>
-#include <rmf_battery/MotionPowerSink.hpp>
-
-#include <rmf_task/RequestFactory.hpp>
-
-#include <nlohmann/json.hpp>
-#include <rmf_task/Activator.hpp>
-#include <rmf_task_sequence/Phase.hpp>
-#include <rmf_task_sequence/Event.hpp>
 
 namespace rmf_fleet_adapter {
 namespace agv {
@@ -334,6 +315,8 @@ function, this fleet will not bid for and accept tasks.
   The threshold for state of charge below which robots in this fleet
   will cease to operate and require recharging. A value between 0.0 and
   1.0 should be specified.
+  When the robot is idle, a timer periodically computes the estimated battery drain if the robot were to head back to the charger now. If the battery level after the estimated drain is within a safety factor applied to the recharge_threshold, the TaskManager will automatically begin a task to take the robot back to its charging station.
+  The recharge_threshold is used in a similar manner during task allocation. When deciding the order of tasks performed, the TaskPlanner will estimate the battery level of the robot after performing a task A. If the estimate is below the recharge_threshold, it will then check if the robot can perform task A if it performed a recharge task before this. If this is the case then it will automatically include a recharge task before task A. If it still cannot perform task A even after recharging, it will discard the possibility of doing task A in that sequence.
 - `recharge_soc`
   The state of charge to which robots in this fleet should be charged up
   to by automatic recharging tasks. A value between 0.0 and 1.0 should be
@@ -869,5 +852,3 @@ function as a no-op if your robots do not perform docking procedures.
 
 - `docking_finished_callback`
   Trigger this callback when the docking is finished.
-
-
