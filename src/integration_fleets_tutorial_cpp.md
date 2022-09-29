@@ -276,7 +276,7 @@ using ConstFleetUpdateHandlePtr = std::shared_ptr<const FleetUpdateHandle>;
 
 `add_robot`
 This function will allow you to add a robot to the fleet.
-
+> Note currently there is no support for deleting the robot
 - `command`
   A reference to a command handle for this robot.
 - `name`
