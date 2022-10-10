@@ -1,4 +1,4 @@
-# Fleet Adapter Tutorial
+# Fleet Adapter Tutorials
 
 `fleet_adapter` acts as a bridge between the robots and the core RMF system.
 
