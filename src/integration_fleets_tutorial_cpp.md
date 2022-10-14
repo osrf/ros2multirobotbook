@@ -186,7 +186,7 @@ starts = rmf_traffic::agv::compute_plan_starts(
 ```
 
 - Add each robot to the fleet using [`FleetUpdateHandle::add_robot`](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp#L71-L76)
-
+> Currently there is no support for deleting the robot.
 ```cpp
 _fleet_handle->add_robot(
     command, robot_name, _traits->profile(), starts,
