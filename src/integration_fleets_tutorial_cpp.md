@@ -9,7 +9,6 @@ The `Adapter` class helps you to communicate your fleet with other core RMF syst
 
 ## [FleetUpdateHandle](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/FleetUpdateHandle.hpp)
 
-> Currently there is no support for deleting the robot.
 
 
 The `FleetUpdateHandle` works as handler between the fleet adapter and RMF. It tells RMF what are the tasks, requests and actions that the fleet can accept. Users can use the `FleetUpdateHandle` to register their robots to the fleet using `add_robot`, as well as add task capabilities (e.g. delivery, patrol, cleaning) and performable actions so that RMF can delegate them to the appropriate fleets accordingly. More information can be found in the API documentation.
