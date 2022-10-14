@@ -18,7 +18,6 @@
     - [Traffic Monitor](./sim_launchfiles_trafficmonitor.md)
     - [Traffic Schedule](./sim_launchfiles_trafficschedule.md)
     - [Traffic Visualiser](./sim_launchfiles_visualiser.md)
-    - [Visualiser](./sim_launchfiles_visualiser.md)
 - [RMF Core Overview](./rmf-core.md)
   - [Frequently Asked Questions](./rmf-core_faq.md)
 - [Tasks in RMF](./task.md)
