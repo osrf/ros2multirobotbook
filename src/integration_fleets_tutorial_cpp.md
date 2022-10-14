@@ -11,32 +11,9 @@ The `Adapter` class helps you to communicate your fleet with other core RMF syst
 
 > Currently there is no support for deleting the robot.
 
-- Question: [How do I create multiple PerformActions?](https://github.com/open-rmf/rmf/discussions/145)
-
-  It's intentionally left up to the system integrators to decide how to structure their implementation when the user might receive different types of `perform_action` requests.
-  A simple example for creating multiple PerformActions can be found below
-
-  ```cpp
-  using ActionExecutor = rmf_fleet_adapter::agv::RobotUpdateHnadle::ActionExecutor;
-  std::shared_ptr<std::unordered_map<std::string, std::function<ActionExecutor>>> executor_map;
-  ActionExecutor dispatching_executor = [executor_map](
-    const std::string& category,
-    const nlohmann::json& description,
-    ActionExecution execution)
-  {
-    executor_map->at(category)(category, description, std::move(execution));
-  };
-  robot_update_handle->set_action_executor(dispatching_executor);
-  ```
-
-  `executor_map` can be given a different executor for each `perform_action` category that is expected.
 
 The `FleetUpdateHandle` works as handler between the fleet adapter and RMF. It tells RMF what are the tasks, requests and actions that the fleet can accept. Users can use the `FleetUpdateHandle` to register their robots to the fleet using `add_robot`, as well as add task capabilities (e.g. delivery, patrol, cleaning) and performable actions so that RMF can delegate them to the appropriate fleets accordingly. More information can be found in the API documentation.
 
-- Question: [How does the automatic go to battery task work?](https://github.com/open-rmf/rmf/discussions/184)
-
-  When the robot is idle, a timer periodically computes the estimated battery drain if the robot were to head back to the charger now. If the battery level after the estimated drain is within a safety factor applied to the `recharge_threshold`, the `TaskManager` will automatically begin a task to take the robot back to its charging station.
-  The `recharge_threshold` is used in a similar manner during task allocation. When deciding the order of tasks performed, the `TaskPlanner` will estimate the battery level of the robot after performing a _task A_. If the estimate is below the `recharge_threshold`, it will then check if the robot can perform _task A_ if it performed a recharge task before this. If this is the case then it will automatically include a recharge task before task A. If it still cannot perform _task A_ even after recharging, it will discard the possibility of doing _task A_ in that sequence.
 
 ## [RobotUpdateHandle](https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/RobotUpdateHandle.hpp)
 
@@ -135,6 +112,10 @@ auto battery_system_optional = rmf_battery::agv::BatterySystem::make(
 auto battery_system = std::make_shared<rmf_battery::agv::BatterySystem>(
     *battery_system_optional);
 ```
+- Question: [How does the automatic go to battery task work?](https://github.com/open-rmf/rmf/discussions/184)
+
+  When the robot is idle, a timer periodically computes the estimated battery drain if the robot were to head back to the charger now. If the battery level after the estimated drain is within a safety factor applied to the `recharge_threshold`, the `TaskManager` will automatically begin a task to take the robot back to its charging station.
+  The `recharge_threshold` is used in a similar manner during task allocation. When deciding the order of tasks performed, the `TaskPlanner` will estimate the battery level of the robot after performing a _task A_. If the estimate is below the `recharge_threshold`, it will then check if the robot can perform _task A_ if it performed a recharge task before this. If this is the case then it will automatically include a recharge task before task A. If it still cannot perform _task A_ even after recharging, it will discard the possibility of doing _task A_ in that sequence.
 
 - Setting the fleet's finishing request
   You may choose a finishing task for your fleet's robots between `park`, `charge` and `nothing`. You will need to create a `rmf_task::ConstRequestFactoryPtr` object and set them to the right finishing request.
@@ -174,6 +155,25 @@ const auto consider =
 _fleet_handle->consider_patrol_requests(consider);
 _fleet_handle->add_performable_action("teleop", consider);
 ```
+- Question: [How do I create multiple PerformActions?](https://github.com/open-rmf/rmf/discussions/145)
+
+  It's intentionally left up to the system integrators to decide how to structure their implementation when the user might receive different types of `perform_action` requests.
+  A simple example for creating multiple PerformActions can be found below
+
+  ```cpp
+  using ActionExecutor = rmf_fleet_adapter::agv::RobotUpdateHnadle::ActionExecutor;
+  std::shared_ptr<std::unordered_map<std::string, std::function<ActionExecutor>>> executor_map;
+  ActionExecutor dispatching_executor = [executor_map](
+    const std::string& category,
+    const nlohmann::json& description,
+    ActionExecution execution)
+  {
+    executor_map->at(category)(category, description, std::move(execution));
+  };
+  robot_update_handle->set_action_executor(dispatching_executor);
+  ```
+
+  `executor_map` can be given a different executor for each `perform_action` category that is expected.
 
 ### Step 3
 
