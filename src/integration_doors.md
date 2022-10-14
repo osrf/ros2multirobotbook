@@ -28,8 +28,8 @@ To make the process of integrating doors with RMF even simpler, we have open-sou
 
 ## Triggering Door Request before robot reaches the door
 
-There is no way to trigger a door request before a robot reaches the door by default however it can be implemented by the user by following the steps below:-
+There is no way to trigger a door request before a robot reaches the door by default however it can be implemented by the user by following the steps below:
 
-The fleet adapter integration can track the position of the robot, and if it is detected that robot is "close enough" to a door,a DoorRequest can be published to the `adapter_door_requests` topic. The robot will still stop for a moment at door_in to make sure that the door is open before proceeding, but that should only take a fraction of a second if the network is decent.
+The fleet adapter integration can track the position of the robot, and if it is detected that robot is "close enough" to a door,a door request can be published to the `adapter_door_requests` topic. The robot will still stop for a moment at door_in to make sure that the door is open before proceeding, but that should only take a fraction of a second if the network is decent.
 
-Note:- User should make sure that `requester_id` matches what the fleet adapter is for the your robot, which will be fleet_name/robot_name. Using the correct `requester_id` for the robot means that the task management system will automatically clear the DoorOpen request once the robot reaches door_out. If a different requester_id is used, then the fleet adapter integration will need to clear the request itself by sending a DoorClose request with the same `requester_id` once the robot has moved far enough away from the door.
+Note: The user should make sure that `requester_id` matches what the fleet adapter is for the your robot, which will be fleet_name/robot_name. Using the correct `requester_id` for the robot means that the task management system will automatically clear the `DoorOpen` request once the robot reaches `door_out`. If a different `requester_id` is used, then the fleet adapter integration will need to clear the request itself by sending a `DoorClose` request with the same `requester_id` once the robot has moved far enough away from the door.
