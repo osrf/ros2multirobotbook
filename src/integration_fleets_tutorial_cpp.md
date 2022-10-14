@@ -126,8 +126,19 @@ rmf_task::ConstRequestFactoryPtr finishing_request = nullptr;
 finishing_request = std::make_shared<rmf_task::requests::ChargeBatteryFactory>();
 ```
 
-- Adding task capabilities and performable actions to the fleet
-
+Users can now set the initialized task planner parameters with the fleet handle using `FleetUpdateHandle::set_task_planner_params`.
+```cpp
+_fleet_handle->set_task_planner_params(
+    battery_system,
+    motion_sink,
+    ambient_sink,
+    tool_sink,
+    recharge_threshold,
+    recharge_soc,
+    account_for_battery_drain,
+    finishing_request
+)
+```
 Use the `FleetUpdateHandle` to add task capabilities and performable actions to your fleet. For example, if your fleet is able to carry out patrol tasks and teleop actions, you can add them as such:
 ```cpp
 const auto consider =
