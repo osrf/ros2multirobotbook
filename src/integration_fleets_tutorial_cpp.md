@@ -37,9 +37,9 @@ Make an Adapter instance using
 
 ```cpp
 static std::shared_ptr<Adapter> make(
-const std::string& node_name,
-const rclcpp::NodeOptions& node_options = rclcpp::NodeOptions(),
-std::optional<rmf_traffic::Duration> discovery_timeout = std::nullopt);
+    const std::string& node_name,
+    const rclcpp::NodeOptions& node_options = rclcpp::NodeOptions(),
+    std::optional<rmf_traffic::Duration> discovery_timeout = std::nullopt);
 ```
 
 ### Step 2
