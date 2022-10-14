@@ -18,7 +18,7 @@ The `fleet_adapter` receives information (position, current ongoing tasks, batte
 
 - RMF determines the best fleet for the task and responds to the winning bid, i.e. the fleet that is selected. The response contains navigation commands relevant to the delegated task.
 
-- The fleet adapter will then send the navigation commands to the robot in appropriate API.
+- The fleet adapter will then send the navigation commands to the robot using the appropriate API.
 
 ## Tutorials
 
