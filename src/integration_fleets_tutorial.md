@@ -80,7 +80,6 @@ rmf_fleet:
     power: 760.0 # W
   recharge_threshold: 0.20 # Battery level below which robots in this fleet will not operate
   recharge_soc: 1.0 # Battery level to which robots in this fleet should be charged up to during recharging tasks
-  max_delay: 10.0 # Allowed seconds of delay of the current itinerary before it gets interrupted and replanned
   publish_fleet_state:  10.0 # Publish frequency for fleet state, ensure that it is same as robot_state_update_frequency
   account_for_battery_drain: True
   task_capabilities: # Specify the types of RMF Tasks that robots in this fleet are capable of performing
@@ -97,8 +96,6 @@ robots:
   # fleet.
   # Configuration for first robot in this fleet
   deliverybot1:
-    robot_config:
-      max_delay: 10.0 # Allowed seconds of delay of the current itinerary before it gets interrupted and replanned
     rmf_config:
       robot_state_update_frequency: 0.5
       start:
@@ -112,8 +109,6 @@ robots:
   # Configuration for the second robot in this fleet if there is a second robot
   # Uncomment if more than one robot exists.
   # deliverybot2:
-  #   robot_config:
-  #     max_delay: 10.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
   #   rmf_config:
   #     robot_state_update_frequency: 0.5
   #     start:
@@ -156,8 +151,6 @@ reference_coordinates:
 
   - `recharge_soc`: The fraction of total battery capacity to which the robot should be charged.
 
-  - `max_delay`: Allowed seconds of delay of the current itinerary before it gets interrupted and replanned. Note: currently used in `easy_fleet_adapter.py`.
-
   - `task_capabilities`: The tasks that the robot can perform between `loop`, `delivery` and `clean`.
 
   - `finishing_request`: What the robot should do when it finishes its task, can be set to `park`, `charge` or `nothing`.
@@ -167,8 +160,6 @@ reference_coordinates:
 - `robots`: Information about each individual robot in the fleet. Each item in this section corresponds to the configuration for a single robot in the fleet. You may add more robots accordingly.
 
   - `deliveryBot1`: Name of the robot.
-
-    - `max_delay`: Allowed seconds before interruption occurs and replanning happens. Note: currently used in `fleet_adapter.py`, to be moved to the `rmf_fleet` section.
 
     - `robot_state_update_frequency`: How frequently should the robot update the fleet.
 
