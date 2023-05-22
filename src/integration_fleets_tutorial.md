@@ -88,7 +88,7 @@ rmf_fleet:
     delivery: False
     clean: False
     finishing_request: "nothing" # [park, charge, nothing]
-    action: [] # Optional, list of performable action names
+    action: [] # Optional, list of custom actions that the fleet can perform
 
 # DeliveryBot CONFIG =================================================================
 
@@ -336,3 +336,337 @@ Parts of the [`RobotAPI`](https://github.com/open-rmf/rmf_demos/blob/main/rmf_de
 ```
 
 Further parameters may be added to `RobotAPI` to be used in these callbacks if required, such as authentication details and task IDs. You may also wish to write additional methods in `RobotAPI` and call them in your `fleet_adapter.py` for specific use cases.
+
+## 5. Create your fleet adapter!
+
+Now that we have our components ready, we can start writing our fleet adapter. You may either
+
+- Use the Full Control Python fleet adapter as a starting point and optionally add customization to its logic by modifying the RobotCommandHandle code, or
+- Use our out-of-the-box fleet adapter logic with Easy Full Control with the [`easy_fleet_adapter`]() template provided in `fleet_adapter_template`.
+
+The following steps elaborate on how an **Easy Full Control** adapter can be written. It uses the same C++ API as the Full Control fleet adapter, with an additional layer of the [`EasyFullControl`](https://github.com/open-rmf/rmf_ros2/blob/feature/easy_full_control/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyFullControl.hpp) class that helps to set up the fleet adapter's internal logic without user intervention. You will only need to parse your `config.yaml` and navigation graphs, as well as have some required callback functions ready, to create and start using your fleet adapter.
+
+Some code snippets from the [`easy_fleet_adapter.py`](https://github.com/open-rmf/rmf_demos/blob/feature/easy_full_control/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/easy_fleet_adapter.py) implemented in [rmf_demos_fleet_adapter](https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_fleet_adapter) are provided as examples.
+
+### 5a. Create a `FleetAdapter` class
+
+For ease of implementation, we create a `FleetAdapter` class to keep track of some fleet parameters and to spin up our adapter node easily.
+
+```python
+class FleetAdapter:
+
+    def __init__(self, config_path, nav_graph_path, node, use_sim_time):
+        # Load config yaml
+        with open(config_path, "r") as f:
+            config_yaml = yaml.safe_load(f)
+        # Initialize robot API for this fleet
+        fleet_config = config_yaml['rmf_fleet']
+        prefix = 'http://' + fleet_config['fleet_manager']['ip'] + \
+                 ':' + str(fleet_config['fleet_manager']['port'])
+        self.api = RobotAPI(
+            prefix,
+            fleet_config['fleet_manager']['user'],
+            fleet_config['fleet_manager']['password'])
+
+        node.declare_parameter('server_uri', rclpy.Parameter.Type.STRING)
+        server_uri = node.get_parameter(
+            'server_uri').get_parameter_value().string_value
+        if server_uri == "":
+            server_uri = None
+```
+
+Here we load the fleet configuration and navigation graph YAML files, and set up access to the `RobotAPI` class that we updated previously. The `server_uri` parameter is also initialized here to be used with RMF Web.
+
+```python
+        # Create EasyFullControl adapter
+        self.configuration = adpt.easy_full_control.Configuration.make(
+            config_path, nav_graph_path, server_uri)
+        self.adapter = self.initialize_fleet(
+            self.configuration, config_yaml['robots'], node, use_sim_time)
+```
+
+We then create the `Configuration` object that will be required for the instantiation of the fleet adapter. This object encapsulates all the information about your fleet configuration and navigation graph and passes them on easily to the fleet adapter. 
+
+Now we are ready to make the Easy Full Control adapter, which will be done in the `initialize_fleet` method.
+
+### 5b. Make the adapter
+
+```python
+    def initialize_fleet(self, configuration, robots_yaml, node, use_sim_time):
+        # Make the easy full control
+        easy_full_control = adpt.EasyFullControl.make(configuration)
+
+        if use_sim_time:
+            easy_full_control.node.use_sim_time()
+```
+
+Inside the `initialize_fleet` method, we create the fleet adapter by passing our `Configuration` object to `EasyFullControl`'s `make(~)` function.
+
+### 5c. Create individual robot callbacks
+
+Before we can add our robots to the fleet, we need to define callbacks for each of them to perform various functions. These callbacks are needed for RMF to
+- Retrieve the robot's state information, such as charger name, current location, battery state of charge, etc. (`GetStateCallback`)
+- Send navigation (`NavigationRequest`), docking (`DockRequest`) or action (`ActionExecutor`) commands to the robot
+- Request for the robot to stop moving (`StopRequest`)
+
+They are defined in the [`EasyFullControl`](https://github.com/open-rmf/rmf_ros2/blob/feature/easy_full_control/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyFullControl.hpp) class, take a moment to look at the functions and the arguments they should take before implementing your own.
+
+If you have multiple robots to be added to your fleet that use the same callbacks, you can opt to create a generic function that takes in an identification argument (e.g. robot name) to avoid re-writing similar code. Some examples from `rmf_demos_fleet_adapter` below show how they can be implemented. Here we use parameters like `self.cmd_id` and `self.actions` to keep track of tasks and processes being carried out for the demos integration.
+
+**RobotState**
+
+The `GetStateCallback` function will be called at every update interval for RMF to keep tabs on the robot's whereabouts and availability for task allocation. It returns a [`RobotState`](https://github.com/open-rmf/rmf_ros2/blob/feature/easy_full_control/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyFullControl.hpp#L230) object or `None` if the robot state cannot be queried.
+
+```python
+        def _robot_state(robot_name):
+            # Use the RobotAPI to retrieve the robot's state information
+            data = self.api.data(robot_name)
+
+            # If there is no information available, return None
+            if data is None or data['success'] is False:
+                return None
+
+            # Return the robot information in a RobotState object
+            pos = data['data']['position']
+            action = False
+            if robot_name in self.actions and \
+                    self.actions[robot_name] is not None:
+                action = True
+            state = adpt.easy_full_control.RobotState(
+                robot,
+                robot_config['charger']['waypoint'],
+                data['data']['map_name'],
+                [pos['x'], pos['y'], pos['yaw']],
+                data['data']['battery'],
+                action)
+            self.last_map[robot_name] = data['data']['map_name']
+            return state
+```
+
+**Navigation**
+
+The `NavigationRequest` callback requires users to trigger a robot-specific navigation command, and call `execution.finished()` when the robot has reached its target waypoint.
+
+```python
+        def _navigate(robot_name, map_name, goal, execution):
+            # Clear current ongoing navigations if any
+            if robot_name in self.nav_threads:
+                if self.nav_threads[robot_name] is not None:
+                    if self.nav_threads[robot_name].is_alive():
+                        self.nav_threads[robot_name].join()
+
+            cmd_id = self.next_id
+            self.next_id += 1
+            self.cmd_ids[robot_name] = cmd_id
+
+            # Use RobotAPI to send navigation commands
+            self.api.navigate(robot_name, cmd_id, goal, map_name)
+
+            # Internal tracking that calls execution.finished()
+            # when the robot reaches the destination
+            with self._lock:
+                self.nav_threads[robot_name] = None
+                self.nav_threads[robot_name] = threading.Thread(
+                    target=self.start_navigation,
+                    args=(robot_name, execution))
+                self.nav_threads[robot_name].start()
+```
+
+In `rmf_demos_fleet_adapter`, this is done by passing the execution object to an internal function `start_navigation()` that continually checks the robot's navigation progress using RobotAPI's `navigate()` method. You can also use `execution.update_request()` to ask RMF to replan its trajectory and update the remaining duration for the navigation task.
+
+```python
+    def start_navigation(self,
+                         robot_name,
+                         execution):
+        while not self.api.process_completed(robot_name,
+                                             self.cmd_ids[robot_name]):
+            remaining_time = self.api.navigation_remaining_duration(
+                robot_name, self.cmd_ids[robot_name])
+            if remaining_time:
+                remaining_time = datetime.timedelta(seconds=remaining_time)
+            request_replan = self.api.requires_replan(robot_name)
+            execution.update_request(request_replan, remaining_time)
+        # Navigation completed
+        execution.finished()
+```
+
+**DockRequest**
+
+Similarly, the `DockRequest` callback should call RobotAPI's `dock()` method and keep track of the robot's docking progress, and trigger `execution.finished()` when it is done with the task.
+
+```python
+        def _dock(robot_name, dock_name, execution):
+            if dock_name not in self.docks:
+                node.get_logger().info(
+                    f'Requested dock {dock_name} not found, '
+                    f'ignoring docking request')
+                return
+
+            # Clear current ongoing docking if any
+            if robot_name in self.traj_threads:
+                if self.traj_threads[robot_name] is not None:
+                    if self.traj_threads[robot_name].is_alive():
+                        self.traj_threads[robot_name].join()
+
+            cmd_id = self.next_id
+            self.next_id += 1
+            self.cmd_ids[robot_name] = cmd_id
+            self.api.start_process(
+                robot_name, cmd_id, dock_name, self.last_map[robot_name])
+
+            positions = []
+            for wp in self.docks[dock_name]:
+                positions.append([wp.x, wp.y, wp.yaw])
+            task_completed_cb = self.api.navigation_completed
+            node.get_logger().info(
+                f"Robot {robot_name} is docking at {dock_name}...")
+
+            with self._lock:
+                self.traj_threads[robot_name] = None
+            self.traj_threads[robot_name] = threading.Thread(
+                target=self.start_trajectory,
+                args=(task_completed_cb, robot_name, positions,
+                      execution.handle(), execution))
+            self.traj_threads[robot_name].start()
+```
+
+In this example, we have an internal function `start_trajectory()` to check on the docking process. We also made use of RMF adapter's scheduling tools to create trajectories for this request, allowing for additional monitoring of the robot.
+
+```python
+    # Track trajectory of docking or custom actions
+    def start_trajectory(self,
+                         task_completed_cb,
+                         robot_name,
+                         positions,
+                         update_handle,
+                         execution):
+        while not task_completed_cb(robot_name, self.cmd_ids[robot_name]):
+            now = datetime.datetime.fromtimestamp(0) + \
+                self.adapter.node.now()
+            traj = schedule.make_trajectory(
+                self.configuration.vehicle_traits(),
+                now,
+                positions)
+            itinerary = schedule.Route(self.last_map[robot_name], traj)
+            if update_handle is not None:
+                participant = update_handle.get_unstable_participant()
+                participant.set_itinerary([itinerary])
+        execution.finished()
+```
+
+**Custom Actions**
+
+If you added custom actions to your `config.yaml`, you can specify the logic and trigger for the action using the `ActionExecutor` callback. As usual, you will have to call `execution.finished()` to signal the end of the performed action. The action name that you added will be carried here under `category`. This example stores the `ActionExecution` object in `self.actions`, and then uses an additional `toggle_action()` API to relay to the fleet manager that it can start on the given action.
+
+```python
+        def _action_executor(
+                robot_name: str,
+                category: str,
+                description: dict,
+                execution: adpt.robot_update_handle.ActionExecution):
+            self.actions[robot_name] = execution
+            self.api.toggle_action(robot_name, True)
+```
+
+The sections [User-defined Task](./task_userdefined.md) and [Supporting a New Task](./task_new.md) of this Book explain in further detail how an `ActionExecutor` function can be written and how a custom task can be created respectively.
+
+**Stop**
+
+`StopRequest` simply calls RobotAPI's corresponding method to request for the robot to stop moving.
+
+```python
+        def _stop(robot_name):
+            cmd_id = self.next_id
+            self.next_id += 1
+            self.cmd_ids[robot_name] = cmd_id
+            return self.api.stop(robot_name, cmd_id)
+```
+
+### 5d. Add robot to the fleet adapter
+
+To add robots to the fleet adapter, you will need to pass the robot's starting state and the callbacks defined above to `EasyFullControl`'s `add_robot(~)` method.
+
+```python
+        # Add the robots
+        for robot in robots_yaml:
+            node.get_logger().info(f'Found robot {robot}')
+            success = False
+            while success is False:
+                state = _robot_state(robot)
+                if state is None:
+                    time.sleep(0.2)
+                    continue
+                success = True
+                # Add robot to fleet
+                easy_full_control.add_robot(
+                    state,
+                    partial(_robot_state, robot),
+                    partial(_navigate, robot),
+                    partial(_stop, robot),
+                    partial(_dock, robot),
+                    partial(_action_executor, robot))
+
+        return easy_full_control
+```
+
+### 5e. Initialize the `FleetAdapter`
+
+With the `FleetAdapter` set up, we can create our adapter instance. We take in the configuration and navigation graph file paths as command line arguments and pass them to the `FleetAdapter` class along with a ROS 2 node for the command handle. Additionally you might want to use the `use_sim_time` parameter if you would like to run the adapter in simulation.
+
+```python
+def main(argv=sys.argv):
+    # Init rclpy and adapter
+    rclpy.init(args=argv)
+    adpt.init_rclcpp()
+    args_without_ros = rclpy.utilities.remove_ros_args(argv)
+
+    parser = argparse.ArgumentParser(
+        prog="fleet_adapter",
+        description="Configure and spin up the fleet adapter")
+    parser.add_argument("-c", "--config_file", type=str, required=True,
+                        help="Path to the config.yaml file")
+    parser.add_argument("-n", "--nav_graph", type=str, required=True,
+                        help="Path to the nav_graph for this fleet adapter")
+    parser.add_argument("-sim", "--use_sim_time", action="store_true",
+                        help='Use sim time, default: false')
+    args = parser.parse_args(args_without_ros[1:])
+    print(f"Starting fleet adapter...")
+
+    config_path = args.config_file
+    nav_graph_path = args.nav_graph
+
+    # Load config and nav graph yamls
+    with open(config_path, "r") as f:
+        config_yaml = yaml.safe_load(f)
+
+    # ROS 2 node for the command handle
+    fleet_name = config_yaml['rmf_fleet']['name']
+    node = rclpy.node.Node(f'{fleet_name}_command_handle')
+
+    # Enable sim time for testing offline
+    if args.use_sim_time:
+        param = Parameter("use_sim_time", Parameter.Type.BOOL, True)
+        node.set_parameters([param])
+
+    adapter = FleetAdapter(
+        config_path,
+        nav_graph_path,
+        node,
+        args.use_sim_time)
+
+    # Create executor for the command handle node
+    rclpy_executor = rclpy.executors.SingleThreadedExecutor()
+    rclpy_executor.add_node(node)
+
+    # Start the fleet adapter
+    rclpy_executor.spin()
+
+    # Shutdown
+    node.destroy_node()
+    rclpy_executor.shutdown()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main(sys.argv)
+```
