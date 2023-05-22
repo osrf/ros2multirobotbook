@@ -575,20 +575,21 @@ The sections [User-defined Task](./task_userdefined.md) and [Supporting a New Ta
 
 ### 5d. Add robot to the fleet adapter
 
-To add robots to the fleet adapter, you will need to pass the robot's starting state and the callbacks defined above to `EasyFullControl`'s `add_robot(~)` method.
+To add robots to the fleet adapter, you will need to pass the robot's starting state and the callbacks defined above to `EasyFullControl`'s `add_robot(~)` method. Here we keep adding the robots listed in our `config.yaml` until we found all of them.
 
 ```python
         # Add the robots
-        for robot in robots_yaml:
-            node.get_logger().info(f'Found robot {robot}')
-            success = False
-            while success is False:
+        missing_robots = robots_yaml
+        while len(missing_robots) > 0:
+            for robot in list(missing_robots.keys()):
+                node.get_logger().info(f'Connecting to robot [{robot}]')
+                robot_config = robots_yaml[robot]['rmf_config']
                 state = _robot_state(robot)
                 if state is None:
+                    node.get_logger().info(f'Unable to find robot [{robot}], trying again...')
                     time.sleep(0.2)
                     continue
-                success = True
-                # Add robot to fleet
+                # Found robot, add to fleet
                 easy_full_control.add_robot(
                     state,
                     partial(_robot_state, robot),
@@ -596,6 +597,8 @@ To add robots to the fleet adapter, you will need to pass the robot's starting s
                     partial(_stop, robot),
                     partial(_dock, robot),
                     partial(_action_executor, robot))
+                node.get_logger().info(f'Successfully added new robot: [{robot}]')
+                del missing_robots[robot]
 
         return easy_full_control
 ```
