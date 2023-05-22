@@ -333,7 +333,7 @@ Further parameters may be added to `RobotAPI` to be used in these callbacks if r
 Now that we have our components ready, we can start writing our fleet adapter. You may either
 
 - Use the Full Control Python fleet adapter as a starting point and optionally add customization to its logic by modifying the RobotCommandHandle code, or
-- Use our out-of-the-box fleet adapter logic with Easy Full Control with the [`easy_fleet_adapter`]() template provided in `fleet_adapter_template`.
+- Use our out-of-the-box fleet adapter logic with Easy Full Control with the [`easy_fleet_adapter`](https://github.com/open-rmf/fleet_adapter_template/blob/xiyu/update_EFC/fleet_adapter_template/fleet_adapter_template/easy_fleet_adapter.py) template provided in `fleet_adapter_template`.
 
 The following steps elaborate on how an **Easy Full Control** adapter can be written. It uses the same C++ API as the Full Control fleet adapter, with an additional layer of the [`EasyFullControl`](https://github.com/open-rmf/rmf_ros2/blob/feature/easy_full_control/rmf_fleet_adapter/include/rmf_fleet_adapter/agv/EasyFullControl.hpp) class that helps to set up the fleet adapter's internal logic without user intervention. You will only need to parse your `config.yaml` and navigation graphs, as well as have some required callback functions ready, to create and start using your fleet adapter.
 
