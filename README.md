@@ -9,32 +9,24 @@ can be accessed here:
 
 https://osrf.github.io/ros2multirobotbook/
 
-# Compiling the book locally
+# Compiling the book locally (Ubuntu)
 
 It's convenient to compile the book locally when making edits. The following
 steps will help you install the necessary tools.
 
 ### Dependencies
 
-Install a few dependencies, then Rust and `cargo`, its package manager:
-```
+Install these system dependencies:
+```bash
 sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
-sudo apt install cargo
 ```
 
-Append cargo to the end of your `~/.bashrc` file:
-```
-export PATH=$PATH:$HOME/.cargo/bin
-```
+Then install Rust and Cargo (if you don't have them already) by following the instructions at this link:
+* https://www.rust-lang.org/tools/install
 
 Now use `cargo` to install `mdbook`:
-```
-. ~/.bashrc
-cargo install mdbook
-cargo install mdbook-open-on-gh
-cargo install mdbook-latex
-cargo install tectonic
-cargo install mdbook-epub
+```bash
+cargo install mdbook mdbook-open-on-gh
 ```
 
 ### Compiling the book

@@ -13,16 +13,8 @@ command = "mdbook-open-on-gh"
 renderer = ["html"]
 
 [output.html]
-# default-theme = "coal"
 git-repository-url = "https://github.com/osrf/ros2multirobotbook"
 additional-css = ["open-in.css"]
 
 [output.html.fold]
 enable = true
-
-#[output.latex]
-#latex = true
-#pdf = true
-#markdown = true
-
-#[output.epub]
