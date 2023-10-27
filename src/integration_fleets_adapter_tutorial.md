@@ -26,10 +26,15 @@ The `fleet_adapter` receives information (position, current ongoing tasks, batte
 
 ### Fetch dependencies
 
-Since the `rmf_demos_fleet_adapter` uses REST API as an interface between the fleet adapter and robot fleet manager, we will need to install the required dependencies to use FastAPI.
+Before running your fleet adapter, make sure that you have ROS 2 and RMF installed by following the instructions [here](./installation.md). You have the option of installing the binaries or building from source for both. You may also wish to head over to our [RMF Github repo](https://github.com/open-rmf/rmf) for the latest updates and instructions for RMF installation.
+
+If you built ROS 2 and/or RMF from source, make sure to source the workspace that contains their built code before proceeding to the next step.
+
+In our example, the `rmf_demos_fleet_adapter` uses REST API as an interface between the fleet adapter and robot fleet manager, hence to get the demos working we will need to install the required dependencies to use FastAPI.
 ```bash
 pip3 install fastapi uvicorn
 ```
+This step is only required for this implementation; depending on what API your own fleet manager uses, you'll have to install any necessary dependencies accordingly.
 
 ### Get started with the fleet adapter template
 
@@ -194,13 +199,7 @@ At this point, you should have 4 components ready in order to run your fleet ada
 - Fleet `config.yaml` file
 - Navigation graph
 
-### a. Install ROS 2 and sRMF
-
-Before running your fleet adapter, make sure that you have ROS 2 and RMF installed by following the instructions [here](./installation.md). You have the option of installing the binaries or building from source for both. You may also wish to head over to our [RMF Github repo](https://github.com/open-rmf/rmf) for the latest updates and instructions for RMF installation.
-
-If you built ROS 2 and/or RMF from source, make sure to source the workspace that contains their built code before proceeding to the next step.
-
-### b. Build your fleet adapter package
+### Build your fleet adapter package
 
 If you cloned the `fleet_adapter_template` repository, you would already have your Python scripts in a ROS 2 package. Otherwise, you can follow the instructions [here](https://docs.ros.org/en/rolling/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html) to create a package in your workspace. For the instructions below, we will use the package and module names used in the `fleet_adapter_template` package.
 
@@ -210,7 +209,7 @@ With your scripts in the appropriate folder, go back to the root directory of yo
 colcon build --packages-select fleet_adapter_template
 ```
 
-### c. Run!
+### Run!
 
 We will now source our workspace and run the fleet adapter:
 
@@ -295,7 +294,16 @@ def compute_transforms(level, coords, node=None):
     )
 ```
 
-Then, in our `main` function, we at the computed transforms to our fleet configuration. The EasyFullControl fleet adapter will process these transforms and send out navigation commands in the robot's coordinates accordingly.
+```python
+    # Configure the transforms between robot and RMF frames
+    for level, coords in config_yaml['reference_coordinates'].items():
+        tf = compute_transforms(level, coords, node)
+        fleet_config.add_robot_coordinates_transformation(level, tf)
+```
+
+Depending on the number of maps (or levels) required for your integration, you will extract the corresponding coordinate transformations for each map and add them to the FleetConfiguration object. The transformation error estimate will be logged by this function if you pass your `rclpy.Node` into it.
+
+Then, in our `main` function, we add the computed transforms to our FleetConfiguration. The EasyFullControl fleet adapter will process these transforms and send out navigation commands in the robot's coordinates accordingly.
 
 ```python
     # Configure the transforms between robot and RMF frames
@@ -306,7 +314,7 @@ Then, in our `main` function, we at the computed transforms to our fleet configu
 
 ### c. Initialize the robot API and set up RobotAdapter
 
-The `config.yaml` should include any connection credentials we'd need to connect to our robot or robot fleet manager. We parse this to the `RobotAPI` to easily interact between RMF and the robot's API.
+The `config.yaml` may include any connection credentials we'd need to connect to our robot or robot fleet manager. We parse this to the `RobotAPI` to easily interact between RMF and the robot's API. This is entirely optional; for more secure storage of credentials, do import them into RobotAPI accordingly.
 
 ```python
     # Initialize robot API for this fleet
@@ -461,3 +469,5 @@ Notice that `execute_action(~)` does not have any implemented code in the fleet 
             )
         )
 ```
+
+Finally, we add all of our callbacks to our fleet adapter using the `RobotCallbacks()` API.
