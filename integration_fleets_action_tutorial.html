@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>PerformAction Tutorial - Programming Multiple Robots with ROS 2</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="open-in.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item expanded "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item expanded "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item expanded "><a href="integration_fleets_action_tutorial.html" class="active"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Programming Multiple Robots with ROS 2</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/osrf/ros2multirobotbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="performaction-tutorial-python"><a class="header" href="#performaction-tutorial-python">PerformAction Tutorial (Python)</a></h1>
+<p>This tutorial is an extension of the Fleet Adapter Tutorial and will guide you to write custom actions in your fleet adapter. While RMF offers a few standard tasks, we understand that different robots may be equipped and programmed to perform different types of actions, such as cleaning, object-picking, teleoperation, and so on. By supporting custom tasks, users can trigger a custom action specified in the fleet adapter's <code>config.yaml</code> beforehand, and RMF would relinquish control of the robot until it is signalled that the robot has completed the custom action. You may explore the <a href="./task_new.html">Supporting a new Task in RMF</a> section to read more about supporting custom tasks and how you can create your own task JSON to be sent to RMF.</p>
+<p>In this tutorial, we will refer to a simplified version of the <code>rmf_demos_fleet_adapter</code> to implement a <code>Clean</code> PerformAction capability in our fleet adapter.</p>
+<h2 id="1-define-the-performaction-in-the-fleet-configyaml"><a class="header" href="#1-define-the-performaction-in-the-fleet-configyaml">1. Define the PerformAction in the fleet <code>config.yaml</code></a></h2>
+<p>We will need to define the name of the action in the fleet configuration, so that RMF recognizes this action as performable when a task is submitted and is able to dispatch it to a fleet that can fulfil it. In our <code>config.yaml</code> under the <code>rmf_fleet</code> section, we can provide a list of performable actions for our fleet. For example, let's define <code>clean</code> as an action supported by this fleet:</p>
+<pre><code class="language-yaml">rmf_fleet:
+  actions: [&quot;clean&quot;]
+</code></pre>
+<h2 id="2-apply-action-execution-logic-inside-our-fleet-adapter"><a class="header" href="#2-apply-action-execution-logic-inside-our-fleet-adapter">2. Apply action execution logic inside our fleet adapter</a></h2>
+<p>After RMF receives a task consisting of this action and dispatches it to the right fleet, the fleet adapter's <code>execute_action(~)</code> callback will be triggered. The <code>category</code> parsed to this callback corresponds to the action name that we have previously defined, and the <code>description</code> consists of any details about the action that we might be interested in.</p>
+<p>Assume that this is the task JSON submitted to RMF:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;dispatch_task_request&quot;,
+  &quot;request&quot;: {
+    &quot;unix_millis_earliest_start_time&quot;: start_time,
+    &quot;category&quot;: &quot;clean&quot;,
+    &quot;description&quot;: {
+      &quot;zone&quot;: &quot;clean_lobby&quot;
+    }
+  }
+}
+</code></pre>
+<p>In our example, the <code>category</code> provided would be <code>clean</code>, and the <code>description</code> would contain which cleaning zone this task is directing our robot to, which is <code>clean_lobby</code>. Hence, we will need to implement the logic in our <code>execute_action(~)</code>:</p>
+<pre><code class="language-python">    def execute_action(self, category: str, description: dict, execution):
+        self.execution = execution
+
+        if category == 'clean':
+            self.perform_clean(description['zone'])
+
+    def perform_clean(self, zone):
+        if self.api.start_activity(self.name, 'clean', zone):
+            self.node.get_logger().info(
+                f'Commanding [{self.name}] to clean zone [{zone}]'
+            )
+        else:
+            self.node.get_logger().error(
+                f'Fleet manager for [{self.name}] does not know how to '
+                f'clean zone [{zone}]. We will terminate the activity.'
+            )
+            self.execution.finished()
+            self.execution = None
+</code></pre>
+<p>Since our fleet may be capable of performing multiple custom actions, we will need to conduct a check to ensure that the <code>category</code> received matches the robot API that we are targeting. Upon receiving a <code>clean</code> action, we can trigger the robot's API accordingly.</p>
+<h2 id="3-implement-the-robot-api-for-the-custom-action"><a class="header" href="#3-implement-the-robot-api-for-the-custom-action">3. Implement the robot API for the custom action</a></h2>
+<p>This is where the <code>start_activity(~)</code> method inside <code>RobotClientAPI.py</code> comes into play. We would require it to implement the API call to the robot to start the cleaning activity. As an example, if the robot API uses REST to make calls to the robot, the implemented method may look like this:</p>
+<pre><code class="language-python">    def start_activity(
+        self,
+        robot_name: str,
+        activity: str,
+        label: str
+    ):
+        ''' Request the robot to begin a process. This is specific to the robot
+            and the use case. For example, load/unload a cart for Deliverybot
+            or begin cleaning a zone for a cleaning robot.'''
+        url = (
+            self.prefix +
+            f&quot;/open-rmf/rmf_demos_fm/start_activity?robot_name={robot_name}&quot;
+        )
+        # data fields: task, map_name, destination{}, data{}
+        data = {'activity': activity, 'label': label}
+        try:
+            response = requests.post(url, timeout=self.timeout, json=data)
+            response.raise_for_status()
+            if self.debug:
+                print(f'Response: {response.json()}')
+
+            if response.json()['success']:
+                return True
+
+            # If we get a response with success=False, then
+            return False
+        except HTTPError as http_err:
+            print(f'HTTP error for {robot_name} in start_activity: {http_err}')
+        except Exception as err:
+            print(f'Other error {robot_name} in start_activity: {err}')
+        return False
+</code></pre>
+<h2 id="4-complete-the-action"><a class="header" href="#4-complete-the-action">4. Complete the action</a></h2>
+<p>Since we stored a <code>self.execution</code> object in our <code>RobotAdapter</code>, we will be notified when any execution (navigation, stop, or action) is completed as the update loop continually calls <code>is_command_completed</code> to check on its status.</p>
+<pre><code class="language-python">    def update(self, state):
+        activity_identifier = None
+        if self.execution:
+            if self.api.is_command_completed():
+                self.execution.finished()
+                self.execution = None
+            else:
+                activity_identifier = self.execution.identifier
+</code></pre>
+<p>If your implementation requires a separate callback to mark the execution as finished, you can create a new function to conduct this check and call <code>self.execution.finished()</code> when the action is completed.</p>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_fleets_action_tutorial.md">Edit this page on GitHub.</a></footer>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="integration_fleets_adapter_tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="integration_free-fleet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="integration_fleets_adapter_tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="integration_free-fleet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
