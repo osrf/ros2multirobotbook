@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item expanded "><a href="traffic-editor.html" class="active"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -200,8 +202,8 @@ accurately reflect physical environments.</p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The <code>traffic_editor</code> <a href="https://github.com/open-rmf/rmf_traffic_editor">repository</a> is home to the <code>traffic_editor</code> GUI and tools to auto-generate simulation worlds from GUI output.
 The GUI is an easy-to-use interface which can create and annotate 2D floor plans with robot traffic along with building infrastructure information.
-Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a &quot;reference&quot; coordinate system for vendor-specific maps.
-For such cases, <code>traffic-editor</code> can import these types of &quot;backgroud images&quot; to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.</p>
+Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a "reference" coordinate system for vendor-specific maps.
+For such cases, <code>traffic-editor</code> can import these types of "backgroud images" to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.</p>
 <p>The <code>traffic_editor</code> GUI projects are stored as <code>yaml</code> files with <code>.building.yaml</code> file extensions.
 Although the typical workflow uses the GUI and does not require hand-editing the <code>yaml</code> files directly, we have used a <code>yaml</code> file format to make it easy to parse using custom scripting if needed.
 Each <code>.building.yaml</code> file includes several attributes for each level in the site as annotated by the user.
@@ -257,7 +259,7 @@ The user is able to zoom via the mouse scroll wheel, and pan the view by pressin
 <li><strong>levels:</strong> to add a new level to the building. This can be done from scratch or by importing a floor plan image file.</li>
 <li><strong>layers:</strong> to overlap other images such as lidar maps over the level</li>
 <li><strong>lifts:</strong> to configure and add lifts to the building</li>
-<li><strong>traffic:</strong> to select which &quot;navigation graph&quot; is currently being edited, and toggle which graph(s) are being rendered.</li>
+<li><strong>traffic:</strong> to select which "navigation graph" is currently being edited, and toggle which graph(s) are being rendered.</li>
 </ul>
 <h2 id="annotation-guide"><a class="header" href="#annotation-guide">Annotation Guide</a></h2>
 <p>This section walks through the process of annotating facilities while highlighting the capabilities of the <code>traffic_editor</code> GUI.</p>
@@ -359,8 +361,8 @@ The <code>distance</code> value is stored in a sub-list of parameters.</p>
     measurements:
       - [1, 0, {distance: [3, 8.409]}]
     vertices:
-      - [2951.728, 368.353, 0, &quot;&quot;]
-      - [2808.142, 1348.9, 0, &quot;&quot;]
+      - [2951.728, 368.353, 0, ""]
+      - [2808.142, 1348.9, 0, ""]
 
 lifts:
   {}
@@ -401,7 +403,7 @@ To define a floor, select consecutive vertices to create a polygon that accurate
 These vertices will need to be added manually prior to this step.
 Once created, save the project and reload.
 Selecting the defined floor highlights its texture attributes. Similarly, <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures">default list of available textures</a> is available in the source code.</p>
-<p><img src="images/traffic_editor/add_floor.png" alt="Highlighting floor's textures" /></p>
+<p><img src="images/traffic_editor/add_floor.png" alt="Highlighting floor&#39;s textures" /></p>
 <p>Certain scenarios may call for floors with cavities, for example, to represent elevator shafts.
 The <em>Add hole polygon</em> tool may be used for this purpose.
 Additionally, the shape of a drawn polygon (floor or hole) may be modified using the <em>Edit polygon</em> tool.
@@ -418,7 +420,7 @@ Clicking on the tool after selecting an existing polygon enables the user to mod
 </div>
 <p>A door between two vertices can be added in <em>Building</em> edit mode by selecting the <em>Add door</em> tool from the <code>Main Toolbar</code>, and clicking on vertices representing the ends of the door.
 Selecting an annotated door highlights its properties as seen in the figure below.
-Presently, four door <code>types</code> are supported: &quot;hinged&quot;, &quot;double_hinged&quot;, &quot;sliding&quot; and &quot;double_sliding&quot;.
+Presently, four door <code>types</code> are supported: "hinged", "double_hinged", "sliding" and "double_sliding".
 The <code>motion_degrees</code> parameter specifies the range of motion in the case of hinged doors while the <code>motion_direction</code> dictates the direction of swing.
 In order for the door to work in simulation, a <code>name</code> must be given to the door.</p>
 <p><img src="images/traffic_editor/add_door.png" alt="Door type properties" /></p>
@@ -431,12 +433,12 @@ In order for the door to work in simulation, a <code>name</code> must be given t
 The allowable motions of each fleet operating in the facility is conveyed through its respective Graph which consists of waypoints and connecting lanes.
 In this approach, we assume that robots travel along effectively straight-line paths between waypoints.
 While this may be perceived as an oversimplification of paths taken by robots that are capable of autonomous navigation, in practice the assumption holds fairly well given that these robots mostly travel along corridors or hallways and seldom in unconstrained open spaces.
-For example, even in theoretically unconstrained spaces like building lobbies or shopping-mall atriums, it is likely that the site operator would prefer for the robots to operate in a &quot;traffic lane&quot; on the edge of the space, in order to not impede typical human traffic flows.</p>
+For example, even in theoretically unconstrained spaces like building lobbies or shopping-mall atriums, it is likely that the site operator would prefer for the robots to operate in a "traffic lane" on the edge of the space, in order to not impede typical human traffic flows.</p>
 <p>The <code>traffic</code> tab in the <code>Sidebar</code> has a default of nine Graphs for nine different fleets. To annotate lanes for a graph, say Graph 0, select the Graph from the <code>traffic</code> tab and click the <em>Add lane</em> tool.
 Lanes for this graph can be drawn by clicking vertices to be connected.
 If a vertex is not present, it will automatically be added. Properties may be assigned to each vertex as described in the preceding section.
 To issue tasks to waypoints that require the robot to terminate at any waypoint, a name must be assigned to the waypoint.</p>
-<p><img src="images/traffic_editor/add_lane.png" alt="Graphs' lane colors" /></p>
+<p><img src="images/traffic_editor/add_lane.png" alt="Graphs&#39; lane colors" /></p>
 <p>Each Graph has a unique color for its lanes, and their visibility may be toggled using the checkbox in the <code>traffic</code> tab.
 A lane that is defined between two waypoints may be configured with these additional properties:</p>
 <ul>
@@ -448,7 +450,7 @@ press the <code>b</code> key to toggle between unidirectional and bidirectional 
 <li><strong>graph_idx</strong>: the Graph number a lane corresponds to</li>
 <li><strong>orientation</strong>: constrain the lane to make the robot travel in <code>forward</code> or <code>backward</code> orientation. This can be useful for the final lane segment approaching a docking point or charger, for example.</li>
 </ul>
-<p>While lifts that move between levels are now supported in the <code>traffic_editor</code>, the <strong>demo_mock_floor_name</strong> and <strong>demo_mock_lift_name</strong> properties were originally engineered to showcase shared lift access in a single floor demonstration environment with a &quot;mock&quot; lift that receives lift commands and transmits lift states but does not actually move between any different floors in a building.
+<p>While lifts that move between levels are now supported in the <code>traffic_editor</code>, the <strong>demo_mock_floor_name</strong> and <strong>demo_mock_lift_name</strong> properties were originally engineered to showcase shared lift access in a single floor demonstration environment with a "mock" lift that receives lift commands and transmits lift states but does not actually move between any different floors in a building.
 However, as there may be interest in such functionality for testing single-floor hardware setups that seek to emulate multi-floor scenarios, these properties were retained.</p>
 <ul>
 <li><strong>demo_mock_floor_name</strong>: name of the floor that the robot is on while
@@ -461,31 +463,31 @@ navigation graph where numbers are waypoints and letters are lanes:</p>
 <pre><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3
 
 Waypoint 1 is on floor L1
-Waypoint 2 is inside the &quot;lift&quot; named LIFT001
+Waypoint 2 is inside the "lift" named LIFT001
 Waypoint 3 is on floor L3
-The properties of edge &quot;a&quot; are:
+The properties of edge "a" are:
     bidirectional: true
     demo_mock_floor_name: L1
     demo_mock_lift_name: LIFT001
-The properties of edge &quot;b&quot; are:
+The properties of edge "b" are:
     bidirectional: true
     demo_mock_floor_name: L3
     demo_mock_lift_name: LIFT001
 </code></pre>
-<p>If the robot is to travel from waypoint 1 to waypoint 3, the <code>rmf_fleet_adapter</code> will request for the &quot;mock lift&quot; to arrive at L1 when the robot approaches waypoint 1.
-With confirmation of the &quot;lift&quot; at L1 and its doors in &quot;open&quot; state, the robot will be instructed to move into the &quot;lift&quot; to waypoint 2.
-Once the &quot;lift&quot; indicates that it has reached L3, the robot will exit along lane b toward waypoint 3.</p>
+<p>If the robot is to travel from waypoint 1 to waypoint 3, the <code>rmf_fleet_adapter</code> will request for the "mock lift" to arrive at L1 when the robot approaches waypoint 1.
+With confirmation of the "lift" at L1 and its doors in "open" state, the robot will be instructed to move into the "lift" to waypoint 2.
+Once the "lift" indicates that it has reached L3, the robot will exit along lane b toward waypoint 3.</p>
 <p>Note: when annotating graphs, it is highly recommended to follow an ascending sequence of graph indices without skipping intermediate numbers. Drawn lanes can only be interacted with if their associated Graph is first selected in the <code>traffic</code> tab.</p>
 <p>The annotated Graphs are eventually exported as <code>navigation graphs</code> using the <code>building_map_generator</code> which are then used by respective <code>rmf_fleet_adapters</code> for path planning.</p>
 <p>Lanes are stored in the following format in <code>tutorial.building.yaml</code>.
 The data structure is a list with the first two elements representing the indices of the two vertices of the lane and a set of parameters with configured properties.</p>
 <pre><code class="language-yaml">    lanes:
-      - [32, 33, {bidirectional: [4, true], demo_mock_floor_name: [1, &quot;&quot;], demo_mock_lift_name: [1, &quot;&quot;], graph_idx: [2, 2], orientation: [1, forward]}]
+      - [32, 33, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 2], orientation: [1, forward]}]
 </code></pre>
 <h3 id="deriving-coordinate-space-transforms"><a class="header" href="#deriving-coordinate-space-transforms">Deriving coordinate-space transforms</a></h3>
 <p>Coordinate spaces are confusing!
-For historical reasons, the GUI internally creates traffic maps by annotating images, so the &quot;raw&quot; annotations are actually encoded in pixel coordinates of the &quot;base&quot; floorplan image, in pixel coordinates, with +X=right and +Y=down, with the origin in the upper-left of the base floorplan image.
-However, during the building map generation step, the vertical axis is flipped to end up in a Cartesian plane, so the vast majority of RMF (that is, everything downstream of traffic-editor and the building map generators) uses a &quot;normal&quot; Cartesian coordinate system. (As an aside -- the next version of traffic-editor is intended to be more flexible in this respect, and will default to a normal Cartesian coordinate system (not an image-based coordinate system), or even global coordinates (lat/lon). Although preliminary work is underway, there is not a hard schedule for this next-gen editor at time of writing, so the rest of this chapter will describe the existing <code>traffic-editor</code>.)</p>
+For historical reasons, the GUI internally creates traffic maps by annotating images, so the "raw" annotations are actually encoded in pixel coordinates of the "base" floorplan image, in pixel coordinates, with +X=right and +Y=down, with the origin in the upper-left of the base floorplan image.
+However, during the building map generation step, the vertical axis is flipped to end up in a Cartesian plane, so the vast majority of RMF (that is, everything downstream of traffic-editor and the building map generators) uses a "normal" Cartesian coordinate system. (As an aside -- the next version of traffic-editor is intended to be more flexible in this respect, and will default to a normal Cartesian coordinate system (not an image-based coordinate system), or even global coordinates (lat/lon). Although preliminary work is underway, there is not a hard schedule for this next-gen editor at time of writing, so the rest of this chapter will describe the existing <code>traffic-editor</code>.)</p>
 <p>Although <code>traffic-editor</code> currently uses the upper-left corner of the base floorplan image as the reference frame, maps generated by robots likely will have their origin elsewhere, and will likely be oriented and scaled differently.
 It is critical to derive the correct transform between coordinate frames in <code>traffic_editor</code> maps and robot maps as
 <code>rmf_fleet_adapters</code> expect all robots to publish their locations in the RMF coordinate system while the <code>rmf_fleet_adapters</code> also issue path requests in the same frame.</p>
@@ -570,7 +572,7 @@ Selecting this tool opens a dialog box with a list of model names and matching t
 Once on the map, their positions and orientations can be adjusted using the <em>Move</em> and <em>Rotate</em> tools. Sample models are provided <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor_assets/assets/thumbnails/images/cropped/OpenRobotics">here</a></p>
 <p>The <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor#generating-custom-thumbnails">thumbnail_generator documentation</a> contains instructions on expanding the list of thumbnails for other models.</p>
 <blockquote>
-<p>Note: If no models are shown on the <strong>add models</strong> window, Go to &quot;Edit -&gt; Preference&quot;, then indicate the thumbnail path. (<code>e.g. $HOME/rmf_ws/src/rmf/rmf_traffic_editor/rmf_traffic_editor_assets/assets/thumbnails</code>)</p>
+<p>Note: If no models are shown on the <strong>add models</strong> window, Go to "Edit -&gt; Preference", then indicate the thumbnail path. (<code>e.g. $HOME/rmf_ws/src/rmf/rmf_traffic_editor/rmf_traffic_editor_assets/assets/thumbnails</code>)</p>
 </blockquote>
 <p><img src="images/traffic_editor/add_model.png" alt="Model name and thumbnails dialog" /></p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>

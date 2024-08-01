@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item expanded "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rmf-core_faq.html" class="active"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -203,7 +205,7 @@ can be added later, building on top of the existing completely generalized
 framework.</p>
 <h3 id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both"><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h3>
 <p>The responsibility of knowing when a door needs to be opened and then sending
-the command to open it belongs to the &quot;fleet adapter&quot;. The basic design is:</p>
+the command to open it belongs to the "fleet adapter". The basic design is:</p>
 <ul>
 <li>The fleet adapter keeps track of the robot's progress</li>
 <li>When the robot needs to go through a door, the fleet adapter will recognize this</li>
@@ -228,14 +230,14 @@ floors, and exporting that information into the navigation graph) is not
 something that has been developed yet.</p>
 <p>However, for testing and demonstration purposes, there are two special
 navigation graph edge properties that can allow a RMF fleet adapter to emulate
-lift usage. This is meant for demo scenarios where a &quot;mock lift&quot; has been
+lift usage. This is meant for demo scenarios where a "mock lift" has been
 created that receives lift commands and transmits lift states but does not
 actually move between any different floors in a building. For example, tape
-on the floor of a lab to indicate the &quot;lift cabin&quot; box, to allow development
+on the floor of a lab to indicate the "lift cabin" box, to allow development
 and testing without occupying the actual building lift.</p>
 <p>These properties were initially included for demonstration purposes, but they
 are proving useful enough that we might make them officially supported
-properties. Due to the cost and scarcity of &quot;real&quot; lifts, there seems to be
+properties. Due to the cost and scarcity of "real" lifts, there seems to be
 broad interest in having single-floor hardware test setups that emulate
 multi-floor scenarios.</p>
 <p>The edge properties are:</p>
@@ -244,27 +246,27 @@ multi-floor scenarios.</p>
 <li><code>demo_mock_lift_name</code>: The name of the lift that is being entered or exited while the robot traverses the edge</li>
 </ul>
 <p>The idea is that if you have a single floor demonstration environment but want
-to demonstrate interaction with a lift, then you can set up a mock &quot;lift&quot; and
-imagine that each side of the &quot;lift&quot; opens to a different floor, and the robot
-is only allowed to enter/exit that side of the &quot;lift&quot; when the &quot;lift&quot; believes
+to demonstrate interaction with a lift, then you can set up a mock "lift" and
+imagine that each side of the "lift" opens to a different floor, and the robot
+is only allowed to enter/exit that side of the "lift" when the "lift" believes
 it is on that floor. This emulates lift cabins with two sets of doors.</p>
 <p>To make this idea more concrete, imagine you have a single-floor hardware
 testing area, and a box is drawn on the ground with an LED display next to it
 that reads off pretend floor names. The mock lift will transmit lift state
 messages that match up with whatever floor the LED is displaying. There is also
 some indication of whether the lift doors are open or closed. You can further
-imagine that entering or exiting from west side of the &quot;lift&quot; is only allowed
-when the lift believes it is on floor L1 whereas entering or exiting the &quot;lift&quot;
+imagine that entering or exiting from west side of the "lift" is only allowed
+when the lift believes it is on floor L1 whereas entering or exiting the "lift"
 from the east side is only allowed when it believes it is on floor L3.</p>
-<p>In that setup, for a robot to &quot;correctly&quot; navigate from a waypoint on L1 to a
+<p>In that setup, for a robot to "correctly" navigate from a waypoint on L1 to a
 waypoint on L3, the robot needs to:</p>
 <ul>
-<li>Approach the &quot;lift&quot; from the west side</li>
-<li>Call the &quot;lift&quot; down to L1</li>
+<li>Approach the "lift" from the west side</li>
+<li>Call the "lift" down to L1</li>
 <li>Wait until the lift state has it on floor L1 with the doors open</li>
-<li>Move into the &quot;lift&quot; (i.e. the box drawn on the ground) and request that it &quot;moves&quot; to L3</li>
-<li>Wait until the &quot;lift&quot; indicates that it has reached L3 and that its doors are open</li>
-<li>Exit the &quot;lift&quot; on the east side</li>
+<li>Move into the "lift" (i.e. the box drawn on the ground) and request that it "moves" to L3</li>
+<li>Wait until the "lift" indicates that it has reached L3 and that its doors are open</li>
+<li>Exit the "lift" on the east side</li>
 </ul>
 <p>A rough ASCII diagram would look like this (numbers are waypoints and letters
 are edges):</p>
@@ -272,7 +274,7 @@ are edges):</p>
 </code></pre>
 <ul>
 <li>Waypoint 1 is on floor L1</li>
-<li>Waypoint 2 is inside the &quot;lift&quot; named LIFT001</li>
+<li>Waypoint 2 is inside the "lift" named LIFT001</li>
 <li>Waypoint 3 is on floor L3</li>
 <li>The properties of edge <code>a </code>are:
 <ul>
@@ -312,18 +314,18 @@ to use any prioritization system that you'd like. Specifically, replace
 <p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and
 <code>vicinity_radius</code>. The <code>footprint_radius</code> represents an estimate of the
 vehicle's physical footprint. The <code>vicinity_radius</code> represents an estimate of
-the region which the robot needs other vehicles to stay clear of. A &quot;schedule
-conflict&quot; is defined as an instance where one vehicle's &quot;footprint&quot; is
-scheduled to enter another vehicle's &quot;vicinity&quot;. The job of the negotiation
+the region which the robot needs other vehicles to stay clear of. A "schedule
+conflict" is defined as an instance where one vehicle's "footprint" is
+scheduled to enter another vehicle's "vicinity". The job of the negotiation
 system is to come up with a fix to the schedule that keeps all vehicles'
-&quot;footprints&quot; out of all other vehicles' &quot;vicinities&quot;.</p>
+"footprints" out of all other vehicles' "vicinities".</p>
 <h3 id="how-is-job-dispatching-accomplished"><a class="header" href="#how-is-job-dispatching-accomplished">How is job dispatching accomplished?</a></h3>
 <p>The Dispatch Planner module is currently a work-in-progress.
 So far, the demo platforms that have been developed for RMF did not require a planner to dispatch tasks to different fleets, because in all demo platforms done thus far (late 2020), each task type could only be performed by one (and only one) robot fleet.
 So the task dispatching has been trivial: the task gets assigned to whatever fleet is capable of performing the task, while the rest of the fleets just ignore the task request.
 We are currently working on a true dispatch planner and formal task bidding system which we're aiming to include in release 1.2.0, slated for end of December 2020.
-The idea is that every fleet that can perform a task request will offer a bid for how much it would &quot;cost&quot; them to perform a task, and the bid with the lowest &quot;cost&quot; will be the winner.
-The &quot;cost&quot; will be determined by two factors:</p>
+The idea is that every fleet that can perform a task request will offer a bid for how much it would "cost" them to perform a task, and the bid with the lowest "cost" will be the winner.
+The "cost" will be determined by two factors:</p>
 <ul>
 <li>How quickly the task is finished</li>
 <li>How much other tasks get delayed if the new task needs to preempt them</li>
@@ -336,7 +338,7 @@ The &quot;cost&quot; will be determined by two factors:</p>
 <p>There is no costmap representation in <code>rmf_core</code>.
 Costmaps are one method that is typically used for representing volume occupancy for autonomous navigation planning.
 While it's true that the traffic utilities deal with navigation planning, they are principally concerned about identifying conflicts between the intended routes of autonomous vehicles.
-The traffic utilities are not responsible for the &quot;local&quot; navigation of vehicles around static obstacles in their environment.</p>
+The traffic utilities are not responsible for the "local" navigation of vehicles around static obstacles in their environment.</p>
 <p>Different robot platforms often have different representations of costmaps or other navigation algorithms, many of which may be proprietary.
 On top of that, different robot platforms with the same costmap representations may still require different costmap values because of differences in robot footprints.
 Because of these factors, we leave it to the robot platforms themselves to determine how they represent their costmaps. If it's important for a system integrator to take a robot's costmap into account when performing traffic planning, they can implement a custom <code>rmf_traffic::agv::RouteValidator</code> that uses the robot's custom costmap when determining whether a candidate route is valid.</p>
@@ -357,16 +359,16 @@ Those constraints are described by the <code>rmf_traffic::schedule::Negotiation:
 Because the same object can be used to describe the constraints of all the different blocks in the diagram, we can use the same code to solve every block.</p>
 <p>There are also <code>reject</code> and <code>forfeit</code> code paths that may be invoked as necessary:</p>
 <ul>
-<li>The &quot;rejection&quot; mechanism is used when it's impossible for one of the fleets to accommodate a proposal that came from another.
+<li>The "rejection" mechanism is used when it's impossible for one of the fleets to accommodate a proposal that came from another.
 When a rejection is performed, the rejecting fleet will provide a set of feasible trajectories (usually anywhere from 10-200 trajectories) and the fleet that receives the rejection should try once again to find an ideal proposal for itself, but that ideal proposal must accommodate at least one of the trajectory alternatives that were provided with the rejection.</li>
-<li>The &quot;forfeit&quot; mechanism is used when the planner is having an inordinately difficult time finding any kind of solution.
+<li>The "forfeit" mechanism is used when the planner is having an inordinately difficult time finding any kind of solution.
 This can happen when the negotiation has numerous participants that are all actively on the move, which can lead to situations that are seemingly impossible to resolve due to inconsistencies across time.
 Typically, when a forfeit is used, there will be another feasible combination of accommodations that gets found by the negotiation.
 In the worst case scenario, if negotiations keep failing, the robots may experience a real-life deadlock.
 When a deadlock happens, the participants will be sitting still so the negotiation will reach a steady state and will not be negatively affected by async inconsistencies.
 When that happens, a successful resolution is practically assured.</li>
 </ul>
-<p>The preceeding explanation describes the &quot;Full Control&quot; style of fleet adapter. The implementation for the &quot;Read Only&quot; and &quot;Traffic Light&quot; APIs are a bit different.</p>
+<p>The preceeding explanation describes the "Full Control" style of fleet adapter. The implementation for the "Read Only" and "Traffic Light" APIs are a bit different.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/rmf-core_faq.md">Edit this page on GitHub.</a></footer>
                     </main>
 

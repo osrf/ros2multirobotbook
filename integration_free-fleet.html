@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item expanded "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item expanded "><a href="integration_free-fleet.html" class="active"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -185,84 +187,84 @@
 <h2 id="ros-1-navigation-stack"><a class="header" href="#ros-1-navigation-stack">ROS 1 Navigation Stack</a></h2>
 <p>An implementation of a <code>free_fleet</code> client that works with a ROS 1 navigation stack can be found in the <a href="https://github.com/open-rmf/free_fleet">free_fleet repository</a>. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the <code>move_base</code> action library, as well as publishing its battery status published using the <code>sensor_msgs/BatteryState</code> message.</p>
 <p>After following the build instructions on the README on the mobile robot, the user can launch the client as part of their launch script while at the same time define the necessary parameters using <code>rosparam</code>. Below is a small snippet example of how a client can be launched, with its paramters defined,</p>
-<pre><code class="language-xml">&lt;node name=&quot;free_fleet_client_node&quot;
-    pkg=&quot;free_fleet_client_ros1&quot;
-    type=&quot;free_fleet_client_ros1&quot; output=&quot;screen&quot;&gt;
+<pre><code class="language-xml">&lt;node name="free_fleet_client_node"
+    pkg="free_fleet_client_ros1"
+    type="free_fleet_client_ros1" output="screen"&gt;
 
   &lt;!-- These parameters will be used to identify the mobile robots --&gt;
-  &lt;param name=&quot;fleet_name&quot; type=&quot;string&quot; value=&quot;example_fleet&quot;/&gt;
-  &lt;param name=&quot;robot_name&quot; type=&quot;string&quot; value=&quot;example_bot&quot;/&gt;
-  &lt;param name=&quot;robot_model&quot; type=&quot;string&quot; value=&quot;Turtlebot3&quot;/&gt;
+  &lt;param name="fleet_name" type="string" value="example_fleet"/&gt;
+  &lt;param name="robot_name" type="string" value="example_bot"/&gt;
+  &lt;param name="robot_model" type="string" value="Turtlebot3"/&gt;
 
   &lt;!-- These are the topics required to get battery and level information --&gt;
-  &lt;param name=&quot;battery_state_topic&quot; type=&quot;string&quot; value=&quot;example_bot/battery_state&quot;/&gt;
-  &lt;param name=&quot;level_name_topic&quot; type=&quot;string&quot; value=&quot;example_bot/level_name&quot;/&gt;
+  &lt;param name="battery_state_topic" type="string" value="example_bot/battery_state"/&gt;
+  &lt;param name="level_name_topic" type="string" value="example_bot/level_name"/&gt;
 
   &lt;!-- These frames will be used to update the mobile robot's location --&gt;
-  &lt;param name=&quot;map_frame&quot; type=&quot;string&quot; value=&quot;example_bot/map&quot;/&gt;
-  &lt;param name=&quot;robot_frame&quot; type=&quot;string&quot; value=&quot;example_bot/base_footprint&quot;/&gt;
+  &lt;param name="map_frame" type="string" value="example_bot/map"/&gt;
+  &lt;param name="robot_frame" type="string" value="example_bot/base_footprint"/&gt;
 
   &lt;!-- The name of the move_base server for actions --&gt;
-  &lt;param name=&quot;move_base_server_name&quot; type=&quot;string&quot; value=&quot;example_bot/move_base&quot;/&gt;
+  &lt;param name="move_base_server_name" type="string" value="example_bot/move_base"/&gt;
 
   &lt;!-- These are DDS configurations used between Free Fleet clients and servers --&gt;
-  &lt;param name=&quot;dds_domain&quot; type=&quot;int&quot; value=&quot;42&quot;/&gt;
-  &lt;param name=&quot;dds_state_topic&quot; type=&quot;string&quot; value=&quot;robot_state&quot;/&gt;
-  &lt;param name=&quot;dds_mode_request_topic&quot; type=&quot;string&quot; value=&quot;mode_request&quot;/&gt;
-  &lt;param name=&quot;dds_path_request_topic&quot; type=&quot;string&quot; value=&quot;path_request&quot;/&gt;
-  &lt;param name=&quot;dds_destination_request_topic&quot; type=&quot;string&quot; value=&quot;destination_request&quot;/&gt;
+  &lt;param name="dds_domain" type="int" value="42"/&gt;
+  &lt;param name="dds_state_topic" type="string" value="robot_state"/&gt;
+  &lt;param name="dds_mode_request_topic" type="string" value="mode_request"/&gt;
+  &lt;param name="dds_path_request_topic" type="string" value="path_request"/&gt;
+  &lt;param name="dds_destination_request_topic" type="string" value="destination_request"/&gt;
 
   &lt;!-- This decides how long the client should wait for a valid transform and action server before failing --&gt;
-  &lt;param name=&quot;wait_timeout&quot; type=&quot;double&quot; value=&quot;10&quot;/&gt;
+  &lt;param name="wait_timeout" type="double" value="10"/&gt;
 
   &lt;!-- These define the frequency at which the client checks for commands and
   publishes the robot state to the server --&gt;
-  &lt;param name=&quot;update_frequency&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
-  &lt;param name=&quot;publish_frequency&quot; type=&quot;double&quot; value=&quot;1.0&quot;/&gt;
+  &lt;param name="update_frequency" type="double" value="10.0"/&gt;
+  &lt;param name="publish_frequency" type="double" value="1.0"/&gt;
 
   &lt;!-- The client will only pass on navigation commands if the destination or first waypoint
   of the path is within this distance away, otherwise it will ignore the command --&gt;
-  &lt;param name=&quot;max_dist_to_first_waypoint&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
+  &lt;param name="max_dist_to_first_waypoint" type="double" value="10.0"/&gt;
 
 &lt;/node&gt;
 </code></pre>
 <p>The running <code>free_fleet</code> client will communicate with the nodes running on the robot via ROS 1, while publishing its state and subscribing to requests over DDS with the <code>free_fleet</code> server.</p>
 <p>The current implementation of the <code>free_fleet</code> server is implemented with ROS 2 and communicates with RMF using the aforementioned ROS 2 message and topic interfaces of an RMF fleet adapter. The ROS 2 build instructions can also be found on the same repository. Similar to the client, a simple ROS 2 wrapper has been implemented, and it can be started using a <code>.launch.xml</code> file like so:</p>
-<pre><code class="language-xml">&lt;node pkg=&quot;free_fleet_server_ros2&quot;
-    exec=&quot;free_fleet_server_ros2&quot;
-    name=&quot;free_fleet_server_node&quot;
-    node-name=&quot;free_fleet_server_node&quot;
-    output=&quot;both&quot;&gt;
+<pre><code class="language-xml">&lt;node pkg="free_fleet_server_ros2"
+    exec="free_fleet_server_ros2"
+    name="free_fleet_server_node"
+    node-name="free_fleet_server_node"
+    output="both"&gt;
 
   &lt;!-- Fleet name will be used to identify robots --&gt;
-  &lt;param name=&quot;fleet_name&quot; value=&quot;example_fleet&quot;/&gt;
+  &lt;param name="fleet_name" value="example_fleet"/&gt;
 
   &lt;!-- These are the ROS2 topic names that will be used to communicate with RMF --&gt;
-  &lt;param name=&quot;fleet_state_topic&quot; value=&quot;fleet_states&quot;/&gt;
-  &lt;param name=&quot;mode_request_topic&quot; value=&quot;robot_mode_requests&quot;/&gt;
-  &lt;param name=&quot;path_request_topic&quot; value=&quot;robot_path_requests&quot;/&gt;
-  &lt;param name=&quot;destination_request_topic&quot; value=&quot;robot_destination_requests&quot;/&gt;
+  &lt;param name="fleet_state_topic" value="fleet_states"/&gt;
+  &lt;param name="mode_request_topic" value="robot_mode_requests"/&gt;
+  &lt;param name="path_request_topic" value="robot_path_requests"/&gt;
+  &lt;param name="destination_request_topic" value="robot_destination_requests"/&gt;
 
   &lt;!-- These are the DDS specific configurations used to communicate with the clients --&gt;
-  &lt;param name=&quot;dds_domain&quot; value=&quot;42&quot;/&gt;
-  &lt;param name=&quot;dds_robot_state_topic&quot; value=&quot;robot_state&quot;/&gt;
-  &lt;param name=&quot;dds_mode_request_topic&quot; value=&quot;mode_request&quot;/&gt;
-  &lt;param name=&quot;dds_path_request_topic&quot; value=&quot;path_request&quot;/&gt;
-  &lt;param name=&quot;dds_destination_request_topic&quot; value=&quot;destination_request&quot;/&gt;
+  &lt;param name="dds_domain" value="42"/&gt;
+  &lt;param name="dds_robot_state_topic" value="robot_state"/&gt;
+  &lt;param name="dds_mode_request_topic" value="mode_request"/&gt;
+  &lt;param name="dds_path_request_topic" value="path_request"/&gt;
+  &lt;param name="dds_destination_request_topic" value="destination_request"/&gt;
 
   &lt;!-- This determines the frequency it checks for incoming state and request messages,
   as well as how often it publishes its fleet state to RMF --&gt;
-  &lt;param name=&quot;update_state_frequency&quot; value=&quot;20.0&quot;/&gt;
-  &lt;param name=&quot;publish_state_frequency&quot; value=&quot;2.0&quot;/&gt;
+  &lt;param name="update_state_frequency" value="20.0"/&gt;
+  &lt;param name="publish_state_frequency" value="2.0"/&gt;
 
   &lt;!-- These transformations are required when the frame of the robot fleet is
   different from that of RMF globally. In order to transform a pose from the RMF
   frame to the free fleet robot frame, it is first scaled, rotated, then
   translated using these parameters --&gt;
-  &lt;param name=&quot;scale&quot; value=&quot;0.928&quot;/&gt;
-  &lt;param name=&quot;rotation&quot; value=&quot;-0.013&quot;/&gt;
-  &lt;param name=&quot;translation_x&quot; value=&quot;-4.117&quot;/&gt;
-  &lt;param name=&quot;translation_y&quot; value=&quot;27.26&quot;/&gt;
+  &lt;param name="scale" value="0.928"/&gt;
+  &lt;param name="rotation" value="-0.013"/&gt;
+  &lt;param name="translation_x" value="-4.117"/&gt;
+  &lt;param name="translation_y" value="27.26"/&gt;
 
 &lt;/node&gt;
 </code></pre>

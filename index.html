@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -180,7 +182,7 @@
 This is a book about multi-robot systems.
 Why?
 Because it's the future!</p>
-<p>Robots are becoming more affordable, more capable, and more useful in many &quot;real life&quot; scenarios.
+<p>Robots are becoming more affordable, more capable, and more useful in many "real life" scenarios.
 As a result, we are seeing more and more robots that need to share spaces and work together to accomplish tasks. In this book, we will introduce the Robot Operating System 2 (ROS 2) as well as the Robot Middleware Framework (RMF), which is built on ROS 2 and tries to simplify the creation and operation of complex multi-robot systems.</p>
 <p>This chapter describes the motivation and goals for ROS 2 and the RMF system for integrating multiple robots.</p>
 <h1 id="ros-2"><a class="header" href="#ros-2">ROS 2</a></h1>
@@ -188,7 +190,7 @@ As a result, we are seeing more and more robots that need to share spaces and wo
 From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project.
 And it’s all open source.</p>
 <p>Since ROS was started in 2007, a lot has changed in the robotics and ROS community.
-ROS 1, originally just &quot;ROS&quot;, began life as the development environment for the Willow Garage PR2 robot, a high-performance mobile manipulation platform intended for advanced research and development.
+ROS 1, originally just "ROS", began life as the development environment for the Willow Garage PR2 robot, a high-performance mobile manipulation platform intended for advanced research and development.
 The original goal of ROS was to provide the software tools users would need to undertake novel research and development projects with this robot.
 At the same time, the ROS 1 development team knew the PR2 would not be the only robot in the world, nor the most important, so they wanted ROS 1 to be useful on other robots, too.
 The original focus was on defining levels of abstraction (usually through message interfaces) that would allow much of the software to be reused elsewhere.</p>
@@ -212,7 +214,7 @@ A great place to start is on the ROS Index page for <a href="https://index.ros.o
 It could be a shopping mall, housing complex, university building, workplace, airport, hospital, hotel, and so on.
 Are items delivered within the building?
 Is the building floor cleaned regularly?
-For most buildings, the answer to both questions is &quot;yes.&quot;</p>
+For most buildings, the answer to both questions is "yes."</p>
 <p>Now, let's think of what happens when robots start to perform those tasks.
 In today's robot marketplace, you can purchase excellent delivery robots, as well as excellent floor-cleaning robots.
 However, what if the floor is being cleaned at the same time that items are being delivered in the building?
@@ -222,21 +224,21 @@ One or both people will find a way to slightly alter the timing of their task to
 This type of scenario is what the Robotics Middleware Framework (RMF) tries to help avoid.
 In today's marketplace, if all robots are purchased from the same manufacturer, the robots in such a single-vendor system will know of each other's existence and will avoid conflicting with each other.
 However, multi-vendor, multi-robot systems remain an open problem, and we expect that multi-vendor robot deployments will be the norm in all large buildings in the future.
-To address this situation, RMF provides a set of conventions, tools, and software implementations to allow multiple fleets of robots to interoperate with each other and with shared building infrastructure, such as lifts, doors, corridors, and other natural &quot;bottlenecks&quot; to traffic flows and tasks.</p>
+To address this situation, RMF provides a set of conventions, tools, and software implementations to allow multiple fleets of robots to interoperate with each other and with shared building infrastructure, such as lifts, doors, corridors, and other natural "bottlenecks" to traffic flows and tasks.</p>
 <p>Without a framework for multi-vendor robotics in place, there can be significant but hidden risks for building operators and end users when they are forced to commit to a single system or platform provider.
 Hidden risks are likely to force an end user to limit their selection of future solutions from that a single provider to minimize operational risk and avoid redundant integration costs.
 As the scope and scale of robotic deployments increase, this problem is exacerbated, leaving the customer with the perception that there are no good options except to stay with their current provider, and preventing the use of robots from newer entrants to the marketplace.</p>
 <p>Beyond the increased cost risk of scaling deployment with different providers, there is also the inherent conflict over shared resources such as lifts, doorways, corridors, network bandwidth, chargers, operations-center screen “real estate,” and human resources such as IT personnel and maintenance technicians.
 As robotic scale increases, it becomes more cumbersome for an operations team to consider managing a large, heterogeneous, multi-vendor robot environment.</p>
 <p>These problem statements were the foundational motivations for the development of RMF.</p>
-<p>In the previous &quot;cleaning and delivery&quot; scenario, RMF can act as a traffic controller to help the delivery robot and cleaning robot negotiate a way for both tasks to be accomplished, depending on the relative priority and importance of each task.
+<p>In the previous "cleaning and delivery" scenario, RMF can act as a traffic controller to help the delivery robot and cleaning robot negotiate a way for both tasks to be accomplished, depending on the relative priority and importance of each task.
 If the cleaning task is urgent (perhaps a spill occurred in a busy corridor), RMF could route the delivery task through a different set of corridors.
 If the delivery task is time-critical, RMF could direct the cleaning robot to pause its work and move out of the way until the delivery robot clears the corridor.
-Of course, these solutions are obvious and could be easily hand-written for this particular &quot;cleaning and delivery&quot; corridor-sharing scenario. The challenge comes from trying to be generic across many scenarios, while also trying to be &quot;future proof&quot; to allow expansion to currently-unknown robots, applications, and task domains.</p>
+Of course, these solutions are obvious and could be easily hand-written for this particular "cleaning and delivery" corridor-sharing scenario. The challenge comes from trying to be generic across many scenarios, while also trying to be "future proof" to allow expansion to currently-unknown robots, applications, and task domains.</p>
 <p>The rest of the book will dive into these details to show how RMF tries to foresee and prevent resource conflicts and improve the efficiency of multi-vendor, multi-robot systems.
 There is no magic here!
 All of the implementations are open-source and available for inspection and customization.</p>
-<p>We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, &quot;<em>Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling</em>&quot;. The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).</p>
+<p>We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, "<em>Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling</em>". The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).</p>
 <p>Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of the NR2PO and MOH.</p>
 <h2 id="so-what-is-rmf"><a class="header" href="#so-what-is-rmf">So what is RMF?</a></h2>
 <p>RMF is a collection of reusable, scalable libraries and tools building on top of ROS 2 that enable the interoperability of heterogeneous fleets of any type of robotic systems.
@@ -265,7 +267,7 @@ The <code>.yaml</code> files can be easily exported for use in Gazebo.</p>
 It is intended to be a functional tool for RMF developers.</p>
 <h3 id="rmf-web-ui"><a class="header" href="#rmf-web-ui">RMF Web UI</a></h3>
 <p><a href="http://github.com/open-rmf/rmf-web">rmf-web</a> is a configurable web application that provides overall visualization and control over the RoMi-H system.
-The dashboard is by design more &quot;operator-friendly&quot; compared to the previously mentioned schedule visualizer.</p>
+The dashboard is by design more "operator-friendly" compared to the previously mentioned schedule visualizer.</p>
 <h3 id="rmf-simulation"><a class="header" href="#rmf-simulation">RMF Simulation</a></h3>
 <p><a href="https://github.com/open-rmf/rmf_simulation">rmf_simulation</a> contains the simulation plugins to simulate RMF. Plugins are available in <code>gazebo</code> and <code>ignition</code>.</p>
 <h3 id="simulation-assets"><a class="header" href="#simulation-assets">Simulation Assets</a></h3>

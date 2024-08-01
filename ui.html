@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item expanded "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ui.html" class="active"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -207,7 +209,7 @@
 </ul>
 </li>
 </ul>
-<p>Each framework has pros and cons and we do not feel there is a &quot;best&quot; framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
+<p>Each framework has pros and cons and we do not feel there is a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
 <h2 id="how-does-an-rmf-ui-application-work"><a class="header" href="#how-does-an-rmf-ui-application-work">How Does an RMF UI Application Work?</a></h2>
 <p>Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publish door states and subscribe to door requests. Here we are doing the reverse; subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and we will also be sending door requests when the user clicks the open or close button.</p>
 <p>We need to use a libray to help us do that. In the hardware adapter examples we are using the <code>rclcpp</code> library, but <code>rclcpp</code> isn't the only way to use ROS 2. Here are some libraries that also work well</p>
@@ -227,7 +229,7 @@
 </ul>
 </li>
 </ul>
-<p>A &quot;direct&quot; library is able to send and receive ROS 2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS 2 messages. In general, the &quot;direct&quot; approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
+<p>A "direct" library is able to send and receive ROS 2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS 2 messages. In general, the "direct" approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: This is not an exhaustive list, you can find many third-party projects that aim to bring the ROS 2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS 2. You can also write your own bindings and middlewares!
 </div>
@@ -297,7 +299,7 @@ export default Door;
 import Door from './Door';
 
 function App() {
-  return &lt;Door name=&quot;example_door&quot; state=&quot;Closed&quot; /&gt;;
+  return &lt;Door name="example_door" state="Closed" /&gt;;
 }
 
 export default App;
@@ -310,7 +312,7 @@ export default App;
 <p>Start of by adding a React state to track the list of doors:</p>
 <pre><code class="language-js">const [doors, setDoors] = React.useState&lt;RomiCore.Door[]&gt;([]);
 </code></pre>
-<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS 2 service call, since there isn't ROS 2 support on the browser, we will be using an &quot;indirect&quot; approach with <code>soss</code>. A websocket connection is made to SOSS which will then act as a middleman and pass our messages to the ROS 2 network.</p>
+<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS 2 service call, since there isn't ROS 2 support on the browser, we will be using an "indirect" approach with <code>soss</code>. A websocket connection is made to SOSS which will then act as a middleman and pass our messages to the ROS 2 network.</p>
 <p>An easy way to use SOSS is with the <code>@osrf/romi-js-soss-transport</code> package, so let's do it now. Add a react effect hook to your <code>App</code> component</p>
 <pre><code class="language-js">  React.useEffect(() =&gt; {
     (async () =&gt; {
@@ -473,7 +475,7 @@ export default App;
   }
 }
 </code></pre>
-<p>But how do we know <code>2</code> means &quot;Open&quot; etc? We can find out by reading the RMF manual or inspecting the ROS 2 message definitions, but we can do better with <code>RomiCore</code>. It provides the list of constants in a more readable form:</p>
+<p>But how do we know <code>2</code> means "Open" etc? We can find out by reading the RMF manual or inspecting the ROS 2 message definitions, but we can do better with <code>RomiCore</code>. It provides the list of constants in a more readable form:</p>
 <pre><code class="language-js">function doorModeString(doorMode: RomiCore.DoorMode): string {
   switch (doorMode.value) {
     case RomiCore.DoorMode.MODE_OPEN:
@@ -636,7 +638,7 @@ export interface RomiService&lt;Request, Response&gt; {
   readonly options?: Options;
 }
 </code></pre>
-<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the &quot;default&quot; QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
+<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the "default" QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
 <p>The <code>validate*</code> methods are used by the transport to convert an arbitrary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.</p>
 <p>We can create custom topics or services by implementing these interfaces. They can then be passed to the transport's various methods.</p>
 <pre><code class="language-js">export const myTopic: RomiTopic&lt;MyMessage&gt; = {

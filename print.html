@@ -92,7 +92,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -181,7 +183,7 @@
 This is a book about multi-robot systems.
 Why?
 Because it's the future!</p>
-<p>Robots are becoming more affordable, more capable, and more useful in many &quot;real life&quot; scenarios.
+<p>Robots are becoming more affordable, more capable, and more useful in many "real life" scenarios.
 As a result, we are seeing more and more robots that need to share spaces and work together to accomplish tasks. In this book, we will introduce the Robot Operating System 2 (ROS 2) as well as the Robot Middleware Framework (RMF), which is built on ROS 2 and tries to simplify the creation and operation of complex multi-robot systems.</p>
 <p>This chapter describes the motivation and goals for ROS 2 and the RMF system for integrating multiple robots.</p>
 <h1 id="ros-2"><a class="header" href="#ros-2">ROS 2</a></h1>
@@ -189,7 +191,7 @@ As a result, we are seeing more and more robots that need to share spaces and wo
 From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project.
 And it’s all open source.</p>
 <p>Since ROS was started in 2007, a lot has changed in the robotics and ROS community.
-ROS 1, originally just &quot;ROS&quot;, began life as the development environment for the Willow Garage PR2 robot, a high-performance mobile manipulation platform intended for advanced research and development.
+ROS 1, originally just "ROS", began life as the development environment for the Willow Garage PR2 robot, a high-performance mobile manipulation platform intended for advanced research and development.
 The original goal of ROS was to provide the software tools users would need to undertake novel research and development projects with this robot.
 At the same time, the ROS 1 development team knew the PR2 would not be the only robot in the world, nor the most important, so they wanted ROS 1 to be useful on other robots, too.
 The original focus was on defining levels of abstraction (usually through message interfaces) that would allow much of the software to be reused elsewhere.</p>
@@ -213,7 +215,7 @@ A great place to start is on the ROS Index page for <a href="https://index.ros.o
 It could be a shopping mall, housing complex, university building, workplace, airport, hospital, hotel, and so on.
 Are items delivered within the building?
 Is the building floor cleaned regularly?
-For most buildings, the answer to both questions is &quot;yes.&quot;</p>
+For most buildings, the answer to both questions is "yes."</p>
 <p>Now, let's think of what happens when robots start to perform those tasks.
 In today's robot marketplace, you can purchase excellent delivery robots, as well as excellent floor-cleaning robots.
 However, what if the floor is being cleaned at the same time that items are being delivered in the building?
@@ -223,21 +225,21 @@ One or both people will find a way to slightly alter the timing of their task to
 This type of scenario is what the Robotics Middleware Framework (RMF) tries to help avoid.
 In today's marketplace, if all robots are purchased from the same manufacturer, the robots in such a single-vendor system will know of each other's existence and will avoid conflicting with each other.
 However, multi-vendor, multi-robot systems remain an open problem, and we expect that multi-vendor robot deployments will be the norm in all large buildings in the future.
-To address this situation, RMF provides a set of conventions, tools, and software implementations to allow multiple fleets of robots to interoperate with each other and with shared building infrastructure, such as lifts, doors, corridors, and other natural &quot;bottlenecks&quot; to traffic flows and tasks.</p>
+To address this situation, RMF provides a set of conventions, tools, and software implementations to allow multiple fleets of robots to interoperate with each other and with shared building infrastructure, such as lifts, doors, corridors, and other natural "bottlenecks" to traffic flows and tasks.</p>
 <p>Without a framework for multi-vendor robotics in place, there can be significant but hidden risks for building operators and end users when they are forced to commit to a single system or platform provider.
 Hidden risks are likely to force an end user to limit their selection of future solutions from that a single provider to minimize operational risk and avoid redundant integration costs.
 As the scope and scale of robotic deployments increase, this problem is exacerbated, leaving the customer with the perception that there are no good options except to stay with their current provider, and preventing the use of robots from newer entrants to the marketplace.</p>
 <p>Beyond the increased cost risk of scaling deployment with different providers, there is also the inherent conflict over shared resources such as lifts, doorways, corridors, network bandwidth, chargers, operations-center screen “real estate,” and human resources such as IT personnel and maintenance technicians.
 As robotic scale increases, it becomes more cumbersome for an operations team to consider managing a large, heterogeneous, multi-vendor robot environment.</p>
 <p>These problem statements were the foundational motivations for the development of RMF.</p>
-<p>In the previous &quot;cleaning and delivery&quot; scenario, RMF can act as a traffic controller to help the delivery robot and cleaning robot negotiate a way for both tasks to be accomplished, depending on the relative priority and importance of each task.
+<p>In the previous "cleaning and delivery" scenario, RMF can act as a traffic controller to help the delivery robot and cleaning robot negotiate a way for both tasks to be accomplished, depending on the relative priority and importance of each task.
 If the cleaning task is urgent (perhaps a spill occurred in a busy corridor), RMF could route the delivery task through a different set of corridors.
 If the delivery task is time-critical, RMF could direct the cleaning robot to pause its work and move out of the way until the delivery robot clears the corridor.
-Of course, these solutions are obvious and could be easily hand-written for this particular &quot;cleaning and delivery&quot; corridor-sharing scenario. The challenge comes from trying to be generic across many scenarios, while also trying to be &quot;future proof&quot; to allow expansion to currently-unknown robots, applications, and task domains.</p>
+Of course, these solutions are obvious and could be easily hand-written for this particular "cleaning and delivery" corridor-sharing scenario. The challenge comes from trying to be generic across many scenarios, while also trying to be "future proof" to allow expansion to currently-unknown robots, applications, and task domains.</p>
 <p>The rest of the book will dive into these details to show how RMF tries to foresee and prevent resource conflicts and improve the efficiency of multi-vendor, multi-robot systems.
 There is no magic here!
 All of the implementations are open-source and available for inspection and customization.</p>
-<p>We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, &quot;<em>Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling</em>&quot;. The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).</p>
+<p>We would like to acknowledge the Singapore government for their vision and support to start this ambitious research and development project, "<em>Development of Standardised Robotics Middleware Framework - RMF detailed design and common services, large-scale virtual test farm infrastructure, and simulation modelling</em>". The project is supported by the Ministry of Health (MOH) and National Robotics Program (NRP).</p>
 <p>Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of the NR2PO and MOH.</p>
 <h2 id="so-what-is-rmf"><a class="header" href="#so-what-is-rmf">So what is RMF?</a></h2>
 <p>RMF is a collection of reusable, scalable libraries and tools building on top of ROS 2 that enable the interoperability of heterogeneous fleets of any type of robotic systems.
@@ -266,7 +268,7 @@ The <code>.yaml</code> files can be easily exported for use in Gazebo.</p>
 It is intended to be a functional tool for RMF developers.</p>
 <h3 id="rmf-web-ui"><a class="header" href="#rmf-web-ui">RMF Web UI</a></h3>
 <p><a href="http://github.com/open-rmf/rmf-web">rmf-web</a> is a configurable web application that provides overall visualization and control over the RoMi-H system.
-The dashboard is by design more &quot;operator-friendly&quot; compared to the previously mentioned schedule visualizer.</p>
+The dashboard is by design more "operator-friendly" compared to the previously mentioned schedule visualizer.</p>
 <h3 id="rmf-simulation"><a class="header" href="#rmf-simulation">RMF Simulation</a></h3>
 <p><a href="https://github.com/open-rmf/rmf_simulation">rmf_simulation</a> contains the simulation plugins to simulate RMF. Plugins are available in <code>gazebo</code> and <code>ignition</code>.</p>
 <h3 id="simulation-assets"><a class="header" href="#simulation-assets">Simulation Assets</a></h3>
@@ -281,7 +283,7 @@ If you are on an Ubuntu 20.04 LTS machine (as recommended), <a href="https://doc
 <p>Setup your computer to accept Gazebo packages from packages.osrfoundation.org.</p>
 <pre><code class="language-bash">sudo apt update
 sudo apt install -y wget
-sudo sh -c 'echo &quot;deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main&quot; &gt; /etc/apt/sources.list.d/gazebo-stable.list'
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" &gt; /etc/apt/sources.list.d/gazebo-stable.list'
 wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 </code></pre>
 <h2 id="binary-install"><a class="header" href="#binary-install">Binary install</a></h2>
@@ -343,7 +345,7 @@ docker tag ghcr.io/open-rmf/rmf/rmf_demos:latest rmf:latest
 </code></pre>
 <p>Run it!</p>
 <pre><code class="language-bash">
-docker run -it --network host rmf:latest bash -c &quot;export ROS_DOMAIN_ID=9; ros2 launch rmf_demos_gz office.launch.xml headless:=1&quot;
+docker run -it --network host rmf:latest bash -c "export ROS_DOMAIN_ID=9; ros2 launch rmf_demos_gz office.launch.xml headless:=1"
 </code></pre>
 <p>This will run <code>rmf_demos</code> in headless mode. Open <a href="https://open-rmf.github.io/rmf-panel-js/">this link</a> with a browser to start a task.</p>
 <p>(Experimental) User can also run <code>rmf_demos</code> in “non-headless” graphical form, via <a href="https://github.com/osrf/rocker">rocker</a>.</p>
@@ -362,7 +364,7 @@ docker run -it --network host rmf:latest bash -c &quot;export ROS_DOMAIN_ID=9; r
 <p>Help us add to this list!</p>
 <p>A helpful starting point for integrating your fleet with RMF is the <a href="https://github.com/open-rmf/free_fleet">fleet_adapter_template</a> package.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/installation.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h2 id="demos"><a class="header" href="#demos">Demos</a></h2>
-<p>In this chapter, we will briefly demonstrate the capability of RMF with <code>rmf_demos</code>. 
+<p>In this chapter, we will briefly demonstrate the capability of RMF with <code>rmf_demos</code>.
 This will give users a brief understanding of the core features of RMF.</p>
 <blockquote>
 <p>For the most updated rmf_demos run instruction, please refer to <a href="https://github.com/open-rmf/rmf_demos">here</a>.</p>
@@ -383,7 +385,7 @@ ros2 launch rmf_demos_ign airport_terminal.launch.xml
 <p><img src="images/intro/install_run_RMF/airport_gazebo.png" alt="Airport Terminal Gazebo" /></p>
 <p>The RMF Schedule Visualizer should have loaded in an rviz window. This canvas will display all integrated robots or infrastructure which are available to RMF.</p>
 <p><img src="images/intro/install_run_RMF/airport_rviz.png" alt="Airport Terminal Rviz" /></p>
-<p>During a task request, instead of requiring the user to specify the robot name to complete a task, RMF will assign the task to the best robot. </p>
+<p>During a task request, instead of requiring the user to specify the robot name to complete a task, RMF will assign the task to the best robot.</p>
 <p>RMF currently suports 3 types of task, namely: <code>loop</code>, <code>delivery</code> or <code>clean</code> . User can submit a task via  CLI:</p>
 <p><strong>Loop Task</strong></p>
 <pre><code>ros2 run rmf_demos_tasks dispatch_loop -s s07 -f n12 -n 3 --use_sim_time
@@ -400,10 +402,10 @@ Another way to observe and interact with RMF is via a web <code>rmf_panel</code>
 <p><img src="images/intro/install_run_RMF/airport_web_RMFPanel.png" alt="Web rmf panel" /></p>
 <p>You can view the status of all the robots under RMF. To request a list of tasks, first select the <code>Airport</code> tab. User can choose to submit a (1) Adhoc task or (2) Task List.</p>
 <p>Copy paste this to the Task List Box. (or open a file)</p>
-<pre><code class="language-json">[{&quot;task_type&quot;:&quot;Delivery&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;option&quot;: &quot;mop&quot;}},
- {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;junction_north_west&quot;, &quot;finish_name&quot;:&quot;n14&quot;}},
- {&quot;task_type&quot;:&quot;Loop&quot;, &quot;start_time&quot;:0, &quot;description&quot;: {&quot;num_loops&quot;:10, &quot;start_name&quot;:&quot;tinyRobot_n09&quot;, &quot;finish_name&quot;:&quot;s07&quot;}},
- {&quot;task_type&quot;:&quot;Clean&quot;, &quot;start_time&quot;:0, &quot;priority&quot;:0, &quot;description&quot;:{&quot;cleaning_zone&quot;:&quot;zone_2&quot;}}
+<pre><code class="language-json">[{"task_type":"Delivery", "start_time":0, "description": {"option": "mop"}},
+ {"task_type":"Loop", "start_time":0, "description": {"num_loops":10, "start_name":"junction_north_west", "finish_name":"n14"}},
+ {"task_type":"Loop", "start_time":0, "description": {"num_loops":10, "start_name":"tinyRobot_n09", "finish_name":"s07"}},
+ {"task_type":"Clean", "start_time":0, "priority":0, "description":{"cleaning_zone":"zone_2"}}
 ]
 </code></pre>
 <p>Then Click Submit to submit the list of tasks:
@@ -426,7 +428,7 @@ about the high level concepts behind ROS, along with application-specific
 commands is probably sufficient. Those who enjoy driving often choose to learn
 how to repair and maintain their vehicle. If this is your interest level we
 recommend learning the basics of the ROS command line interface. This will allow
-you to &quot;check the oil&quot; of your robotic systems and make sure everything is
+you to "check the oil" of your robotic systems and make sure everything is
 functioning correctly. Finally, if you are the type that would like to swap out
 the engine of your vehicle with something more powerful, or potentially build a
 wholly new vehicle from scratch, then the ROS API is the set of tools that will
@@ -523,7 +525,7 @@ the latest ROS projects and features. Both <a href="https://twitter.com/openrobo
 news. We also have a yearly ROS developers conference called
 <a href="https://roscon.ros.org/2020/">ROSCon</a>; most talks are freely available
 on the web. There are a few other resources that can also be useful including the <a href="https://www.reddit.com/r/ROS/">ROS subreddit</a>
-and an &quot;unofficial&quot; <a href="https://discord.com/invite/HnVcz5a">ROS Discord</a>.</p>
+and an "unofficial" <a href="https://discord.com/invite/HnVcz5a">ROS Discord</a>.</p>
 <h2 id="setting-up-your-computer"><a class="header" href="#setting-up-your-computer">Setting Up Your Computer</a></h2>
 <p>For this chapter we assume that you are working on a modern desktop with a
 discrete graphics card. While a graphics card isn't necessary for this chapter,
@@ -817,7 +819,7 @@ processed, resulting in a reply message that is sent back.</p>
 <p>We might implement the new high-res snapshot capability like so:</p>
 <ul>
 <li><strong>Define a new service type.</strong> Because services are less widely used than
-topics, there are relatively few &quot;standard&quot; service types predefined.
+topics, there are relatively few "standard" service types predefined.
 In our case, the new service's request message might include the desired
 resolution of the snapshot. The request message could be a standard
 <code>sensor_msgs/Image</code>.</li>
@@ -841,8 +843,8 @@ time between the request and the reply. Imagine that we want to wrap up
 our ball-chasing control system into a black box that can be invoked as
 part of a larger system that makes the robot play football. In this
 case, the higher level football controller will periodically want to
-say, &quot;please chase the red ball until you have it right in front of
-you.&quot; Once the ball is in front of the robot, the football controller
+say, "please chase the red ball until you have it right in front of
+you." Once the ball is in front of the robot, the football controller
 wants to stop the ball-chasing controller and invoke the ball-catching
 controller.</p>
 <p>We <em>could</em> achieve this kind of interaction with a ROS service. We could
@@ -1056,7 +1058,7 @@ optional arguments:
                    (e.g. --prefix 'gdb -ex run --args').
 </code></pre>
 <p>We can see that <code>ros2 run</code> is the
-command to, &quot;Run a package specific executable.&quot; In ROS 2 collections of ROS
+command to, "Run a package specific executable." In ROS 2 collections of ROS
 software are gathered into logical units called <code>packages</code>. Each package
 contains all of the source code for the package as a variety of other data that
 tells ROS how to build and compile the package and the names of all the
@@ -1068,8 +1070,8 @@ want to write is as follows:</p>
 <p><code>ros2 run &lt;package name&gt; &lt;program/executable name&gt; &lt;args&gt;</code></p>
 <p>There is one piece of missing information here. What is this <code>argv</code> that the
 command is asking for? The <code>argv</code> element is programmer short hand for variable
-arguments, and it simply means, &quot;some number of additional arguments that are
-determined by the executable&quot;. It is worth noting that a program can have zero
+arguments, and it simply means, "some number of additional arguments that are
+determined by the executable". It is worth noting that a program can have zero
 arguments and you can just leave it blank. This is actually how a lot of
 programs work. For example, say we had a package
 called <em>math</em>, and an executable called <em>add</em> that takes in two numbers and
@@ -1131,7 +1133,7 @@ organized as follows:</p>
 <p>The key thing to realize about topics is that the data they contain is dynamic, meaning it changes
 constantly. In our vehicle example the velocity of each wheel might be measured
 one thousand times a second or more. Since the data in a ROS topic is constantly
-changing, an important distinction for a topic is whether the topic is &quot;creating&quot;
+changing, an important distinction for a topic is whether the topic is "creating"
 or as we like to say in ROS <code>publishing</code>, or if it is reading the data, what we call
 <code>subscribing</code> to the topic. Many ROS nodes subscribe to one set of topics,
 process that input data, and then publish to another set of topics.</p>
@@ -1185,12 +1187,12 @@ optional arguments:
 
 </code></pre>
 <p>As indicated at the top of this command help file, <code>ros2 topic list</code> will
-&quot;Output a list of available topics.&quot; There appears to be a variety of
+"Output a list of available topics." There appears to be a variety of
 <em>optional</em> arguments that we don't need to include if we don't want to. However,
 the <code>-t, --show-types</code> line looks interesting. It is worth noting that command
 arguments, sometimes called flags, can have two types. A short form indicated
-with a single dash (&quot;-&quot;), and a long form indicated by a double dash
-(&quot;--&quot;). Don't worry, despite looking different both versions of the argument do
+with a single dash ("-"), and a long form indicated by a double dash
+("--"). Don't worry, despite looking different both versions of the argument do
 the same thing. Let's try running this command, sub command pair with the
 <code>-show-types</code> argument.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic list --show-types
@@ -1270,7 +1272,7 @@ usage: ros2 interface show [-h] type
 Output the interface definition
 
 positional arguments:
-  type        Show an interface definition (e.g. &quot;std_msgs/msg/String&quot;)
+  type        Show an interface definition (e.g. "std_msgs/msg/String")
 
 optional arguments:
   -h, --help  show this help message and exit
@@ -1293,7 +1295,7 @@ fast it is moving or rotating.</p>
 <p>Now that we know what ROS topics are on our simple turtlesim, and their message
 types, we can dig in and find out more about how everything works. If we look
 back at our topic sub commands, we can see a sub command called <code>echo</code>. Echo is
-computer jargon that means &quot;repeat&quot; something. If you echo a topic it means you
+computer jargon that means "repeat" something. If you echo a topic it means you
 want the CLI to repeat what's on a topic. Let's look at the <code>echo</code> sub command's
 help text:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo --help
@@ -1338,7 +1340,7 @@ optional arguments:
   --no-str              Don't print string fields of messages
 </code></pre>
 <p>Wow, that's a lot of features. The top of the help files says that this CLI
-program &quot;output[s] messages from a topic.&quot; As we scan the positional arguments we see one
+program "output[s] messages from a topic." As we scan the positional arguments we see one
 required argument, a topic name, and an optional message type. We know the
 message type is optional because it has square brackets (<code>[]</code>) around it. Let's
 give the simple case a whirl before we address some of the optional
@@ -1373,8 +1375,8 @@ closely you can see that they are changing, and doing so in relation to the
 movement of the turtle. Going back to our car example you can see how this would
 be useful for understanding the instantaneous velocity of each of our wheels.</p>
 <p>Now that we have the basics down let's dig into a few of the optional
-arguments. We see a variety of commands that start with <code>--qos</code>. &quot;QOS&quot; here
-means &quot;quality of service&quot; and it is a really cool feature that is only in
+arguments. We see a variety of commands that start with <code>--qos</code>. "QOS" here
+means "quality of service" and it is a really cool feature that is only in
 ROS 2. Without getting too technical, QOS is a way of asking for a certain level
 of networking robustness. A ROS system can operate over a network, and just like
 streaming video or video games, packets can get dropped or not get to their
@@ -1382,7 +1384,7 @@ destination. The OS settings help you control which packets are the most
 important and should get the highest priority.</p>
 <p>Most of the other commands deal with changing the output format of this CLI
 program, but there is one in particular that is super handy, and it is also new
-in ROS 2. The <code>--csv</code> flag stands for &quot;comma separated values&quot; and it a very
+in ROS 2. The <code>--csv</code> flag stands for "comma separated values" and it a very
 simple way of defining a spreadsheet. What this argument does is make the topic
 echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file, saving the data for later
@@ -1534,7 +1536,7 @@ positional arguments:
   topic_name            Name of the ROS topic to publish to (e.g. '/chatter')
   message_type          Type of the ROS message (e.g. 'std_msgs/String')
   values                Values to fill the message with in YAML format (e.g.
-                        &quot;data: Hello World&quot;), otherwise the message will be
+                        "data: Hello World"), otherwise the message will be
                         published with default values
 
 optional arguments:
@@ -1637,7 +1639,7 @@ is running on our system:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 node list
 /turtlesim
 </code></pre>
-<p>We have a single node running called &quot;turtlesim&quot;. <code>node info</code> works in a way
+<p>We have a single node running called "turtlesim". <code>node info</code> works in a way
 very similar to <code>topic info</code> except that it lists information about the nodes we
 give it. Let's call it with our single ROS Node <code>/turtlesim</code> as its
 argument:</p>
@@ -1673,7 +1675,7 @@ argument:</p>
 </code></pre>
 <p>Wow, that's a lot of information, some of which looks familiar. We can see all
 the topics that the node subscribes to, as well as all the nodes it publishes
-to. We can also see a number of &quot;action servers&quot; and &quot;service servers&quot;. It is
+to. We can also see a number of "action servers" and "service servers". It is
 worth noting the client and server relationship here. Since ROS may have
 multiple nodes running some nodes may offer services (these are servers), and
 other ROS nodes may call those servers (these are the clients). The clients can
@@ -1775,7 +1777,7 @@ positional arguments:
   service_name    Name of the ROS service to call to (e.g. '/add_two_ints')
   service_type    Type of the ROS service (e.g. 'std_srvs/srv/Empty')
   values          Values to fill the service request with in YAML format (e.g.
-                  &quot;{a: 1, b: 2}&quot;), otherwise the service request will be
+                  "{a: 1, b: 2}"), otherwise the service request will be
                   published with default values
 
 optional arguments:
@@ -1788,13 +1790,13 @@ that we used in the past, but instead of using a message type we need a service
 type. Finally we give it a value in YAML format. A YAML string must be encased
 in single quotes. Let's try calling a service by creating a turtle
 named <code>Larry</code> at a position where all values are zero (use <code>TAB</code> complete).</p>
-<pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 0, y: 0, theta: 0.0, name: 'Larry'}&quot;
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 0, y: 0, theta: 0.0, name: 'Larry'}"
 requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, name='Larry')
 
 response:
 turtlesim.srv.Spawn_Response(name='Larry')
 </code></pre>
-<p>If everything is working correctly you should now have a turtle named &quot;Larry&quot; in
+<p>If everything is working correctly you should now have a turtle named "Larry" in
 the lower left hand corner of the screen:</p>
 <p><img src="./images/larry.png" alt="Spawning a second turtle" /></p>
 <p>Try exploring the other services offered, or
@@ -1806,8 +1808,8 @@ advantages. Actions have the following advantages:</p>
 <li>Actions have a <code>goal</code>. That is to say you send them a goal, and they attempt
 to complete it.</li>
 <li>Actions can reject goal requests. This prevents them from becoming too busy.</li>
-<li>Actions are asynchronous and can perform tasks &quot;while you wait.&quot;</li>
-<li>Actions will provide you with &quot;updates&quot;  with information about
+<li>Actions are asynchronous and can perform tasks "while you wait."</li>
+<li>Actions will provide you with "updates"  with information about
 their progress while you wait.</li>
 <li>Actions are preemptable, meaning you can cancel them if
 you change your mind.</li>
@@ -1924,7 +1926,7 @@ write to. Another good analogy would be global constants in normal
 software programs. Parameters are best used to configure your robot. For
 example, if you were building an autonomous vehicle and wanted to cap
 the maximum velocity of the vehicle at 100 km/h, you could create a
-parameter called &quot;MAX_SPEED&quot; that is visible to all the nodes.</p>
+parameter called "MAX_SPEED" that is visible to all the nodes.</p>
 <p>Let's take a look at the <code>param</code> command by running <code>ros2 param --help</code>.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param --help
 Various param related sub-commands
@@ -2050,7 +2052,7 @@ optional arguments:
                         destination of the bagfile to create, defaults to a
                         timestamped folder in the current directory
   -s STORAGE, --storage STORAGE
-                        storage identifier to be used, defaults to &quot;sqlite3&quot;
+                        storage identifier to be used, defaults to "sqlite3"
   -f SERIALIZATION_FORMAT, --serialization-format SERIALIZATION_FORMAT
                         rmw serialization format in which the messages are
                         saved, defaults to the rmw currently in use
@@ -2283,17 +2285,17 @@ string name # Optional.  A unique name will be created and returned if this is e
 ---
 string name
 $ ros2 interface proto turtlesim/srv/Spawn
-&quot;x: 0.0
+"x: 0.0
 y: 0.0
 theta: 0.0
 name: ''
-&quot;
-$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{&lt;copy and paste proto here&gt;}&quot;
+"
+$ ros2 service call /spawn turtlesim/srv/Spawn "{&lt;copy and paste proto here&gt;}"
 
 </code></pre>
 <p>You can see from the example above how handy these tools can be. It is worth
 noting that you need to paste the prototype into a set of quotes and curly
-braces for the call to work <code>&quot;{&lt;prototype&gt;}&quot;</code>.</p>
+braces for the call to work <code>"{&lt;prototype&gt;}"</code>.</p>
 <h2 id="ros-2-launch"><a class="header" href="#ros-2-launch">ROS 2 Launch</a></h2>
 <p>The <code>launch</code> command is used to run ROS launch files. Up until this point we've
 been running single ROS programs by hand using the <code>run</code> command, however this
@@ -2455,7 +2457,7 @@ the directory of turtlesim, its maintainer, and its license:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 pkg prefix turtlesim
 /opt/ros/eloquent
 $ ros2 pkg xml turtlesim | grep maintainer
-  &lt;maintainer email=&quot;dthomas@osrfoundation.org&quot;&gt;Dirk Thomas&lt;/maintainer&gt;
+  &lt;maintainer email="dthomas@osrfoundation.org"&gt;Dirk Thomas&lt;/maintainer&gt;
 $ ros2 pkg xml turtlesim | grep license
   &lt;license&gt;BSD&lt;/license&gt;
 kscottz@kscottz-ratnest:~$
@@ -2503,7 +2505,7 @@ i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
     i += 1
-    print(f'Publishing: &quot;{msg.data}&quot;')
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 </code></pre>
@@ -2513,9 +2515,9 @@ it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
 <pre><code class="language-{.sourceCode .bash}">$ python3 talker.py
 </code></pre>
 <p>You should see:</p>
-<pre><code>Publishing: &quot;Hello world: 0&quot;
-Publishing: &quot;Hello world: 1&quot;
-Publishing: &quot;Hello world: 2&quot;
+<pre><code>Publishing: "Hello world: 0"
+Publishing: "Hello world: 1"
+Publishing: "Hello world: 2"
 </code></pre>
 <p>It prints to console, but is the data going anywhere? We can check
 our work using the <code>ros2 topic</code> tool that was introduced earlier. In
@@ -2537,7 +2539,7 @@ to string messages and prints them to console:</p>
 from std_msgs.msg import String
 
 def cb(msg):
-    print(f'I heard: &quot;{msg.data}&quot;')
+    print(f'I heard: "{msg.data}"')
 
 rclpy.init()
 node = rclpy.create_node('my_subscriber')
@@ -2550,9 +2552,9 @@ listener in another shell:</p>
 <pre><code class="language-{sourceCode .bash}">$ python3 listener.py
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
-<pre><code>I heard: &quot;Hello world: 35&quot;
-I heard: &quot;Hello world: 36&quot;
-I heard: &quot;Hello world: 37&quot;
+<pre><code>I heard: "Hello world: 35"
+I heard: "Hello world: 36"
+I heard: "Hello world: 37"
 </code></pre>
 <h3 id="digging-into-the-python-code"><a class="header" href="#digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
@@ -2592,7 +2594,7 @@ setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
 <pre><code class="language-{sourceCode .py}">def cb(msg):
-    print(f'I heard: &quot;{msg.data}&quot;')
+    print(f'I heard: "{msg.data}"')
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
 and the received message will be passed in as an argument. In this case
@@ -2609,7 +2611,7 @@ i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
     i += 1
-    print(f'Publishing: &quot;{msg.data}&quot;')
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 </code></pre>
@@ -2621,19 +2623,19 @@ it, sleeping briefly between iterations.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
 <pre><code class="language-{sourceCode .cpp}">#include &lt;unistd.h&gt;
 #include &lt;iostream&gt;
-#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;minimal_publisher&quot;);
-  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+  auto node = rclcpp::Node::make_shared("minimal_publisher");
+  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;("chatter", 10);
   std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
-    message.data = &quot;Hello world: &quot; + std::to_string(i++);
-    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    message.data = "Hello world: " + std::to_string(i++);
+    std::cout &lt;&lt; "Publishing: " &lt;&lt; message.data &lt;&lt; std::endl;
     pub-&gt;publish(message);
     usleep(500000);
   }
@@ -2664,9 +2666,9 @@ $ make
 <pre><code class="language-{sourceCode .bash}">$ ./talker
 </code></pre>
 <p>You should see:</p>
-<pre><code>Publishing: &quot;Hello world: 0&quot;
-Publishing: &quot;Hello world: 1&quot;
-Publishing: &quot;Hello world: 2&quot;
+<pre><code>Publishing: "Hello world: 0"
+Publishing: "Hello world: 1"
+Publishing: "Hello world: 2"
 </code></pre>
 <p>Keep the talker running and another shell try <code>ros2 topic</code> to listen
 in:</p>
@@ -2683,19 +2685,19 @@ data: 'Hello world: 15'
 <p>Now we can write our own listener to use in place of <code>ros2 topic</code>. Here
 is a complete C++ program that subscribes to string messages and prints
 them to console:</p>
-<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
 void cb(const std_msgs::msg::String::SharedPtr msg)
 {
-  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+  std::cout &lt;&lt; "I heard: " &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;my_subscriber&quot;);
-  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+  auto node = rclcpp::Node::make_shared("my_subscriber");
+  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;("chatter", 10, cb);
   rclcpp::spin(node);
   return 0;
 }
@@ -2716,15 +2718,15 @@ still running in one shell, start up your listener in another shell:</p>
 <pre><code class="language-{sourceCode .bash}">$ ./listener
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
-<pre><code>I heard: &quot;Hello world: 35&quot;
-I heard: &quot;Hello world: 36&quot;
-I heard: &quot;Hello world: 37&quot;
+<pre><code>I heard: "Hello world: 35"
+I heard: "Hello world: 36"
+I heard: "Hello world: 37"
 </code></pre>
 <h3 id="digging-into-the-c-code"><a class="header" href="#digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 </code></pre>
 <p>We always need to include the <code>rclcpp</code> client library, which gives us
 much of what we need to write ROS applications in C++. But we also need to
@@ -2732,16 +2734,16 @@ specifically import the ROS message type(s) that we will use. In this
 case we are using the simple <code>std_msgs/String</code> message, which contains a
 single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
-would <code>#include &quot;sensor_msgs/msg/image.hpp&quot;</code>.</p>
+would <code>#include "sensor_msgs/msg/image.hpp"</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
 <pre><code class="language-{sourceCode .cpp}">  rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;my_node_name&quot;);
+  auto node = rclcpp::Node::make_shared("my_node_name");
 </code></pre>
 <p>We initialize the <code>rclcpp</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;("chatter", 10);
 </code></pre>
 <p>We declare via template the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -2750,7 +2752,7 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;("chatter", 10, cb);
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as for the <code>create_publisher()</code> call, and the numerical argument (10) is
@@ -2759,7 +2761,7 @@ difference is the <code>cb</code> argument, which refers to this <em>callback</e
 function that we also defined in the listener:</p>
 <pre><code class="language-{sourceCode .cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
 {
-  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+  std::cout &lt;&lt; "I heard: " &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
@@ -2775,8 +2777,8 @@ arrive (and more generally for events to occur) and invoke our callback.</p>
 <pre><code class="language-{sourceCode .cpp}">  std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
-    message.data = &quot;Hello world: &quot; + std::to_string(i++);
-    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    message.data = "Hello world: " + std::to_string(i++);
+    std::cout &lt;&lt; "Publishing: " &lt;&lt; message.data &lt;&lt; std::endl;
     pub-&gt;publish(message);
     usleep(500000);
   }
@@ -2842,8 +2844,8 @@ accurately reflect physical environments.</p>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>The <code>traffic_editor</code> <a href="https://github.com/open-rmf/rmf_traffic_editor">repository</a> is home to the <code>traffic_editor</code> GUI and tools to auto-generate simulation worlds from GUI output.
 The GUI is an easy-to-use interface which can create and annotate 2D floor plans with robot traffic along with building infrastructure information.
-Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a &quot;reference&quot; coordinate system for vendor-specific maps.
-For such cases, <code>traffic-editor</code> can import these types of &quot;backgroud images&quot; to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.</p>
+Often times, there are existing floor plans of the environment, such as architectural drawings, which simplify the task and provide a "reference" coordinate system for vendor-specific maps.
+For such cases, <code>traffic-editor</code> can import these types of "backgroud images" to serve as a canvas upon which to draw the intended robot traffic maps, and to make it easy to trace the important wall segments required for simulation.</p>
 <p>The <code>traffic_editor</code> GUI projects are stored as <code>yaml</code> files with <code>.building.yaml</code> file extensions.
 Although the typical workflow uses the GUI and does not require hand-editing the <code>yaml</code> files directly, we have used a <code>yaml</code> file format to make it easy to parse using custom scripting if needed.
 Each <code>.building.yaml</code> file includes several attributes for each level in the site as annotated by the user.
@@ -2899,7 +2901,7 @@ The user is able to zoom via the mouse scroll wheel, and pan the view by pressin
 <li><strong>levels:</strong> to add a new level to the building. This can be done from scratch or by importing a floor plan image file.</li>
 <li><strong>layers:</strong> to overlap other images such as lidar maps over the level</li>
 <li><strong>lifts:</strong> to configure and add lifts to the building</li>
-<li><strong>traffic:</strong> to select which &quot;navigation graph&quot; is currently being edited, and toggle which graph(s) are being rendered.</li>
+<li><strong>traffic:</strong> to select which "navigation graph" is currently being edited, and toggle which graph(s) are being rendered.</li>
 </ul>
 <h2 id="annotation-guide"><a class="header" href="#annotation-guide">Annotation Guide</a></h2>
 <p>This section walks through the process of annotating facilities while highlighting the capabilities of the <code>traffic_editor</code> GUI.</p>
@@ -3001,8 +3003,8 @@ The <code>distance</code> value is stored in a sub-list of parameters.</p>
     measurements:
       - [1, 0, {distance: [3, 8.409]}]
     vertices:
-      - [2951.728, 368.353, 0, &quot;&quot;]
-      - [2808.142, 1348.9, 0, &quot;&quot;]
+      - [2951.728, 368.353, 0, ""]
+      - [2808.142, 1348.9, 0, ""]
 
 lifts:
   {}
@@ -3043,7 +3045,7 @@ To define a floor, select consecutive vertices to create a polygon that accurate
 These vertices will need to be added manually prior to this step.
 Once created, save the project and reload.
 Selecting the defined floor highlights its texture attributes. Similarly, <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_building_map_tools/building_map_generator/textures">default list of available textures</a> is available in the source code.</p>
-<p><img src="images/traffic_editor/add_floor.png" alt="Highlighting floor's textures" /></p>
+<p><img src="images/traffic_editor/add_floor.png" alt="Highlighting floor&#39;s textures" /></p>
 <p>Certain scenarios may call for floors with cavities, for example, to represent elevator shafts.
 The <em>Add hole polygon</em> tool may be used for this purpose.
 Additionally, the shape of a drawn polygon (floor or hole) may be modified using the <em>Edit polygon</em> tool.
@@ -3060,7 +3062,7 @@ Clicking on the tool after selecting an existing polygon enables the user to mod
 </div>
 <p>A door between two vertices can be added in <em>Building</em> edit mode by selecting the <em>Add door</em> tool from the <code>Main Toolbar</code>, and clicking on vertices representing the ends of the door.
 Selecting an annotated door highlights its properties as seen in the figure below.
-Presently, four door <code>types</code> are supported: &quot;hinged&quot;, &quot;double_hinged&quot;, &quot;sliding&quot; and &quot;double_sliding&quot;.
+Presently, four door <code>types</code> are supported: "hinged", "double_hinged", "sliding" and "double_sliding".
 The <code>motion_degrees</code> parameter specifies the range of motion in the case of hinged doors while the <code>motion_direction</code> dictates the direction of swing.
 In order for the door to work in simulation, a <code>name</code> must be given to the door.</p>
 <p><img src="images/traffic_editor/add_door.png" alt="Door type properties" /></p>
@@ -3073,12 +3075,12 @@ In order for the door to work in simulation, a <code>name</code> must be given t
 The allowable motions of each fleet operating in the facility is conveyed through its respective Graph which consists of waypoints and connecting lanes.
 In this approach, we assume that robots travel along effectively straight-line paths between waypoints.
 While this may be perceived as an oversimplification of paths taken by robots that are capable of autonomous navigation, in practice the assumption holds fairly well given that these robots mostly travel along corridors or hallways and seldom in unconstrained open spaces.
-For example, even in theoretically unconstrained spaces like building lobbies or shopping-mall atriums, it is likely that the site operator would prefer for the robots to operate in a &quot;traffic lane&quot; on the edge of the space, in order to not impede typical human traffic flows.</p>
+For example, even in theoretically unconstrained spaces like building lobbies or shopping-mall atriums, it is likely that the site operator would prefer for the robots to operate in a "traffic lane" on the edge of the space, in order to not impede typical human traffic flows.</p>
 <p>The <code>traffic</code> tab in the <code>Sidebar</code> has a default of nine Graphs for nine different fleets. To annotate lanes for a graph, say Graph 0, select the Graph from the <code>traffic</code> tab and click the <em>Add lane</em> tool.
 Lanes for this graph can be drawn by clicking vertices to be connected.
 If a vertex is not present, it will automatically be added. Properties may be assigned to each vertex as described in the preceding section.
 To issue tasks to waypoints that require the robot to terminate at any waypoint, a name must be assigned to the waypoint.</p>
-<p><img src="images/traffic_editor/add_lane.png" alt="Graphs' lane colors" /></p>
+<p><img src="images/traffic_editor/add_lane.png" alt="Graphs&#39; lane colors" /></p>
 <p>Each Graph has a unique color for its lanes, and their visibility may be toggled using the checkbox in the <code>traffic</code> tab.
 A lane that is defined between two waypoints may be configured with these additional properties:</p>
 <ul>
@@ -3090,7 +3092,7 @@ press the <code>b</code> key to toggle between unidirectional and bidirectional 
 <li><strong>graph_idx</strong>: the Graph number a lane corresponds to</li>
 <li><strong>orientation</strong>: constrain the lane to make the robot travel in <code>forward</code> or <code>backward</code> orientation. This can be useful for the final lane segment approaching a docking point or charger, for example.</li>
 </ul>
-<p>While lifts that move between levels are now supported in the <code>traffic_editor</code>, the <strong>demo_mock_floor_name</strong> and <strong>demo_mock_lift_name</strong> properties were originally engineered to showcase shared lift access in a single floor demonstration environment with a &quot;mock&quot; lift that receives lift commands and transmits lift states but does not actually move between any different floors in a building.
+<p>While lifts that move between levels are now supported in the <code>traffic_editor</code>, the <strong>demo_mock_floor_name</strong> and <strong>demo_mock_lift_name</strong> properties were originally engineered to showcase shared lift access in a single floor demonstration environment with a "mock" lift that receives lift commands and transmits lift states but does not actually move between any different floors in a building.
 However, as there may be interest in such functionality for testing single-floor hardware setups that seek to emulate multi-floor scenarios, these properties were retained.</p>
 <ul>
 <li><strong>demo_mock_floor_name</strong>: name of the floor that the robot is on while
@@ -3103,31 +3105,31 @@ navigation graph where numbers are waypoints and letters are lanes:</p>
 <pre><code>1 &lt;---a---&gt; 2 &lt;---b---&gt; 3
 
 Waypoint 1 is on floor L1
-Waypoint 2 is inside the &quot;lift&quot; named LIFT001
+Waypoint 2 is inside the "lift" named LIFT001
 Waypoint 3 is on floor L3
-The properties of edge &quot;a&quot; are:
+The properties of edge "a" are:
     bidirectional: true
     demo_mock_floor_name: L1
     demo_mock_lift_name: LIFT001
-The properties of edge &quot;b&quot; are:
+The properties of edge "b" are:
     bidirectional: true
     demo_mock_floor_name: L3
     demo_mock_lift_name: LIFT001
 </code></pre>
-<p>If the robot is to travel from waypoint 1 to waypoint 3, the <code>rmf_fleet_adapter</code> will request for the &quot;mock lift&quot; to arrive at L1 when the robot approaches waypoint 1.
-With confirmation of the &quot;lift&quot; at L1 and its doors in &quot;open&quot; state, the robot will be instructed to move into the &quot;lift&quot; to waypoint 2.
-Once the &quot;lift&quot; indicates that it has reached L3, the robot will exit along lane b toward waypoint 3.</p>
+<p>If the robot is to travel from waypoint 1 to waypoint 3, the <code>rmf_fleet_adapter</code> will request for the "mock lift" to arrive at L1 when the robot approaches waypoint 1.
+With confirmation of the "lift" at L1 and its doors in "open" state, the robot will be instructed to move into the "lift" to waypoint 2.
+Once the "lift" indicates that it has reached L3, the robot will exit along lane b toward waypoint 3.</p>
 <p>Note: when annotating graphs, it is highly recommended to follow an ascending sequence of graph indices without skipping intermediate numbers. Drawn lanes can only be interacted with if their associated Graph is first selected in the <code>traffic</code> tab.</p>
 <p>The annotated Graphs are eventually exported as <code>navigation graphs</code> using the <code>building_map_generator</code> which are then used by respective <code>rmf_fleet_adapters</code> for path planning.</p>
 <p>Lanes are stored in the following format in <code>tutorial.building.yaml</code>.
 The data structure is a list with the first two elements representing the indices of the two vertices of the lane and a set of parameters with configured properties.</p>
 <pre><code class="language-yaml">    lanes:
-      - [32, 33, {bidirectional: [4, true], demo_mock_floor_name: [1, &quot;&quot;], demo_mock_lift_name: [1, &quot;&quot;], graph_idx: [2, 2], orientation: [1, forward]}]
+      - [32, 33, {bidirectional: [4, true], demo_mock_floor_name: [1, ""], demo_mock_lift_name: [1, ""], graph_idx: [2, 2], orientation: [1, forward]}]
 </code></pre>
 <h3 id="deriving-coordinate-space-transforms"><a class="header" href="#deriving-coordinate-space-transforms">Deriving coordinate-space transforms</a></h3>
 <p>Coordinate spaces are confusing!
-For historical reasons, the GUI internally creates traffic maps by annotating images, so the &quot;raw&quot; annotations are actually encoded in pixel coordinates of the &quot;base&quot; floorplan image, in pixel coordinates, with +X=right and +Y=down, with the origin in the upper-left of the base floorplan image.
-However, during the building map generation step, the vertical axis is flipped to end up in a Cartesian plane, so the vast majority of RMF (that is, everything downstream of traffic-editor and the building map generators) uses a &quot;normal&quot; Cartesian coordinate system. (As an aside -- the next version of traffic-editor is intended to be more flexible in this respect, and will default to a normal Cartesian coordinate system (not an image-based coordinate system), or even global coordinates (lat/lon). Although preliminary work is underway, there is not a hard schedule for this next-gen editor at time of writing, so the rest of this chapter will describe the existing <code>traffic-editor</code>.)</p>
+For historical reasons, the GUI internally creates traffic maps by annotating images, so the "raw" annotations are actually encoded in pixel coordinates of the "base" floorplan image, in pixel coordinates, with +X=right and +Y=down, with the origin in the upper-left of the base floorplan image.
+However, during the building map generation step, the vertical axis is flipped to end up in a Cartesian plane, so the vast majority of RMF (that is, everything downstream of traffic-editor and the building map generators) uses a "normal" Cartesian coordinate system. (As an aside -- the next version of traffic-editor is intended to be more flexible in this respect, and will default to a normal Cartesian coordinate system (not an image-based coordinate system), or even global coordinates (lat/lon). Although preliminary work is underway, there is not a hard schedule for this next-gen editor at time of writing, so the rest of this chapter will describe the existing <code>traffic-editor</code>.)</p>
 <p>Although <code>traffic-editor</code> currently uses the upper-left corner of the base floorplan image as the reference frame, maps generated by robots likely will have their origin elsewhere, and will likely be oriented and scaled differently.
 It is critical to derive the correct transform between coordinate frames in <code>traffic_editor</code> maps and robot maps as
 <code>rmf_fleet_adapters</code> expect all robots to publish their locations in the RMF coordinate system while the <code>rmf_fleet_adapters</code> also issue path requests in the same frame.</p>
@@ -3212,7 +3214,7 @@ Selecting this tool opens a dialog box with a list of model names and matching t
 Once on the map, their positions and orientations can be adjusted using the <em>Move</em> and <em>Rotate</em> tools. Sample models are provided <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor_assets/assets/thumbnails/images/cropped/OpenRobotics">here</a></p>
 <p>The <a href="https://github.com/open-rmf/rmf_traffic_editor/tree/main/rmf_traffic_editor#generating-custom-thumbnails">thumbnail_generator documentation</a> contains instructions on expanding the list of thumbnails for other models.</p>
 <blockquote>
-<p>Note: If no models are shown on the <strong>add models</strong> window, Go to &quot;Edit -&gt; Preference&quot;, then indicate the thumbnail path. (<code>e.g. $HOME/rmf_ws/src/rmf/rmf_traffic_editor/rmf_traffic_editor_assets/assets/thumbnails</code>)</p>
+<p>Note: If no models are shown on the <strong>add models</strong> window, Go to "Edit -&gt; Preference", then indicate the thumbnail path. (<code>e.g. $HOME/rmf_ws/src/rmf/rmf_traffic_editor/rmf_traffic_editor_assets/assets/thumbnails</code>)</p>
 </blockquote>
 <p><img src="images/traffic_editor/add_model.png" alt="Model name and thumbnails dialog" /></p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
@@ -3261,7 +3263,7 @@ simulations. It is worth emphasizing here that the exact same code used to run t
 will also be run on the physical system as well without any changes.</p>
 <p>However, despite these compelling benefits, simulations are sparingly employed
 by developers and system integrators, citing complexity over generating
-environments and configuring them with appropriate plugins. In a recent publication &quot;<em>A Study on the Challenges of Using Robotics Simulators for Testing</em>,&quot; by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:</p>
+environments and configuring them with appropriate plugins. In a recent publication "<em>A Study on the Challenges of Using Robotics Simulators for Testing</em>," by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:</p>
 <div class="table-wrapper"><table><thead><tr><th>Reason for not using simulation</th><th>#</th><th>%</th></tr></thead><tbody>
 <tr><td>Lack of time or resources</td><td>15</td><td>53.57%</td></tr>
 <tr><td>Not realistic/accurate enough</td><td>15</td><td>53.57%</td></tr>
@@ -3362,14 +3364,14 @@ functionality. The following sections briefly describe some of these plugins.</p
 open sourced for use in simulation. For these models to emulate the behavior of
 their physical counterparts which have been integrated with RMF, they need to 1)
 interface with <code>rmf_fleet_adapters</code> and 2) navigate to locations in the
-simulated world. These functionalities, for a &quot;<em>full control</em>&quot; robot type, are
+simulated world. These functionalities, for a "<em>full control</em>" robot type, are
 achieved through the <code>slotcar</code> <a href="https://github.com/open-rmf/rmf_simulation/blob/main/rmf_robot_sim_gazebo_plugins/src/slotcar.cpp">plugin</a>.
 The plugin subscribes to <code>/robot_path_requests</code> and <code>/robot_mode_requests</code>
 topics and responds to relevant <code>PathRequest</code> and <code>ModeRequest</code> messages
 published by its <code>rmf_fleet_adapter</code>. The plugin also publishes the robot's
 state to the <code>/robot_state</code> topic.</p>
 <p>To navigate the robot through waypoints in a <code>PathRequest</code> message, a simple
-&quot;rail-like&quot; navigation algorithm is utilized which accelerates and decelerates
+"rail-like" navigation algorithm is utilized which accelerates and decelerates
 the robot along a straight line from its current position to the next waypoint.
 The plugin relies on these fundamental assumptions:</p>
 <ul>
@@ -3377,7 +3379,7 @@ The plugin relies on these fundamental assumptions:</p>
 <li>The left and right wheel joints are named  <code>joint_tire_left</code> and <code>joint_tire_right</code> respectively</li>
 </ul>
 <p>Other parameters, the majority of which are kinematic properties of the robot, are inferred from sdf parameters:</p>
-<pre><code class="language-xml">&lt;plugin name=&quot;slotcar&quot; filename=&quot;libslotcar.so&quot;&gt;
+<pre><code class="language-xml">&lt;plugin name="slotcar" filename="libslotcar.so"&gt;
   &lt;nominal_drive_speed&gt;0.5&lt;/nominal_drive_speed&gt;
   &lt;nominal_drive_acceleration&gt;0.25&lt;/nominal_drive_acceleration&gt;
   &lt;max_drive_acceleration&gt;0.75&lt;/max_drive_acceleration&gt;
@@ -3413,19 +3415,19 @@ its range of motion (for hinged doors).</p>
 any doors and automatically generates an sdf sub-element with links and joints
 required for the door along with a configured plugin. The sdf sub-element
 generated for the door in the figure above is presented below.</p>
-<pre><code class="language-xml">&lt;model name=&quot;coe_door&quot;&gt;
+<pre><code class="language-xml">&lt;model name="coe_door"&gt;
   &lt;pose&gt;8.077686357313898 -5.898342045416362 0.0 0 0 1.1560010438234292&lt;/pose&gt;
-  &lt;plugin filename=&quot;libdoor.so&quot; name=&quot;door&quot;&gt;
+  &lt;plugin filename="libdoor.so" name="door"&gt;
     &lt;v_max_door&gt;0.5&lt;/v_max_door&gt;
     &lt;a_max_door&gt;0.3&lt;/a_max_door&gt;
     &lt;a_nom_door&gt;0.15&lt;/a_nom_door&gt;
     &lt;dx_min_door&gt;0.01&lt;/dx_min_door&gt;
     &lt;f_max_door&gt;500.0&lt;/f_max_door&gt;
-    &lt;door left_joint_name=&quot;left_joint&quot; name=&quot;coe_door&quot; right_joint_name=&quot;empty_joint&quot; type=&quot;SwingDoor&quot; /&gt;
+    &lt;door left_joint_name="left_joint" name="coe_door" right_joint_name="empty_joint" type="SwingDoor" /&gt;
   &lt;/plugin&gt;
-  &lt;link name=&quot;left&quot;&gt;
+  &lt;link name="left"&gt;
     &lt;pose&gt;0 0 1.11 0 0 0&lt;/pose&gt;
-    &lt;visual name=&quot;left&quot;&gt;
+    &lt;visual name="left"&gt;
       &lt;material&gt;
         &lt;ambient&gt;120 60 0 0.6&lt;/ambient&gt;
         &lt;diffuse&gt;120 60 0 0.6&lt;/diffuse&gt;
@@ -3436,7 +3438,7 @@ generated for the door in the figure above is presented below.</p>
         &lt;/box&gt;
       &lt;/geometry&gt;
     &lt;/visual&gt;
-    &lt;collision name=&quot;left&quot;&gt;
+    &lt;collision name="left"&gt;
       &lt;surface&gt;
         &lt;contact&gt;
           &lt;collide_bitmask&gt;0x02&lt;/collide_bitmask&gt;
@@ -3457,7 +3459,7 @@ generated for the door in the figure above is presented below.</p>
       &lt;/inertia&gt;
     &lt;/inertial&gt;
   &lt;/link&gt;
-  &lt;joint name=&quot;left_joint&quot; type=&quot;revolute&quot;&gt;
+  &lt;joint name="left_joint" type="revolute"&gt;
     &lt;parent&gt;world&lt;/parent&gt;
     &lt;child&gt;left&lt;/child&gt;
     &lt;axis&gt;
@@ -3482,17 +3484,17 @@ While the cabin doors are part of the cabin structure, the shaft doors are fixed
 Both sets of doors open and close simultaneously at a given level and are controlled by the lift plugin itself.
 These doors are created using the same method as other doors in the building and include the door plugin as well.</p>
 <p>The <code>building_map_generator</code> also appends a lift plugin (TODO add link element with required parameters to the lift's model sdf block.)</p>
-<pre><code class="language-xml">&lt;plugin filename=&quot;liblift.so&quot; name=&quot;lift&quot;&gt;
+<pre><code class="language-xml">&lt;plugin filename="liblift.so" name="lift"&gt;
   &lt;lift_name&gt;Lift1&lt;/lift_name&gt;
-  &lt;floor elevation=&quot;0.0&quot; name=&quot;L1&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L1_door1&quot; /&gt;
+  &lt;floor elevation="0.0" name="L1"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L1_door1" /&gt;
   &lt;/floor&gt;
-  &lt;floor elevation=&quot;10.0&quot; name=&quot;L2&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L2_door1&quot; /&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door2&quot; shaft_door=&quot;ShaftDoor_Lift1_L2_door2&quot; /&gt;
+  &lt;floor elevation="10.0" name="L2"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L2_door1" /&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door2" shaft_door="ShaftDoor_Lift1_L2_door2" /&gt;
   &lt;/floor&gt;
-  &lt;floor elevation=&quot;20.0&quot; name=&quot;L3&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L3_door1&quot; /&gt;
+  &lt;floor elevation="20.0" name="L3"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L3_door1" /&gt;
   &lt;/floor&gt;
   &lt;reference_floor&gt;L1&lt;/reference_floor&gt;
   &lt;v_max_cabin&gt;2.0&lt;/v_max_cabin&gt;
@@ -3549,15 +3551,15 @@ please dive in to <a href="https://github.com/FloodShao/crowd_simulation/blob/ma
 <h2 id="creating-simulations-and-running-scenarios"><a class="header" href="#creating-simulations-and-running-scenarios">Creating Simulations and Running Scenarios</a></h2>
 <p>The section aims to provide an overview of the various components in the <code>rmf_demos</code> <a href="https://github.com/open-rmf/rmf_demos">repository</a> which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the <code>office</code> world.</p>
 <h3 id="map-package"><a class="header" href="#map-package">Map package</a></h3>
-<p>The <code>rmf_demos_maps</code> package houses annotated <code>traffic_editor</code> files which will be used for the 3D world generation. Opening the <code>office.project.yaml</code> file in <code>traffic_editor</code> reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to <code>bidirectional</code> with <code>graph_idx</code> equal to &quot;0&quot;. The latter signifies that all the lanes belong to the same fleet. In the <code>airport</code> world, we have two sets of graphs with indices &quot;0&quot; and &quot;1&quot; which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.</p>
+<p>The <code>rmf_demos_maps</code> package houses annotated <code>traffic_editor</code> files which will be used for the 3D world generation. Opening the <code>office.project.yaml</code> file in <code>traffic_editor</code> reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to <code>bidirectional</code> with <code>graph_idx</code> equal to "0". The latter signifies that all the lanes belong to the same fleet. In the <code>airport</code> world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.</p>
 <p><img src="images/rmf_demos_maps.png" alt="Robot spawn location properties" /></p>
 <p>To export a 3D world file along with the navigation graphs, the <code>building_map_generator</code> script is used. The <code>CMakeLists.txt</code> file of this package is configured to automatically run the generator scripts when the package is built. The outputs are installed to the <code>share/</code> directory for the package. This allows for the generated files to be easily located and used by other packages in the demo.</p>
 <pre><code class="language-cmake">foreach(path ${traffic_editor_paths})
 
   # Get the output world name
-  string(REPLACE &quot;.&quot; &quot;;&quot; list1 ${path})
+  string(REPLACE "." ";" list1 ${path})
   list(GET list1 0 name)
-  string(REPLACE &quot;/&quot; &quot;;&quot; list2 ${name})
+  string(REPLACE "/" ";" list2 ${name})
   list(GET list2 -1 world_name)
 
   set(map_path ${path})
@@ -3607,46 +3609,46 @@ endforeach()
 <li>The <code>door_supervisor</code> and <code>lift_supervisor</code> nodes to manage requests submitted by fleet adapter and UIs.</li>
 </ul>
 <pre><code class="language-xml">&lt;!-- Common launch --&gt;
-&lt;include file=&quot;$(find-pkg-share demos)/common.launch.xml&quot;&gt;
-  &lt;arg name=&quot;use_sim_time&quot; value=&quot;true&quot;/&gt;
-  &lt;arg name=&quot;viz_config_file&quot; value =&quot;$(find-pkg-share demos)/include/office/office.rviz&quot;/&gt;
-  &lt;arg name=&quot;config_file&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/office/office.building.yaml&quot;/&gt;
+&lt;include file="$(find-pkg-share demos)/common.launch.xml"&gt;
+  &lt;arg name="use_sim_time" value="true"/&gt;
+  &lt;arg name="viz_config_file" value ="$(find-pkg-share demos)/include/office/office.rviz"/&gt;
+  &lt;arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/office/office.building.yaml"/&gt;
 &lt;/include&gt;
 </code></pre>
 <p>To launch a simulated world in gazebo, a snippet from <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz">rmf_demos_gz</a>
 is shown below. Similarly, user can also choose to run with ignition
 simulator, <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign">rmf_demos_ign</a></p>
 <pre><code class="language-xml">  &lt;group&gt;
-    &lt;let name=&quot;world_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/office.world&quot; /&gt;
-    &lt;let name=&quot;model_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models&quot; /&gt;
-    &lt;let name=&quot;resource_path&quot; value=&quot;$(find-pkg-share rmf_demos_assets):/usr/share/gazebo-9&quot; /&gt;
-    &lt;let name=&quot;plugin_path&quot; value=&quot;$(find-pkg-prefix rmf_gazebo_plugins)/lib:$(find-pkg-prefix building_gazebo_plugins)/lib&quot; /&gt;
+    &lt;let name="world_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/office.world" /&gt;
+    &lt;let name="model_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models" /&gt;
+    &lt;let name="resource_path" value="$(find-pkg-share rmf_demos_assets):/usr/share/gazebo-9" /&gt;
+    &lt;let name="plugin_path" value="$(find-pkg-prefix rmf_gazebo_plugins)/lib:$(find-pkg-prefix building_gazebo_plugins)/lib" /&gt;
 
-    &lt;executable cmd=&quot;gzserver --verbose -s libgazebo_ros_factory.so -s libgazebo_ros_init.so $(var world_path)&quot; output=&quot;both&quot;&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_PATH&quot; value=&quot;$(var model_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_RESOURCE_PATH&quot; value=&quot;$(var resource_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_PLUGIN_PATH&quot; value=&quot;$(var plugin_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_DATABASE_URI&quot; value=&quot;&quot; /&gt;
+    &lt;executable cmd="gzserver --verbose -s libgazebo_ros_factory.so -s libgazebo_ros_init.so $(var world_path)" output="both"&gt;
+      &lt;env name="GAZEBO_MODEL_PATH" value="$(var model_path)" /&gt;
+      &lt;env name="GAZEBO_RESOURCE_PATH" value="$(var resource_path)" /&gt;
+      &lt;env name="GAZEBO_PLUGIN_PATH" value="$(var plugin_path)" /&gt;
+      &lt;env name="GAZEBO_MODEL_DATABASE_URI" value="" /&gt;
     &lt;/executable&gt;
-    &lt;executable cmd=&quot;gzclient --verbose $(var world_path)&quot; output=&quot;both&quot;&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_PATH&quot; value=&quot;$(var model_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_RESOURCE_PATH&quot; value=&quot;$(var resource_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_PLUGIN_PATH&quot; value=&quot;$(var plugin_path)&quot; /&gt;
+    &lt;executable cmd="gzclient --verbose $(var world_path)" output="both"&gt;
+      &lt;env name="GAZEBO_MODEL_PATH" value="$(var model_path)" /&gt;
+      &lt;env name="GAZEBO_RESOURCE_PATH" value="$(var resource_path)" /&gt;
+      &lt;env name="GAZEBO_PLUGIN_PATH" value="$(var plugin_path)" /&gt;
     &lt;/executable&gt;
   &lt;/group&gt;
 </code></pre>
-<p>Lastly, instances of the &quot;full control&quot; <code>rmf_fleet_adapter</code> are launched for each robot type annotated in the map. The navigation graphs for each fleet as generated by the <code>building_map_generator</code> script is passed via the <code>nav_graph_file</code> argument. For the office map, a single fleet of <code>Magni</code> robots is defined. Hence, a single <code>magni_adapter.launch.xml</code> file configured with the kinematic properties of this robot type along with spatial thresholds used for planning, is launched. Along with the fleet adapter, a <code>robot_state_aggregator</code> node is started. This node aggregates <code>RobotState</code> messages with <code>RobotState.name</code> containing the <code>robot_prefix</code> argument and publishes the aggregate to <code>/fleet_states</code> with <code>FleetState.name</code> specified by the <code>fleet_name</code> argument.</p>
+<p>Lastly, instances of the "full control" <code>rmf_fleet_adapter</code> are launched for each robot type annotated in the map. The navigation graphs for each fleet as generated by the <code>building_map_generator</code> script is passed via the <code>nav_graph_file</code> argument. For the office map, a single fleet of <code>Magni</code> robots is defined. Hence, a single <code>magni_adapter.launch.xml</code> file configured with the kinematic properties of this robot type along with spatial thresholds used for planning, is launched. Along with the fleet adapter, a <code>robot_state_aggregator</code> node is started. This node aggregates <code>RobotState</code> messages with <code>RobotState.name</code> containing the <code>robot_prefix</code> argument and publishes the aggregate to <code>/fleet_states</code> with <code>FleetState.name</code> specified by the <code>fleet_name</code> argument.</p>
 <pre><code class="language-xml">&lt;group&gt;
-  &lt;let name=&quot;fleet_name&quot; value=&quot;magni&quot;/&gt;
-  &lt;include file=&quot;$(find-pkg-share rmf_demos)/include/adapters/magni_adapter.launch.xml&quot;&gt;
-    &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-    &lt;arg name=&quot;use_sim_time&quot; value=&quot;$(var use_sim_time)&quot;/&gt;
-    &lt;arg name=&quot;nav_graph_file&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml&quot; /&gt;
+  &lt;let name="fleet_name" value="magni"/&gt;
+  &lt;include file="$(find-pkg-share rmf_demos)/include/adapters/magni_adapter.launch.xml"&gt;
+    &lt;arg name="fleet_name" value="$(var fleet_name)"/&gt;
+    &lt;arg name="use_sim_time" value="$(var use_sim_time)"/&gt;
+    &lt;arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml" /&gt;
   &lt;/include&gt;
-  &lt;include file=&quot;$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml&quot;&gt;
-    &lt;arg name=&quot;robot_prefix&quot; value=&quot;magni&quot;/&gt;
-    &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-    &lt;arg name=&quot;use_sim_time&quot; value=&quot;true&quot;/&gt;
+  &lt;include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml"&gt;
+    &lt;arg name="robot_prefix" value="magni"/&gt;
+    &lt;arg name="fleet_name" value="$(var fleet_name)"/&gt;
+    &lt;arg name="use_sim_time" value="true"/&gt;
   &lt;/include&gt;
 &lt;/group&gt;
 </code></pre>
@@ -3738,14 +3740,14 @@ real-world fleet managers.</p>
 <div class="table-wrapper"><table><thead><tr><th><strong>Fleet adapter type</strong></th><th><strong>Robot/Fleetmanager API feature set</strong></th><th><strong>Remarks</strong></th></tr></thead><tbody>
 <tr><td><code>Full Control</code></td><td><ul><li>Read the current location of the robot [x, y, yaw]</li><li>Request robot to move to [x, y, yaw] coordinate</li><li>Pause a robot while it is navigating to [x, y, yaw]</li><li>Resume a paused robot</li><li>Get route/path taken by robot to destination</li><li>ETA to destination</li><li>Read battery status of the robot</li><li>Infer when robot is done navigating to [x, y, yaw]</li><li>Send robot to docking/charging station</li><li>Switch on board map and re-localize robot.</li><li>Start a process (such as clean Zone_A)</li><li>Pause/resume/stop process</li><li>Infer when process is complete (specific to use case)</li></ul></td><td>RMF is provided with live status updates and full control over the paths that each individual mobile robot uses when navigating through the environment. This control level provides the highest overall efficiency and compliance with RMF, which allows RMF to minimize stoppages and deal with unexpected scenarios gracefully. <em>(API available)</em></td></tr>
 <tr><td><code>Traffic Light</code></td><td><ul><li>Read the current location of the robot [x, y, yaw]</li><li>Pause a robot while it is navigating to [x, y, yaw]</li><li>Resume a paused robot</li><li>Read battery status of the robot</li><li>Send robot to docking/charging station</li><li>Start a process (such as clean Zone_A)</li><li>Pause/resume/stop process</li><li>Infer when process is complete (specific to use case)</li></ul></td><td>RMF is given the status as well as pause/resume control over each mobile robot, which is useful for deconflicting traffic schedules especially when sharing resources like corridors, lifts and doors. *(API available)</td></tr>
-<tr><td><code>Read Only</code></td><td><ul><li>Read the current location of the robot [x, y, yaw]</li><li>Pause a robot while it is navigating to [x, y, yaw]</li><li>Read battery status of the robot</li><li>Infer when process is complete (specific to use case)</li></ul></td><td>RMF is not given any control over the mobile robots but is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet. <em>Note that any shared space is allowed to have a maximum of just one &quot;Read Only&quot; fleet in operation. Having none is ideal.</em> <em>(Preliminary API available)</em></td></tr>
+<tr><td><code>Read Only</code></td><td><ul><li>Read the current location of the robot [x, y, yaw]</li><li>Pause a robot while it is navigating to [x, y, yaw]</li><li>Read battery status of the robot</li><li>Infer when process is complete (specific to use case)</li></ul></td><td>RMF is not given any control over the mobile robots but is provided with regular status updates. This will allow other mobile robot fleets with higher control levels to avoid conflicts with this fleet. <em>Note that any shared space is allowed to have a maximum of just one "Read Only" fleet in operation. Having none is ideal.</em> <em>(Preliminary API available)</em></td></tr>
 <tr><td><code>No Interface</code></td><td></td><td>Without any interface to the fleet, other fleets cannot coordinate with it through RMF, and will likely result in deadlocks when sharing the same navigable environment or resource. This level will not function with an RMF-enabled environment. <em>(Not compatible)</em></td></tr>
 </tbody></table>
 </div>
 <p>In short, the more collaborative a fleet is with RMF, the more harmoniously all of the fleets and systems are able to operate together.
-Note again that there can only ever be one &quot;Read Only&quot; fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
+Note again that there can only ever be one "Read Only" fleet in a shared space, as any two or more of such fleets will make avoiding deadlock or resource conflict nearly impossible.</p>
 <p>Currently we provide a reusable C++ API (as well as Python bindings) for integrating the <strong>Full Control</strong> category of fleet management.
-A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API 
+A preliminary ROS 2 message API is available for the <strong>Read Only</strong> category, but that API will be deprecated in favor of a C++ API
 (with <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter_python/">Python bindings</a> available) in a future release.
 The <strong>Traffic Light</strong> control category is compatible with the core RMF scheduling system, but we have not yet implemented a reusable API for it.
 To implement a <strong>Traffic Light</strong> fleet adapter, a system integrator would have to use the core traffic schedule and negotiation APIs directly, as well as implement the integration with the various infrastructure APIs (e.g. doors, lifts, and dispensers).</p>
@@ -3778,7 +3780,7 @@ can be added later, building on top of the existing completely generalized
 framework.</p>
 <h3 id="who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both"><a class="header" href="#who-opens-and-closes-doors-and-operates-the-lifts-the-robot-or-rmf-or-both">Who opens and closes doors and operates the lifts? The robot or RMF? Or both?</a></h3>
 <p>The responsibility of knowing when a door needs to be opened and then sending
-the command to open it belongs to the &quot;fleet adapter&quot;. The basic design is:</p>
+the command to open it belongs to the "fleet adapter". The basic design is:</p>
 <ul>
 <li>The fleet adapter keeps track of the robot's progress</li>
 <li>When the robot needs to go through a door, the fleet adapter will recognize this</li>
@@ -3803,14 +3805,14 @@ floors, and exporting that information into the navigation graph) is not
 something that has been developed yet.</p>
 <p>However, for testing and demonstration purposes, there are two special
 navigation graph edge properties that can allow a RMF fleet adapter to emulate
-lift usage. This is meant for demo scenarios where a &quot;mock lift&quot; has been
+lift usage. This is meant for demo scenarios where a "mock lift" has been
 created that receives lift commands and transmits lift states but does not
 actually move between any different floors in a building. For example, tape
-on the floor of a lab to indicate the &quot;lift cabin&quot; box, to allow development
+on the floor of a lab to indicate the "lift cabin" box, to allow development
 and testing without occupying the actual building lift.</p>
 <p>These properties were initially included for demonstration purposes, but they
 are proving useful enough that we might make them officially supported
-properties. Due to the cost and scarcity of &quot;real&quot; lifts, there seems to be
+properties. Due to the cost and scarcity of "real" lifts, there seems to be
 broad interest in having single-floor hardware test setups that emulate
 multi-floor scenarios.</p>
 <p>The edge properties are:</p>
@@ -3819,27 +3821,27 @@ multi-floor scenarios.</p>
 <li><code>demo_mock_lift_name</code>: The name of the lift that is being entered or exited while the robot traverses the edge</li>
 </ul>
 <p>The idea is that if you have a single floor demonstration environment but want
-to demonstrate interaction with a lift, then you can set up a mock &quot;lift&quot; and
-imagine that each side of the &quot;lift&quot; opens to a different floor, and the robot
-is only allowed to enter/exit that side of the &quot;lift&quot; when the &quot;lift&quot; believes
+to demonstrate interaction with a lift, then you can set up a mock "lift" and
+imagine that each side of the "lift" opens to a different floor, and the robot
+is only allowed to enter/exit that side of the "lift" when the "lift" believes
 it is on that floor. This emulates lift cabins with two sets of doors.</p>
 <p>To make this idea more concrete, imagine you have a single-floor hardware
 testing area, and a box is drawn on the ground with an LED display next to it
 that reads off pretend floor names. The mock lift will transmit lift state
 messages that match up with whatever floor the LED is displaying. There is also
 some indication of whether the lift doors are open or closed. You can further
-imagine that entering or exiting from west side of the &quot;lift&quot; is only allowed
-when the lift believes it is on floor L1 whereas entering or exiting the &quot;lift&quot;
+imagine that entering or exiting from west side of the "lift" is only allowed
+when the lift believes it is on floor L1 whereas entering or exiting the "lift"
 from the east side is only allowed when it believes it is on floor L3.</p>
-<p>In that setup, for a robot to &quot;correctly&quot; navigate from a waypoint on L1 to a
+<p>In that setup, for a robot to "correctly" navigate from a waypoint on L1 to a
 waypoint on L3, the robot needs to:</p>
 <ul>
-<li>Approach the &quot;lift&quot; from the west side</li>
-<li>Call the &quot;lift&quot; down to L1</li>
+<li>Approach the "lift" from the west side</li>
+<li>Call the "lift" down to L1</li>
 <li>Wait until the lift state has it on floor L1 with the doors open</li>
-<li>Move into the &quot;lift&quot; (i.e. the box drawn on the ground) and request that it &quot;moves&quot; to L3</li>
-<li>Wait until the &quot;lift&quot; indicates that it has reached L3 and that its doors are open</li>
-<li>Exit the &quot;lift&quot; on the east side</li>
+<li>Move into the "lift" (i.e. the box drawn on the ground) and request that it "moves" to L3</li>
+<li>Wait until the "lift" indicates that it has reached L3 and that its doors are open</li>
+<li>Exit the "lift" on the east side</li>
 </ul>
 <p>A rough ASCII diagram would look like this (numbers are waypoints and letters
 are edges):</p>
@@ -3847,7 +3849,7 @@ are edges):</p>
 </code></pre>
 <ul>
 <li>Waypoint 1 is on floor L1</li>
-<li>Waypoint 2 is inside the &quot;lift&quot; named LIFT001</li>
+<li>Waypoint 2 is inside the "lift" named LIFT001</li>
 <li>Waypoint 3 is on floor L3</li>
 <li>The properties of edge <code>a </code>are:
 <ul>
@@ -3887,18 +3889,18 @@ to use any prioritization system that you'd like. Specifically, replace
 <p>This is configurable. There are two relevant parameters: <code>footprint_radius</code> and
 <code>vicinity_radius</code>. The <code>footprint_radius</code> represents an estimate of the
 vehicle's physical footprint. The <code>vicinity_radius</code> represents an estimate of
-the region which the robot needs other vehicles to stay clear of. A &quot;schedule
-conflict&quot; is defined as an instance where one vehicle's &quot;footprint&quot; is
-scheduled to enter another vehicle's &quot;vicinity&quot;. The job of the negotiation
+the region which the robot needs other vehicles to stay clear of. A "schedule
+conflict" is defined as an instance where one vehicle's "footprint" is
+scheduled to enter another vehicle's "vicinity". The job of the negotiation
 system is to come up with a fix to the schedule that keeps all vehicles'
-&quot;footprints&quot; out of all other vehicles' &quot;vicinities&quot;.</p>
+"footprints" out of all other vehicles' "vicinities".</p>
 <h3 id="how-is-job-dispatching-accomplished"><a class="header" href="#how-is-job-dispatching-accomplished">How is job dispatching accomplished?</a></h3>
 <p>The Dispatch Planner module is currently a work-in-progress.
 So far, the demo platforms that have been developed for RMF did not require a planner to dispatch tasks to different fleets, because in all demo platforms done thus far (late 2020), each task type could only be performed by one (and only one) robot fleet.
 So the task dispatching has been trivial: the task gets assigned to whatever fleet is capable of performing the task, while the rest of the fleets just ignore the task request.
 We are currently working on a true dispatch planner and formal task bidding system which we're aiming to include in release 1.2.0, slated for end of December 2020.
-The idea is that every fleet that can perform a task request will offer a bid for how much it would &quot;cost&quot; them to perform a task, and the bid with the lowest &quot;cost&quot; will be the winner.
-The &quot;cost&quot; will be determined by two factors:</p>
+The idea is that every fleet that can perform a task request will offer a bid for how much it would "cost" them to perform a task, and the bid with the lowest "cost" will be the winner.
+The "cost" will be determined by two factors:</p>
 <ul>
 <li>How quickly the task is finished</li>
 <li>How much other tasks get delayed if the new task needs to preempt them</li>
@@ -3911,7 +3913,7 @@ The &quot;cost&quot; will be determined by two factors:</p>
 <p>There is no costmap representation in <code>rmf_core</code>.
 Costmaps are one method that is typically used for representing volume occupancy for autonomous navigation planning.
 While it's true that the traffic utilities deal with navigation planning, they are principally concerned about identifying conflicts between the intended routes of autonomous vehicles.
-The traffic utilities are not responsible for the &quot;local&quot; navigation of vehicles around static obstacles in their environment.</p>
+The traffic utilities are not responsible for the "local" navigation of vehicles around static obstacles in their environment.</p>
 <p>Different robot platforms often have different representations of costmaps or other navigation algorithms, many of which may be proprietary.
 On top of that, different robot platforms with the same costmap representations may still require different costmap values because of differences in robot footprints.
 Because of these factors, we leave it to the robot platforms themselves to determine how they represent their costmaps. If it's important for a system integrator to take a robot's costmap into account when performing traffic planning, they can implement a custom <code>rmf_traffic::agv::RouteValidator</code> that uses the robot's custom costmap when determining whether a candidate route is valid.</p>
@@ -3932,19 +3934,19 @@ Those constraints are described by the <code>rmf_traffic::schedule::Negotiation:
 Because the same object can be used to describe the constraints of all the different blocks in the diagram, we can use the same code to solve every block.</p>
 <p>There are also <code>reject</code> and <code>forfeit</code> code paths that may be invoked as necessary:</p>
 <ul>
-<li>The &quot;rejection&quot; mechanism is used when it's impossible for one of the fleets to accommodate a proposal that came from another.
+<li>The "rejection" mechanism is used when it's impossible for one of the fleets to accommodate a proposal that came from another.
 When a rejection is performed, the rejecting fleet will provide a set of feasible trajectories (usually anywhere from 10-200 trajectories) and the fleet that receives the rejection should try once again to find an ideal proposal for itself, but that ideal proposal must accommodate at least one of the trajectory alternatives that were provided with the rejection.</li>
-<li>The &quot;forfeit&quot; mechanism is used when the planner is having an inordinately difficult time finding any kind of solution.
+<li>The "forfeit" mechanism is used when the planner is having an inordinately difficult time finding any kind of solution.
 This can happen when the negotiation has numerous participants that are all actively on the move, which can lead to situations that are seemingly impossible to resolve due to inconsistencies across time.
 Typically, when a forfeit is used, there will be another feasible combination of accommodations that gets found by the negotiation.
 In the worst case scenario, if negotiations keep failing, the robots may experience a real-life deadlock.
 When a deadlock happens, the participants will be sitting still so the negotiation will reach a steady state and will not be negatively affected by async inconsistencies.
 When that happens, a successful resolution is practically assured.</li>
 </ul>
-<p>The preceeding explanation describes the &quot;Full Control&quot; style of fleet adapter. The implementation for the &quot;Read Only&quot; and &quot;Traffic Light&quot; APIs are a bit different.</p>
+<p>The preceeding explanation describes the "Full Control" style of fleet adapter. The implementation for the "Read Only" and "Traffic Light" APIs are a bit different.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/rmf-core_faq.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="tasks-in-rmf"><a class="header" href="#tasks-in-rmf">Tasks in RMF</a></h1>
 <p>RMF simplifies task allocation and management across multi-fleet systems.
-When a user submits a new task request, RMF will intelligently assign it to the robot in the fleet that can best perform the task. When </p>
+When a user submits a new task request, RMF will intelligently assign it to the robot in the fleet that can best perform the task. When</p>
 <p>RMF supports three types of task requests out of the box:</p>
 <ul>
 <li>Clean: For robots capable of cleaning floor spaces in facilities</li>
@@ -3977,7 +3979,7 @@ When the Dispatcher receives a new task request from a dashboard or terminal, it
 <h4 id="step-2-publish-docksummary-message"><a class="header" href="#step-2-publish-docksummary-message">Step 2: Publish DockSummary message</a></h4>
 <p>To estimate the resource drain from the cleaning process which is essential for optimal task allocation planning, the fleet adapters require the list of waypoints that the robot will traverse while cleaning.
 This information can be summarized in a <a href="https://github.com/open-rmf/rmf_internal_msgs/blob/main/rmf_fleet_msgs/msg/DockSummary.msg">DockSummary</a> message published to <code>/dock_summary</code> topic.
-The <a href="https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/airport_terminal.launch.xml#L97-L102">mock_docker</a> node is responsible for publishing this information. 
+The <a href="https://github.com/open-rmf/rmf_demos/blob/283af6d418f5c8d315cc4ca97c95885a12b15f94/rmf_demos/launch/airport_terminal.launch.xml#L97-L102">mock_docker</a> node is responsible for publishing this information.
 It accepts a <code>yaml</code> configuration file containing the lists of waypoints for each zone for each fleet which is used to populate the <code>DockSummary</code> message.
 For the <code>airport_terminal</code> demo the file is located <a href="https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_tasks/rmf_demos_tasks/airport_docker_config.yaml">here</a></p>
 <h4 id="step-3-configure-fleet-adapter-to-accept-clean-tasks"><a class="header" href="#step-3-configure-fleet-adapter-to-accept-clean-tasks">Step 3: Configure fleet adapter to accept clean tasks</a></h4>
@@ -3995,12 +3997,12 @@ To send a clean request from the terminal, source the workspace with RMF and the
 <h2 id="delivery-task"><a class="header" href="#delivery-task">Delivery Task:</a></h2>
 <p>Another common application for mobile robots is performing deliveries within facilities.
 A delivery typically involves the robot heading to a pickup location where it gets loaded with items and then navigating to a dropoff location where the items are unloaded.
-At the pickup and dropoff sites, the mobile robot may have to interface with robotic arms, conveyors or other automation systems. We term systems that load items as <code>dispensers</code> and those that unload as <code>ingestors</code>. </p>
+At the pickup and dropoff sites, the mobile robot may have to interface with robotic arms, conveyors or other automation systems. We term systems that load items as <code>dispensers</code> and those that unload as <code>ingestors</code>.</p>
 <p>To integrate these systems with RMF core systems, a set of <a href="https://github.com/open-rmf/rmf_internal_msgs/tree/main/rmf_dispenser_msgs/msg">dispenser</a> and <a href="https://github.com/open-rmf/rmf_internal_msgs/tree/main/rmf_ingestor_msgs/msg">ingestor</a> messages are defined.
 Despite their names, these messages are sufficiently general enough to be used by any other system that perform similar actions.</p>
 <p>A <code>Delivery</code> task is designed in RMF which guides the mobile robot to the pickup location where the dispenser is located. Once here, its <code>rmf_fleet_adapter</code> publishes a <code>DispenserRequest</code> message which the workcell receives and begins processing.
 When the loading is successful, the dispenser publishes a <code>DispenserResult</code> message with <code>SUCCESS</code> status.
-The <code>rmf_fleet_adapter</code> then guides the robot to the dropoff waypoint where the ingestor is located. 
+The <code>rmf_fleet_adapter</code> then guides the robot to the dropoff waypoint where the ingestor is located.
 Here, a similar exchange of messages ensures. The <code>rmf_fleet_adapter</code> publishes an <code>IngestorRequest</code> message which instructs the ingestor to unload its payload. Upon completion, it publishes an <code>IngestorResult</code> message with a <code>SUCCESS</code> status.</p>
 <p>To learn how to setup a simulation with dispensers and ingestors, see <a href="./simulation.html">Simulation</a></p>
 <p>The fleet adapter needs to be configured to accept <code>Delivery</code> type of task. Else, it will not submit a bid for this task to the dispatcher node during task bidding.
@@ -4054,8 +4056,8 @@ optional arguments:
 User can set a valid charging station by setting <code>is_parking_spot</code> to <code>true</code> in <code>traffic_editor</code>.</p>
 <p>User can configure the charging condition in the <code>fleet_adapter.launch.xml</code> by:</p>
 <ul>
-<li>Recharge Threshold: <code>&lt;arg name=&quot;recharge_threshold&quot; value=&quot;0.2&quot;/&gt;</code></li>
-<li>Finishing Request: <code>&lt;arg name=&quot;finishing_request&quot; value=&quot;charge&quot;/&gt;</code></li>
+<li>Recharge Threshold: <code>&lt;arg name="recharge_threshold" value="0.2"/&gt;</code></li>
+<li>Finishing Request: <code>&lt;arg name="finishing_request" value="charge"/&gt;</code></li>
 </ul>
 <p>Note that currently <code>finishing_request</code> arg also supports: <code>[charge, park, nothing]</code>. These are considered as autogenerated tasks.</p>
 <h2 id="debugging"><a class="header" href="#debugging">Debugging</a></h2>
@@ -4090,7 +4092,7 @@ User can set a valid charging station by setting <code>is_parking_spot</code> to
 The phases defined in <code>rmf_task_sequence</code> are in turn a collection of events which also have components to model the end state and command the robot during the event. Presently the events defined <a href="https://github.com/open-rmf/rmf_task/tree/main/rmf_task_sequence/include/rmf_task_sequence/events">here</a> are supported.
 Users can then construct arbitrary definitions of tasks by stringing together a sequence of such phases/events. RMF is capable of planning and executing such tasks.</p>
 <p><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__perform_action.json"><code>perform_action</code></a> is a sequence based event which supports performing custom actions.
-The customizability of the behavior to <code>perform_action</code> is limited so that users who are implementing custom logic don't need to worry about how to interact with the traffic system, or open doors, or use lifts. This also minimizes the risk of the system integrator introducing an error that messes up the traffic system or any other resource-sharing systems. When <code>perform_action</code> is running, the robot becomes a &quot;read-only&quot; traffic agent, so other robots will simply avoid it</p>
+The customizability of the behavior to <code>perform_action</code> is limited so that users who are implementing custom logic don't need to worry about how to interact with the traffic system, or open doors, or use lifts. This also minimizes the risk of the system integrator introducing an error that messes up the traffic system or any other resource-sharing systems. When <code>perform_action</code> is running, the robot becomes a "read-only" traffic agent, so other robots will simply avoid it</p>
 <p>Users will be working on the <code>rmf_fleet_adapter</code> layer. In this layer the API is restricted to use only <code>rmf_task_sequence</code> to perform tasks. Only certain events are supported, their description can be found <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>.</p>
 <p>The <code>rmf_fleet_adapter</code> layer acts as an API that users can use. It supports customised behaviour on only <code>perform_action</code> in the already existing events mentioned <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>.
 Users can only add custom tasks in <code>perform_action</code>. RMF passes the command to the platform-specific end of the fleet adapter integration and formally releases control of the robot until the action is finished.
@@ -4101,7 +4103,7 @@ This consists of two parts: the first one is the <code>category</code> of the ac
 </ol>
 <p>Here is an example:</p>
 <pre><code class="language-yml">rmf_fleet:
-  name: &quot;ecobot40&quot;
+  name: "ecobot40"
   limits:
     linear: [1.2, 1.5] # velocity, acceleration
     angular: [0.6, 0.6]
@@ -4129,8 +4131,8 @@ This consists of two parts: the first one is the <code>category</code> of the ac
     loop: True
     delivery: False
     clean: True
-    finishing_request: &quot;park&quot;
-    action_categories: [&quot;clean&quot;, &quot;manual_control&quot;]
+    finishing_request: "park"
+    action_categories: ["clean", "manual_control"]
 </code></pre>
 <pre><code class="language-python">def _consider(description: dict):
         confirm = adpt.fleet_update_handle.Confirmation()
@@ -4139,12 +4141,12 @@ This consists of two parts: the first one is the <code>category</code> of the ac
         # .json file via the rmf-web dashboard. Thus the short term solution
         # is to add the fleet_name info into action description. NOTE
         # only matching fleet_name action will get accepted
-        if (description[&quot;category&quot;] == &quot;manual_control&quot; and
-            description[&quot;description&quot;][&quot;fleet_name&quot;] != fleet_name):
+        if (description["category"] == "manual_control" and
+            description["description"]["fleet_name"] != fleet_name):
                 return confirm
 
         node.get_logger().warn(
-            f&quot;Accepting action: {description} &quot;)
+            f"Accepting action: {description} ")
         confirm.accept()
         return confirm
 fleet_config = config_yaml['rmf_fleet']
@@ -4155,9 +4157,9 @@ if 'action_categories' in task_capabilities_config:
 
 		node.get_logger().info(
 
-			f&quot;Fleet [{fleet_name}] is configured&quot;
+			f"Fleet [{fleet_name}] is configured"
 
-			f&quot; to perform action of category [{cat}]&quot;)
+			f" to perform action of category [{cat}]")
 
 		fleet_handle.add_performable_action(cat, _consider)
 </code></pre>
@@ -4179,32 +4181,32 @@ if 'action_categories' in task_capabilities_config:
                         adpt.robot_update_handle.ActionExecution):
         with self._lock:
             # only accept clean and manual_control
-            assert(category in [&quot;clean&quot;, &quot;manual_control&quot;])
+            assert(category in ["clean", "manual_control"])
 
             self.action_category = category
-            if (category == &quot;clean&quot;):
+            if (category == "clean"):
                 attempts = 0
                 self.api.set_cleaning_mode(self.config['active_cleaning_config'])
                 while True:
-                    self.node.get_logger().info(f&quot;Requesting robot {self.name} to clean {description}&quot;)
-                    if self.api.start_clean(description[&quot;clean_task_name&quot;], self.robot_map_name):
+                    self.node.get_logger().info(f"Requesting robot {self.name} to clean {description}")
+                    if self.api.start_clean(description["clean_task_name"], self.robot_map_name):
                         self.check_task_completion = self.api.task_completed # will check api
                         break
                     if (attempts &gt; 3):
                         self.node.get_logger().warn(
-                            f&quot;Failed to initiate cleaning action for robot [{self.name}]&quot;)
+                            f"Failed to initiate cleaning action for robot [{self.name}]")
                         # TODO: issue error ticket
                         self.in_error = True # TODO: toggle error back
-                        execution.error(&quot;Failed to initiate cleaning action for robot {self.name}&quot;)
+                        execution.error("Failed to initiate cleaning action for robot {self.name}")
                         execution.finished()
                         return
                     attempts+=1
                     time.sleep(1.0)
-            elif (category == &quot;manual_control&quot;):
+            elif (category == "manual_control"):
                 self.check_task_completion = lambda:False  # user can only cancel the manual_control
 
             # start Perform Action
-            self.node.get_logger().warn(f&quot;Robot [{self.name}] starts [{category}] action&quot;)
+            self.node.get_logger().warn(f"Robot [{self.name}] starts [{category}] action")
             self.start_action_time = self.adapter.now()
             self.on_waypoint = None
             self.on_lane = None
@@ -4242,8 +4244,8 @@ if 'action_categories' in task_capabilities_config:
 <li>Fill in the <code>request_id</code> field with a unique string ID that can be used to identify the task.</li>
 <li>For the <code>json_msg</code> field,
 <ul>
-<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/robot_task_request.json"><code>robot_task_request</code></a> schema and fill in the JSON payload type with <code>&quot;robot_task_request&quot;</code> to send a task request to a specific robot</li>
-<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/dispatch_task_request.json"><code>dispatch_task_request</code></a> schema and fill in the JSON payload type with <code>&quot;dispatch_task_request&quot;</code> to send a task request to the best available fleet</li>
+<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/robot_task_request.json"><code>robot_task_request</code></a> schema and fill in the JSON payload type with <code>"robot_task_request"</code> to send a task request to a specific robot</li>
+<li>Use the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/dispatch_task_request.json"><code>dispatch_task_request</code></a> schema and fill in the JSON payload type with <code>"dispatch_task_request"</code> to send a task request to the best available fleet</li>
 <li>The <code>request</code> fields for these objects follow the <a href="https://github.com/open-rmf/rmf_api_msgs/blob/main/rmf_api_msgs/schemas/task_request.json"><code>task_request</code></a> schema</li>
 </ul>
 </li>
@@ -4264,35 +4266,35 @@ if 'action_categories' in task_capabilities_config:
 <h4 id="examples-of-json-task-requests"><a class="header" href="#examples-of-json-task-requests">Examples of JSON Task Requests</a></h4>
 <p>For a <strong>Clean</strong> <code>dispatch_task_request</code>:</p>
 <pre><code>{
-  &quot;type&quot;: &quot;dispatch_task_request&quot;,
-  &quot;request&quot;: {
-    &quot;unix_millis_earliest_start_time&quot;: start_time,
-    &quot;category&quot;: &quot;clean&quot;,
-    &quot;description&quot;: {
-      &quot;zone&quot;: &quot;clean_lobby&quot;
+  "type": "dispatch_task_request",
+  "request": {
+    "unix_millis_earliest_start_time": start_time,
+    "category": "clean",
+    "description": {
+      "zone": "clean_lobby"
     }
   }
 }
 </code></pre>
 <p>For a <strong>Compose</strong> <code>robot_task_request</code> that commands a specific robot to go to a place, followed by performing a <code>teleop</code> action:</p>
 <pre><code>{
-  &quot;type&quot;: &quot;robot_task_request&quot;,
-  &quot;robot&quot;: &quot;tinyRobot1&quot;,
-  &quot;fleet&quot;: &quot;tinyRobot&quot;,
-  &quot;request&quot;: {
-    &quot;category&quot;: &quot;compose&quot;,
-    &quot;description&quot;: {
-      &quot;category&quot;: &quot;teleop&quot;,
-      &quot;phases&quot;: [
-        {&quot;activity&quot;: {
-          &quot;category&quot;: &quot;sequence&quot;,
-          &quot;description&quot;: {
-            &quot;activities&quot;: [
-              {&quot;category&quot;: &quot;go_to_place&quot;,
-               &quot;description&quot;: &quot;coe&quot;
+  "type": "robot_task_request",
+  "robot": "tinyRobot1",
+  "fleet": "tinyRobot",
+  "request": {
+    "category": "compose",
+    "description": {
+      "category": "teleop",
+      "phases": [
+        {"activity": {
+          "category": "sequence",
+          "description": {
+            "activities": [
+              {"category": "go_to_place",
+               "description": "coe"
               },
-              {&quot;category&quot;: &quot;perform_action&quot;,
-                &quot;description&quot;: {&quot;category&quot;: &quot;teleop&quot;, &quot;description&quot;: &quot;coe&quot;}
+              {"category": "perform_action",
+                "description": {"category": "teleop", "description": "coe"}
               }
             ]
           }
@@ -4304,24 +4306,24 @@ if 'action_categories' in task_capabilities_config:
 </code></pre>
 <p>For a <strong>Delivery</strong> <code>dispatch_task_request</code>:</p>
 <pre><code>{
-  &quot;type&quot;: &quot;dispatch_task_request&quot;,
-  &quot;request&quot;: {
-    &quot;category&quot;: &quot;delivery&quot;,
-    &quot;description&quot;: {
-      &quot;pickup&quot;: {
-        &quot;place&quot;: &quot;pantry&quot;,
-        &quot;handler&quot;: &quot;coke_dispenser&quot;,
-        &quot;payload&quot;: [
-          {&quot;sku&quot;: &quot;coke&quot;,
-           &quot;quantity&quot;: 1}
+  "type": "dispatch_task_request",
+  "request": {
+    "category": "delivery",
+    "description": {
+      "pickup": {
+        "place": "pantry",
+        "handler": "coke_dispenser",
+        "payload": [
+          {"sku": "coke",
+           "quantity": 1}
         ]
       },
-      &quot;dropoff&quot;: {
-        &quot;place&quot;: &quot;hardware_2&quot;,
-        &quot;handler&quot;: &quot;coke_ingestor&quot;,
-        &quot;payload&quot;: [
-          {&quot;sku&quot;: &quot;coke&quot;,
-           &quot;quantity&quot;: 1}
+      "dropoff": {
+        "place": "hardware_2",
+        "handler": "coke_ingestor",
+        "payload": [
+          {"sku": "coke",
+           "quantity": 1}
         ]
       }
     }
@@ -4330,14 +4332,14 @@ if 'action_categories' in task_capabilities_config:
 </code></pre>
 <p>For a <strong>Patrol</strong> <code>robot_task_request</code>:</p>
 <pre><code>{
-  &quot;type&quot;: &quot;robot_task_request&quot;,
-  &quot;robot&quot;: &quot;tinyRobot1&quot;,
-  &quot;fleet&quot;: &quot;tinyRobot&quot;,
-  &quot;request&quot;: {
-    &quot;category&quot;: &quot;patrol&quot;,
-    &quot;description&quot;: {
-      &quot;places&quot;: [&quot;pantry&quot;, &quot;lounge&quot;],
-      &quot;rounds&quot;: 2
+  "type": "robot_task_request",
+  "robot": "tinyRobot1",
+  "fleet": "tinyRobot",
+  "request": {
+    "category": "patrol",
+    "description": {
+      "places": ["pantry", "lounge"],
+      "rounds": 2
     }
   }
 }
@@ -4389,7 +4391,7 @@ In most cases we use components called Adapters to bridge between the hardware-s
 This chapter will discuss how to develop an RMF Adapter for different types of hardware components.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="route-map-data-requirements-for-integration-with-rmf"><a class="header" href="#route-map-data-requirements-for-integration-with-rmf">Route Map Data Requirements for Integration with RMF</a></h1>
 <h2 id="motivation-1"><a class="header" href="#motivation-1">Motivation</a></h2>
-<p>RMF uses robot route maps to predict the navigation paths of robots working in the environment. RMF generates path predictions for all active robots in the environment which can be used to proactively avoid conflicts between the various robot path plans. This is often referred to as &quot;traffic management&quot; in RMF. Along with the traffic management, RMF can help enable multi-fleet visualization to building/robot operations staff, improve scheduling of resources (such as lifts and corridors), reduce robot deadlock and more.</p>
+<p>RMF uses robot route maps to predict the navigation paths of robots working in the environment. RMF generates path predictions for all active robots in the environment which can be used to proactively avoid conflicts between the various robot path plans. This is often referred to as "traffic management" in RMF. Along with the traffic management, RMF can help enable multi-fleet visualization to building/robot operations staff, improve scheduling of resources (such as lifts and corridors), reduce robot deadlock and more.</p>
 <p>Robot route maps in large buildings are complex and may evolve over time in response to customer requests and building renovations. As a result, RMF works best when scripts can automatically import robot route maps, and re-import them in the future after changes are made.</p>
 <h2 id="minimum-map-information-required"><a class="header" href="#minimum-map-information-required">Minimum Map Information Required</a></h2>
 <ul>
@@ -4407,7 +4409,7 @@ This chapter will discuss how to develop an RMF Adapter for different types of h
 </li>
 </ul>
 </li>
-<li>list of edges or &quot;travel lanes&quot; between nodes
+<li>list of edges or "travel lanes" between nodes
 <ul>
 <li>(start, end) waypoint names</li>
 <li>two-way or one-way traffic?
@@ -4420,7 +4422,7 @@ This chapter will discuss how to develop an RMF Adapter for different types of h
 </li>
 </ul>
 <h2 id="format-requirements"><a class="header" href="#format-requirements">Format Requirements</a></h2>
-<p>We can write import scripts to handle virtually any &quot;open&quot; file format that contains the required information. This includes, in order of preference:</p>
+<p>We can write import scripts to handle virtually any "open" file format that contains the required information. This includes, in order of preference:</p>
 <ul>
 <li>YAML</li>
 <li>XML</li>
@@ -4429,7 +4431,7 @@ This chapter will discuss how to develop an RMF Adapter for different types of h
 <li>DWG</li>
 <li>SVG</li>
 </ul>
-<p>Note that if the map data is provided in textual form, screenshots are helpful for &quot;sanity-checking&quot; the coordinate system and alignment with building features.</p>
+<p>Note that if the map data is provided in textual form, screenshots are helpful for "sanity-checking" the coordinate system and alignment with building features.</p>
 <h2 id="traffic-editor-2"><a class="header" href="#traffic-editor-2">Traffic Editor</a></h2>
 <p>If the robot route map does not exist yet, then the <a href="./traffic-editor.html">traffic editor tool</a> can be used to help create one. The traffic editor tool will also export the route map in an RMF-friendly format.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_nav-maps.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="mobile-robot-fleet-integration"><a class="header" href="#mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
@@ -4464,7 +4466,7 @@ Furthermore, each robot's position will be updated live as the robots are moving
 </li>
 <li>As new information arrives from the fleet manager API, use the collection of <code>RobotUpdateHandle</code> classes to keep the adapter up-to-date on the robots' positions.</li>
 </ol>
-<p>An example of a functioning fleet adapter application can be found in the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/src/full_control/main.cpp"><code>full_control</code> backwards-compatibility adapter</a>. This is a fleet adapter whose fleet-side API is the &quot;Fleet Driver API&quot;, which is a deprecated prototype API for the RMF <strong>Full Control</strong> category of fleet adapters. This fleet adapter exists temporarily to maintain backwards compatibility with the old &quot;Fleet Driver&quot; implementations and to serve as an example of how to implement a fleet adapter using the new C++ API.</p>
+<p>An example of a functioning fleet adapter application can be found in the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/src/full_control/main.cpp"><code>full_control</code> backwards-compatibility adapter</a>. This is a fleet adapter whose fleet-side API is the "Fleet Driver API", which is a deprecated prototype API for the RMF <strong>Full Control</strong> category of fleet adapters. This fleet adapter exists temporarily to maintain backwards compatibility with the old "Fleet Driver" implementations and to serve as an example of how to implement a fleet adapter using the new C++ API.</p>
 <h2 id="python-bindings"><a class="header" href="#python-bindings">Python Bindings</a></h2>
 <p>You may also choose to use Python to implement your fleet adapter. You can find Python bindings for the C++ API in the <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter_python">rmf_fleet_adapter_python repo</a>. The Python bindings literally just port the C++ API into Python so that you can develop your fleet adapter using Python instead of C++. The above API and workflow are exactly the same, just in Python instead. This should be very useful for fleets that use REST APIs, because you'll have access to tools like <a href="https://swagger.io/tools/open-source/getting-started/">Swagger</a> which can help you generate client code for the fleet's REST API server.</p>
 <h2 id="fleet-adapter-template"><a class="header" href="#fleet-adapter-template">Fleet Adapter Template</a></h2>
@@ -4544,7 +4546,7 @@ git clone https://github.com/open-rmf/fleet_adapter_template.git
 # RMF Fleet parameters
 
 rmf_fleet:
-  name: &quot;tinyRobot&quot;
+  name: "tinyRobot"
   limits:
     linear: [0.5, 0.75] # velocity, acceleration
     angular: [0.6, 2.0] # velocity, acceleration
@@ -4571,23 +4573,23 @@ rmf_fleet:
   task_capabilities: # Specify the types of RMF Tasks that robots in this fleet are capable of performing
     loop: True
     delivery: True
-  actions: [&quot;teleop&quot;]
-  finishing_request: &quot;park&quot; # [park, charge, nothing]
+  actions: ["teleop"]
+  finishing_request: "park" # [park, charge, nothing]
   responsive_wait: True # Should responsive wait be on/off for the whole fleet by default? False if not specified.
   robots:
     tinyRobot1:
-        charger: &quot;tinyRobot1_charger&quot;
+        charger: "tinyRobot1_charger"
         responsive_wait: False # Should responsive wait be on/off for this specific robot? Overrides the fleet-wide setting.
     tinyRobot2:
-        charger: &quot;tinyRobot2_charger&quot;
+        charger: "tinyRobot2_charger"
         # No mention of responsive_wait means the fleet-wide setting will be used
 
   robot_state_update_frequency: 10.0 # Hz
 
 fleet_manager:
-  prefix: &quot;http://127.0.0.1:8080&quot;
-  user: &quot;some_user&quot;
-  password: &quot;some_password&quot;
+  prefix: "http://127.0.0.1:8080"
+  user: "some_user"
+  password: "some_password"
 
 # TRANSFORM CONFIG =============================================================
 # For computing transforms between Robot and RMF coordinate systems
@@ -4672,10 +4674,10 @@ reference_coordinates:
 </ul>
 <h2 id="3-create-navigation-graphs"><a class="header" href="#3-create-navigation-graphs">3. Create navigation graphs</a></h2>
 <p>A navigation graph is required to be parsed to the fleet adapter so that RMF can understand the robots' environment. They can be created using the <a href="https://github.com/open-rmf/rmf_traffic_editor.git">RMF Traffic Editor</a> and the <a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/src/rmf_fleet_adapter/agv/parse_graph.cpp"><code>building_map_generator nav</code></a> CLI provided. Refer to the traffic editor repo's README for installation and map generation instructions.</p>
-<p>You may also want to look through the <a href="./traffic-editor.html">Traffic Editor</a> section of this Book for detailed information and instructions on creating your own digital maps. </p>
+<p>You may also want to look through the <a href="./traffic-editor.html">Traffic Editor</a> section of this Book for detailed information and instructions on creating your own digital maps.</p>
 <p>You should now have a YAML file with information about the lanes and waypoints (among other information) that describe the paths your robot fleet can take.</p>
 <h2 id="4-fill-in-your-robotapi"><a class="header" href="#4-fill-in-your-robotapi">4. Fill in your <code>RobotAPI</code></a></h2>
-<p><a href="https://github.com/open-rmf/fleet_adapter_template/blob/main/fleet_adapter_template/fleet_adapter_template/RobotClientAPI.py"><code>RobotClientAPI.py</code></a> provides a set of methods being used by the fleet adapter. These callbacks are triggered when RMF needs to send or retrieve information via the fleet adapter to/from the managed robots. To cater to the interface of your choice, you need to fill in the missing code blocks marked with <code># IMPLEMENT YOUR CODE HERE #</code> within <code>RobotAPI</code> with logics to send or retrieve the corresponding information. For example, if your robot uses REST API to interface with the fleet adapter, you will need to make HTTP request calls to the appropriate endpoints within these functions. </p>
+<p><a href="https://github.com/open-rmf/fleet_adapter_template/blob/main/fleet_adapter_template/fleet_adapter_template/RobotClientAPI.py"><code>RobotClientAPI.py</code></a> provides a set of methods being used by the fleet adapter. These callbacks are triggered when RMF needs to send or retrieve information via the fleet adapter to/from the managed robots. To cater to the interface of your choice, you need to fill in the missing code blocks marked with <code># IMPLEMENT YOUR CODE HERE #</code> within <code>RobotAPI</code> with logics to send or retrieve the corresponding information. For example, if your robot uses REST API to interface with the fleet adapter, you will need to make HTTP request calls to the appropriate endpoints within these functions.</p>
 <p>You may refer to the <a href="https://github.com/open-rmf/rmf_demos/blob/main/rmf_demos_fleet_adapter/rmf_demos_fleet_adapter/RobotClientAPI.py"><code>RobotAPI</code></a> class implementated for <code>rmf_demos_fleet_adapter</code> for examples of how these methods can be filled up.</p>
 <ul>
 <li><code>navigate</code>: Sends a navigation command to the robot API. It takes in the destination coordinates from RMF, desired map name and optional speed limit.</li>
@@ -4720,7 +4722,7 @@ ros2 run fleet_adapter_template fleet_adapter -c &lt;path-to-config&gt; -n &lt;p
     assert fleet_config, f'Failed to parse config file [{config_path}]'
 
     # Parse the yaml in Python to get the fleet_manager info
-    with open(config_path, &quot;r&quot;) as f:
+    with open(config_path, "r") as f:
         config_yaml = yaml.safe_load(f)
 </code></pre>
 <p>With these parameters, we can create an Adapter instance and add an EasyFullControl fleet to it. We would also want to configure the <code>use_sim_time</code> and <code>server_uri</code> parameters if the adapter should operate according to simulation clock or broadcast task updates to any websocket servers.</p>
@@ -4735,7 +4737,7 @@ ros2 run fleet_adapter_template fleet_adapter -c &lt;path-to-config&gt; -n &lt;p
 
     # Enable sim time for testing offline
     if args.use_sim_time:
-        param = Parameter(&quot;use_sim_time&quot;, Parameter.Type.BOOL, True)
+        param = Parameter("use_sim_time", Parameter.Type.BOOL, True)
         node.set_parameters([param])
         adapter.node.use_sim_time()
 
@@ -4753,14 +4755,14 @@ ros2 run fleet_adapter_template fleet_adapter -c &lt;path-to-config&gt; -n &lt;p
 <h3 id="b-configure-transformations-between-rmf-and-robot"><a class="header" href="#b-configure-transformations-between-rmf-and-robot">b. Configure transformations between RMF and robot</a></h3>
 <p>We have defined a helper function to compute the transforms between RMF and the robot's coordinates. In the event your robot operates in the same coordinates as RMF (e.g. in simulation), you won't need this portion of the code.</p>
 <pre><code class="language-python">def compute_transforms(level, coords, node=None):
-    &quot;&quot;&quot;Get transforms between RMF and robot coordinates.&quot;&quot;&quot;
+    """Get transforms between RMF and robot coordinates."""
     rmf_coords = coords['rmf']
     robot_coords = coords['robot']
     tf = nudged.estimate(rmf_coords, robot_coords)
     if node:
         mse = nudged.estimate_error(tf, rmf_coords, robot_coords)
         node.get_logger().info(
-            f&quot;Transformation error estimate for {level}: {mse}&quot;
+            f"Transformation error estimate for {level}: {mse}"
         )
 
     return Transformation(
@@ -4921,18 +4923,18 @@ def update_robot(robot: RobotAdapter):
 <h2 id="1-define-the-performaction-in-the-fleet-configyaml"><a class="header" href="#1-define-the-performaction-in-the-fleet-configyaml">1. Define the PerformAction in the fleet <code>config.yaml</code></a></h2>
 <p>We will need to define the name of the action in the fleet configuration, so that RMF recognizes this action as performable when a task is submitted and is able to dispatch it to a fleet that can fulfil it. In our <code>config.yaml</code> under the <code>rmf_fleet</code> section, we can provide a list of performable actions for our fleet. For example, let's define <code>clean</code> as an action supported by this fleet:</p>
 <pre><code class="language-yaml">rmf_fleet:
-  actions: [&quot;clean&quot;]
+  actions: ["clean"]
 </code></pre>
 <h2 id="2-apply-action-execution-logic-inside-our-fleet-adapter"><a class="header" href="#2-apply-action-execution-logic-inside-our-fleet-adapter">2. Apply action execution logic inside our fleet adapter</a></h2>
 <p>After RMF receives a task consisting of this action and dispatches it to the right fleet, the fleet adapter's <code>execute_action(~)</code> callback will be triggered. The <code>category</code> parsed to this callback corresponds to the action name that we have previously defined, and the <code>description</code> consists of any details about the action that we might be interested in.</p>
 <p>Assume that this is the task JSON submitted to RMF:</p>
 <pre><code class="language-json">{
-  &quot;type&quot;: &quot;dispatch_task_request&quot;,
-  &quot;request&quot;: {
-    &quot;unix_millis_earliest_start_time&quot;: start_time,
-    &quot;category&quot;: &quot;clean&quot;,
-    &quot;description&quot;: {
-      &quot;zone&quot;: &quot;clean_lobby&quot;
+  "type": "dispatch_task_request",
+  "request": {
+    "unix_millis_earliest_start_time": start_time,
+    "category": "clean",
+    "description": {
+      "zone": "clean_lobby"
     }
   }
 }
@@ -4971,7 +4973,7 @@ def update_robot(robot: RobotAdapter):
             or begin cleaning a zone for a cleaning robot.'''
         url = (
             self.prefix +
-            f&quot;/open-rmf/rmf_demos_fm/start_activity?robot_name={robot_name}&quot;
+            f"/open-rmf/rmf_demos_fm/start_activity?robot_name={robot_name}"
         )
         # data fields: task, map_name, destination{}, data{}
         data = {'activity': activity, 'label': label}
@@ -5014,84 +5016,84 @@ def update_robot(robot: RobotAdapter):
 <h2 id="ros-1-navigation-stack"><a class="header" href="#ros-1-navigation-stack">ROS 1 Navigation Stack</a></h2>
 <p>An implementation of a <code>free_fleet</code> client that works with a ROS 1 navigation stack can be found in the <a href="https://github.com/open-rmf/free_fleet">free_fleet repository</a>. The implementation expects the transforms of the mobile robot to be fully defined, the mobile robot to accept navigation commands via the <code>move_base</code> action library, as well as publishing its battery status published using the <code>sensor_msgs/BatteryState</code> message.</p>
 <p>After following the build instructions on the README on the mobile robot, the user can launch the client as part of their launch script while at the same time define the necessary parameters using <code>rosparam</code>. Below is a small snippet example of how a client can be launched, with its paramters defined,</p>
-<pre><code class="language-xml">&lt;node name=&quot;free_fleet_client_node&quot;
-    pkg=&quot;free_fleet_client_ros1&quot;
-    type=&quot;free_fleet_client_ros1&quot; output=&quot;screen&quot;&gt;
+<pre><code class="language-xml">&lt;node name="free_fleet_client_node"
+    pkg="free_fleet_client_ros1"
+    type="free_fleet_client_ros1" output="screen"&gt;
 
   &lt;!-- These parameters will be used to identify the mobile robots --&gt;
-  &lt;param name=&quot;fleet_name&quot; type=&quot;string&quot; value=&quot;example_fleet&quot;/&gt;
-  &lt;param name=&quot;robot_name&quot; type=&quot;string&quot; value=&quot;example_bot&quot;/&gt;
-  &lt;param name=&quot;robot_model&quot; type=&quot;string&quot; value=&quot;Turtlebot3&quot;/&gt;
+  &lt;param name="fleet_name" type="string" value="example_fleet"/&gt;
+  &lt;param name="robot_name" type="string" value="example_bot"/&gt;
+  &lt;param name="robot_model" type="string" value="Turtlebot3"/&gt;
 
   &lt;!-- These are the topics required to get battery and level information --&gt;
-  &lt;param name=&quot;battery_state_topic&quot; type=&quot;string&quot; value=&quot;example_bot/battery_state&quot;/&gt;
-  &lt;param name=&quot;level_name_topic&quot; type=&quot;string&quot; value=&quot;example_bot/level_name&quot;/&gt;
+  &lt;param name="battery_state_topic" type="string" value="example_bot/battery_state"/&gt;
+  &lt;param name="level_name_topic" type="string" value="example_bot/level_name"/&gt;
 
   &lt;!-- These frames will be used to update the mobile robot's location --&gt;
-  &lt;param name=&quot;map_frame&quot; type=&quot;string&quot; value=&quot;example_bot/map&quot;/&gt;
-  &lt;param name=&quot;robot_frame&quot; type=&quot;string&quot; value=&quot;example_bot/base_footprint&quot;/&gt;
+  &lt;param name="map_frame" type="string" value="example_bot/map"/&gt;
+  &lt;param name="robot_frame" type="string" value="example_bot/base_footprint"/&gt;
 
   &lt;!-- The name of the move_base server for actions --&gt;
-  &lt;param name=&quot;move_base_server_name&quot; type=&quot;string&quot; value=&quot;example_bot/move_base&quot;/&gt;
+  &lt;param name="move_base_server_name" type="string" value="example_bot/move_base"/&gt;
 
   &lt;!-- These are DDS configurations used between Free Fleet clients and servers --&gt;
-  &lt;param name=&quot;dds_domain&quot; type=&quot;int&quot; value=&quot;42&quot;/&gt;
-  &lt;param name=&quot;dds_state_topic&quot; type=&quot;string&quot; value=&quot;robot_state&quot;/&gt;
-  &lt;param name=&quot;dds_mode_request_topic&quot; type=&quot;string&quot; value=&quot;mode_request&quot;/&gt;
-  &lt;param name=&quot;dds_path_request_topic&quot; type=&quot;string&quot; value=&quot;path_request&quot;/&gt;
-  &lt;param name=&quot;dds_destination_request_topic&quot; type=&quot;string&quot; value=&quot;destination_request&quot;/&gt;
+  &lt;param name="dds_domain" type="int" value="42"/&gt;
+  &lt;param name="dds_state_topic" type="string" value="robot_state"/&gt;
+  &lt;param name="dds_mode_request_topic" type="string" value="mode_request"/&gt;
+  &lt;param name="dds_path_request_topic" type="string" value="path_request"/&gt;
+  &lt;param name="dds_destination_request_topic" type="string" value="destination_request"/&gt;
 
   &lt;!-- This decides how long the client should wait for a valid transform and action server before failing --&gt;
-  &lt;param name=&quot;wait_timeout&quot; type=&quot;double&quot; value=&quot;10&quot;/&gt;
+  &lt;param name="wait_timeout" type="double" value="10"/&gt;
 
   &lt;!-- These define the frequency at which the client checks for commands and
   publishes the robot state to the server --&gt;
-  &lt;param name=&quot;update_frequency&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
-  &lt;param name=&quot;publish_frequency&quot; type=&quot;double&quot; value=&quot;1.0&quot;/&gt;
+  &lt;param name="update_frequency" type="double" value="10.0"/&gt;
+  &lt;param name="publish_frequency" type="double" value="1.0"/&gt;
 
   &lt;!-- The client will only pass on navigation commands if the destination or first waypoint
   of the path is within this distance away, otherwise it will ignore the command --&gt;
-  &lt;param name=&quot;max_dist_to_first_waypoint&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;
+  &lt;param name="max_dist_to_first_waypoint" type="double" value="10.0"/&gt;
 
 &lt;/node&gt;
 </code></pre>
 <p>The running <code>free_fleet</code> client will communicate with the nodes running on the robot via ROS 1, while publishing its state and subscribing to requests over DDS with the <code>free_fleet</code> server.</p>
 <p>The current implementation of the <code>free_fleet</code> server is implemented with ROS 2 and communicates with RMF using the aforementioned ROS 2 message and topic interfaces of an RMF fleet adapter. The ROS 2 build instructions can also be found on the same repository. Similar to the client, a simple ROS 2 wrapper has been implemented, and it can be started using a <code>.launch.xml</code> file like so:</p>
-<pre><code class="language-xml">&lt;node pkg=&quot;free_fleet_server_ros2&quot;
-    exec=&quot;free_fleet_server_ros2&quot;
-    name=&quot;free_fleet_server_node&quot;
-    node-name=&quot;free_fleet_server_node&quot;
-    output=&quot;both&quot;&gt;
+<pre><code class="language-xml">&lt;node pkg="free_fleet_server_ros2"
+    exec="free_fleet_server_ros2"
+    name="free_fleet_server_node"
+    node-name="free_fleet_server_node"
+    output="both"&gt;
 
   &lt;!-- Fleet name will be used to identify robots --&gt;
-  &lt;param name=&quot;fleet_name&quot; value=&quot;example_fleet&quot;/&gt;
+  &lt;param name="fleet_name" value="example_fleet"/&gt;
 
   &lt;!-- These are the ROS2 topic names that will be used to communicate with RMF --&gt;
-  &lt;param name=&quot;fleet_state_topic&quot; value=&quot;fleet_states&quot;/&gt;
-  &lt;param name=&quot;mode_request_topic&quot; value=&quot;robot_mode_requests&quot;/&gt;
-  &lt;param name=&quot;path_request_topic&quot; value=&quot;robot_path_requests&quot;/&gt;
-  &lt;param name=&quot;destination_request_topic&quot; value=&quot;robot_destination_requests&quot;/&gt;
+  &lt;param name="fleet_state_topic" value="fleet_states"/&gt;
+  &lt;param name="mode_request_topic" value="robot_mode_requests"/&gt;
+  &lt;param name="path_request_topic" value="robot_path_requests"/&gt;
+  &lt;param name="destination_request_topic" value="robot_destination_requests"/&gt;
 
   &lt;!-- These are the DDS specific configurations used to communicate with the clients --&gt;
-  &lt;param name=&quot;dds_domain&quot; value=&quot;42&quot;/&gt;
-  &lt;param name=&quot;dds_robot_state_topic&quot; value=&quot;robot_state&quot;/&gt;
-  &lt;param name=&quot;dds_mode_request_topic&quot; value=&quot;mode_request&quot;/&gt;
-  &lt;param name=&quot;dds_path_request_topic&quot; value=&quot;path_request&quot;/&gt;
-  &lt;param name=&quot;dds_destination_request_topic&quot; value=&quot;destination_request&quot;/&gt;
+  &lt;param name="dds_domain" value="42"/&gt;
+  &lt;param name="dds_robot_state_topic" value="robot_state"/&gt;
+  &lt;param name="dds_mode_request_topic" value="mode_request"/&gt;
+  &lt;param name="dds_path_request_topic" value="path_request"/&gt;
+  &lt;param name="dds_destination_request_topic" value="destination_request"/&gt;
 
   &lt;!-- This determines the frequency it checks for incoming state and request messages,
   as well as how often it publishes its fleet state to RMF --&gt;
-  &lt;param name=&quot;update_state_frequency&quot; value=&quot;20.0&quot;/&gt;
-  &lt;param name=&quot;publish_state_frequency&quot; value=&quot;2.0&quot;/&gt;
+  &lt;param name="update_state_frequency" value="20.0"/&gt;
+  &lt;param name="publish_state_frequency" value="2.0"/&gt;
 
   &lt;!-- These transformations are required when the frame of the robot fleet is
   different from that of RMF globally. In order to transform a pose from the RMF
   frame to the free fleet robot frame, it is first scaled, rotated, then
   translated using these parameters --&gt;
-  &lt;param name=&quot;scale&quot; value=&quot;0.928&quot;/&gt;
-  &lt;param name=&quot;rotation&quot; value=&quot;-0.013&quot;/&gt;
-  &lt;param name=&quot;translation_x&quot; value=&quot;-4.117&quot;/&gt;
-  &lt;param name=&quot;translation_y&quot; value=&quot;27.26&quot;/&gt;
+  &lt;param name="scale" value="0.928"/&gt;
+  &lt;param name="rotation" value="-0.013"/&gt;
+  &lt;param name="translation_x" value="-4.117"/&gt;
+  &lt;param name="translation_y" value="27.26"/&gt;
 
 &lt;/node&gt;
 </code></pre>
@@ -5128,29 +5130,29 @@ def update_robot(robot: RobotAdapter):
 
 &lt;launch&gt;
 
-  &lt;arg name=&quot;fleet_name&quot; default=&quot;caddy&quot; description=&quot;Name of this fleet of caddy robots&quot;/&gt;
+  &lt;arg name="fleet_name" default="caddy" description="Name of this fleet of caddy robots"/&gt;
 
   &lt;group&gt;
-    &lt;include file=&quot;$(find-pkg-share rmf_fleet_adapter)/fleet_adapter.launch.xml&quot;&gt;
+    &lt;include file="$(find-pkg-share rmf_fleet_adapter)/fleet_adapter.launch.xml"&gt;
 
       &lt;!-- The name and control type of the fleet --&gt;
-      &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-      &lt;arg name=&quot;control_type&quot; value=&quot;read_only&quot;/&gt;
+      &lt;arg name="fleet_name" value="$(var fleet_name)"/&gt;
+      &lt;arg name="control_type" value="read_only"/&gt;
 
       &lt;!-- The nominal linear and angular velocity of the caddy --&gt;
-      &lt;arg name=&quot;linear_velocity&quot; value=&quot;1.0&quot;/&gt;
-      &lt;arg name=&quot;angular_velocity&quot; value=&quot;0.6&quot;/&gt;
+      &lt;arg name="linear_velocity" value="1.0"/&gt;
+      &lt;arg name="angular_velocity" value="0.6"/&gt;
 
       &lt;!-- The nominal linear and angular acceleration of the caddy --&gt;
-      &lt;arg name=&quot;linear_acceleration&quot; value=&quot;0.7&quot;/&gt;
-      &lt;arg name=&quot;angular_acceleration&quot; value=&quot;1.5&quot;/&gt;
+      &lt;arg name="linear_acceleration" value="0.7"/&gt;
+      &lt;arg name="angular_acceleration" value="1.5"/&gt;
 
       &lt;!-- The radius of the circular footprint of the caddy --&gt;
-      &lt;arg name=&quot;footprint_radius&quot; value=&quot;1.5&quot;/&gt;
+      &lt;arg name="footprint_radius" value="1.5"/&gt;
       &lt;!-- Other robots are not allowed within this radius --&gt;
-      &lt;arg name=&quot;vicinity_radius&quot; value=&quot;5.0&quot;/&gt;
+      &lt;arg name="vicinity_radius" value="5.0"/&gt;
 
-      &lt;arg name=&quot;delay_threshold&quot; value=&quot;1.0&quot;/&gt;
+      &lt;arg name="delay_threshold" value="1.0"/&gt;
 
     &lt;/include&gt;
   &lt;/group&gt;
@@ -5158,7 +5160,7 @@ def update_robot(robot: RobotAdapter):
 <p>The critical parameters are:</p>
 <ul>
 <li><code>fleet_name</code>: This must match the <code>name</code> value that the Fleet Driver gives to its <code>FleetState</code> messages.</li>
-<li><code>control_type</code>: This must be <code>&quot;read_only&quot;</code>.</li>
+<li><code>control_type</code>: This must be <code>"read_only"</code>.</li>
 <li><code>linear_velocity</code>, <code>angular_velocity</code>, <code>linear_acceleration</code>, and <code>angular_acceleration</code>: These are estimates of the kinematic properties of the vehicles. For the sake of effective scheduling, it is preferable to overestimate these values than underestimate them, so it is best to think of these parameters as upper bounds for the values.</li>
 <li><code>footprint_radius</code>: The radius of physical space that the vehicle occupies. This should cover the maximum extent of the physical footprint.</li>
 <li><code>vicinity_radius</code>: The radius around the robot in which other robots are forbidden to physically enter. It is assumed that another robot entering this radius will interfere with the ability of this robot to operate.</li>
@@ -5207,10 +5209,10 @@ def update_robot(robot: RobotAdapter):
 <tr><td><code>rmf_ingestor_msgs/IngestorState</code></td><td><code>/ingestor_states</code></td><td>State of the dispenser published by the ingestor periodically</td></tr>
 </tbody></table>
 </div>
-<p>In <code>rmf_demos</code> world, both <code>TeleportDispenser</code> and <code>TeleportIngestor</code> 
+<p>In <code>rmf_demos</code> world, both <code>TeleportDispenser</code> and <code>TeleportIngestor</code>
 <a href="https://github.com/open-rmf/rmf_simulation/tree/main/rmf_robot_sim_gazebo_plugins/src">plugins</a> act as workcell adapter nodes.</p>
 <p>Workcells currently work alongside with Delivery Task. In <code>fleet_adapter.lauch.xml</code>,
-<code>perform_deliveries</code> needs to be <code>true</code> for the robot to accept a delivery task. </p>
+<code>perform_deliveries</code> needs to be <code>true</code> for the robot to accept a delivery task.</p>
 <p>A Full Delivery:</p>
 <ol>
 <li>The robot will first move to the <code>pickup_waypoint</code></li>
@@ -5220,14 +5222,16 @@ def update_robot(robot: RobotAdapter):
 </ol>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_workcells.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="rmf-web"><a class="header" href="#rmf-web">RMF Web</a></h1>
 <h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
-<p>Rmf web is the web application side of RMF. It provides the user with a configurable front end dashboard, along with back end infrastructures.</p>
-<p>For more information, please refer to the <code>rmf-web</code> repo.</p>
-<p><img src="images/rmf-web-dashboard.png" alt="rmf dashboard" /></p>
+<p>Open-RMF Web provides a comprehensive web application toolkit, with an API server, re-usable frontend components, as well as a customizable frontend dashboard.</p>
+<p>For more information on setup and documentation, please refer to the <code>rmf-web</code> repo.</p>
+<p><img src="images/rmf-web-dashboard-map.png" alt="rmf dashboard map" />
+<img src="images/rmf-web-dashboard-system-overview.png" alt="rmf dashboard system overview" />
+<img src="images/rmf-web-dashboard-tasks.png" alt="rmf dashboard tasks" /></p>
+<p>For users looking to set up a full deployment of Open-RMF with its core libraries, building infrastructure adapters, fleet adapters and Open-RMF web, please refer to the <a href="https://github.com/open-rmf/rmf_deployment_template">Open-RMF deployment template</a>.</p>
 <h1 id="related-repositories"><a class="header" href="#related-repositories">Related Repositories</a></h1>
 <ul>
 <li><a href="https://github.com/open-rmf/rmf-web">rmf-web</a></li>
-<li><a href="https://github.com/open-rmf/rmf-web/tree/main/example-deployment">example deployment</a></li>
-<li><a href="https://github.com/open-rmf/rmf-cloud-tools">rmf-cloud</a></li>
+<li><a href="https://github.com/open-rmf/rmf_deployment_template">Open-RMF deployment template</a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/rmf-web.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ui"><a class="header" href="#ui">UI</a></h1>
 <blockquote>
@@ -5261,7 +5265,7 @@ def update_robot(robot: RobotAdapter):
 </ul>
 </li>
 </ul>
-<p>Each framework has pros and cons and we do not feel there is a &quot;best&quot; framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
+<p>Each framework has pros and cons and we do not feel there is a "best" framework for all use cases. That being said, some frameworks are more suitable to integrate with RMF due to their specific underlying technologies. To understand why, let's take a brief overview at how an RMF UI application would work.</p>
 <h2 id="how-does-an-rmf-ui-application-work"><a class="header" href="#how-does-an-rmf-ui-application-work">How Does an RMF UI Application Work?</a></h2>
 <p>Imagine a simple UI application with a label that shows the current status of a door and a button that opens/closes the door. Recall that in the door adapter, we publish door states and subscribe to door requests. Here we are doing the reverse; subscribing to door states and publishing door requests. We will be listening to door states coming in from RMF and updating our display to match, and we will also be sending door requests when the user clicks the open or close button.</p>
 <p>We need to use a libray to help us do that. In the hardware adapter examples we are using the <code>rclcpp</code> library, but <code>rclcpp</code> isn't the only way to use ROS 2. Here are some libraries that also work well</p>
@@ -5281,7 +5285,7 @@ def update_robot(robot: RobotAdapter):
 </ul>
 </li>
 </ul>
-<p>A &quot;direct&quot; library is able to send and receive ROS 2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS 2 messages. In general, the &quot;direct&quot; approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
+<p>A "direct" library is able to send and receive ROS 2 messages directly from the application, in contrast, an indirect library uses a middleman service to forward ROS 2 messages. In general, the "direct" approach is more preferable but sometimes it is not possible on the target platform. In these cases, the indirect approach can be used.</p>
 <div style="border: 1px; border-style: solid; padding: 1em">
 <b>Note</b>: This is not an exhaustive list, you can find many third-party projects that aim to bring the ROS 2 ecosystem to more platforms, the <code>ros2-dotnet</code> project for example, provides C# bindings for ROS 2. You can also write your own bindings and middlewares!
 </div>
@@ -5351,7 +5355,7 @@ export default Door;
 import Door from './Door';
 
 function App() {
-  return &lt;Door name=&quot;example_door&quot; state=&quot;Closed&quot; /&gt;;
+  return &lt;Door name="example_door" state="Closed" /&gt;;
 }
 
 export default App;
@@ -5364,7 +5368,7 @@ export default App;
 <p>Start of by adding a React state to track the list of doors:</p>
 <pre><code class="language-js">const [doors, setDoors] = React.useState&lt;RomiCore.Door[]&gt;([]);
 </code></pre>
-<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS 2 service call, since there isn't ROS 2 support on the browser, we will be using an &quot;indirect&quot; approach with <code>soss</code>. A websocket connection is made to SOSS which will then act as a middleman and pass our messages to the ROS 2 network.</p>
+<p>RMF has a <code>get_building_map</code> service that we can use to get the list of doors, lifts, levels among many other data, in order to make use of the service we need to do a ROS 2 service call, since there isn't ROS 2 support on the browser, we will be using an "indirect" approach with <code>soss</code>. A websocket connection is made to SOSS which will then act as a middleman and pass our messages to the ROS 2 network.</p>
 <p>An easy way to use SOSS is with the <code>@osrf/romi-js-soss-transport</code> package, so let's do it now. Add a react effect hook to your <code>App</code> component</p>
 <pre><code class="language-js">  React.useEffect(() =&gt; {
     (async () =&gt; {
@@ -5527,7 +5531,7 @@ export default App;
   }
 }
 </code></pre>
-<p>But how do we know <code>2</code> means &quot;Open&quot; etc? We can find out by reading the RMF manual or inspecting the ROS 2 message definitions, but we can do better with <code>RomiCore</code>. It provides the list of constants in a more readable form:</p>
+<p>But how do we know <code>2</code> means "Open" etc? We can find out by reading the RMF manual or inspecting the ROS 2 message definitions, but we can do better with <code>RomiCore</code>. It provides the list of constants in a more readable form:</p>
 <pre><code class="language-js">function doorModeString(doorMode: RomiCore.DoorMode): string {
   switch (doorMode.value) {
     case RomiCore.DoorMode.MODE_OPEN:
@@ -5690,7 +5694,7 @@ export interface RomiService&lt;Request, Response&gt; {
   readonly options?: Options;
 }
 </code></pre>
-<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the &quot;default&quot; QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
+<p>If you are familiar with ROS 2, the <code>type</code> field specifies the message type that the topic or service expects while <code>topic</code>/<code>service</code> are the topic and service names, respectively. Sometimes a topic or service is expected to use a different QoS option; for example a topic that does not publish when the state changes and expects late subscriptions to make use of transient local QoS to receive the latest state. The <code>options</code> specify the "default" QoS options that should be used. In this way, users do not have to refer to the usage instructions to correctly publish and subscribe to the topic.</p>
 <p>The <code>validate*</code> methods are used by the transport to convert an arbitrary object to the expected type of the topic or service. It should check if the object has the correct fields and that the fields are of the correct types. To ensure compatibility with different transports, these methods should be able to convert number arrays to typed arrays and vice versa.</p>
 <p>We can create custom topics or services by implementing these interfaces. They can then be passed to the transport's various methods.</p>
 <pre><code class="language-js">export const myTopic: RomiTopic&lt;MyMessage&gt; = {
@@ -5744,50 +5748,50 @@ export interface Transport extends TransportEvents {
 <p>To ensure compatibility with different topics and services, transports must de-serialize the data to a plain old data object. It can use either number arrays or typed arrays. The <code>validate*</code> methods should support converting them to the expected types.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/ui.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="security"><a class="header" href="#security">Security</a></h1>
 <p>This chapter describes how to use DDS Security tools to provide authentication,
-encryption, and access control to an RMF system. </p>
-<p>The security of the RMF system can be divided into two main parts: 
-its ROS 2 elements and the dashboard. The security of the ROS 2 
-elements is provided by the DDS security tools which help ensure authentication, 
-encryption and access control. The dashboard provides the user with an 
-instruments panel while ensuring encryption, integrity and authentication of 
-the connection to the server through TLS. User authentication and access control 
-is made by user/password checking against a database and then 
+encryption, and access control to an RMF system.</p>
+<p>The security of the RMF system can be divided into two main parts:
+its ROS 2 elements and the dashboard. The security of the ROS 2
+elements is provided by the DDS security tools which help ensure authentication,
+encryption and access control. The dashboard provides the user with an
+instruments panel while ensuring encryption, integrity and authentication of
+the connection to the server through TLS. User authentication and access control
+is made by user/password checking against a database and then
 providing that user with access to the secured ROS 2 network at a level that
 corresponds to the role of that user.</p>
 <p><img src="images/security/system_infrastructure.png" alt="Security System Infrastructure" /></p>
-<p>The <a href="https://github.com/open-rmf/rmf_demos#office-world">RMF Demos Office World</a> repository contains an example of a 
+<p>The <a href="https://github.com/open-rmf/rmf_demos#office-world">RMF Demos Office World</a> repository contains an example of a
 full RMF application using secured ROS 2 communications along with
-step by step explanations. </p>
+step by step explanations.</p>
 <h2 id="ros-2-security-1"><a class="header" href="#ros-2-security-1">ROS 2 Security</a></h2>
-<p>ROS 2 contains tools that help create and load the needed security artifacts 
-to enable DDS-security. RMF makes uses of these tools in order to enable 
-security on its ROS 2 elements. A brief introduction to these tools and its 
-usage is provided here. For a deeper understanding of the whole system, 
+<p>ROS 2 contains tools that help create and load the needed security artifacts
+to enable DDS-security. RMF makes uses of these tools in order to enable
+security on its ROS 2 elements. A brief introduction to these tools and its
+usage is provided here. For a deeper understanding of the whole system,
 please refer to the <a href="https://design.ros2.org/articles/ros2_dds_security.html">ROS 2 DDS-Security integration</a> documentation.</p>
 <h3 id="dds-security-overview"><a class="header" href="#dds-security-overview">DDS-Security overview</a></h3>
-<p>The <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security specification</a> expands upon the <a href="https://www.omg.org/spec/DDS/1.4/PDF">DDS specification</a>, 
-adding security enhancements by defining a Service Plugin Interface (SPI) 
+<p>The <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security specification</a> expands upon the <a href="https://www.omg.org/spec/DDS/1.4/PDF">DDS specification</a>,
+adding security enhancements by defining a Service Plugin Interface (SPI)
 architecture, a set of builtin implementations of the SPIs, and the security model enforced by the SPIs.
 Specifically, there are five SPIs defined:</p>
 <ul>
 <li><strong>Authentication</strong>: Verify the identity of a given domain participant.</li>
-<li><strong>Access control</strong>: Enforce restrictions on the DDS-related operations that can be 
+<li><strong>Access control</strong>: Enforce restrictions on the DDS-related operations that can be
 performed by an authenticated domain participant.</li>
 <li><strong>Cryptographic</strong>: Handle all required encryption, signing, and hashing operations.</li>
 <li><strong>Logging</strong>: Provide the ability to audit DDS-Security-related events.</li>
 <li><strong>Data tagging</strong>: Provide the ability to add tags to data samples.</li>
 </ul>
 <p>ROS 2's security features currently utilize only the first three.
-This is due to the fact that neither <strong>Logging</strong> nor <strong>Data Tagging</strong> 
-are required in order to be compliant with the <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security spec</a> 
+This is due to the fact that neither <strong>Logging</strong> nor <strong>Data Tagging</strong>
+are required in order to be compliant with the <a href="https://www.omg.org/spec/DDS-SECURITY/1.1/PDF">DDS-Security spec</a>
 (see section 2.3), and thus not all DDS implementations support them.</p>
 <h3 id="sros-2-tools"><a class="header" href="#sros-2-tools">SROS 2 tools</a></h3>
-<p>Since the DDS-Security plugins require a set of security files per domain participant, these 
+<p>Since the DDS-Security plugins require a set of security files per domain participant, these
 need to be created beforehand in order to provide authentication, access control and encryption
-to the ROS 2 elements of RMF. Domain participants usually map to a context within the 
+to the ROS 2 elements of RMF. Domain participants usually map to a context within the
 process in ROS 2, therefore each process will require a set of these files.</p>
 <p>Since SROS 2 has no support for launch files yet, each binary needs to be launched separately
-on its own terminal. Alternatively we recommend the creation of scripts to automate this process. 
+on its own terminal. Alternatively we recommend the creation of scripts to automate this process.
 An example of this is the <code>tmux</code> script used in the [Office SROS 2 demo][https://github.com/open-rmf/rmf_demos/blob/main/docs/secure_office_world.md].</p>
 <p>The <code>ros2 security</code> command is the way to access the SROS 2 set of tools to create and manage
 your DDS-security artifacts. You can get a glimpse at its features by accessing the documentation
@@ -5811,20 +5815,20 @@ Commands:
   Call \`ros2 security &lt;command&gt; -h\` for more detailed usage.
 </code></pre>
 <h4 id="sros-2-environment-variables"><a class="header" href="#sros-2-environment-variables">SROS 2 environment variables</a></h4>
-<p>There are a few environment variables you should be aware of when using SROS 2: </p>
+<p>There are a few environment variables you should be aware of when using SROS 2:</p>
 <ul>
-<li><strong>ROS_SECURITY_ENABLE</strong> is the SROS 2 enabler variable, it takes a boolean value 
-(true or false) and indicates if the security is enabled or not. </li>
-<li><strong>ROS_SECURITY_STRATEGY</strong> can be set to <code>Enforce</code> or <code>Permissive</code>, with the first one it 
-will fail to run a participant if the security files are not found, whereas with the second one will 
-just run the participant in non secure mode if those files are not found. </li>
+<li><strong>ROS_SECURITY_ENABLE</strong> is the SROS 2 enabler variable, it takes a boolean value
+(true or false) and indicates if the security is enabled or not.</li>
+<li><strong>ROS_SECURITY_STRATEGY</strong> can be set to <code>Enforce</code> or <code>Permissive</code>, with the first one it
+will fail to run a participant if the security files are not found, whereas with the second one will
+just run the participant in non secure mode if those files are not found.</li>
 <li><strong>ROS_SECURITY_KEYSTORE</strong> should point to the root of the keystore directory tree. This will help <code>RCL</code>
 find the location of the security artifacts to initialize the ROS 2 security environment.</li>
 </ul>
 <h4 id="sros-2-security-keystore"><a class="header" href="#sros-2-security-keystore">SROS 2 security keystore</a></h4>
-<p>The keystore is the root directory where the DDS security artifacts are stored. <code>RCL</code> will use the 
-contents of this directory to provide the DDS security to the ROS 2 network. The 
-<code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order 
+<p>The keystore is the root directory where the DDS security artifacts are stored. <code>RCL</code> will use the
+contents of this directory to provide the DDS security to the ROS 2 network. The
+<code>ROS_SECURITY_KEYSTORE</code> environment variable should by convention point to this directory. In order
 to initalize and populate <code>keystore_storage</code> directory files the following command can be used:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 security create_keystore keystore_storage
 creating keystore: keystore_storage
@@ -5846,19 +5850,19 @@ creating signed governance file: keystore_storage/enclaves/governance.p7s
     ├── identity_ca.key.pem
     └── permissions_ca.key.pem
 </code></pre>
-<p>The <code>public</code> directory contains anything permissible as public, such as public certificates for 
-the identity or permissions Certificate Authorities (CA). As such, this can be given read access to all 
-executables. Note that in the default case, both <code>identity_ca</code> and <code>permissions_ca</code> point to the 
+<p>The <code>public</code> directory contains anything permissible as public, such as public certificates for
+the identity or permissions Certificate Authorities (CA). As such, this can be given read access to all
+executables. Note that in the default case, both <code>identity_ca</code> and <code>permissions_ca</code> point to the
 same CA certificate.</p>
-<p>The <code>private</code> directory contains anything permissible as private, such as private key material for 
-aforementioned certificate authorities. This directory should be removed before deploying the 
+<p>The <code>private</code> directory contains anything permissible as private, such as private key material for
+aforementioned certificate authorities. This directory should be removed before deploying the
 keystore onto the target device/robot.</p>
-<p>The <code>enclaves</code> directory contains the security artifacts associated with individual security enclaves. 
-SROS 2 introduces the concept of a security “enclave”, 
-where an “enclave” is a process or group of processes that will share the same identity and access 
-control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves. </p>
+<p>The <code>enclaves</code> directory contains the security artifacts associated with individual security enclaves.
+SROS 2 introduces the concept of a security “enclave”,
+where an “enclave” is a process or group of processes that will share the same identity and access
+control rules. The enclaves folder may recursively nest sub-paths for organizing separate enclaves.</p>
 <h4 id="sros-2-enclave-keys"><a class="header" href="#sros-2-enclave-keys">SROS 2 enclave keys</a></h4>
-<p>Once the <code>keystore</code> has been initialized you may wish to create the security keys for your 
+<p>Once the <code>keystore</code> has been initialized you may wish to create the security keys for your
 enclaves. This will populate the <code>enclaves</code> directory with the necessary keys and governance
 files. As an example, in order to create the security files for our<code>/hospital/rviz</code> enclave the
 following command would be issued:</p>
@@ -5885,42 +5889,42 @@ creating permission
 </code></pre>
 <p>Now there is an enclave containing the following files:</p>
 <ul>
-<li><strong>identity_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Authentication</strong> plugin 
-(the &quot;Identity&quot; CA).</li>
+<li><strong>identity_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Authentication</strong> plugin
+(the "Identity" CA).</li>
 <li><strong>cert.pem</strong>: The x.509 certificate of this enclave instance (signed by the Identity CA).</li>
 <li><strong>key.pem</strong>: The private key of this enclave instance.</li>
-<li><strong>permissions_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Access control</strong> plugin 
-(the &quot;Permissions&quot; CA).</li>
-<li><strong>governance.p7s</strong>: The XML document that specifies to the <strong>Access control</strong> plugin how the domain 
+<li><strong>permissions_ca.cert.pem</strong>: The x.509 certificate of the CA trusted by the <strong>Access control</strong> plugin
+(the "Permissions" CA).</li>
+<li><strong>governance.p7s</strong>: The XML document that specifies to the <strong>Access control</strong> plugin how the domain
 should be secured  (signed by the Permissions CA).</li>
-<li><strong>permissions.p7s</strong>: The XML document that specifies the permissions of this particular enclave 
+<li><strong>permissions.p7s</strong>: The XML document that specifies the permissions of this particular enclave
 instance to the <strong>Access control</strong> plugin (also signed by the Permissions CA).</li>
 </ul>
 <h4 id="sros-2-access-control"><a class="header" href="#sros-2-access-control">SROS 2 access control</a></h4>
 <p>In order to provide access control the security permissions need to be added to the permissions files
 of the enclave and signed by the CA. In order to do this a policy file following the
-<a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed. 
+<a href="https://design.ros2.org/articles/ros2_access_control_policies.html">SROS 2 policy schema</a> is needed.
 This file specifies the permissions awarded to the enclave within the ROS 2 network.
 To create and sign the permissions the <code>create_permission</code> option can be used:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 security create_permission keystore_storage /hospital/rviz policy.xml 
 creating permission file for identity: '/hospital/rviz'
 creating permission
 </code></pre>
-<p>After running this command, the <code>permissions.p7s</code> and <code>permissions.xml</code> files for the 
-<code>enclave</code> /hospital/rviz will contain the signed permissions specified in policy.xml. 
+<p>After running this command, the <code>permissions.p7s</code> and <code>permissions.xml</code> files for the
+<code>enclave</code> /hospital/rviz will contain the signed permissions specified in policy.xml.
 We will have to specify this enclave through rosargs when starting our process:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 run &lt;package&gt; &lt;executable&gt; --rosargs ---enclave /hospital/rviz
 </code></pre>
 <h1 id="sros-2-automated-generation"><a class="header" href="#sros-2-automated-generation">SROS 2 automated generation</a></h1>
-<p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools 
+<p>The process of generating keys and permissions can be sometimes tedious, so SROS 2 provides tools
 to automate this process. An automated way to generate the policy is provided, it can be
 triggered by running the following command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_policy policy.xml
 </code></pre>
-<p>This command will take the ROS graph at the point of running and generate the policy.xml file 
-that corresponds to it. Note that this, as it only uses the current ROS graph as a source of 
+<p>This command will take the ROS graph at the point of running and generate the policy.xml file
+that corresponds to it. Note that this, as it only uses the current ROS graph as a source of
 information, might still miss policies for future publishers, subscribers, services or others.</p>
-<p>The process and key and permissions generation can also be troublesome, SROS 2 provides a 
+<p>The process and key and permissions generation can also be troublesome, SROS 2 provides a
 command that you can use to generate all of them at once:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 security generate_artifacts -k keystore_storage -p policy.xml
 keystore_storage is not a valid keystore, creating new keystore
@@ -5948,15 +5952,15 @@ creating permission
 ...
 </code></pre>
 <h2 id="rmf-web-dashboard-security"><a class="header" href="#rmf-web-dashboard-security">RMF Web Dashboard Security</a></h2>
-<p>[RMF Web] (https://github.com/open-rmf/rmf-web) is a web application that provides overall visualization and control over the 
-RMF system. It is served over TLS to ensure encryption, integrity and authentication of the 
-communication with the final user. The server uses <a href="https://openid.net/connect/">openid-connect (OIDC)</a> for 
-authentication, an open standard based on <a href="https://oauth.net/2/">oauth 2.0</a> and <a href="https://jose.readthedocs.io/en/latest/">JOSE</a>. Currently the 
-dashboard makes use of <a href="https://www.keycloak.org">Keycloack</a>, an open source implementation of OIDC. It provides 
-an user management system, which is used to create/delete users. Each user gets assigned a role 
-which is reflected on an id token generated on the user. This id token is signed securely 
+<p>[RMF Web] (https://github.com/open-rmf/rmf-web) is a web application that provides overall visualization and control over the
+RMF system. It is served over TLS to ensure encryption, integrity and authentication of the
+communication with the final user. The server uses <a href="https://openid.net/connect/">openid-connect (OIDC)</a> for
+authentication, an open standard based on <a href="https://oauth.net/2/">oauth 2.0</a> and <a href="https://jose.readthedocs.io/en/latest/">JOSE</a>. Currently the
+dashboard makes use of <a href="https://www.keycloak.org">Keycloack</a>, an open source implementation of OIDC. It provides
+an user management system, which is used to create/delete users. Each user gets assigned a role
+which is reflected on an id token generated on the user. This id token is signed securely
 and sent to the api server which it can then look at the role of the user and act accordingly.
-The api server runs a secured ROS 2 node per each role and provides access to them based on 
+The api server runs a secured ROS 2 node per each role and provides access to them based on
 the id token of each user.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/security.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="roadmap-1"><a class="header" href="#roadmap-1">Roadmap</a></h1>
 <p>This page describes topics that we are currently working on and expect to advance in the next 12 months.
@@ -6004,7 +6008,7 @@ Concerns about scalability can be viewed in terms of <strong>variables</strong> 
 <h4 id="hierarchical-planning"><a class="header" href="#hierarchical-planning">Hierarchical Planning</a></h4>
 <p>Hierarchical traffic planning would decompose the overall planning space into regions separated by chokepoints. Each chokepoint would be managed by a queue. The traffic negotiation system would only account for traffic conflicts that happen while robots transition from one queue to another queue. Reducing the scope of conflicts will make negotiations faster, less frequent, and less CPU intensive.</p>
 <h4 id="custom-negotiation"><a class="header" href="#custom-negotiation">Custom Negotiation</a></h4>
-<p>Not all mobile robots or uses cases will fit neatly into the three out-of-the-box categories of &quot;Full Control&quot;, &quot;Traffic Light&quot;, and &quot;Read-Only&quot;. Letting system integrators fully customize the way the fleet adapter plans and negotiates for their robot will allow Open-RMF to support more types of robots with better outcomes.</p>
+<p>Not all mobile robots or uses cases will fit neatly into the three out-of-the-box categories of "Full Control", "Traffic Light", and "Read-Only". Letting system integrators fully customize the way the fleet adapter plans and negotiates for their robot will allow Open-RMF to support more types of robots with better outcomes.</p>
 <h4 id="zenoh"><a class="header" href="#zenoh">Zenoh</a></h4>
 <p>There are various inefficiencies in the ROS 2 implementation of Open-RMF related to DDS discovery mechanisms and the absence of message key support within ROS 2. Using Zenoh, either directly or as an RMW implementation with ROS 2, would allow for significantly more efficient communication, especially over Wi-Fi networks and for large numbers of agents and subsystems.</p>
 <h2 id="tools"><a class="header" href="#tools">Tools</a></h2>
@@ -6026,7 +6030,7 @@ Concerns about scalability can be viewed in terms of <strong>variables</strong> 
 <p>For wider adoption and quicker deployment, we want to improve the developer experience for system integrators.</p>
 <ul>
 <li>Simpler APIs that allow greater customization of robot behaviors</li>
-<li>Easier integration options, such as a &quot;native&quot; integration with the ROS 2 Nav Stack
+<li>Easier integration options, such as a "native" integration with the ROS 2 Nav Stack
 <ul>
 <li>We will provide a ROS 2 nav stack plugin that gives Open-RMF compatibility to any robot using it</li>
 </ul>

@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item expanded "><a href="simulation.html" class="active"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -217,7 +219,7 @@ simulations. It is worth emphasizing here that the exact same code used to run t
 will also be run on the physical system as well without any changes.</p>
 <p>However, despite these compelling benefits, simulations are sparingly employed
 by developers and system integrators, citing complexity over generating
-environments and configuring them with appropriate plugins. In a recent publication &quot;<em>A Study on the Challenges of Using Robotics Simulators for Testing</em>,&quot; by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:</p>
+environments and configuring them with appropriate plugins. In a recent publication "<em>A Study on the Challenges of Using Robotics Simulators for Testing</em>," by Afsoon Afzal, Deborah S. Katz, Claire Le Goues and Christopher S. Timperley they noted the main reasons participants gave for not using simulation for a particular project and summarized their findings as follows:</p>
 <div class="table-wrapper"><table><thead><tr><th>Reason for not using simulation</th><th>#</th><th>%</th></tr></thead><tbody>
 <tr><td>Lack of time or resources</td><td>15</td><td>53.57%</td></tr>
 <tr><td>Not realistic/accurate enough</td><td>15</td><td>53.57%</td></tr>
@@ -318,14 +320,14 @@ functionality. The following sections briefly describe some of these plugins.</p
 open sourced for use in simulation. For these models to emulate the behavior of
 their physical counterparts which have been integrated with RMF, they need to 1)
 interface with <code>rmf_fleet_adapters</code> and 2) navigate to locations in the
-simulated world. These functionalities, for a &quot;<em>full control</em>&quot; robot type, are
+simulated world. These functionalities, for a "<em>full control</em>" robot type, are
 achieved through the <code>slotcar</code> <a href="https://github.com/open-rmf/rmf_simulation/blob/main/rmf_robot_sim_gazebo_plugins/src/slotcar.cpp">plugin</a>.
 The plugin subscribes to <code>/robot_path_requests</code> and <code>/robot_mode_requests</code>
 topics and responds to relevant <code>PathRequest</code> and <code>ModeRequest</code> messages
 published by its <code>rmf_fleet_adapter</code>. The plugin also publishes the robot's
 state to the <code>/robot_state</code> topic.</p>
 <p>To navigate the robot through waypoints in a <code>PathRequest</code> message, a simple
-&quot;rail-like&quot; navigation algorithm is utilized which accelerates and decelerates
+"rail-like" navigation algorithm is utilized which accelerates and decelerates
 the robot along a straight line from its current position to the next waypoint.
 The plugin relies on these fundamental assumptions:</p>
 <ul>
@@ -333,7 +335,7 @@ The plugin relies on these fundamental assumptions:</p>
 <li>The left and right wheel joints are named  <code>joint_tire_left</code> and <code>joint_tire_right</code> respectively</li>
 </ul>
 <p>Other parameters, the majority of which are kinematic properties of the robot, are inferred from sdf parameters:</p>
-<pre><code class="language-xml">&lt;plugin name=&quot;slotcar&quot; filename=&quot;libslotcar.so&quot;&gt;
+<pre><code class="language-xml">&lt;plugin name="slotcar" filename="libslotcar.so"&gt;
   &lt;nominal_drive_speed&gt;0.5&lt;/nominal_drive_speed&gt;
   &lt;nominal_drive_acceleration&gt;0.25&lt;/nominal_drive_acceleration&gt;
   &lt;max_drive_acceleration&gt;0.75&lt;/max_drive_acceleration&gt;
@@ -369,19 +371,19 @@ its range of motion (for hinged doors).</p>
 any doors and automatically generates an sdf sub-element with links and joints
 required for the door along with a configured plugin. The sdf sub-element
 generated for the door in the figure above is presented below.</p>
-<pre><code class="language-xml">&lt;model name=&quot;coe_door&quot;&gt;
+<pre><code class="language-xml">&lt;model name="coe_door"&gt;
   &lt;pose&gt;8.077686357313898 -5.898342045416362 0.0 0 0 1.1560010438234292&lt;/pose&gt;
-  &lt;plugin filename=&quot;libdoor.so&quot; name=&quot;door&quot;&gt;
+  &lt;plugin filename="libdoor.so" name="door"&gt;
     &lt;v_max_door&gt;0.5&lt;/v_max_door&gt;
     &lt;a_max_door&gt;0.3&lt;/a_max_door&gt;
     &lt;a_nom_door&gt;0.15&lt;/a_nom_door&gt;
     &lt;dx_min_door&gt;0.01&lt;/dx_min_door&gt;
     &lt;f_max_door&gt;500.0&lt;/f_max_door&gt;
-    &lt;door left_joint_name=&quot;left_joint&quot; name=&quot;coe_door&quot; right_joint_name=&quot;empty_joint&quot; type=&quot;SwingDoor&quot; /&gt;
+    &lt;door left_joint_name="left_joint" name="coe_door" right_joint_name="empty_joint" type="SwingDoor" /&gt;
   &lt;/plugin&gt;
-  &lt;link name=&quot;left&quot;&gt;
+  &lt;link name="left"&gt;
     &lt;pose&gt;0 0 1.11 0 0 0&lt;/pose&gt;
-    &lt;visual name=&quot;left&quot;&gt;
+    &lt;visual name="left"&gt;
       &lt;material&gt;
         &lt;ambient&gt;120 60 0 0.6&lt;/ambient&gt;
         &lt;diffuse&gt;120 60 0 0.6&lt;/diffuse&gt;
@@ -392,7 +394,7 @@ generated for the door in the figure above is presented below.</p>
         &lt;/box&gt;
       &lt;/geometry&gt;
     &lt;/visual&gt;
-    &lt;collision name=&quot;left&quot;&gt;
+    &lt;collision name="left"&gt;
       &lt;surface&gt;
         &lt;contact&gt;
           &lt;collide_bitmask&gt;0x02&lt;/collide_bitmask&gt;
@@ -413,7 +415,7 @@ generated for the door in the figure above is presented below.</p>
       &lt;/inertia&gt;
     &lt;/inertial&gt;
   &lt;/link&gt;
-  &lt;joint name=&quot;left_joint&quot; type=&quot;revolute&quot;&gt;
+  &lt;joint name="left_joint" type="revolute"&gt;
     &lt;parent&gt;world&lt;/parent&gt;
     &lt;child&gt;left&lt;/child&gt;
     &lt;axis&gt;
@@ -438,17 +440,17 @@ While the cabin doors are part of the cabin structure, the shaft doors are fixed
 Both sets of doors open and close simultaneously at a given level and are controlled by the lift plugin itself.
 These doors are created using the same method as other doors in the building and include the door plugin as well.</p>
 <p>The <code>building_map_generator</code> also appends a lift plugin (TODO add link element with required parameters to the lift's model sdf block.)</p>
-<pre><code class="language-xml">&lt;plugin filename=&quot;liblift.so&quot; name=&quot;lift&quot;&gt;
+<pre><code class="language-xml">&lt;plugin filename="liblift.so" name="lift"&gt;
   &lt;lift_name&gt;Lift1&lt;/lift_name&gt;
-  &lt;floor elevation=&quot;0.0&quot; name=&quot;L1&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L1_door1&quot; /&gt;
+  &lt;floor elevation="0.0" name="L1"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L1_door1" /&gt;
   &lt;/floor&gt;
-  &lt;floor elevation=&quot;10.0&quot; name=&quot;L2&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L2_door1&quot; /&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door2&quot; shaft_door=&quot;ShaftDoor_Lift1_L2_door2&quot; /&gt;
+  &lt;floor elevation="10.0" name="L2"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L2_door1" /&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door2" shaft_door="ShaftDoor_Lift1_L2_door2" /&gt;
   &lt;/floor&gt;
-  &lt;floor elevation=&quot;20.0&quot; name=&quot;L3&quot;&gt;
-    &lt;door_pair cabin_door=&quot;CabinDoor_Lift1_door1&quot; shaft_door=&quot;ShaftDoor_Lift1_L3_door1&quot; /&gt;
+  &lt;floor elevation="20.0" name="L3"&gt;
+    &lt;door_pair cabin_door="CabinDoor_Lift1_door1" shaft_door="ShaftDoor_Lift1_L3_door1" /&gt;
   &lt;/floor&gt;
   &lt;reference_floor&gt;L1&lt;/reference_floor&gt;
   &lt;v_max_cabin&gt;2.0&lt;/v_max_cabin&gt;
@@ -505,15 +507,15 @@ please dive in to <a href="https://github.com/FloodShao/crowd_simulation/blob/ma
 <h2 id="creating-simulations-and-running-scenarios"><a class="header" href="#creating-simulations-and-running-scenarios">Creating Simulations and Running Scenarios</a></h2>
 <p>The section aims to provide an overview of the various components in the <code>rmf_demos</code> <a href="https://github.com/open-rmf/rmf_demos">repository</a> which may serve as a reference for setting up other simulations and assigning tasks to robots. Here, we will focus on the <code>office</code> world.</p>
 <h3 id="map-package"><a class="header" href="#map-package">Map package</a></h3>
-<p>The <code>rmf_demos_maps</code> package houses annotated <code>traffic_editor</code> files which will be used for the 3D world generation. Opening the <code>office.project.yaml</code> file in <code>traffic_editor</code> reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to <code>bidirectional</code> with <code>graph_idx</code> equal to &quot;0&quot;. The latter signifies that all the lanes belong to the same fleet. In the <code>airport</code> world, we have two sets of graphs with indices &quot;0&quot; and &quot;1&quot; which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.</p>
+<p>The <code>rmf_demos_maps</code> package houses annotated <code>traffic_editor</code> files which will be used for the 3D world generation. Opening the <code>office.project.yaml</code> file in <code>traffic_editor</code> reveals a single level floorplan that has walls, floors, scale measurements, doors, lanes and models annotated. All the robot lanes are set to <code>bidirectional</code> with <code>graph_idx</code> equal to "0". The latter signifies that all the lanes belong to the same fleet. In the <code>airport</code> world, we have two sets of graphs with indices "0" and "1" which reflect laneways occupiable by two fleets respectively. The figure below highlights properties assigned to a lane and a waypoint that serves as a robot spawn location.</p>
 <p><img src="images/rmf_demos_maps.png" alt="Robot spawn location properties" /></p>
 <p>To export a 3D world file along with the navigation graphs, the <code>building_map_generator</code> script is used. The <code>CMakeLists.txt</code> file of this package is configured to automatically run the generator scripts when the package is built. The outputs are installed to the <code>share/</code> directory for the package. This allows for the generated files to be easily located and used by other packages in the demo.</p>
 <pre><code class="language-cmake">foreach(path ${traffic_editor_paths})
 
   # Get the output world name
-  string(REPLACE &quot;.&quot; &quot;;&quot; list1 ${path})
+  string(REPLACE "." ";" list1 ${path})
   list(GET list1 0 name)
-  string(REPLACE &quot;/&quot; &quot;;&quot; list2 ${name})
+  string(REPLACE "/" ";" list2 ${name})
   list(GET list2 -1 world_name)
 
   set(map_path ${path})
@@ -563,46 +565,46 @@ endforeach()
 <li>The <code>door_supervisor</code> and <code>lift_supervisor</code> nodes to manage requests submitted by fleet adapter and UIs.</li>
 </ul>
 <pre><code class="language-xml">&lt;!-- Common launch --&gt;
-&lt;include file=&quot;$(find-pkg-share demos)/common.launch.xml&quot;&gt;
-  &lt;arg name=&quot;use_sim_time&quot; value=&quot;true&quot;/&gt;
-  &lt;arg name=&quot;viz_config_file&quot; value =&quot;$(find-pkg-share demos)/include/office/office.rviz&quot;/&gt;
-  &lt;arg name=&quot;config_file&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/office/office.building.yaml&quot;/&gt;
+&lt;include file="$(find-pkg-share demos)/common.launch.xml"&gt;
+  &lt;arg name="use_sim_time" value="true"/&gt;
+  &lt;arg name="viz_config_file" value ="$(find-pkg-share demos)/include/office/office.rviz"/&gt;
+  &lt;arg name="config_file" value="$(find-pkg-share rmf_demos_maps)/office/office.building.yaml"/&gt;
 &lt;/include&gt;
 </code></pre>
 <p>To launch a simulated world in gazebo, a snippet from <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_gz">rmf_demos_gz</a>
 is shown below. Similarly, user can also choose to run with ignition
 simulator, <a href="https://github.com/open-rmf/rmf_demos/tree/main/rmf_demos_ign">rmf_demos_ign</a></p>
 <pre><code class="language-xml">  &lt;group&gt;
-    &lt;let name=&quot;world_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/office.world&quot; /&gt;
-    &lt;let name=&quot;model_path&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models&quot; /&gt;
-    &lt;let name=&quot;resource_path&quot; value=&quot;$(find-pkg-share rmf_demos_assets):/usr/share/gazebo-9&quot; /&gt;
-    &lt;let name=&quot;plugin_path&quot; value=&quot;$(find-pkg-prefix rmf_gazebo_plugins)/lib:$(find-pkg-prefix building_gazebo_plugins)/lib&quot; /&gt;
+    &lt;let name="world_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/office.world" /&gt;
+    &lt;let name="model_path" value="$(find-pkg-share rmf_demos_maps)/maps/office/models:$(find-pkg-share rmf_demos_assets)/models:/usr/share/gazebo-9/models" /&gt;
+    &lt;let name="resource_path" value="$(find-pkg-share rmf_demos_assets):/usr/share/gazebo-9" /&gt;
+    &lt;let name="plugin_path" value="$(find-pkg-prefix rmf_gazebo_plugins)/lib:$(find-pkg-prefix building_gazebo_plugins)/lib" /&gt;
 
-    &lt;executable cmd=&quot;gzserver --verbose -s libgazebo_ros_factory.so -s libgazebo_ros_init.so $(var world_path)&quot; output=&quot;both&quot;&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_PATH&quot; value=&quot;$(var model_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_RESOURCE_PATH&quot; value=&quot;$(var resource_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_PLUGIN_PATH&quot; value=&quot;$(var plugin_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_DATABASE_URI&quot; value=&quot;&quot; /&gt;
+    &lt;executable cmd="gzserver --verbose -s libgazebo_ros_factory.so -s libgazebo_ros_init.so $(var world_path)" output="both"&gt;
+      &lt;env name="GAZEBO_MODEL_PATH" value="$(var model_path)" /&gt;
+      &lt;env name="GAZEBO_RESOURCE_PATH" value="$(var resource_path)" /&gt;
+      &lt;env name="GAZEBO_PLUGIN_PATH" value="$(var plugin_path)" /&gt;
+      &lt;env name="GAZEBO_MODEL_DATABASE_URI" value="" /&gt;
     &lt;/executable&gt;
-    &lt;executable cmd=&quot;gzclient --verbose $(var world_path)&quot; output=&quot;both&quot;&gt;
-      &lt;env name=&quot;GAZEBO_MODEL_PATH&quot; value=&quot;$(var model_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_RESOURCE_PATH&quot; value=&quot;$(var resource_path)&quot; /&gt;
-      &lt;env name=&quot;GAZEBO_PLUGIN_PATH&quot; value=&quot;$(var plugin_path)&quot; /&gt;
+    &lt;executable cmd="gzclient --verbose $(var world_path)" output="both"&gt;
+      &lt;env name="GAZEBO_MODEL_PATH" value="$(var model_path)" /&gt;
+      &lt;env name="GAZEBO_RESOURCE_PATH" value="$(var resource_path)" /&gt;
+      &lt;env name="GAZEBO_PLUGIN_PATH" value="$(var plugin_path)" /&gt;
     &lt;/executable&gt;
   &lt;/group&gt;
 </code></pre>
-<p>Lastly, instances of the &quot;full control&quot; <code>rmf_fleet_adapter</code> are launched for each robot type annotated in the map. The navigation graphs for each fleet as generated by the <code>building_map_generator</code> script is passed via the <code>nav_graph_file</code> argument. For the office map, a single fleet of <code>Magni</code> robots is defined. Hence, a single <code>magni_adapter.launch.xml</code> file configured with the kinematic properties of this robot type along with spatial thresholds used for planning, is launched. Along with the fleet adapter, a <code>robot_state_aggregator</code> node is started. This node aggregates <code>RobotState</code> messages with <code>RobotState.name</code> containing the <code>robot_prefix</code> argument and publishes the aggregate to <code>/fleet_states</code> with <code>FleetState.name</code> specified by the <code>fleet_name</code> argument.</p>
+<p>Lastly, instances of the "full control" <code>rmf_fleet_adapter</code> are launched for each robot type annotated in the map. The navigation graphs for each fleet as generated by the <code>building_map_generator</code> script is passed via the <code>nav_graph_file</code> argument. For the office map, a single fleet of <code>Magni</code> robots is defined. Hence, a single <code>magni_adapter.launch.xml</code> file configured with the kinematic properties of this robot type along with spatial thresholds used for planning, is launched. Along with the fleet adapter, a <code>robot_state_aggregator</code> node is started. This node aggregates <code>RobotState</code> messages with <code>RobotState.name</code> containing the <code>robot_prefix</code> argument and publishes the aggregate to <code>/fleet_states</code> with <code>FleetState.name</code> specified by the <code>fleet_name</code> argument.</p>
 <pre><code class="language-xml">&lt;group&gt;
-  &lt;let name=&quot;fleet_name&quot; value=&quot;magni&quot;/&gt;
-  &lt;include file=&quot;$(find-pkg-share rmf_demos)/include/adapters/magni_adapter.launch.xml&quot;&gt;
-    &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-    &lt;arg name=&quot;use_sim_time&quot; value=&quot;$(var use_sim_time)&quot;/&gt;
-    &lt;arg name=&quot;nav_graph_file&quot; value=&quot;$(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml&quot; /&gt;
+  &lt;let name="fleet_name" value="magni"/&gt;
+  &lt;include file="$(find-pkg-share rmf_demos)/include/adapters/magni_adapter.launch.xml"&gt;
+    &lt;arg name="fleet_name" value="$(var fleet_name)"/&gt;
+    &lt;arg name="use_sim_time" value="$(var use_sim_time)"/&gt;
+    &lt;arg name="nav_graph_file" value="$(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml" /&gt;
   &lt;/include&gt;
-  &lt;include file=&quot;$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml&quot;&gt;
-    &lt;arg name=&quot;robot_prefix&quot; value=&quot;magni&quot;/&gt;
-    &lt;arg name=&quot;fleet_name&quot; value=&quot;$(var fleet_name)&quot;/&gt;
-    &lt;arg name=&quot;use_sim_time&quot; value=&quot;true&quot;/&gt;
+  &lt;include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml"&gt;
+    &lt;arg name="robot_prefix" value="magni"/&gt;
+    &lt;arg name="fleet_name" value="$(var fleet_name)"/&gt;
+    &lt;arg name="use_sim_time" value="true"/&gt;
   &lt;/include&gt;
 &lt;/group&gt;
 </code></pre>

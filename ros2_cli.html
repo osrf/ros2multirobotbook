@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item expanded "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item expanded "><a href="ros2_cli.html" class="active"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -284,7 +286,7 @@ optional arguments:
                    (e.g. --prefix 'gdb -ex run --args').
 </code></pre>
 <p>We can see that <code>ros2 run</code> is the
-command to, &quot;Run a package specific executable.&quot; In ROS 2 collections of ROS
+command to, "Run a package specific executable." In ROS 2 collections of ROS
 software are gathered into logical units called <code>packages</code>. Each package
 contains all of the source code for the package as a variety of other data that
 tells ROS how to build and compile the package and the names of all the
@@ -296,8 +298,8 @@ want to write is as follows:</p>
 <p><code>ros2 run &lt;package name&gt; &lt;program/executable name&gt; &lt;args&gt;</code></p>
 <p>There is one piece of missing information here. What is this <code>argv</code> that the
 command is asking for? The <code>argv</code> element is programmer short hand for variable
-arguments, and it simply means, &quot;some number of additional arguments that are
-determined by the executable&quot;. It is worth noting that a program can have zero
+arguments, and it simply means, "some number of additional arguments that are
+determined by the executable". It is worth noting that a program can have zero
 arguments and you can just leave it blank. This is actually how a lot of
 programs work. For example, say we had a package
 called <em>math</em>, and an executable called <em>add</em> that takes in two numbers and
@@ -359,7 +361,7 @@ organized as follows:</p>
 <p>The key thing to realize about topics is that the data they contain is dynamic, meaning it changes
 constantly. In our vehicle example the velocity of each wheel might be measured
 one thousand times a second or more. Since the data in a ROS topic is constantly
-changing, an important distinction for a topic is whether the topic is &quot;creating&quot;
+changing, an important distinction for a topic is whether the topic is "creating"
 or as we like to say in ROS <code>publishing</code>, or if it is reading the data, what we call
 <code>subscribing</code> to the topic. Many ROS nodes subscribe to one set of topics,
 process that input data, and then publish to another set of topics.</p>
@@ -413,12 +415,12 @@ optional arguments:
 
 </code></pre>
 <p>As indicated at the top of this command help file, <code>ros2 topic list</code> will
-&quot;Output a list of available topics.&quot; There appears to be a variety of
+"Output a list of available topics." There appears to be a variety of
 <em>optional</em> arguments that we don't need to include if we don't want to. However,
 the <code>-t, --show-types</code> line looks interesting. It is worth noting that command
 arguments, sometimes called flags, can have two types. A short form indicated
-with a single dash (&quot;-&quot;), and a long form indicated by a double dash
-(&quot;--&quot;). Don't worry, despite looking different both versions of the argument do
+with a single dash ("-"), and a long form indicated by a double dash
+("--"). Don't worry, despite looking different both versions of the argument do
 the same thing. Let's try running this command, sub command pair with the
 <code>-show-types</code> argument.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic list --show-types
@@ -498,7 +500,7 @@ usage: ros2 interface show [-h] type
 Output the interface definition
 
 positional arguments:
-  type        Show an interface definition (e.g. &quot;std_msgs/msg/String&quot;)
+  type        Show an interface definition (e.g. "std_msgs/msg/String")
 
 optional arguments:
   -h, --help  show this help message and exit
@@ -521,7 +523,7 @@ fast it is moving or rotating.</p>
 <p>Now that we know what ROS topics are on our simple turtlesim, and their message
 types, we can dig in and find out more about how everything works. If we look
 back at our topic sub commands, we can see a sub command called <code>echo</code>. Echo is
-computer jargon that means &quot;repeat&quot; something. If you echo a topic it means you
+computer jargon that means "repeat" something. If you echo a topic it means you
 want the CLI to repeat what's on a topic. Let's look at the <code>echo</code> sub command's
 help text:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo --help
@@ -566,7 +568,7 @@ optional arguments:
   --no-str              Don't print string fields of messages
 </code></pre>
 <p>Wow, that's a lot of features. The top of the help files says that this CLI
-program &quot;output[s] messages from a topic.&quot; As we scan the positional arguments we see one
+program "output[s] messages from a topic." As we scan the positional arguments we see one
 required argument, a topic name, and an optional message type. We know the
 message type is optional because it has square brackets (<code>[]</code>) around it. Let's
 give the simple case a whirl before we address some of the optional
@@ -601,8 +603,8 @@ closely you can see that they are changing, and doing so in relation to the
 movement of the turtle. Going back to our car example you can see how this would
 be useful for understanding the instantaneous velocity of each of our wheels.</p>
 <p>Now that we have the basics down let's dig into a few of the optional
-arguments. We see a variety of commands that start with <code>--qos</code>. &quot;QOS&quot; here
-means &quot;quality of service&quot; and it is a really cool feature that is only in
+arguments. We see a variety of commands that start with <code>--qos</code>. "QOS" here
+means "quality of service" and it is a really cool feature that is only in
 ROS 2. Without getting too technical, QOS is a way of asking for a certain level
 of networking robustness. A ROS system can operate over a network, and just like
 streaming video or video games, packets can get dropped or not get to their
@@ -610,7 +612,7 @@ destination. The OS settings help you control which packets are the most
 important and should get the highest priority.</p>
 <p>Most of the other commands deal with changing the output format of this CLI
 program, but there is one in particular that is super handy, and it is also new
-in ROS 2. The <code>--csv</code> flag stands for &quot;comma separated values&quot; and it a very
+in ROS 2. The <code>--csv</code> flag stands for "comma separated values" and it a very
 simple way of defining a spreadsheet. What this argument does is make the topic
 echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file, saving the data for later
@@ -762,7 +764,7 @@ positional arguments:
   topic_name            Name of the ROS topic to publish to (e.g. '/chatter')
   message_type          Type of the ROS message (e.g. 'std_msgs/String')
   values                Values to fill the message with in YAML format (e.g.
-                        &quot;data: Hello World&quot;), otherwise the message will be
+                        "data: Hello World"), otherwise the message will be
                         published with default values
 
 optional arguments:
@@ -865,7 +867,7 @@ is running on our system:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 node list
 /turtlesim
 </code></pre>
-<p>We have a single node running called &quot;turtlesim&quot;. <code>node info</code> works in a way
+<p>We have a single node running called "turtlesim". <code>node info</code> works in a way
 very similar to <code>topic info</code> except that it lists information about the nodes we
 give it. Let's call it with our single ROS Node <code>/turtlesim</code> as its
 argument:</p>
@@ -901,7 +903,7 @@ argument:</p>
 </code></pre>
 <p>Wow, that's a lot of information, some of which looks familiar. We can see all
 the topics that the node subscribes to, as well as all the nodes it publishes
-to. We can also see a number of &quot;action servers&quot; and &quot;service servers&quot;. It is
+to. We can also see a number of "action servers" and "service servers". It is
 worth noting the client and server relationship here. Since ROS may have
 multiple nodes running some nodes may offer services (these are servers), and
 other ROS nodes may call those servers (these are the clients). The clients can
@@ -1003,7 +1005,7 @@ positional arguments:
   service_name    Name of the ROS service to call to (e.g. '/add_two_ints')
   service_type    Type of the ROS service (e.g. 'std_srvs/srv/Empty')
   values          Values to fill the service request with in YAML format (e.g.
-                  &quot;{a: 1, b: 2}&quot;), otherwise the service request will be
+                  "{a: 1, b: 2}"), otherwise the service request will be
                   published with default values
 
 optional arguments:
@@ -1016,13 +1018,13 @@ that we used in the past, but instead of using a message type we need a service
 type. Finally we give it a value in YAML format. A YAML string must be encased
 in single quotes. Let's try calling a service by creating a turtle
 named <code>Larry</code> at a position where all values are zero (use <code>TAB</code> complete).</p>
-<pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{x: 0, y: 0, theta: 0.0, name: 'Larry'}&quot;
+<pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 0, y: 0, theta: 0.0, name: 'Larry'}"
 requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, name='Larry')
 
 response:
 turtlesim.srv.Spawn_Response(name='Larry')
 </code></pre>
-<p>If everything is working correctly you should now have a turtle named &quot;Larry&quot; in
+<p>If everything is working correctly you should now have a turtle named "Larry" in
 the lower left hand corner of the screen:</p>
 <p><img src="./images/larry.png" alt="Spawning a second turtle" /></p>
 <p>Try exploring the other services offered, or
@@ -1034,8 +1036,8 @@ advantages. Actions have the following advantages:</p>
 <li>Actions have a <code>goal</code>. That is to say you send them a goal, and they attempt
 to complete it.</li>
 <li>Actions can reject goal requests. This prevents them from becoming too busy.</li>
-<li>Actions are asynchronous and can perform tasks &quot;while you wait.&quot;</li>
-<li>Actions will provide you with &quot;updates&quot;  with information about
+<li>Actions are asynchronous and can perform tasks "while you wait."</li>
+<li>Actions will provide you with "updates"  with information about
 their progress while you wait.</li>
 <li>Actions are preemptable, meaning you can cancel them if
 you change your mind.</li>
@@ -1152,7 +1154,7 @@ write to. Another good analogy would be global constants in normal
 software programs. Parameters are best used to configure your robot. For
 example, if you were building an autonomous vehicle and wanted to cap
 the maximum velocity of the vehicle at 100 km/h, you could create a
-parameter called &quot;MAX_SPEED&quot; that is visible to all the nodes.</p>
+parameter called "MAX_SPEED" that is visible to all the nodes.</p>
 <p>Let's take a look at the <code>param</code> command by running <code>ros2 param --help</code>.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param --help
 Various param related sub-commands
@@ -1278,7 +1280,7 @@ optional arguments:
                         destination of the bagfile to create, defaults to a
                         timestamped folder in the current directory
   -s STORAGE, --storage STORAGE
-                        storage identifier to be used, defaults to &quot;sqlite3&quot;
+                        storage identifier to be used, defaults to "sqlite3"
   -f SERIALIZATION_FORMAT, --serialization-format SERIALIZATION_FORMAT
                         rmw serialization format in which the messages are
                         saved, defaults to the rmw currently in use
@@ -1511,17 +1513,17 @@ string name # Optional.  A unique name will be created and returned if this is e
 ---
 string name
 $ ros2 interface proto turtlesim/srv/Spawn
-&quot;x: 0.0
+"x: 0.0
 y: 0.0
 theta: 0.0
 name: ''
-&quot;
-$ ros2 service call /spawn turtlesim/srv/Spawn &quot;{&lt;copy and paste proto here&gt;}&quot;
+"
+$ ros2 service call /spawn turtlesim/srv/Spawn "{&lt;copy and paste proto here&gt;}"
 
 </code></pre>
 <p>You can see from the example above how handy these tools can be. It is worth
 noting that you need to paste the prototype into a set of quotes and curly
-braces for the call to work <code>&quot;{&lt;prototype&gt;}&quot;</code>.</p>
+braces for the call to work <code>"{&lt;prototype&gt;}"</code>.</p>
 <h2 id="ros-2-launch"><a class="header" href="#ros-2-launch">ROS 2 Launch</a></h2>
 <p>The <code>launch</code> command is used to run ROS launch files. Up until this point we've
 been running single ROS programs by hand using the <code>run</code> command, however this
@@ -1683,7 +1685,7 @@ the directory of turtlesim, its maintainer, and its license:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 pkg prefix turtlesim
 /opt/ros/eloquent
 $ ros2 pkg xml turtlesim | grep maintainer
-  &lt;maintainer email=&quot;dthomas@osrfoundation.org&quot;&gt;Dirk Thomas&lt;/maintainer&gt;
+  &lt;maintainer email="dthomas@osrfoundation.org"&gt;Dirk Thomas&lt;/maintainer&gt;
 $ ros2 pkg xml turtlesim | grep license
   &lt;license&gt;BSD&lt;/license&gt;
 kscottz@kscottz-ratnest:~$

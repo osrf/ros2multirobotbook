@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item expanded "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item expanded "><a href="ros2_api.html" class="active"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item "><a href="task_userdefined.html"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -211,7 +213,7 @@ i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
     i += 1
-    print(f'Publishing: &quot;{msg.data}&quot;')
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 </code></pre>
@@ -221,9 +223,9 @@ it <code>talker.py</code>, then feed it to your Python3 interpreter:</p>
 <pre><code class="language-{.sourceCode .bash}">$ python3 talker.py
 </code></pre>
 <p>You should see:</p>
-<pre><code>Publishing: &quot;Hello world: 0&quot;
-Publishing: &quot;Hello world: 1&quot;
-Publishing: &quot;Hello world: 2&quot;
+<pre><code>Publishing: "Hello world: 0"
+Publishing: "Hello world: 1"
+Publishing: "Hello world: 2"
 </code></pre>
 <p>It prints to console, but is the data going anywhere? We can check
 our work using the <code>ros2 topic</code> tool that was introduced earlier. In
@@ -245,7 +247,7 @@ to string messages and prints them to console:</p>
 from std_msgs.msg import String
 
 def cb(msg):
-    print(f'I heard: &quot;{msg.data}&quot;')
+    print(f'I heard: "{msg.data}"')
 
 rclpy.init()
 node = rclpy.create_node('my_subscriber')
@@ -258,9 +260,9 @@ listener in another shell:</p>
 <pre><code class="language-{sourceCode .bash}">$ python3 listener.py
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
-<pre><code>I heard: &quot;Hello world: 35&quot;
-I heard: &quot;Hello world: 36&quot;
-I heard: &quot;Hello world: 37&quot;
+<pre><code>I heard: "Hello world: 35"
+I heard: "Hello world: 36"
+I heard: "Hello world: 37"
 </code></pre>
 <h3 id="digging-into-the-python-code"><a class="header" href="#digging-into-the-python-code">Digging into the Python Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
@@ -300,7 +302,7 @@ setting an analogous maximum queue size for inbound messages. The key
 difference is the <code>cb</code> argument, which refers to this <em>callback</em>
 function that we also defined in the listener:</p>
 <pre><code class="language-{sourceCode .py}">def cb(msg):
-    print(f'I heard: &quot;{msg.data}&quot;')
+    print(f'I heard: "{msg.data}"')
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
 and the received message will be passed in as an argument. In this case
@@ -317,7 +319,7 @@ i = 0
 while rclpy.ok():
     msg.data = f'Hello World: {i}'
     i += 1
-    print(f'Publishing: &quot;{msg.data}&quot;')
+    print(f'Publishing: "{msg.data}"')
     pub.publish(msg)
     sleep(0.5)
 </code></pre>
@@ -329,19 +331,19 @@ it, sleeping briefly between iterations.</p>
 <p>Here is a complete C++ program that publishes string messages:</p>
 <pre><code class="language-{sourceCode .cpp}">#include &lt;unistd.h&gt;
 #include &lt;iostream&gt;
-#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;minimal_publisher&quot;);
-  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+  auto node = rclcpp::Node::make_shared("minimal_publisher");
+  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;("chatter", 10);
   std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
-    message.data = &quot;Hello world: &quot; + std::to_string(i++);
-    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    message.data = "Hello world: " + std::to_string(i++);
+    std::cout &lt;&lt; "Publishing: " &lt;&lt; message.data &lt;&lt; std::endl;
     pub-&gt;publish(message);
     usleep(500000);
   }
@@ -372,9 +374,9 @@ $ make
 <pre><code class="language-{sourceCode .bash}">$ ./talker
 </code></pre>
 <p>You should see:</p>
-<pre><code>Publishing: &quot;Hello world: 0&quot;
-Publishing: &quot;Hello world: 1&quot;
-Publishing: &quot;Hello world: 2&quot;
+<pre><code>Publishing: "Hello world: 0"
+Publishing: "Hello world: 1"
+Publishing: "Hello world: 2"
 </code></pre>
 <p>Keep the talker running and another shell try <code>ros2 topic</code> to listen
 in:</p>
@@ -391,19 +393,19 @@ data: 'Hello world: 15'
 <p>Now we can write our own listener to use in place of <code>ros2 topic</code>. Here
 is a complete C++ program that subscribes to string messages and prints
 them to console:</p>
-<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
 void cb(const std_msgs::msg::String::SharedPtr msg)
 {
-  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+  std::cout &lt;&lt; "I heard: " &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;my_subscriber&quot;);
-  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+  auto node = rclcpp::Node::make_shared("my_subscriber");
+  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;("chatter", 10, cb);
   rclcpp::spin(node);
   return 0;
 }
@@ -424,15 +426,15 @@ still running in one shell, start up your listener in another shell:</p>
 <pre><code class="language-{sourceCode .bash}">$ ./listener
 </code></pre>
 <p>You should see (again, numbers will vary depending on timing):</p>
-<pre><code>I heard: &quot;Hello world: 35&quot;
-I heard: &quot;Hello world: 36&quot;
-I heard: &quot;Hello world: 37&quot;
+<pre><code>I heard: "Hello world: 35"
+I heard: "Hello world: 36"
+I heard: "Hello world: 37"
 </code></pre>
 <h3 id="digging-into-the-c-code"><a class="header" href="#digging-into-the-c-code">Digging into the C++ Code</a></h3>
 <p>Now that we know these programs work, we can dig into their code. Both
 programs start with the same preamble:</p>
-<pre><code class="language-{sourceCode .cpp}">#include &quot;rclcpp/rclcpp.hpp&quot;
-#include &quot;std_msgs/msg/string.hpp&quot;
+<pre><code class="language-{sourceCode .cpp}">#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 </code></pre>
 <p>We always need to include the <code>rclcpp</code> client library, which gives us
 much of what we need to write ROS applications in C++. But we also need to
@@ -440,16 +442,16 @@ specifically import the ROS message type(s) that we will use. In this
 case we are using the simple <code>std_msgs/String</code> message, which contains a
 single field called <code>data</code>, of type <code>string</code>. If we wanted to use the
 <code>sensor_msgs/Image</code> message, which represents camera images, then we
-would <code>#include &quot;sensor_msgs/msg/image.hpp&quot;</code>.</p>
+would <code>#include "sensor_msgs/msg/image.hpp"</code>.</p>
 <p>After the imports, both programs perform common initialization:</p>
 <pre><code class="language-{sourceCode .cpp}">  rclcpp::init(argc, argv);
-  auto node = rclcpp::Node::make_shared(&quot;my_node_name&quot;);
+  auto node = rclcpp::Node::make_shared("my_node_name");
 </code></pre>
 <p>We initialize the <code>rclcpp</code> library and then call into it to create a
 <code>Node</code> object, giving it a name. Subsequently we will operate on that
 <code>Node</code> object.</p>
 <p>In the talker, we use the <code>Node</code> object to create a <code>Publisher</code> object:</p>
-<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10);
+<pre><code class="language-{sourceCode .cpp}">  auto pub = node-&gt;create_publisher&lt;std_msgs::msg::String&gt;("chatter", 10);
 </code></pre>
 <p>We declare via template the type of data we will publish (<code>std_msgs/String</code>), the
 name of the topic on which we will publish (<code>chatter</code>), and the maximum
@@ -458,7 +460,7 @@ argument comes into play when we are publishing faster than subscribers
 are consuming the data.</p>
 <p>The equivalent step in the listener is to create a <code>Subscription</code>
 object:</p>
-<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;(&quot;chatter&quot;, 10, cb);
+<pre><code class="language-{sourceCode .cpp}">  auto sub = node-&gt;create_subscription&lt;std_msgs::msg::String&gt;("chatter", 10, cb);
 </code></pre>
 <p>The type (<code>String</code>) and topic name (<code>chatter</code>) arguments have the same meaning
 as for the <code>create_publisher()</code> call, and the numerical argument (10) is
@@ -467,7 +469,7 @@ difference is the <code>cb</code> argument, which refers to this <em>callback</e
 function that we also defined in the listener:</p>
 <pre><code class="language-{sourceCode .cpp}">void cb(const std_msgs::msg::String::SharedPtr msg)
 {
-  std::cout &lt;&lt; &quot;I heard: &quot; &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
+  std::cout &lt;&lt; "I heard: " &lt;&lt; msg-&gt;data &lt;&lt; std::endl;
 }
 </code></pre>
 <p>That function will be called whenever the listener receives a message,
@@ -483,8 +485,8 @@ arrive (and more generally for events to occur) and invoke our callback.</p>
 <pre><code class="language-{sourceCode .cpp}">  std_msgs::msg::String message;
   auto i = 0;
   while (rclcpp::ok()) {
-    message.data = &quot;Hello world: &quot; + std::to_string(i++);
-    std::cout &lt;&lt; &quot;Publishing: &quot; &lt;&lt; message.data &lt;&lt; std::endl;
+    message.data = "Hello world: " + std::to_string(i++);
+    std::cout &lt;&lt; "Publishing: " &lt;&lt; message.data &lt;&lt; std::endl;
     pub-&gt;publish(message);
     usleep(500000);
   }

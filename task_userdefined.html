@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item "><a href="demos.html"><strong aria-hidden="true">1.2.</strong> Demos</a></li></ol></li><li class="chapter-item "><a href="ros2.html"><strong aria-hidden="true">2.</strong> ROS 2</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ros2_tools_resources.html"><strong aria-hidden="true">2.1.</strong> ROS Resources</a></li><li class="chapter-item "><a href="ros2_design_patterns.html"><strong aria-hidden="true">2.2.</strong> ROS Concepts and Design Patterns</a></li><li class="chapter-item "><a href="ros2_cli.html"><strong aria-hidden="true">2.3.</strong> The ROS Command Line Interface</a></li><li class="chapter-item "><a href="ros2_api.html"><strong aria-hidden="true">2.4.</strong> The ROS API</a></li></ol></li><li class="chapter-item "><a href="traffic-editor.html"><strong aria-hidden="true">3.</strong> Traffic Editor</a></li><li class="chapter-item "><a href="simulation.html"><strong aria-hidden="true">4.</strong> Simulation</a></li><li class="chapter-item "><a href="rmf-core.html"><strong aria-hidden="true">5.</strong> RMF Core Overview</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="rmf-core_faq.html"><strong aria-hidden="true">5.1.</strong> Frequently Asked Questions</a></li></ol></li><li class="chapter-item expanded "><a href="task.html"><strong aria-hidden="true">6.</strong> Tasks in RMF</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="task_planner.html"><strong aria-hidden="true">6.1.</strong> RMF Task Allocation Planner</a></li><li class="chapter-item "><a href="task_types.html"><strong aria-hidden="true">6.2.</strong> Currently supported Tasks</a></li><li class="chapter-item expanded "><a href="task_userdefined.html" class="active"><strong aria-hidden="true">6.3.</strong> User-defined Tasks</a></li><li class="chapter-item "><a href="task_new.html"><strong aria-hidden="true">6.4.</strong> Supporting a new Task</a></li></ol></li><li class="chapter-item "><a href="soss.html"><strong aria-hidden="true">7.</strong> SOSS</a></li><li class="chapter-item "><a href="integration.html"><strong aria-hidden="true">8.</strong> Integration</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_nav-maps.html"><strong aria-hidden="true">8.1.</strong> Navigation Maps</a></li><li class="chapter-item "><a href="integration_fleets.html"><strong aria-hidden="true">8.2.</strong> Mobile Robot Fleets</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="integration_fleets_adapter_tutorial.html"><strong aria-hidden="true">8.2.1.</strong> Fleet Adapter Tutorial</a></li><li class="chapter-item "><a href="integration_fleets_action_tutorial.html"><strong aria-hidden="true">8.2.2.</strong> PerformAction Tutorial</a></li></ol></li><li class="chapter-item "><a href="integration_free-fleet.html"><strong aria-hidden="true">8.3.</strong> Free Fleet</a></li><li class="chapter-item "><a href="integration_read-only.html"><strong aria-hidden="true">8.4.</strong> Read-Only Fleets</a></li><li class="chapter-item "><a href="integration_doors.html"><strong aria-hidden="true">8.5.</strong> Doors</a></li><li class="chapter-item "><a href="integration_lifts.html"><strong aria-hidden="true">8.6.</strong> Lifts (Elevators)</a></li><li class="chapter-item "><a href="integration_workcells.html"><strong aria-hidden="true">8.7.</strong> Workcells</a></li></ol></li><li class="chapter-item "><a href="rmf-web.html"><strong aria-hidden="true">9.</strong> RMF Web</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="ui.html"><strong aria-hidden="true">9.1.</strong> User Interfaces</a></li></ol></li><li class="chapter-item "><a href="security.html"><strong aria-hidden="true">10.</strong> Security</a></li><li class="chapter-item "><a href="roadmap.html"><strong aria-hidden="true">11.</strong> Roadmap</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -192,7 +194,7 @@
 The phases defined in <code>rmf_task_sequence</code> are in turn a collection of events which also have components to model the end state and command the robot during the event. Presently the events defined <a href="https://github.com/open-rmf/rmf_task/tree/main/rmf_task_sequence/include/rmf_task_sequence/events">here</a> are supported.
 Users can then construct arbitrary definitions of tasks by stringing together a sequence of such phases/events. RMF is capable of planning and executing such tasks.</p>
 <p><a href="https://github.com/open-rmf/rmf_ros2/blob/main/rmf_fleet_adapter/schemas/event_description__perform_action.json"><code>perform_action</code></a> is a sequence based event which supports performing custom actions.
-The customizability of the behavior to <code>perform_action</code> is limited so that users who are implementing custom logic don't need to worry about how to interact with the traffic system, or open doors, or use lifts. This also minimizes the risk of the system integrator introducing an error that messes up the traffic system or any other resource-sharing systems. When <code>perform_action</code> is running, the robot becomes a &quot;read-only&quot; traffic agent, so other robots will simply avoid it</p>
+The customizability of the behavior to <code>perform_action</code> is limited so that users who are implementing custom logic don't need to worry about how to interact with the traffic system, or open doors, or use lifts. This also minimizes the risk of the system integrator introducing an error that messes up the traffic system or any other resource-sharing systems. When <code>perform_action</code> is running, the robot becomes a "read-only" traffic agent, so other robots will simply avoid it</p>
 <p>Users will be working on the <code>rmf_fleet_adapter</code> layer. In this layer the API is restricted to use only <code>rmf_task_sequence</code> to perform tasks. Only certain events are supported, their description can be found <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>.</p>
 <p>The <code>rmf_fleet_adapter</code> layer acts as an API that users can use. It supports customised behaviour on only <code>perform_action</code> in the already existing events mentioned <a href="https://github.com/open-rmf/rmf_ros2/tree/main/rmf_fleet_adapter/schemas">here</a>.
 Users can only add custom tasks in <code>perform_action</code>. RMF passes the command to the platform-specific end of the fleet adapter integration and formally releases control of the robot until the action is finished.
@@ -203,7 +205,7 @@ This consists of two parts: the first one is the <code>category</code> of the ac
 </ol>
 <p>Here is an example:</p>
 <pre><code class="language-yml">rmf_fleet:
-  name: &quot;ecobot40&quot;
+  name: "ecobot40"
   limits:
     linear: [1.2, 1.5] # velocity, acceleration
     angular: [0.6, 0.6]
@@ -231,8 +233,8 @@ This consists of two parts: the first one is the <code>category</code> of the ac
     loop: True
     delivery: False
     clean: True
-    finishing_request: &quot;park&quot;
-    action_categories: [&quot;clean&quot;, &quot;manual_control&quot;]
+    finishing_request: "park"
+    action_categories: ["clean", "manual_control"]
 </code></pre>
 <pre><code class="language-python">def _consider(description: dict):
         confirm = adpt.fleet_update_handle.Confirmation()
@@ -241,12 +243,12 @@ This consists of two parts: the first one is the <code>category</code> of the ac
         # .json file via the rmf-web dashboard. Thus the short term solution
         # is to add the fleet_name info into action description. NOTE
         # only matching fleet_name action will get accepted
-        if (description[&quot;category&quot;] == &quot;manual_control&quot; and
-            description[&quot;description&quot;][&quot;fleet_name&quot;] != fleet_name):
+        if (description["category"] == "manual_control" and
+            description["description"]["fleet_name"] != fleet_name):
                 return confirm
 
         node.get_logger().warn(
-            f&quot;Accepting action: {description} &quot;)
+            f"Accepting action: {description} ")
         confirm.accept()
         return confirm
 fleet_config = config_yaml['rmf_fleet']
@@ -257,9 +259,9 @@ if 'action_categories' in task_capabilities_config:
 
 		node.get_logger().info(
 
-			f&quot;Fleet [{fleet_name}] is configured&quot;
+			f"Fleet [{fleet_name}] is configured"
 
-			f&quot; to perform action of category [{cat}]&quot;)
+			f" to perform action of category [{cat}]")
 
 		fleet_handle.add_performable_action(cat, _consider)
 </code></pre>
@@ -281,32 +283,32 @@ if 'action_categories' in task_capabilities_config:
                         adpt.robot_update_handle.ActionExecution):
         with self._lock:
             # only accept clean and manual_control
-            assert(category in [&quot;clean&quot;, &quot;manual_control&quot;])
+            assert(category in ["clean", "manual_control"])
 
             self.action_category = category
-            if (category == &quot;clean&quot;):
+            if (category == "clean"):
                 attempts = 0
                 self.api.set_cleaning_mode(self.config['active_cleaning_config'])
                 while True:
-                    self.node.get_logger().info(f&quot;Requesting robot {self.name} to clean {description}&quot;)
-                    if self.api.start_clean(description[&quot;clean_task_name&quot;], self.robot_map_name):
+                    self.node.get_logger().info(f"Requesting robot {self.name} to clean {description}")
+                    if self.api.start_clean(description["clean_task_name"], self.robot_map_name):
                         self.check_task_completion = self.api.task_completed # will check api
                         break
                     if (attempts &gt; 3):
                         self.node.get_logger().warn(
-                            f&quot;Failed to initiate cleaning action for robot [{self.name}]&quot;)
+                            f"Failed to initiate cleaning action for robot [{self.name}]")
                         # TODO: issue error ticket
                         self.in_error = True # TODO: toggle error back
-                        execution.error(&quot;Failed to initiate cleaning action for robot {self.name}&quot;)
+                        execution.error("Failed to initiate cleaning action for robot {self.name}")
                         execution.finished()
                         return
                     attempts+=1
                     time.sleep(1.0)
-            elif (category == &quot;manual_control&quot;):
+            elif (category == "manual_control"):
                 self.check_task_completion = lambda:False  # user can only cancel the manual_control
 
             # start Perform Action
-            self.node.get_logger().warn(f&quot;Robot [{self.name}] starts [{category}] action&quot;)
+            self.node.get_logger().warn(f"Robot [{self.name}] starts [{category}] action")
             self.start_action_time = self.adapter.now()
             self.on_waypoint = None
             self.on_lane = None
