@@ -1,6 +1,6 @@
-# Free Fleet
+# Free Fleet Adapter
 
-[Free fleet](https://github.com/open-rmf/free_fleet) allows users to integrate standalone mobile robots to form a heterogeneous fleet, to work with Open-RMF using the `free_fleet_adapter`.
+The free fleet adapter formerly known as Free Fleet, allows users to integrate standalone mobile robots to form a heterogeneous fleet, to work with Open-RMF.
 
 The `free_fleet_adapter` implements the Easy Full Control fleet adapter API, and communicates with individual robots over Zenoh bridges. Out-of-the-box, it supports robots running [ROS 1 Navigation](https://wiki.ros.org/navigation) as well as [ROS 2 Navigation2](https://github.com/ros-navigation/navigation2).
 
