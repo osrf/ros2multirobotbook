@@ -73,9 +73,9 @@ Check out our [integration test setup](https://github.com/open-rmf/free_fleet/bl
 ## ROS 1 Navigation Stack
 
 <div class='warning'>
-The `zenoh-bridge-ros1` is an experimental bridge, and is actively being iterated on. Especially with ROS 1 going EOL in May 2025 (see https://wiki.ros.org/Distributions), users are encouraged to migrate to ROS 2.
+The `zenoh-bridge-ros1` is an experimental bridge, and is actively being iterated on. Especially with <a href="https://wiki.ros.org/Distributions">ROS 1 going EOL in May 2025</a>, users are encouraged to migrate to ROS 2.
 
-The ROS 1 Navigation integration has only been tested in simulation and in ROS 1 Noetic, and is currently still using a fork of [zenoh-plugin-ros1](https://github.com/aaronchongth/zenoh-plugin-ros1/tree/namespace), to support bridge namespacing. This will be updated after contributions to upstream has been made.
+The ROS 1 Navigation integration has only been tested in simulation and in ROS 1 Noetic, and is currently still using a fork of <a href="https://github.com/aaronchongth/zenoh-plugin-ros1/tree/namespace">zenoh-plugin-ros1</a>, to support bridge namespacing. This will be updated after contributions to upstream has been made.
 </div>
 
 For ROS 1 Navigation, the integration is enabled by [zenoh-bridge-ros1](https://github.com/eclipse-zenoh/zenoh-plugin-ros1). Similarly, with an appropriately configured bridge running on the robot, the `free_fleet_adapter` is able to communicate and control the robot, via the `move_base` topics.

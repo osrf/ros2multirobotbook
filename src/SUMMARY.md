@@ -24,6 +24,7 @@
     - [Fleet Adapter Tutorial](./integration_fleets_adapter_tutorial.md)
     - [PerformAction Tutorial](./integration_fleets_action_tutorial.md)
     - [Free Fleet Adapter](./integration_free_fleet_adapter.md)
+      - [Legacy - free fleet](./integration_free-fleet.md)
   - [Read-Only Fleets](./integration_read-only.md)
   - [Doors](./integration_doors.md)
   - [Lifts (Elevators)](./integration_lifts.md)
