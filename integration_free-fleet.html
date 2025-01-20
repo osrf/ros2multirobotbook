@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Free Fleet - Programming Multiple Robots with ROS 2</title>
+        <title>Legacy - free fleet - Programming Multiple Robots with ROS 2</title>
 
 
         <!-- Custom HTML head -->
@@ -156,7 +156,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="free-fleet"><a class="header" href="#free-fleet">Free Fleet</a></h1>
+                        <h1 id="legacy---free-fleet"><a class="header" href="#legacy---free-fleet">Legacy - Free Fleet</a></h1>
+<div class='warning'>
+This legacy implementation is no longer being supported, check out the most up-to-date implementation <a href="./integration_free_fleet_adapter.html">here.</a>
+</div>
 <p>In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system <code>free_fleet</code> could be used.</p>
 <p>The <code>free_fleet</code> system is split into a client and a server. The client is to be run on each of these standalone mobile robots alongside their navigation software and is intended to have direct control over the mobile robot while at the same time monitor its status and report back to the server. The client's base implementation is designed to allow interaction with different configurations of mobile robots yet report to the same server. This way, users are able to use <code>free_fleet</code> to manage a heterogeneous fleet of robots, each using different distributions of ROS, versions of ROS, navigation software, or onboard communication protocols.</p>
 <p>The server is run on a central computer and consolidates the incoming status updates from each client to be either visualized using a UI, or relayed upstream to RMF. The server also relays commands from the user via the UI or from RMF down to the clients to be executed. Each server can work with multiple clients at a time, hence it serves the role of a fleet management system. The server can be implemented and used as its own fleet management system or work with larger systems like RMF, bridging the gap between each mobile robot's API and RMF's API and interface.</p>
@@ -262,7 +265,7 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="integration_fleets_action_tutorial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="integration_free_fleet_adapter.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -276,7 +279,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="integration_fleets_action_tutorial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="integration_free_fleet_adapter.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
