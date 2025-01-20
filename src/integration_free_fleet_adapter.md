@@ -73,7 +73,7 @@ Check out our [integration test setup](https://github.com/open-rmf/free_fleet/bl
 ## ROS 1 Navigation Stack
 
 <div class='warning'>
-The `zenoh-bridge-ros1` is an experimental bridge, and is actively being iterated on. Especially with <a href="https://wiki.ros.org/Distributions">ROS 1 going EOL in May 2025</a>, users are encouraged to migrate to ROS 2.
+The zenoh-bridge-ros1 is an experimental bridge, and is actively being iterated on. Especially with <a href="https://wiki.ros.org/Distributions">ROS 1 going EOL in May 2025</a>, users are encouraged to migrate to ROS 2.
 
 The ROS 1 Navigation integration has only been tested in simulation and in ROS 1 Noetic, and is currently still using a fork of <a href="https://github.com/aaronchongth/zenoh-plugin-ros1/tree/namespace">zenoh-plugin-ros1</a>, to support bridge namespacing. This will be updated after contributions to upstream has been made.
 </div>
