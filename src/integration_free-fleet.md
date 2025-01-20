@@ -1,4 +1,8 @@
-# Free Fleet
+# Legacy - Free Fleet
+
+<div class='warning'>
+This legacy implementation is no longer being supported, check out the most up-to-date implementation <a href="./integration_free_fleet_adapter.md">here.</a>
+</div>
 
 In the event that the user wishes to integrate a standalone mobile robot which doesn't come with its own fleet management system, the open source fleet management system `free_fleet` could be used.
 
