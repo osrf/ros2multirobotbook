@@ -4413,7 +4413,185 @@ This chapter will discuss how to develop an RMF Adapter for different types of h
 <p>Note that if the map data is provided in textual form, screenshots are helpful for "sanity-checking" the coordinate system and alignment with building features.</p>
 <h2 id="traffic-editor-2"><a class="header" href="#traffic-editor-2">Traffic Editor</a></h2>
 <p>If the robot route map does not exist yet, then the <a href="./traffic-editor.html">traffic editor tool</a> can be used to help create one. The traffic editor tool will also export the route map in an RMF-friendly format.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_nav-maps.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="mobile-robot-fleet-integration"><a class="header" href="#mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_nav-maps.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="navigation-graph-strategies"><a class="header" href="#navigation-graph-strategies">Navigation Graph Strategies</a></h1>
+<p>This section elaborates on a few feature-driven strategies that would help optimize traffic flow. Many of them can be set up when creating your navigation graph, which is necessary for RMF integration with mobile robot fleets. The instructions and screenshots are specific to the <a href="https://github.com/open-rmf/rmf_traffic_editor">RMF Traffic Editor</a> tool. If this is your first time setting up a navigation graph, the <a href="./traffic-editor.html">Traffic Editor</a> section in this Book goes into detail how to use the RMF Traffic Editor to create one. Do note that this is a legacy tool, and that there is an experimental <a href="https://github.com/open-rmf/rmf_site">RMF Site Editor</a> under rapid development.</p>
+<h2 id="important-considerations"><a class="header" href="#important-considerations">Important Considerations</a></h2>
+<p>Before setting up your navigation graph, consider the following for both physical and simulation integrations:</p>
+<ul>
+<li>Determine where your robots will be allowed to travel - visualize waypoints and lanes for these areas</li>
+<li>Plan for charger location(s) - at least one charger is required for each fleet</li>
+<li>Ensure sufficient space for your mobile robot to move around, leaving some room between waypoints and lanes. The amount of space required increases with the number of robots that will be integrated.</li>
+<li>Each area should be spacious enough to accommodate the maximum number of robots in your site. This includes adding the appropriate number of waypoints to handle these robots.</li>
+<li>Allocate space for holding points where possible to facilitate deconfliction</li>
+</ul>
+<h2 id="unidirectional-lanes"><a class="header" href="#unidirectional-lanes">Unidirectional Lanes</a></h2>
+<p>Lanes in RMF can be unidirectional or bidirectional. When a lane is unidirectional, robots can only travel across the lane from a specific start waypoint to an end waypoint, essentially restricting travel to a single direction. This can come in handy for tight spaces, lift entry/exits, and other scenarios where one-way traffic is needed. For example, when multiple robots are moving within an area where space may be constrained, unidirectional lanes can be used to create a traffic flow, reducing the risk of head-on conflicts between robots.</p>
+<h3 id="example-1-multiple-robots-visiting-the-same-waypoint"><a class="header" href="#example-1-multiple-robots-visiting-the-same-waypoint">Example 1: Multiple robots visiting the same waypoint</a></h3>
+<p>This example illustrates multiple robots attempting to visit the same waypoint, <code>lot_A_pickup</code>, at the same time. The unidirectional lanes create a loop system that allows robots to access the waypoint one by one in a single direction.</p>
+<p><img src="./images/graph_strategies/unidirectional_lanes.png" alt="image" /></p>
+<h3 id="example-2-lift-entry-and-exit"><a class="header" href="#example-2-lift-entry-and-exit">Example 2: Lift entry and exit</a></h3>
+<p>Similarly, users are encouraged to make lift entry and exit lanes unidirectional, so as to facilitate robot movement in cases where a <code>robot_A</code> is exiting the lift, and a <code>robot_B</code> waiting to enter the lift. By creating separate lanes for each event and restricting their direction flow, the robots will less likely come into a deadlock and hold up an important building infrastructure that is the lift.</p>
+<p><img src="./images/graph_strategies/unidirectional_lanes_lift.png" alt="image" /></p>
+<p>You will notice that in both examples there are several intermediate waypoints allotted. This is because these examples are designed to accommodate a site with five robots, and assigning more waypoints than the maximum number of robots help to ensure free space for each robot integrated.</p>
+<h2 id="mutex-groups"><a class="header" href="#mutex-groups">Mutex Groups</a></h2>
+<p>The concept of mutex groups was introduced to provide users with extra control over traffic flow between robots. Waypoints and lanes can be assigned to a mutex group. <strong>At any point of time, only one robot is allowed to occupy any waypoint or lane belonging to the same mutex group.</strong> By implementing them stragetically in navigation graphs, users can further enhance RMF's deconfliction capabilities to prevent deadlocks and clutter in a given space.</p>
+<ul>
+<li>
+<p>Mutex groups can be assigned when designing your navigation graph. In the traffic editor, select an existing waypoint or lane, and add the <code>mutex</code> property to it.</p>
+<p><img src="./images/graph_strategies/mutex_property.png" alt="image" /></p>
+</li>
+<li>
+<p>Mutex groups are differentiated by name. To assign a group of waypoints and lanes to the same mutex group, you simply have to provide a unique name when adding the <code>mutex</code> property.</p>
+</li>
+<li>
+<p>You will not be able to assign multiple mutex groups to a single waypoint or lane.</p>
+</li>
+<li>
+<p>Mutex groups are obtained on a first-come-first-served basis.</p>
+</li>
+</ul>
+<h3 id="example-storeroom-entry-with-queue"><a class="header" href="#example-storeroom-entry-with-queue">Example: Storeroom entry with queue</a></h3>
+<p>Imagine you have a storeroom with limited space, which only allows for one robot to enter at a time. With multiple robots tasked to enter the same room, you'd like them to queue up outside when the storeroom is occupied. You may design your navigation graph like this:</p>
+<p><img src="./images/graph_strategies/mutex_storeroom.png" alt="image" /></p>
+<p>This example combines the use of unidirectional lanes (to set up a queueing system) and mutex groups (to ensure vacant waypoints for storeroom exits).</p>
+<ul>
+<li>There are two mutex groups in this example: <code>storeroom_mutex</code> highlighted in yellow, and <code>storeroom_queue_1_mutex</code> highlighted in red.</li>
+<li>Arrows indicate unidirectional lanes.</li>
+<li>Notice that both waypoints <code>storeroom</code> and <code>storeroom_queue_0</code>, as well as the lane connecting them, belong to the <code>storeroom_mutex</code> (in yellow). This ensures that when there is a <code>robot_A</code> inside the storeroom, no other robots will be allowed on the waypoint <code>storeroom_queue_0</code> despite it being unoccupied. This way, <code>robot_A</code> can smoothly exit the storeroom without facing a deadlock with an incoming robot.</li>
+<li>When you assign a mutex group to a waypoint, you are also encouraged to assign the same mutex group to the lane(s) it uses to leave the waypoint. This is especially important for tight spaces where you'd need to ensure that a waypoint is completely vacant before the next robot starts moving in.
+<ul>
+<li>Taking <code>storeroom_queue_1_mutex</code> (in red) as an example, if there is a <code>robot_B</code> sitting on the waypoint <code>storeroom_queue_1</code> and is moving towards <code>storeroom_queue_0</code>, the mutex in red would still be held while <code>robot_B</code> is travelling on the departure lane.</li>
+<li>Other robots will not be able to begin travelling towards <code>storeroom_queue_1</code> while <code>robot_B</code> is moving away.</li>
+<li>This mutex will only be released when <code>robot_B</code> has arrived at <code>storeroom_queue_0</code>, making space for the next robot to move to <code>storeroom_queue_1</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="lane-closure"><a class="header" href="#lane-closure">Lane Closure</a></h2>
+<p>RMF supports lane closure at runtime. When a <code>LaneRequest</code> is published, RMF will update the navigation graph with any lane openings or closures. No robots will be commanded to travel on a closed lane until it is marked as open again.</p>
+<p>While this feature is primarily useful for site maintenance and other situations where an area should be temporarily off-limits to robots, it also allows for custom conditional lane traversal.</p>
+<h3 id="example-1-maximum-room-occupancy"><a class="header" href="#example-1-maximum-room-occupancy">Example 1: Maximum room occupancy</a></h3>
+<p>Lane closures can be useful to optimize queue systems. Consider the above example where robots are queueing to enter a storeroom.</p>
+<p><img src="./images/graph_strategies/lane_closure_storeroom.png" alt="image" /></p>
+<p>Suppose a <code>robot_A</code> is currently inside the storeroom, and <code>robot_B</code>, <code>robot_C</code>, <code>robot_D</code> and <code>robot_E</code> are all tasked to enter the same room. If we do not define a queueing system for our robots, it is possible for them to come in from any origin and clutter the storeroom entrance like this:</p>
+<p><img src="./images/graph_strategies/lane_closure_clutter.png" alt="image" /></p>
+<p>This is undesirable as there is no queue or sequence formed for waiting robots to enter the storeroom systematically. Furthermore, there is a possibility of waiting robots to block the storeroom exit, e.g. <code>robot_E</code>, creating a deadlock in this area.</p>
+<p>At the same time, we also wouldn't want to remove the bridging lanes entirely, as it would force our robots to take unnecessary and possibly long detours in order to enter the queue, as illustrated below.</p>
+<p><img src="./images/graph_strategies/lane_closure_missing_bridging_lanes.png" alt="image" /></p>
+<p>In this case, we can implement conditional lane closures on these bridging lanes.</p>
+<ul>
+<li>
+<p>When <code>robot_B</code> arrives outside the storeroom with an empty queue, it can move directly to <code>storeroom_queue_1</code> and wait there.</p>
+<p><img src="./images/graph_strategies/lane_closure_robot_B_direct.png" alt="image" /></p>
+</li>
+<li>
+<p>In your fleet adapter or a separate ROS 2 node, you can add a function to detect waypoint occupancy. If the waypoint <code>storeroom_queue_1</code> is occupied, publish a <code>LaneRequest</code> to close the waypoint's bridging lane. Any other robots that come along will be restricted to join the queue on the next waypoint.</p>
+<p><img src="./images/graph_strategies/lane_closure_close_1_lane.png" alt="image" /></p>
+</li>
+<li>
+<p>As more robots join the queue, we close off more bridging lanes if they lead to a queue waypoint that is already occupied.</p>
+<p><img src="./images/graph_strategies/lane_closure_close_3_lanes.png" alt="image" /></p>
+</li>
+</ul>
+<h3 id="example-2-taking-alternate-lifts"><a class="header" href="#example-2-taking-alternate-lifts">Example 2: Taking alternate lifts</a></h3>
+<p>Lane closures are also helpful when you need to forcefully re-route robots regardless of what RMF determines to be the most optimized path. Consider this example:</p>
+<ul>
+<li>Your site consists of two lifts, <code>lift_A</code> and <code>lift_B</code>, that are far apart from each other.</li>
+<li>You have two robots, <code>robot_A</code> and <code>robot_B</code>, both parked right beside <code>lift_A</code> on Level 1.</li>
+<li>Each robot is allocated a task to travel to Level 2, which is accessible via both <code>lift_A</code> and <code>lift_B</code>.</li>
+<li>When <code>lift_A</code> is in use by <code>robot_A</code>, RMF might command <code>robot_B</code> to queue for the same <code>lift_A</code> because it is calculated to be the most optimized path, since <code>lift_B</code> is considerably far away.</li>
+<li>However, your site is subjected to several external environmental factors, e.g. foot traffic, that makes it suboptimal for robots to queue for an occupied lift.</li>
+<li>In this case, you may opt to implement a conditional lane closure where the entrance lane to <code>lift_A</code> closes as long as there is a robot occupying the lift. This would prompt RMF to re-route <code>robot_B</code> to use <code>lift_B</code> instead.</li>
+</ul>
+<p>The use of lane closures is flexible and extensible to many custom logics. You may consider utilizing them wherever appropriate.</p>
+<h2 id="speed-limits"><a class="header" href="#speed-limits">Speed Limits</a></h2>
+<p>You are able to create priority in the paths taken by fleet robots by assigning speed limits to lanes. The speed limit property is originally designed to dictate robot velocities in specific areas. However, if it is not necessary for you to relay velocity data to your integrated robots, you can use this feature to create "preferred" lanes in your navigation graph instead.</p>
+<p>RMF translates lanes with lower speed limits to higher cost, since theoretically it would take a longer time for a robot to travel across that lane. Hence RMF would usually direct robots to take routes involving lanes with higher or no speed limits if an alternate path exists. By default, lanes do not have any speed limits, indicated with <code>0.0</code> under the speed limit property.</p>
+<p>With this, you may assign low speed limits to lanes that are necessary for certain tasks, but otherwise should be avoided by robots.</p>
+<h3 id="example-task-waypoints-vs-holding-points"><a class="header" href="#example-task-waypoints-vs-holding-points">Example: Task waypoints vs. Holding points</a></h3>
+<p>Holding points (leaf nodes) are extremely useful and important in long, narrow hallways with a single bidirectional lane. They allow robots travelling in opposite directions to give way to one another. However, in certain sites these leaf nodes are not meant to be holding points, but instead are waypoints where tasks are being performed. This means no robots should be allowed on these waypoints unless they are assigned to perform a task there, even during traffic negotiation.</p>
+<p>To prevent robots travelling across long hallways from using task waypoints as holding points, you can assign a low speed limit (e.g. <code>0.001</code>) to lanes connected to these waypoints.</p>
+<p><img src="./images/graph_strategies/speed_limit_property.png" alt="image" /></p>
+<h2 id="combining-strategies"><a class="header" href="#combining-strategies">Combining Strategies</a></h2>
+<p>Combining the use of multiple features and strategies can help us navigate through more complicated scenarios.</p>
+<h3 id="example-maximum-occupancy-in-two-separate-rooms"><a class="header" href="#example-maximum-occupancy-in-two-separate-rooms">Example: Maximum occupancy in two separate rooms</a></h3>
+<p>Consider this example:</p>
+<ul>
+<li>There are two activity rooms, <code>activity_room_A</code> and <code>activity_room_B</code>, each with a maximum occupancy of one robot.</li>
+<li>You would like robots waiting to enter either room to queue up outside, and enter only when their target room becomes vacant.</li>
+</ul>
+<p>A navigation graph design to handle this scenario could look like this:</p>
+<p><img src="./images/graph_strategies/combined_without_annotation.png" alt="image" /></p>
+<p>With detailed illustrations of the mutex groups and unidirectional lanes assigned:</p>
+<p><img src="./images/graph_strategies/combined_with_annotation.png" alt="image" /></p>
+<p>In this navigation graph,</p>
+<ul>
+<li>There are a few mutex groups present:
+<ul>
+<li><code>activity_room_A_mutex</code> in yellow</li>
+<li><code>activity_room_B_mutex</code> in blue</li>
+<li><code>activity_cross_section_mutex</code> in red</li>
+<li><code>activity_entrance_mutex</code> in pink</li>
+</ul>
+</li>
+<li>Arrows represent the direction assigned for unidirectional lanes</li>
+<li>Unidirectional lanes on the right of the diagram form a queue to enter either room</li>
+<li>Four unidirectional lanes intersect one another right outside <code>activity_room_B</code>, forming a cross-section for entrance into/exit from the activity rooms
+<ul>
+<li>Using separate unidirectional lanes for each activity room enables the next robot to enter its target room as long as it is vacant. Otherwise, it would continue to wait outside when any room is occupied, even if its target room is empty.</li>
+</ul>
+</li>
+<li><em>(Not shown in diagram)</em> Lane closure logic is implemented for entrance lanes inside the cross-section area. Details are elaborated in <a href="integration_nav-maps-strategies.html#scenario-3-robot-queueing-for-an-occupied-room">Scenario 3</a> below.</li>
+</ul>
+<p>This setup introduces several different possible scenarios. Let's take a look at some of the more problematic ones and how our graph strategy deals with them.</p>
+<h4 id="scenario-1-two-robots-exiting-activity-rooms-at-the-same-time"><a class="header" href="#scenario-1-two-robots-exiting-activity-rooms-at-the-same-time">Scenario 1: Two robots exiting activity rooms at the same time</a></h4>
+<ul>
+<li>Suppose a <code>robot_A</code> currently occupies <code>activity_room_A</code> and a <code>robot_B</code> occupies <code>activity_room_B</code>. Both robots complete their tasks in the respective rooms and are ready to exit.</li>
+<li><code>robot_A</code> holds the <code>activity_room_A_mutex</code> (in yellow), and <code>robot_B</code> holds <code>activity_room_B_mutex</code> (in blue).</li>
+<li>In order to exit, the robots would need to acquire the <code>activity_cross_section_mutex</code> (in red). Depending on which robot obtains the mutex in red first, they would be allowed to travel on their respective exit lane to leave the area. Additionally, they would also need the obtain the <code>activity_entrance_mutex</code> (in pink), since the exit waypoint belongs to this mutex group.</li>
+<li>The assignment of mutex groups ensures that only one robot is travelling within the cross-section area at any time, preventing any potential crashes or conflicts.</li>
+</ul>
+<h4 id="scenario-2-two-robots-waiting-to-use-cross-section-lanes"><a class="header" href="#scenario-2-two-robots-waiting-to-use-cross-section-lanes">Scenario 2: Two robots waiting to use cross-section lanes</a></h4>
+<ul>
+<li>Suppose a <code>robot_A</code> currently sits on <code>activity_queue_0</code>, ready to enter <code>activity_room_A</code> which is currently empty. Another <code>robot_B</code> is inside <code>activity_room_B</code>, ready to exit.</li>
+<li>Similar to above, the <code>activity_cross_section_mutex</code> (in red) ensures that <code>robot_A</code> and <code>robot_B</code> will not travel on any of the cross-section lanes at the same time.</li>
+</ul>
+<h4 id="scenario-3-robot-queueing-for-an-occupied-room"><a class="header" href="#scenario-3-robot-queueing-for-an-occupied-room">Scenario 3: Robot queueing for an occupied room</a></h4>
+<ul>
+<li>
+<p>Suppose a <code>robot_A</code> currently occupies <code>activity_room_A</code> and a <code>robot_B</code> occupies <code>activity_room_B</code>. Both robots complete their tasks in the respective rooms and are ready to exit.</p>
+</li>
+<li>
+<p>A third <code>robot_C</code> is sitting on <code>activity_queue_0</code>, waiting to enter <code>activity_room_B</code>.</p>
+<p><img src="./images/graph_strategies/combined_scenario_3.png" alt="image" /></p>
+</li>
+<li>
+<p><code>robot_A</code> holds the <code>activity_room_A_mutex</code> (in yellow), and <code>robot_B</code> holds <code>activity_room_B_mutex</code> (in blue).</p>
+</li>
+<li>
+<p>In order for any robot to move along to their next destination, they would need to obtain the <code>activity_cross_section_mutex</code> (in red). From the scenarios above, we know that the red mutex helps to facilitate a turn-by-turn use of the cross-section lanes.</p>
+</li>
+<li>
+<p>However, if <code>robot_C</code> happens to obtain the red mutex <em>first</em>, all three robots would come into a deadlock, since</p>
+<ul>
+<li><code>robot_A</code> and <code>robot_B</code> wouldn't be able to obtain the red mutex until <code>robot_C</code> releases it, but</li>
+<li><code>robot_C</code> wouldn't be able to obtain the blue mutex in order to enter <code>activity_room_B</code>, until <code>robot_B</code> releases it.</li>
+</ul>
+</li>
+<li>
+<p>Here is where lane closures could help. We can close off cross-section entry lanes when the respective activity rooms are occupied. <code>robot_C</code> would not be able to obtain the red mutex nor proceed with its task until <code>robot_B</code> leaves <code>activity_room_B</code>.</p>
+<p><img src="./images/graph_strategies/combined_scenario_3_closed_lane.png" alt="image" /></p>
+</li>
+<li>
+<p>After <code>robot_B</code> has successfully exited the activity room and this area altogether, the entry lane to <code>activity_room_B</code> can be opened up again for use.</p>
+<p><img src="./images/graph_strategies/combined_scenario_3_reopen_lane.png" alt="image" /></p>
+</li>
+</ul>
+<h4 id="other-considerations"><a class="header" href="#other-considerations">Other Considerations</a></h4>
+<blockquote>
+<p>Instead of implementing lane closure, why don't we assign <code>activity_room_B_mutex</code> (in blue) to the entry lane towards <code>activity_room_B</code>, and <code>activity_room_A_mutex</code> (in yellow) to the entry lane towards <code>activity_room_A</code>?</p>
+</blockquote>
+<p>We want the four cross-section lanes to belong to the same mutex group, in order to ensure that only one robot travels across any of these lanes at any point of time. This prevents situations where multiple robots move near or towards each other in a cramped corridor. Since each lane can only be assigned one mutex group, we can leverage on other features, such as lane closures, to ensure that queueing robots don't enter the cross-section if their target room is occupied.</p>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/osrf/ros2multirobotbook/edit/main/src/integration_nav-maps-strategies.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="mobile-robot-fleet-integration"><a class="header" href="#mobile-robot-fleet-integration">Mobile Robot Fleet Integration</a></h1>
 <p>Here we will cover integrating a mobile robot fleet that offers the <strong>Full Control</strong> category of fleet adapter, as <strong>discussed</strong> in the <a href="./rmf-core.html">RMF Core Overview</a> chapter.
 This means we assume the mobile robot fleet manager allows us to specify explicit paths for the robot to follow, and that the path can be interrupted at any time and replaced with a new path.
 Furthermore, each robot's position will be updated live as the robots are moving.</p>
