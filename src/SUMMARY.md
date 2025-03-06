@@ -20,6 +20,7 @@
 - [SOSS](./soss.md)
 - [Integration](./integration.md)
   - [Navigation Maps](./integration_nav-maps.md)
+    - [Graph Strategies](./integration_nav-maps-strategies.md)
   - [Mobile Robot Fleets](./integration_fleets.md)
     - [Fleet Adapter Tutorial](./integration_fleets_adapter_tutorial.md)
     - [PerformAction Tutorial](./integration_fleets_action_tutorial.md)
