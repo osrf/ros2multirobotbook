@@ -39,7 +39,7 @@ So, ROS 2 was built as a parallel set of packages that can be installed alongsid
 At the time of writing, we have reached the 13th and last official ROS 1 release, [Noetic Ninjemys](https://www.openrobotics.org/blog/2020/5/23/noetic-ninjemys-the-last-official-ros-1-release), and the first LTS release of ROS 2, [Foxy Fitzroy](https://www.openrobotics.org/blog/2020/6/5/ros-2-foxy-fitzroy-release).
 
 A large and growing amount of ROS 2 resources can be found on the web.
-A great place to start is on the ROS Index page for [ROS 2](https://index.ros.org/doc/ros2/) and further along in this book in the ROS 2 chapter.
+A great place to start is on the ROS Index page for [ROS 2](https://docs.ros.org/) and further along in this book in the ROS 2 chapter.
 
 Enjoy your journey!
 
