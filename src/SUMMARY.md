@@ -34,3 +34,4 @@
   - [User Interfaces](./ui.md)
 - [Security](./security.md)
 - [Roadmap](./roadmap.md)
+- [How-to Guides](./howto_guides.md)
