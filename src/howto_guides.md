@@ -1,6 +1,6 @@
 # Introduction
 
-How-to Guides provide direct and modular answers to “How-to” questions regarding specific topics or questions you may have in Open-RMF. 
+How-to Guides provide direct and modular answers to “How-to” questions regarding specific topics you may have about Open-RMF. 
 
 They contain step by step instructions you can follow to quickly get started with key aspects of Open-RMF which is otherwise not covered in previous sections.
 
