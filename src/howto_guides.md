@@ -4,5 +4,5 @@ How-to Guides provide direct and modular answers to “How-to” questions regar
 
 They contain step-by-step instructions you can follow to quickly get started with key aspects of Open-RMF that are not covered in previous sections.
 
-If there are any interesting topics you will like to contribute to the wider Open-RMF community, feel free to write up an article and share it here through a Pull Request.
+If there are any interesting topics you will like to **contribute**, **feel free to open a Pull Request [here](https://github.com/osrf/ros2multirobotbook)**.
 
