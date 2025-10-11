@@ -9,6 +9,7 @@
   - [The ROS Command Line Interface](./ros2_cli.md)
   - [The ROS API](./ros2_api.md)
 - [Traffic Editor](./traffic-editor.md)
+- [RMF Site Editor](./rmf-site-editor.md)
 - [Simulation](./simulation.md)
 - [RMF Core Overview](./rmf-core.md)
   - [Frequently Asked Questions](./rmf-core_faq.md)
