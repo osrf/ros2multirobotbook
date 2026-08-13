@@ -1,4 +1,4 @@
-![github pages](https://github.com/codebot/ros2multirobotbook/workflows/github%20pages/badge.svg)
+[![GitHub Pages](https://github.com/osrf/ros2multirobotbook/actions/workflows/github-pages.yml/badge.svg)](https://github.com/osrf/ros2multirobotbook/actions/workflows/github-pages.yml)
 
 # ros2multirobotbook
 

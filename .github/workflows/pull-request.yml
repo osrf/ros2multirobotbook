@@ -1,12 +1,9 @@
-name: Dev Workflow 
+name: Pull Request Build 
 
-on:
-  push:
-    branches:
-      - master
-      
+on:  pull_request
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v2
@@ -19,8 +16,3 @@ jobs:
       - run: cargo install mdbook-open-on-gh
       - run: mdbook build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./book

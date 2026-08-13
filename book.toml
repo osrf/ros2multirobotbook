@@ -1,7 +1,6 @@
 [book]
 authors = ["The Contributors"]
 language = "en"
-multilingual = false
 src = "src"
 title = "Programming Multiple Robots with ROS 2"
 

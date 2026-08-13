@@ -1,6 +1,9 @@
-name: Master Workflow 
+name: GitHub Pages 
 
-on:  pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -16,3 +19,8 @@ jobs:
       - run: cargo install mdbook-open-on-gh
       - run: mdbook build
 
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./book
