@@ -12,24 +12,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="open-in.css">
+        <link rel="stylesheet" href="open-in-4eddc4b6.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex.js";
+            window.path_to_searchindex_js = "searchindex-a2c3121a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="toc-d78fde42.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -54,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div id="body-container">
+    <div id="mdbook-body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -83,12 +82,12 @@
             html.classList.add("js");
         </script>
 
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -103,39 +102,39 @@
             }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
                 <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="mdbook-page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
                         </button>
                     </div>
 
@@ -143,41 +142,41 @@
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
-                            <i id="print-button" class="fa fa-print"></i>
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/osrf/ros2multirobotbook" title="Git repository" aria-label="Git repository">
-                            <i id="git-repository-button" class="fa fa-github"></i>
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
                         </a>
 
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
                         <div class="search-wrapper">
-                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
                             <div class="spinner-wrapper">
-                                <i class="fa fa-spinner fa-spin"></i>
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
                             </div>
                         </div>
                     </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
                         </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
 
-                <div id="content" class="content">
+                <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="the-ros-command-line-interface"><a class="header" href="#the-ros-command-line-interface">The ROS Command Line Interface</a></h1>
 <p>The ROS command line interface, or CLI for short, is a set of programs for
@@ -186,12 +185,12 @@ think of the CLI is a collection of small and simple programs that allow you
 perform basic tasks in ROS. Drawing from our car analogy, the CLI can be thought
 of as the subsystems of a vehicle: the breaks, the transmission, the window
 wipers, all of the smaller parts that are composed together to build the larger
-vehicle. What we'll show you in this section is how to turn on the car, put it in
+vehicle. What we’ll show you in this section is how to turn on the car, put it in
 gear, turn on the radio, and perhaps check your oil to perform routine
 maintenance. The ROS 2 CLI draws heavily from the Unix/Linux philosophy of small
 programs that can be composed together. If you are familiar with the command
 line interface found in Unix and Linux, or to a lesser extent in MacOS or
-Windows, you'll feel right at home.</p>
+Windows, you’ll feel right at home.</p>
 <p>The ROS command line tools draw heavily from the design patterns mentioned in the
 previous section, and directly interface with the APIs we will address in the next
 section. The CLI interface is at its core just a set of simple tools built from
@@ -203,18 +202,18 @@ software. For more advanced users these tools will allow you to study a ROS
 system by exploring the underlying software processes in the system.</p>
 <p>There are only two things you need to memorize from this section.
 The first command simply tells your computer that
-you are using ROS, and what version of ROS you want to use. Let's take a look at
+you are using ROS, and what version of ROS you want to use. Let’s take a look at
 the magic command:</p>
 <pre><code class="language-{.sourceCode .bash}">source /opt/ros/eloquent/setup.bash
 </code></pre>
 <p>If everything is working correctly, this command should simply return. Nothing
-happens that you can see, but underneath the hood you've just told this particular shell that you are using
+happens that you can see, but underneath the hood you’ve just told this particular shell that you are using
 ROS 2 Eloquent Elusor, and where all the ROS programs and files live. You should
 plan on doing this every time you want to use ROS. The most common mistake new
-users have is not running this command. If you're not sure if you ran the
-command in a shell, that's okay. The command is idempotent; running it
-twice in a row won't break anything. You can run it a million times in a row and
-it won't make any difference.</p>
+users have is not running this command. If you’re not sure if you ran the
+command in a shell, that’s okay. The command is idempotent; running it
+twice in a row won’t break anything. You can run it a million times in a row and
+it won’t make any difference.</p>
 <p>The other command you need to commit to memory is <code>ros2</code>. Almost everything in
 the ROS 2 CLI starts with <code>ros2</code>. Go ahead and try it in the same shell where you just sourced the setup file.
 If everything is working correctly you should see the following:</p>
@@ -257,20 +256,20 @@ The rest of this section just walks through each of the commands one by one.</p>
 <p>Writing commands using the command line is tricky and error
 prone. There are a couple of tools you can use to make the process much
 smoother. The first is the <code>TAB</code> key, which attempts to auto complete whatever you type.
-It can't read your mind, but for common command combinations you usually only need to type the
+It can’t read your mind, but for common command combinations you usually only need to type the
 first one or two letters. Another tool is the up arrow key. When you use the
 command line sometimes you mistype a command, or need to rerun a
 command. Pressing the up key will cycle through the previous commands which you
 can modify and rerun as needed.</p>
 <h2 id="running-your-first-ros-program"><a class="header" href="#running-your-first-ros-program">Running Your First ROS Program</a></h2>
-<p>Let's get started with our first ROS CLI command. The first command we'll visit
-is <code>run</code>. Let's start by looking at the documentation for the <code>run</code> command:</p>
+<p>Let’s get started with our first ROS CLI command. The first command we’ll visit
+is <code>run</code>. Let’s start by looking at the documentation for the <code>run</code> command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 run
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 ros2 run: error: the following arguments are required: package_name, executable_name, argv
 </code></pre>
 <p>To get more complete information about a ROS 2 command, simply ask the command for help by
-adding <code>--help</code> to the command. Let's try that again:</p>
+adding <code>--help</code> to the command. Let’s try that again:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 run --help
 usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
 
@@ -288,7 +287,7 @@ optional arguments:
                    (e.g. --prefix 'gdb -ex run --args').
 </code></pre>
 <p>We can see that <code>ros2 run</code> is the
-command to, "Run a package specific executable." In ROS 2 collections of ROS
+command to, “Run a package specific executable.” In ROS 2 collections of ROS
 software are gathered into logical units called <code>packages</code>. Each package
 contains all of the source code for the package as a variety of other data that
 tells ROS how to build and compile the package and the names of all the
@@ -300,8 +299,8 @@ want to write is as follows:</p>
 <p><code>ros2 run &lt;package name&gt; &lt;program/executable name&gt; &lt;args&gt;</code></p>
 <p>There is one piece of missing information here. What is this <code>argv</code> that the
 command is asking for? The <code>argv</code> element is programmer short hand for variable
-arguments, and it simply means, "some number of additional arguments that are
-determined by the executable". It is worth noting that a program can have zero
+arguments, and it simply means, “some number of additional arguments that are
+determined by the executable”. It is worth noting that a program can have zero
 arguments and you can just leave it blank. This is actually how a lot of
 programs work. For example, say we had a package
 called <em>math</em>, and an executable called <em>add</em> that takes in two numbers and
@@ -309,10 +308,10 @@ returns the result. In this case <em>argv</em> would be the two numbers to add. 
 final command would look like:</p>
 <p><code>ros2 run math add 1 2</code></p>
 <p>Finally, below the positional arguments we have <em>optional arguments</em>.
-You don't need to included them, unless you need to.</p>
-<p>Now that we've looked into our help file let's run our first ROS program. For
-these tutorials we're going to use a package called <code>turtlesim</code>, and the program
-we want to run is <code>turtlesim_node</code>. Let's run this program (remember your tab
+You don’t need to included them, unless you need to.</p>
+<p>Now that we’ve looked into our help file let’s run our first ROS program. For
+these tutorials we’re going to use a package called <code>turtlesim</code>, and the program
+we want to run is <code>turtlesim_node</code>. Let’s run this program (remember your tab
 complete!). Your command should look like the following:</p>
 <p><code>ros2 run turtlesim turtlesim_node</code></p>
 <p>If everything goes smoothly you should see the following:</p>
@@ -321,14 +320,14 @@ complete!). Your command should look like the following:</p>
 </code></pre>
 <p>A window should also pop up with a cute little turtle that looks like the one
 below:</p>
-<p><img src="./images/turtlesim_start.png" alt="Turtlesim upon opening" /></p>
-<p>The real power in ROS isn't that it can run a program, it is that it can run
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./images/turtlesim_start.png" alt="Turtlesim upon opening"><span class="img-wrapper"><img src="./images/turtlesim_start.png" alt="Turtlesim upon opening"></span></label></p>
+<p>The real power in ROS isn’t that it can run a program, it is that it can run
 lots of programs all at the same time, all talking together to control a robot, or
-multiple robots, all working together. To illustrate this let's run a second ROS
+multiple robots, all working together. To illustrate this let’s run a second ROS
 program that makes our little turtle move around.</p>
-<p>To do this we'll first open a new terminal (using <code>CTRL-SHIFT-T</code>). Next we'll
+<p>To do this we’ll first open a new terminal (using <code>CTRL-SHIFT-T</code>). Next we’ll
 tell that terminal that we want to use ROS Eloquent by using the <code>source</code> command.
-Finally, we'll run another program in the
+Finally, we’ll run another program in the
 <code>turtlesim</code> package to draw a square. See if you can find the program
 yourself (hint: use <code>TAB</code>). If everything works you should have typed the following, and the
 following output should be visible:</p>
@@ -340,7 +339,7 @@ $ ros2 run turtlesim draw_square
 [INFO] [draw_square]: Reached goal
 </code></pre>
 <p>Your screen should look roughly like this:</p>
-<p><img src="./images/turtlesim_square.png" alt="image" /></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./images/turtlesim_square.png" alt="image"><span class="img-wrapper"><img src="./images/turtlesim_square.png" alt="image"></span></label></p>
 <p>It is worth noting that you can stop any ROS program by pressing the <code>Ctrl</code> and
 <code>C</code> keys at the same time in the terminal; we call this <code>CTRL-C</code> (note that
 <code>CTRL-SHIFT-C</code> and <code>CTRL-SHIFT-V</code> are responsible for copy and paste in a Linux terminal).
@@ -363,13 +362,13 @@ organized as follows:</p>
 <p>The key thing to realize about topics is that the data they contain is dynamic, meaning it changes
 constantly. In our vehicle example the velocity of each wheel might be measured
 one thousand times a second or more. Since the data in a ROS topic is constantly
-changing, an important distinction for a topic is whether the topic is "creating"
+changing, an important distinction for a topic is whether the topic is “creating”
 or as we like to say in ROS <code>publishing</code>, or if it is reading the data, what we call
 <code>subscribing</code> to the topic. Many ROS nodes subscribe to one set of topics,
 process that input data, and then publish to another set of topics.</p>
-<p>Let's return to our turtlesim example and see if we can use the ROS CLI to
+<p>Let’s return to our turtlesim example and see if we can use the ROS CLI to
 understand the topics, publishers, and subscribers.
-To see sub commands and syntax for the <code>topic</code> command, we'll run: <code>ros2 topic --help</code>.</p>
+To see sub commands and syntax for the <code>topic</code> command, we’ll run: <code>ros2 topic --help</code>.</p>
 <p>This command outputs the following:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic --help
 usage: ros2 topic [-h] [--include-hidden-topics]
@@ -396,10 +395,10 @@ Commands:
   Call `ros2 topic &lt;command&gt; -h` for more detailed usage.
 </code></pre>
 <p>There are quite a
-few sub commands; we won't discuss all of them, but let's look closely at a few.
+few sub commands; we won’t discuss all of them, but let’s look closely at a few.
 Sub commands have their
-own help command. Why don't we examine the <code>list</code> command. Repeating our command
-pattern let's try running <code>ros2 topic list --help</code>.</p>
+own help command. Why don’t we examine the <code>list</code> command. Repeating our command
+pattern let’s try running <code>ros2 topic list --help</code>.</p>
 <pre><code class="language-{.sourceCode .bash}">usage: ros2 topic list [-h] [--spin-time SPIN_TIME] [-t] [-c]
                        [--include-hidden-topics]
 
@@ -417,13 +416,13 @@ optional arguments:
 
 </code></pre>
 <p>As indicated at the top of this command help file, <code>ros2 topic list</code> will
-"Output a list of available topics." There appears to be a variety of
-<em>optional</em> arguments that we don't need to include if we don't want to. However,
+“Output a list of available topics.” There appears to be a variety of
+<em>optional</em> arguments that we don’t need to include if we don’t want to. However,
 the <code>-t, --show-types</code> line looks interesting. It is worth noting that command
 arguments, sometimes called flags, can have two types. A short form indicated
-with a single dash ("-"), and a long form indicated by a double dash
-("--"). Don't worry, despite looking different both versions of the argument do
-the same thing. Let's try running this command, sub command pair with the
+with a single dash (“-”), and a long form indicated by a double dash
+(“–”). Don’t worry, despite looking different both versions of the argument do
+the same thing. Let’s try running this command, sub command pair with the
 <code>-show-types</code> argument.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic list --show-types
 /parameter_events [rcl_interfaces/msg/ParameterEvent]
@@ -439,10 +438,10 @@ turtle on our screen. The words in brackets (<code>[]</code>) to the right of th
 names define the messages used on the topic. Our car wheel example was
 simple, we were only publishing velocity, but ROS allows you to publish more
 complex data structures that are defined by a <em>message type</em>. When we added the
-<code>--show-types</code> flag we told the command to include this information. We'll dig
+<code>--show-types</code> flag we told the command to include this information. We’ll dig
 into messages in detail a bit later.</p>
 <p>One of the more commonly used topic sub commands is
-<code>info</code>. Unsurprisingly, <code>info</code> provides info about a topic.  Let's peek at its
+<code>info</code>. Unsurprisingly, <code>info</code> provides info about a topic.  Let’s peek at its
 help file using <code>ros2 topic info --help</code></p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic info --help
 usage: ros2 topic info [-h] topic_name
@@ -455,7 +454,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 </code></pre>
-<p>That seems pretty straight forward. Let's give it a go by running it on
+<p>That seems pretty straight forward. Let’s give it a go by running it on
 <code>/turtle1/pose</code></p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic info /turtle1/pose
 Type: turtlesim/msg/Pose
@@ -471,7 +470,7 @@ topic has a single publisher, that is to say a single node generating data on th
 topic. The topic also has a single subscriber, also called a listener, who is
 processing the incoming pose data.</p>
 <p>If we only wanted to know the message type of a topic
-there is a sub command just for that called, <code>type</code>. Let's take a look at its
+there is a sub command just for that called, <code>type</code>. Let’s take a look at its
 help file and its result:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
@@ -494,7 +493,7 @@ being moved over a topic. In the previous example we saw that the <code>topic ty
 sub command told us the <code>/turtle1/pose</code> topic has a type <code>turtlesim/msg/Pose</code>.
 But what does <code>turtlesim/msg/Pose</code> data look like? We can look at the data
 structure transferred by this topic by running the <code>ros2 interface show</code>
-sub command and giving the message type name as an input. Let's look at the help
+sub command and giving the message type name as an input. Let’s look at the help
 for this sub command and its output:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 interface show --help
 usage: ros2 interface show [-h] type
@@ -525,8 +524,8 @@ fast it is moving or rotating.</p>
 <p>Now that we know what ROS topics are on our simple turtlesim, and their message
 types, we can dig in and find out more about how everything works. If we look
 back at our topic sub commands, we can see a sub command called <code>echo</code>. Echo is
-computer jargon that means "repeat" something. If you echo a topic it means you
-want the CLI to repeat what's on a topic. Let's look at the <code>echo</code> sub command's
+computer jargon that means “repeat” something. If you echo a topic it means you
+want the CLI to repeat what’s on a topic. Let’s look at the <code>echo</code> sub command’s
 help text:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo --help
 usage: ros2 topic echo [-h]
@@ -569,14 +568,14 @@ optional arguments:
   --no-arr              Don't print array fields of messages
   --no-str              Don't print string fields of messages
 </code></pre>
-<p>Wow, that's a lot of features. The top of the help files says that this CLI
-program "output[s] messages from a topic." As we scan the positional arguments we see one
+<p>Wow, that’s a lot of features. The top of the help files says that this CLI
+program “output[s] messages from a topic.” As we scan the positional arguments we see one
 required argument, a topic name, and an optional message type. We know the
-message type is optional because it has square brackets (<code>[]</code>) around it. Let's
+message type is optional because it has square brackets (<code>[]</code>) around it. Let’s
 give the simple case a whirl before we address some of the optional
 elements. Two things to keep in mind: first is that topics are long and easy to mess
 up, so use the <code>TAB</code> key. Second is that this will print a lot of data, fast. You can
-use <code>CTRL-C</code> to stop the command and stop all the output. Let's take a look at the
+use <code>CTRL-C</code> to stop the command and stop all the output. Let’s take a look at the
 <code>/turtle1/pose</code> topic.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic echo /turtle1/pose
 x: 5.4078755378723145
@@ -599,14 +598,14 @@ angular_velocity: 0.0
 ---
 &lt;&lt;GOING ON FOREVER&gt;&gt;
 </code></pre>
-<p>Let's examine what is going on. Between the
+<p>Let’s examine what is going on. Between the
 dashes (<code>---</code>) is a single ROS message on our topic. If you examine the numbers
 closely you can see that they are changing, and doing so in relation to the
 movement of the turtle. Going back to our car example you can see how this would
 be useful for understanding the instantaneous velocity of each of our wheels.</p>
-<p>Now that we have the basics down let's dig into a few of the optional
-arguments. We see a variety of commands that start with <code>--qos</code>. "QOS" here
-means "quality of service" and it is a really cool feature that is only in
+<p>Now that we have the basics down let’s dig into a few of the optional
+arguments. We see a variety of commands that start with <code>--qos</code>. “QOS” here
+means “quality of service” and it is a really cool feature that is only in
 ROS 2. Without getting too technical, QOS is a way of asking for a certain level
 of networking robustness. A ROS system can operate over a network, and just like
 streaming video or video games, packets can get dropped or not get to their
@@ -614,7 +613,7 @@ destination. The OS settings help you control which packets are the most
 important and should get the highest priority.</p>
 <p>Most of the other commands deal with changing the output format of this CLI
 program, but there is one in particular that is super handy, and it is also new
-in ROS 2. The <code>--csv</code> flag stands for "comma separated values" and it a very
+in ROS 2. The <code>--csv</code> flag stands for “comma separated values” and it a very
 simple way of defining a spreadsheet. What this argument does is make the topic
 echo command output data in the comma separate value format. Many command lines
 allow you send data from the screen to a file, saving the data for later
@@ -632,7 +631,7 @@ $ ros2 topic echo /turtle1/pose --csv &gt; mydata.csv
 <p>The second command above creates a file called <code>mydata.csv</code>. You can look at it
 using a CLI utility called <code>less</code> (press q to quit), or open it with your
 favorite spreadsheet tool.</p>
-<p>Now that we've looked at <code>ros2 topic echo</code> let's take a look at a few other
+<p>Now that we’ve looked at <code>ros2 topic echo</code> let’s take a look at a few other
 topic sub commands. One thing you may have noticed is that topics can output a lot
 of data! More complex robots, like a self driving car, can saturate a high
 speed internet connection with how much data it produces. There are two topic
@@ -643,7 +642,7 @@ tell you how often a particular topic produces a message. Similarly there is
 the <code>topic bw</code> sub command, where <code>bw</code> stands for bandwidth, which is a
 engineering term related to the <em>volume</em> of data being produced. A high
 bandwidth connection can move more data, like high definition video, than a low
-bandwidth data, which might move a radio show. Let's take a look at the help
+bandwidth data, which might move a radio show. Let’s take a look at the help
 for these two commands:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic hz --help
 usage: ros2 topic hz [-h] [--window WINDOW] [--filter EXPR] [--wall-time]
@@ -683,7 +682,7 @@ followed by a few optional arguments. The only argument worth noting is the
 messages; how many messages to use in calculating those statistics is the window
 size. The default value for <code>window</code> is 100, so when you call <code>ros2 topic bw</code> it
 will first collect 100 messages then use that data to calculate the average
-message size. Let's give it a shot (use <code>TAB</code> to complete and <code>CTRL-C</code> to exit).</p>
+message size. Let’s give it a shot (use <code>TAB</code> to complete and <code>CTRL-C</code> to exit).</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic hz /turtle1/pose
 average rate: 60.021
 	min: 0.001s max: 0.073s std dev: 0.00731s window: 65
@@ -706,12 +705,12 @@ second. This command has similar outputs around the minimum, maximum, and mean.<
 we have already looked at the <code>interface</code> command to see what integral types make up
 a topic, the <code>topic</code> command has both a tool to query the type of a topic, and a
 means to search all topics for a specific type. If all you want to know is a
-topic's type you can use the <code>type</code> command which will return a type that can
+topic’s type you can use the <code>type</code> command which will return a type that can
 then be further explored with the <code>interface</code> command. If instead you would like
 to know what topics use a particular message type you can use the <code>topic find</code>
 command, sub command pair. Both the <code>topic type</code> and <code>topic interface</code> command,
 sub command pairs have a very limited set of optional arguments, so we simply
-provide them with our desired topic or message type. Let's take a look at these two commands together:</p>
+provide them with our desired topic or message type. Let’s take a look at these two commands together:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic type --help
 usage: ros2 topic type [-h] topic_name
 Print a topic's type
@@ -742,16 +741,16 @@ $ ros2 topic find  turtlesim/msg/Pose
 </code></pre>
 <p>The last sub command for the topic command is <code>pub</code>, which simply means publish.
 It allows you to publish a command to any ROS topic from the command
-line. While you shouldn't need to use this command regularly it can be
+line. While you shouldn’t need to use this command regularly it can be
 particularly handy for testing and debugging when you are building a robot
 system. The <code>pub</code> command has a number of optional arguments that allow you to
 send one or more messages, and with different quality of service (QoS)
 presets. The format of the command is <code>ros2 topic pub TOPIC_NAME MESSAGE_TYPE VALUES</code>, which means for it to work successfully you must include a
-target topic, the topic's message type, and finally the message's values. The
+target topic, the topic’s message type, and finally the message’s values. The
 values for the message are specified in the YAML format and we can use the
 <code>interface show</code> command to understand the format. To illustrate the utility of this
-command we'll issue a message to rotate and stop  our turtle by publishing
-to the <code>/turtle1/cmd_vel/</code> topic. Let's first take a look at the <code>topic pub</code>
+command we’ll issue a message to rotate and stop  our turtle by publishing
+to the <code>/turtle1/cmd_vel/</code> topic. Let’s first take a look at the <code>topic pub</code>
 documentation before we construct our command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 topic pub --help
 usage: ros2 topic pub [-h] [-r N] [-p N] [-1] [-n NODE_NAME]
@@ -792,7 +791,7 @@ optional arguments:
 <p>Since we want to manually move our turtle we will use the <code>--once</code>
 flag to issue our command once. It is worth noting that the message type used to
 command the velocity of the turtle is complex in that it is made up of other
-message types so we'll have to query the base message type. Here's a rough summary of what we will do:</p>
+message types so we’ll have to query the base message type. Here’s a rough summary of what we will do:</p>
 <ul>
 <li>Print the <code>cmd_vel</code> topic type using <code>ros2 topic type</code>, which is <code>geometry_msgs/msg/Twist</code></li>
 <li>Determine the structure of the <code>Twist</code> message type using <code>interface show</code>.</li>
@@ -834,10 +833,10 @@ to that goal. Try as the robot might, since it cannot move infinitely fast, it
 takes time to move to a goal and sometimes its path may become blocked.</p>
 <p>These two primitives are the backbone of most robotic systems using ROS, and learning
 how to use them via the command line will allow you quickly and easily command
-a robot to complete a task for you. To aid in clarity of this section we'll
+a robot to complete a task for you. To aid in clarity of this section we’ll
 also touch on the <code>ros2 node</code> command to determine what node, or software
 process, is conducting a particular action or service.</p>
-<p>Let's get nodes out of the way quickly. ROS nodes are
+<p>Let’s get nodes out of the way quickly. ROS nodes are
 small programs, running in their own process. A ROS system can have ten,
 hundreds, or even thousands of nodes running concurrently. Moreover, a ROS
 system can have multiple copies of the same node running concurrently on the
@@ -845,8 +844,8 @@ same system. In the case of our turtle simulation we can actually create
 multiple turtles, each with their own node, all running the exact same
 program. ROS Nodes, like ROS topics, have namespaces so that you can address
 specific nodes in the case where multiple copies of the same node (program) are
-running. Let's dig in a bit by restarting our turtle simulation in a terminal
-using <code>ros2 run turtlesim turtlesim_node</code>. Now in a new terminal let's first
+running. Let’s dig in a bit by restarting our turtle simulation in a terminal
+using <code>ros2 run turtlesim turtlesim_node</code>. Now in a new terminal let’s first
 examine what <code>ros2 node</code> has to offer by asking for help.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 node --help
 usage: ros2 node [-h]
@@ -864,14 +863,14 @@ Commands:
   Call `ros2 node &lt;command&gt; -h` for more detailed usage.
 </code></pre>
 <p>Much like topics, we see two sub commands, <code>info</code> and <code>list</code>. <code>node list</code> works much the
-same as <code>topic list</code> and simply prints a list of all running nodes. Let's see what
+same as <code>topic list</code> and simply prints a list of all running nodes. Let’s see what
 is running on our system:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 node list
 /turtlesim
 </code></pre>
-<p>We have a single node running called "turtlesim". <code>node info</code> works in a way
+<p>We have a single node running called “turtlesim”. <code>node info</code> works in a way
 very similar to <code>topic info</code> except that it lists information about the nodes we
-give it. Let's call it with our single ROS Node <code>/turtlesim</code> as its
+give it. Let’s call it with our single ROS Node <code>/turtlesim</code> as its
 argument:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 node info /turtlesim
 /turtlesim
@@ -903,15 +902,15 @@ argument:</p>
     /turtle1/rotate_absolute: turtlesim/action/RotateAbsolute
   Action Clients:
 </code></pre>
-<p>Wow, that's a lot of information, some of which looks familiar. We can see all
+<p>Wow, that’s a lot of information, some of which looks familiar. We can see all
 the topics that the node subscribes to, as well as all the nodes it publishes
-to. We can also see a number of "action servers" and "service servers". It is
+to. We can also see a number of “action servers” and “service servers”. It is
 worth noting the client and server relationship here. Since ROS may have
 multiple nodes running some nodes may offer services (these are servers), and
 other ROS nodes may call those servers (these are the clients). The clients can
 be other ROS nodes, or for these examples, a human using the CLI.</p>
 <p>The command line interface for services and actions are very similar, in fact
-they both have only four sub commands. Let's run the <code>action</code> and <code>service</code>
+they both have only four sub commands. Let’s run the <code>action</code> and <code>service</code>
 commands and compare them:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action --help
 usage: ros2 action [-h]
@@ -975,13 +974,13 @@ roughly the same list of actions and services listed in our single nodes:</p>
 kscottz@kscottz-ratnest:~$ ros2 action list
 /turtle1/rotate_absolute
 </code></pre>
-<p>Let's begin digging into services. There seem to be quite a few services
-listed. Let's take a look at the <code>/spawn</code> service, which will create more
+<p>Let’s begin digging into services. There seem to be quite a few services
+listed. Let’s take a look at the <code>/spawn</code> service, which will create more
 turtles. ROS services and actions use messages similar to those used in topics
 to communicate. In fact, actions and services are built on top of messages.
 We can use the <code>service type</code> sub command to determine the message type
 used by a particular service. We can find specifics of the message by using the
-<code>interface show</code> command. Let's see this in practice with the <code>spawn</code> service:</p>
+<code>interface show</code> command. Let’s see this in practice with the <code>spawn</code> service:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 service type /spawn
 turtlesim/srv/Spawn
 $ ros2 interface show turtlesim/srv/Spawn
@@ -997,7 +996,7 @@ values for its position and orientation as well a <code>string</code> for its na
 <code>---</code> indicate the return value of the services. Unlike topics, services have
 a return value, which enables them to do things like perform computations and
 calculations.</p>
-<p>Let's examine the help for calling a service by running <code>ros2 service call --help</code>:</p>
+<p>Let’s examine the help for calling a service by running <code>ros2 service call --help</code>:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 service call --help
 usage: ros2 service call [-h] [-r N] service_name service_type [values]
 
@@ -1018,7 +1017,7 @@ optional arguments:
 a topic name we use a service name. The service type is just like the topic type
 that we used in the past, but instead of using a message type we need a service
 type. Finally we give it a value in YAML format. A YAML string must be encased
-in single quotes. Let's try calling a service by creating a turtle
+in single quotes. Let’s try calling a service by creating a turtle
 named <code>Larry</code> at a position where all values are zero (use <code>TAB</code> complete).</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 service call /spawn turtlesim/srv/Spawn "{x: 0, y: 0, theta: 0.0, name: 'Larry'}"
 requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, name='Larry')
@@ -1026,34 +1025,34 @@ requester: making request: turtlesim.srv.Spawn_Request(x=0.0, y=0.0, theta=0.0, 
 response:
 turtlesim.srv.Spawn_Response(name='Larry')
 </code></pre>
-<p>If everything is working correctly you should now have a turtle named "Larry" in
+<p>If everything is working correctly you should now have a turtle named “Larry” in
 the lower left hand corner of the screen:</p>
-<p><img src="./images/larry.png" alt="Spawning a second turtle" /></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./images/larry.png" alt="Spawning a second turtle"><span class="img-wrapper"><img src="./images/larry.png" alt="Spawning a second turtle"></span></label></p>
 <p>Try exploring the other services offered, or
 creating more turtles at different locations and moving them around.</p>
-<p>Let's move on to actions. As mentioned
+<p>Let’s move on to actions. As mentioned
 previously, actions differ from services in a few ways and offer a number of
 advantages. Actions have the following advantages:</p>
 <ul>
 <li>Actions have a <code>goal</code>. That is to say you send them a goal, and they attempt
 to complete it.</li>
 <li>Actions can reject goal requests. This prevents them from becoming too busy.</li>
-<li>Actions are asynchronous and can perform tasks "while you wait."</li>
-<li>Actions will provide you with "updates"  with information about
+<li>Actions are asynchronous and can perform tasks “while you wait.”</li>
+<li>Actions will provide you with “updates”  with information about
 their progress while you wait.</li>
 <li>Actions are preemptable, meaning you can cancel them if
 you change your mind.</li>
 </ul>
-<p>Just like with services, we'll first figure out how to call the sole action in
+<p>Just like with services, we’ll first figure out how to call the sole action in
 our ROS system by using the <code>action list</code>, <code>action show</code>, and <code>action info</code>
 commands. Recall, that when we called <code>ros2 action list</code> we got a single
-service. Now that we have Larry things have changed. Let's take a look:</p>
+service. Now that we have Larry things have changed. Let’s take a look:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action list
 /Larry/rotate_absolute
 /turtle1/rotate_absolute
 </code></pre>
 <p>Now there are two actions available, one for Larry and one for <code>turtle1</code>.
-Let's rotate turtle1 to face Larry. First we'll call <code>action info</code>
+Let’s rotate turtle1 to face Larry. First we’ll call <code>action info</code>
 using <code>/turtle1/rotate_absolute</code> as the input and see what we get:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action info /turtle1/rotate_absolute
 Action: /turtle1/rotate_absolute
@@ -1061,8 +1060,8 @@ Action clients: 0
 Action servers: 1
     /turtlesim
 </code></pre>
-<p>Well, that tells us about the client and servers, but it really isn't
-helpful for our goal of moving Larry. Why don't we look at the <code>action send_goal</code> help and see if we can
+<p>Well, that tells us about the client and servers, but it really isn’t
+helpful for our goal of moving Larry. Why don’t we look at the <code>action send_goal</code> help and see if we can
 figure out how to use it:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action send_goal --help
 usage: ros2 action send_goal [-h] [-f] action_name action_type goal
@@ -1084,7 +1083,7 @@ the action name, and we know how to write YAML, so all we need is to determine
 the action type. The best way to get the action type is the same way we
 published a message.</p>
 <p>We see each of our turtles have one service called <code>rotate_absolute</code>.
-Let's dig into this action using the <code>info</code> sub command. This command has a <code>-t</code>
+Let’s dig into this action using the <code>info</code> sub command. This command has a <code>-t</code>
 flag to list the types of messages.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action info /turtle1/rotate_absolute -t
 Action: /turtle1/rotate_absolute
@@ -1100,9 +1099,9 @@ type for the action.</p>
 <p>We can see here that we need to know the action name, the type, and the
 values. Now the only problem is figuring out the format of the
 action type.</p>
-<p>Let's understand the <code>RotateAbsolute</code> action message</p>
+<p>Let’s understand the <code>RotateAbsolute</code> action message</p>
 <p>The <code>ros2 interface show</code> command can be used to find the type of action
-message. Let's take a look:</p>
+message. Let’s take a look:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 interface show turtlesim/action/RotateAbsolute
 # The desired heading in radians
 float32 theta #&lt; --- This section is the GOAL
@@ -1120,7 +1119,7 @@ float32 remaining # &lt; --- This is the current state.
 <li><code>delta</code> is the angle from the initial heading. This is the value returned when the action completes.</li>
 <li><code>remaining</code> is the remaining radians to move. This is the value posted by the action while the action is being done.</li>
 </ul>
-<p>With this information we can create our call to the action server. We'll
+<p>With this information we can create our call to the action server. We’ll
 use the <code>-f</code> flag to make this a bit clearer. Keep an eye on your turtle! It should move, slowly.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 action send_goal -f /turtle1/rotate_absolute turtlesim/action/RotateAbsolute {'theta: 1.70'}
 Waiting for an action server to become available...
@@ -1156,8 +1155,8 @@ write to. Another good analogy would be global constants in normal
 software programs. Parameters are best used to configure your robot. For
 example, if you were building an autonomous vehicle and wanted to cap
 the maximum velocity of the vehicle at 100 km/h, you could create a
-parameter called "MAX_SPEED" that is visible to all the nodes.</p>
-<p>Let's take a look at the <code>param</code> command by running <code>ros2 param --help</code>.</p>
+parameter called “MAX_SPEED” that is visible to all the nodes.</p>
+<p>Let’s take a look at the <code>param</code> command by running <code>ros2 param --help</code>.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param --help
 Various param related sub-commands
 
@@ -1168,10 +1167,10 @@ Commands:
   set     Set parameter
   Call `ros2 param &lt;command&gt; -h` for more detailed usage.
 </code></pre>
-<p>At a high level, ROS 2's <code>param</code> command has sub commands to get and set a variable,
+<p>At a high level, ROS 2’s <code>param</code> command has sub commands to get and set a variable,
 along with a <code>list</code> functionality, and a <code>delete</code> command. As with most of the
-other commands we've worked through, it is instructive to look at <code>list</code>
-first. Let's see what the docs say about the <code>list</code> command and then see what
+other commands we’ve worked through, it is instructive to look at <code>list</code>
+first. Let’s see what the docs say about the <code>list</code> command and then see what
 happens when we call the sub command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param list --help
 usage: ros2 param list [-h] [--spin-time SPIN_TIME] [--include-hidden-nodes]
@@ -1204,12 +1203,12 @@ $ ros2 param list
 you to narrow the scope of <code>param list</code> to only those parameters used by a particular
 node. In terms of parameters in the <code>turtlesim</code> node, we see that our call to <code>param list</code> gives us: three background color control params named
 <code>background_x</code> and a <code>use_sim_time</code> parameter. To learn all about the <code>param</code>
-command why don't we try to change these background color parameters using the
+command why don’t we try to change these background color parameters using the
 CLI.</p>
 <p>The first step in changing the background color is to see what the current color
 is. The <code>param get</code> sub command requires both a node name and a parameter
 name. In our list above we can see the node name as the top level element with
-the forward slash in front of it, namely <code>/turtlesim</code>. The syntax for <code>param get</code> is <code>ros2 param get &lt;node_name&gt; &lt;param&gt;</code>. Let's give it a whirl and see our
+the forward slash in front of it, namely <code>/turtlesim</code>. The syntax for <code>param get</code> is <code>ros2 param get &lt;node_name&gt; &lt;param&gt;</code>. Let’s give it a whirl and see our
 current background color values.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param get /turtlesim background_b
 Integer value is: 255
@@ -1222,8 +1221,8 @@ Integer value is: 69
 value of &lt;69,86,255&gt; corresponds to a periwinkle blue color.
 To change the color of the turtlesim we need to first set the parameter
 value and then reset the turtlesim to make it apply the color changes. We
-covered the basics of calling a service previously so we won't cover the steps
-of constructing a service call. Let's try setting our background color's blue
+covered the basics of calling a service previously so we won’t cover the steps
+of constructing a service call. Let’s try setting our background color’s blue
 component to 128.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 param set turtlesim background_b 128
 Set parameter successful
@@ -1234,14 +1233,14 @@ response:
 std_srvs.srv.Empty_Response()
 </code></pre>
 <p>If everything worked correctly your turtle should look like the screen below.</p>
-<p><img src="./images/blue_screen.png" alt="image" /></p>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./images/blue_screen.png" alt="image"><span class="img-wrapper"><img src="./images/blue_screen.png" alt="image"></span></label></p>
 <h2 id="ros-bags"><a class="header" href="#ros-bags">ROS Bags</a></h2>
-<p>ROS bags are ROS's tool for recording, and replaying data. ROS bags are like log
+<p>ROS bags are ROS’s tool for recording, and replaying data. ROS bags are like log
 files that let you store data along with messages. ROS systems can generate a
 lot of data, so when you bag data you must select which topics you want. Bags
 are a great tool for testing and debugging your application and a great tool for
 building robust unit tests.</p>
-<p>Let's take a look at the root ROS Bag command by typing <code>ros2 bag --help</code> into
+<p>Let’s take a look at the root ROS Bag command by typing <code>ros2 bag --help</code> into
 the terminal. If you get an error you might need to install ROS Bag as it is
 often in a separate package. On Linux you can run <code>sudo apt install ros-eloquent-ros2bag</code> and it should automatically install the package for you.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 bag -h
@@ -1255,13 +1254,13 @@ Commands:
   record  ros2 bag record
 </code></pre>
 <p>As you can see there are three sub commands, <code>record</code>, <code>play</code>, and <code>info</code>. With these
-commands you can record a bag file, play/replay a file you've recorded, and find information about a bag file.</p>
-<p>Let's try recording our first bag file. To do this we'll need three terminals all
+commands you can record a bag file, play/replay a file you’ve recorded, and find information about a bag file.</p>
+<p>Let’s try recording our first bag file. To do this we’ll need three terminals all
 running ROS. The first terminal should already have our turtlesim running. If it
-isn't running you can restart it with <code>ros2 run turtlesim turtlesim_node</code>. Next
-you'll need to start the <code>draw_square</code> demo again to get the default turtle
+isn’t running you can restart it with <code>ros2 run turtlesim turtlesim_node</code>. Next
+you’ll need to start the <code>draw_square</code> demo again to get the default turtle
 moving. To do this run <code>ros2 run turtlesim draw_square</code>. Now, in a third
-terminal we can bag some data by running the bag command. Let's first look at
+terminal we can bag some data by running the bag command. Let’s first look at
 the record sub command by running <code>ros2 bag record -h</code></p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 bag record -h
 usage: ros2 bag record [-h] [-a] [-o OUTPUT] [-s STORAGE]
@@ -1302,7 +1301,7 @@ give the sub command a list of topics to record. Most of the other arguments are
 for more advanced users to help configure how and when data is stored. It is
 worth noting that there is a <code>-a, --all</code> command that records all the data. You
 can also specify the output bag file with the <code>-o, --output command</code>.</p>
-<p>Let's go ahead and run our bag command, and let's bag the pose data on the
+<p>Let’s go ahead and run our bag command, and let’s bag the pose data on the
 <code>/turtle1/pose</code> topic and save it to the file <code>turtle1.bag</code> using the <code>-o</code>
 flag. Be aware that the program will continue bagging data until you hit
 <code>CTRL-C</code>, so give the command a good 30 seconds to collect data before you kill
@@ -1314,7 +1313,7 @@ it.</p>
 [INFO] [rosbag2_transport]: All requested topics are subscribed. Stopping discovery...
 ^C[INFO] [rclcpp]: signal_handler(signal_value=2)
 </code></pre>
-<p>Now that we collected our data let's inspect our bag file. You can introspect
+<p>Now that we collected our data let’s inspect our bag file. You can introspect
 any bag file using the <code>ros2 bag info</code> command. This command will list the
 messages in the bag, the duration of file, and the number of messages.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 bag info turtle1
@@ -1362,7 +1361,7 @@ problem. ROS 2 has a <code>doctor</code> command that you can use to print a var
 reports that you can use to help communicate the state of your system to others
 trying to provide help. Whether it is one of your co-workers, a vendor, or an
 on-line forum, providing detailed and complete information about your ROS system
-can go a long way to solving your problem. Let's call <code>--help</code> on the ROS 2
+can go a long way to solving your problem. Let’s call <code>--help</code> on the ROS 2
 doctor command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 doctor --help
 usage: ros2 doctor [-h] [--report | --report-failed] [--include-warnings]
@@ -1378,22 +1377,22 @@ optional arguments:
                         ignored by default.
 </code></pre>
 <p>As we can see from the help file we have a couple of report options. One option
-is to print the full report with <code>-r</code>, or just what failed with <code>-rf</code>. If you're
+is to print the full report with <code>-r</code>, or just what failed with <code>-rf</code>. If you’re
 running <code>ros2 doctor -r</code> you should see a fairly lengthy report generated giving
-information about your computer's operating system, your networking
+information about your computer’s operating system, your networking
 configuration, and your running ROS system. If you ever run into an issue you
 should always include this full report.</p>
 <h2 id="ros-2-interface"><a class="header" href="#ros-2-interface">ROS 2 Interface</a></h2>
-<p>As you've already seen, ROS uses standard messages so that different packages and
+<p>As you’ve already seen, ROS uses standard messages so that different packages and
 programs, potentially written in different programming languages, can all talk
 to one another. To make this all work, ROS uses standard messages, and
 communication protocols built on top of those standard messages. This can make
 finding type information about a particular message, service, or action
 difficult. To help developers write both CLI command calls and develop client
-code, the ROS CLI has the interface command. We've touched on this command
+code, the ROS CLI has the interface command. We’ve touched on this command
 briefly in other sections, as it is the go to tool for message type
 information.</p>
-<p>To better understand the <code>interface</code> command let's start by looking at its high
+<p>To better understand the <code>interface</code> command let’s start by looking at its high
 level help command to see what sub commands are available:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 interface --help
 usage: ros2 interface [-h]
@@ -1415,7 +1414,7 @@ Commands:
   Call `ros2 interface &lt;command&gt; -h` for more detailed usage.
 </code></pre>
 <p>The interface command are all geared towards helping you understand
-available message types. Let's examine the <code>list</code> sub command in depth. <code>list</code>
+available message types. Let’s examine the <code>list</code> sub command in depth. <code>list</code>
 will list all of the available messages, services, and actions on your
 system. This command has flags that can help you narrow down the scope of your
 search. Even a basic ROS installation has a lot of messages, so a tool you
@@ -1499,7 +1498,7 @@ std_msgs/msg/MultiArrayDimension
 helpful and you should remember them as they will make your life much easier. As
 we have discussed previously all message publication, service calls, and action
 calls in the CLI take in both the message type and data you want to transmit in
-YAML format. But what if you don't know the message format, and you don't know a lot about
+YAML format. But what if you don’t know the message format, and you don’t know a lot about
 YAML? The <code>interface show</code> and <code>interface proto</code> commands make this process
 easier by respectively telling you first the message type and then the message
 format. Recall earlier in the chapter when we called the <code>spawn</code> service on
@@ -1527,13 +1526,13 @@ $ ros2 service call /spawn turtlesim/srv/Spawn "{&lt;copy and paste proto here&g
 noting that you need to paste the prototype into a set of quotes and curly
 braces for the call to work <code>"{&lt;prototype&gt;}"</code>.</p>
 <h2 id="ros-2-launch"><a class="header" href="#ros-2-launch">ROS 2 Launch</a></h2>
-<p>The <code>launch</code> command is used to run ROS launch files. Up until this point we've
+<p>The <code>launch</code> command is used to run ROS launch files. Up until this point we’ve
 been running single ROS programs by hand using the <code>run</code> command, however this
 is not how larger ROS systems are generally operated and many robots command
 tens if not hundreds of small programs. The ROS launch command is different from
 most of the other ROS commands in that it has no sub commands and has a single
 function, to start a ROS launch file that executes multiple of programs.
-To illustrate this command let's take a look at
+To illustrate this command let’s take a look at
 its help file.</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 launch -h
 usage: ros2 launch [-h] [-d] [-p | -s] [-a]
@@ -1570,7 +1569,7 @@ of the launch files in your package you can use tab completion to list all the
 available launch files. Finally, some launch files have arguments that can be
 appended to the command. If you are unsure about what a launch file does, or
 what arguments it needs, the <code>--print</code> and <code>--show-args</code> commands will tell you
-this information. Let's read up on the <code>multisym.launch.py</code> launch file and then
+this information. Let’s read up on the <code>multisym.launch.py</code> launch file and then
 run it following the example below (end the simulation with <code>CTRL-C</code>):</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 launch turtlesim multisim.launch.py --show-args
 Arguments (pass arguments as '&lt;name&gt;:=&lt;value&gt;'):
@@ -1597,7 +1596,7 @@ a node would be one that controls a sensor or actuator that needs to perform a
 power-on self-test or calibration procedure prior to running. <a href="http://design.ros2.org/articles/node_lifecycle.html">The ROS design
 docs</a>
 give a great primer on the states and transitions in a lifecycle
-node. Let's look at the
+node. Let’s look at the
 <code>lifecycle</code> command to determine what sub commands are available:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 lifecycle -h
 usage: ros2 lifecycle [-h]
@@ -1618,9 +1617,9 @@ Commands:
   Call `ros2 lifecycle &lt;command&gt; -h` for more detailed usage.
 </code></pre>
 <p>The <code>nodes</code> sub command will list all the lifecycle nodes on a given system.
-Once you have listed the nodes, you can list each node's available
+Once you have listed the nodes, you can list each node’s available
 transitions using <code>ros2 lifecycle list &lt;nodename&gt;</code>. These transitions are
-dictated by the node's current state with some states having more transitions
+dictated by the node’s current state with some states having more transitions
 available than others. If instead of available transitions you wish to query the
 current state you can use <code>lifecycle get</code> to return the current state of
 your target node. Once you have satisfactorily determined the state of the node
@@ -1637,7 +1636,7 @@ currently deprecated and will be removed in Foxy.</p>
 packages are installed on your system, where they are installed, and the
 executables contained within each package. These tools are particularly useful
 for understanding an existing robot configuration and finding tools that are
-only used on occasion. Let's start by taking a look at the help file for the <code>pkg</code> command:</p>
+only used on occasion. Let’s start by taking a look at the help file for the <code>pkg</code> command:</p>
 <pre><code class="language-{.sourceCode .bash}">$ ros2 pkg -h
 usage: ros2 pkg [-h] Call `ros2 pkg &lt;command&gt; -h` for more detailed usage. ...
 
@@ -1676,7 +1675,7 @@ $ ros2 pkg executables turtlesim --full-path
 /opt/ros/eloquent/lib/turtlesim/turtlesim_node
 </code></pre>
 <p>If you just wanted to know the path to the turtlesim executables you could use
-the <code>prefix</code> sub command, which returns the path for a given package's
+the <code>prefix</code> sub command, which returns the path for a given package’s
 executables.</p>
 <p>Each ROS package contains an XML file that contains metadata for the package,
 including information such as the license, maintainer, and its dependencies. ROS
@@ -1694,7 +1693,7 @@ kscottz@kscottz-ratnest:~$
 
 </code></pre>
 <p>The last sub command in the <code>pkg</code> command is <code>create</code>. <code>create</code> is a tool to help
-you create a ROS package. We'll use this sub command later in the chapter to
+you create a ROS package. We’ll use this sub command later in the chapter to
 create a new ROS package. The short of it is that you feed the command your
 package name and all of the relevant information for your package as optional
 arguments.</p>
@@ -1705,11 +1704,11 @@ arguments.</p>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="ros2_design_patterns.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
                             <a rel="next prefetch" href="ros2_api.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
                         <div style="clear: both"></div>
@@ -1719,16 +1718,21 @@ arguments.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="ros2_design_patterns.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
                     <a rel="next prefetch" href="ros2_api.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
 
         </div>
 
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
 
 
@@ -1737,13 +1741,13 @@ arguments.</p>
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 
